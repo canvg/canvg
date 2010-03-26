@@ -711,7 +711,7 @@
 			
 			this.duration = 0.0;
 			this.begin = this.attribute('begin').numValue() * 1000.0;
-			this.maxDuration = maxDuration = this.attribute('dur').numValue() * 1000.0;
+			this.maxDuration = this.begin + this.attribute('dur').numValue() * 1000.0;
 			
 			// set current duration, call next tick
 			this.next = function() {
