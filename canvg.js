@@ -558,6 +558,8 @@
 				// maintain last x,y
 				var cpx = 0;
 				var cpy = 0;
+				var cntrlX = 0;
+				var cntrlY = 0;
 				
 				ctx.beginPath();
 				var instructions = d.split(' ');
@@ -583,13 +585,21 @@
 						ctx.lineTo(cpx, cpy);
 					}
 					else if (instructions[i].substr(0, 1) == 'Q') {
-						var x1 = parseInt(instructions[i].replace('Q', ''), 10);
-						var y1 = parseInt(instructions[i+1], 10);
+						cntrlX = parseInt(instructions[i].replace('Q', ''), 10);
+						cntrlY = parseInt(instructions[i+1], 10);
 						cpx = parseInt(instructions[i+2], 10);
 						cpy = parseInt(instructions[i+3], 10);
-						ctx.quadraticCurveTo(x1, y1, cpx, cpy);
+						ctx.quadraticCurveTo(cntrlX, cntrlY, cpx, cpy);
 						i = i + 3;
 					}					
+					else if (instructions[i].substr(0, 1) == 'T') {
+						cntrlX = 2 * cpx - cntrlX; // reflect
+						cntrlY = 2 * cpy - cntrlY; // reflect
+						cpx = parseInt(instructions[i].replace('T', ''), 10);
+						cpy = parseInt(instructions[i+1], 10);
+						ctx.quadraticCurveTo(cntrlX, cntrlY, cpx, cpy);
+						i = i + 1;					
+					}
 					else if (instructions[i].substr(0, 1) == 'C') {
 						var x1 = parseInt(instructions[i].replace('C', ''), 10);
 						var y1 = parseInt(instructions[i+1], 10);
