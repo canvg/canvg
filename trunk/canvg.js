@@ -759,7 +759,7 @@
 			
 			// fraction of duration we've covered
 			this.progress = function() {
-				return (this.duration / (this.maxDuration - this.begin));
+				return ((this.duration - this.begin) / (this.maxDuration - this.begin));
 			}
 			
 			this.next();			
