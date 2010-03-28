@@ -3,6 +3,8 @@
  * MIT Licensed 
  * Gabe Lerner (gabelerner@gmail.com)
  * http://code.google.com/p/canvg/
+ *
+ * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
  */
  
 (function(){
@@ -409,18 +411,17 @@
 				var height = parseInt(ctx.canvas.height, 10);
 				if (this.attribute('width').hasValue()) {
 					width = this.attribute('width').numValue();
-					ctx.canvas.width = width;
+					ctx.canvas.width = this.attribute('width').isNumValueRelative() ? ctx.canvas.parentNode.clientWidth * width : width;
 				}
 				if (this.attribute('height').hasValue()) {
 					height = this.attribute('height').numValue();
-					ctx.canvas.height = height;
+					ctx.canvas.height = this.attribute('height').isNumValueRelative() ? ctx.canvas.parentNode.clientHeight * height : height;
 				}
 				if (this.attribute('viewBox').hasValue()) {
 					var viewBox = this.attribute('viewBox').value.split(' ');
 					ctx.translate(-parseInt(viewBox[0], 10), -parseInt(viewBox[1], 10));
 					ctx.scale(width / parseInt(viewBox[2], 10), height / parseInt(viewBox[3], 10));
 				}
-				
 				
 				this.baseRender(ctx);
 				ctx.restore();
@@ -746,6 +747,9 @@
 			this.base = svg.Element.ElementBase;
 			this.base(node);
 			
+			this.gradientUnits = 'objectBoundingBox';
+			if (this.attribute('gradientUnits').hasValue()) this.gradientUnits = this.attribute('gradientUnits').value;
+			
 			this.stops = [];			
 			for (var i=0; i<this.children.length; i++) {
 				var child = this.children[i];
@@ -772,10 +776,10 @@
 				var w = element.currentWidth();
 				var h = element.currentHeight();
 				
-				var x1 = this.attribute('x1').isNumValueRelative() ? x + w * this.attribute('x1').numValue() : this.attribute('x1').numValue();
-				var y1 = this.attribute('y1').isNumValueRelative() ? y + h * this.attribute('y1').numValue() : this.attribute('y1').numValue();
-				var x2 = this.attribute('x2').isNumValueRelative() ? x + w * this.attribute('x2').numValue() : this.attribute('x2').numValue();
-				var y2 = this.attribute('y2').isNumValueRelative() ? y + h * this.attribute('y2').numValue() : this.attribute('y2').numValue();
+				var x1 = this.attribute('x1').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? x + w * this.attribute('x1').numValue() : this.attribute('x1').numValue();
+				var y1 = this.attribute('y1').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? y + h * this.attribute('y1').numValue() : this.attribute('y1').numValue();
+				var x2 = this.attribute('x2').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? x + w * this.attribute('x2').numValue() : this.attribute('x2').numValue();
+				var y2 = this.attribute('y2').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? y + h * this.attribute('y2').numValue() : this.attribute('y2').numValue();
 				
 				return ctx.createLinearGradient(x1, y1, x2, y2);
 			}
@@ -793,15 +797,15 @@
 				var w = element.currentWidth();
 				var h = element.currentHeight();
 				
-				var cx = this.attribute('cx').isNumValueRelative() ? x + w * this.attribute('cx').numValue() : this.attribute('cx').numValue();
-				var cy = this.attribute('cy').isNumValueRelative() ? y + h * this.attribute('cy').numValue() : this.attribute('cy').numValue();
+				var cx = this.attribute('cx').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? x + w * this.attribute('cx').numValue() : this.attribute('cx').numValue();
+				var cy = this.attribute('cy').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? y + h * this.attribute('cy').numValue() : this.attribute('cy').numValue();
 				
 				var fx = cx;
 				var fy = cy;
-				if (this.attribute('fx').hasValue()) fx = this.attribute('fx').isNumValueRelative() ? x + w * this.attribute('fx').numValue() : this.attribute('fx').numValue();
-				if (this.attribute('fy').hasValue()) fy = this.attribute('fy').isNumValueRelative() ? y + h * this.attribute('fy').numValue() : this.attribute('fy').numValue();
+				if (this.attribute('fx').hasValue()) fx = this.attribute('fx').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? x + w * this.attribute('fx').numValue() : this.attribute('fx').numValue();
+				if (this.attribute('fy').hasValue()) fy = this.attribute('fy').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? y + h * this.attribute('fy').numValue() : this.attribute('fy').numValue();
 				
-				var r = this.attribute('r').isNumValueRelative() ? (w + h) / 2.0 * this.attribute('r').numValue() : this.attribute('r').numValue();
+				var r = this.attribute('r').isNumValueRelative() || this.gradientUnits == 'objectBoundingBox' ? (w + h) / 2.0 * this.attribute('r').numValue() : this.attribute('r').numValue();
 				
 				return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
 			}
