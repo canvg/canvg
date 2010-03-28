@@ -1036,6 +1036,16 @@
 			}
 		}
 		svg.Element.clipPath.prototype = new svg.Element.ElementBase;
+
+		// title element, do nothing
+		svg.Element.title = function(node) {
+		}
+		svg.Element.title.prototype = new svg.Element.ElementBase;
+
+		// desc element, do nothing
+		svg.Element.desc = function(node) {
+		}
+		svg.Element.desc.prototype = new svg.Element.ElementBase;		
 		
 		// element factory
 		svg.CreateElement = function(node) {
