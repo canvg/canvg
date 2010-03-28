@@ -1,6 +1,8 @@
 /*
- * canvg.js - Gabe Lerner (gabelerner@gmail.com)
+ * canvg.js - Javascript SVG parser and renderer on Canvas
  * MIT Licensed 
+ * Gabe Lerner (gabelerner@gmail.com)
+ * http://code.google.com/p/canvg/
  */
  
 (function(){
@@ -38,9 +40,12 @@
 		
 		svg.FRAMERATE = 30;
 		
+		// global tables
 		svg.context = []; // keep track of stack of styles/attributes while rendering
+		svg.Definitions = {};
+		svg.Styles = {};
 		
-		svg.trim = function(s) { return s.replace(/^\s+|\s+$/, ''); };
+		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); };
 		
 		// ajax
 		svg.ajax = function(url) {
@@ -70,9 +75,6 @@
 				return xmlDoc;
 			}		
 		}
-		
-		// definitions table
-		svg.Definitions = [];
 		
 		// property helpers
 		svg.PropertySource = new (function() {
@@ -260,10 +262,10 @@
 				return s;
 			}
 			
-			// look up in context stack (see svg.Element.g implementation)
+			// look up in context stack (used by: 'g' and 'use' elements, 'class' attribute)
 			this.context = function(name) {
 				for (var i=svg.context.length-1; i>=0; i--) {
-					if (svg.context[i][name] != null) {
+					if (svg.context[i] != null && svg.context[i][name] != null) {
 						return svg.context[i][name];
 					}
 				}
@@ -280,6 +282,19 @@
 				for (var i=0; i<this.children.length; i++) {
 					var child = this.children[i];
 				
+					// class
+					var classesPushed = 0;
+					if (child.attribute('class').hasValue()) {
+						var classes = child.attribute('class').value.split(' ');
+						for (var j=0; j<classes.length; j++) {
+							var styles = svg.Styles['.'+svg.trim(classes[j])];
+							if (styles != null) {
+								svg.context.push(styles);
+								classesPushed++;
+							}
+						}
+					}
+					
 					ctx.save();
 					
 					// fill
@@ -316,6 +331,7 @@
 					
 					child.render(ctx);
 					ctx.restore();
+					while (classesPushed--) svg.context.pop();
 				}
 			}
 			
@@ -340,10 +356,12 @@
 				if (this.attribute('style').hasValue()) {
 					var styles = this.attribute('style').value.split(';');
 					for (var i=0; i<styles.length; i++) {
-						var style = styles[i].split(':');
-						var name = svg.trim(style[0]);
-						var value = svg.trim(style[1]);
-						this.styles[name] = new svg.Property(name, value);
+						if (svg.trim(styles[i]) != '') {
+							var style = styles[i].split(':');
+							var name = svg.trim(style[0]);
+							var value = svg.trim(style[1]);
+							this.styles[name] = new svg.Property(name, value);
+						}
 					}
 				}
 			}
@@ -385,10 +403,25 @@
 			this.baseRender = this.render;
 			this.render = function(ctx) {
 				ctx.save();
+				
+				// calculate view
+				var width = parseInt(ctx.canvas.width, 10);
+				var height = parseInt(ctx.canvas.height, 10);
+				if (this.attribute('width').hasValue()) {
+					width = this.attribute('width').numValue();
+					ctx.canvas.width = width;
+				}
+				if (this.attribute('height').hasValue()) {
+					height = this.attribute('height').numValue();
+					ctx.canvas.height = height;
+				}
 				if (this.attribute('viewBox').hasValue()) {
 					var viewBox = this.attribute('viewBox').value.split(' ');
 					ctx.translate(-parseInt(viewBox[0], 10), -parseInt(viewBox[1], 10));
+					ctx.scale(width / parseInt(viewBox[2], 10), height / parseInt(viewBox[3], 10));
 				}
+				
+				
 				this.baseRender(ctx);
 				ctx.restore();
 			}
@@ -547,70 +580,144 @@
 				if (ctx.strokeStyle != '') ctx.stroke();		
 			}
 			
-			this.path = function(ctx) {
-				var d = this.attribute('d').value;
+			var d = this.attribute('d').value;
+			d = d.replace(/,/g,' '); // get rid of all commas
+			d = d.replace(/([A-Z])([^\s])/g,'$1 $2'); // separate commands from points
+			d = d.replace(/[\s\r\n]+/g,' '); // compress multiple spaces
+			d = svg.trim(d);
+			this.PathParser = new (function(d) {
+				this.tokens = d.split(' ');
 				
-				// standardize formatting
-				d = d.replace(/,/g,' ');
-				d = d.replace(/([A-Z])\s/g,'$1');
-				d = d.replace(/[\s\r\n]+/g,' ');
+				this.reset = function() {
+					this.i = -1;
+					this.command = '';
+				}
 				
-				// maintain last x,y
-				var cpx = 0;
-				var cpy = 0;
-				var cntrlX = 0;
-				var cntrlY = 0;
+				this.isEnd = function() {
+					return this.i == this.tokens.length - 1;
+				}
 				
+				this.isCommandOrEnd = function() {
+					if (this.isEnd()) return true;
+					return this.tokens[this.i + 1].match(/[A-Za-z]/) != null;
+				}
+				
+				this.isRelativeCommand = function() {
+					return this.command == this.command.toLowerCase();
+				}
+				
+				this.getToken = function() {
+					this.i = this.i + 1;
+					return this.tokens[this.i];
+				}
+				
+				this.getScalar = function() {
+					return parseInt(this.getToken(), 10);
+				}
+				
+				this.nextCommand = function() {
+					this.command = this.getToken();
+				}				
+				
+				this.getPoint = function() {
+					var p = new svg.Point(this.getScalar(), this.getScalar());
+					return this.makeAbsolute(p);
+				}
+				
+				this.control = new svg.Point(0, 0);
+				this.getAsControlPoint = function() {
+					var p = this.getPoint();
+					this.control = p;
+					return p;
+				}
+				
+				this.current = new svg.Point(0, 0);
+				this.getAsCurrentPoint = function() {
+					var p = this.getPoint();
+					this.current = p;
+					return p;	
+				}
+				
+				this.getReflectedControlPoint = function() {
+					var p = new svg.Point(2 * this.current.x - this.control.x, 2 * this.current.y - this.control.y);					
+					return this.makeAbsolute(p);
+				}
+				
+				this.makeAbsolute = function(p) {
+					if (this.isRelativeCommand()) {
+						p.x = this.current.x + p.x;
+						p.y = this.current.y + p.y;
+					}
+					return p;
+				}
+			})(d);
+			
+			this.path = function(ctx) {				
 				ctx.beginPath();
-				var instructions = d.split(' ');
-				for (var i=0; i<instructions.length; i++) {
-					if (instructions[i].substr(0, 1) == 'M') {
-						cpx = parseInt(instructions[i].replace('M', ''), 10);
-						cpy = parseInt(instructions[i+1], 10);
-						ctx.moveTo(cpx, cpy);
-						i = i + 1;
+				
+				var pp = this.PathParser;
+				pp.reset();
+				
+				while (!pp.isEnd()) {
+					pp.nextCommand();
+					if (pp.command.toUpperCase() == 'M') {
+						var p = pp.getAsCurrentPoint();
+						ctx.moveTo(p.x, p.y);
+						while (!pp.isCommandOrEnd()) {
+							var p = pp.getAsCurrentPoint();
+							ctx.lineTo(p.x, p.y);
+						}
 					}
-					else if (instructions[i].substr(0, 1) == 'L') {
-						cpx = parseInt(instructions[i].replace('L', ''), 10);
-						cpy = parseInt(instructions[i+1], 10);
-						ctx.lineTo(cpx, cpy);
-						i = i + 1;
+					else if (pp.command.toUpperCase() == 'L') {
+						while (!pp.isCommandOrEnd()) {
+							var p = pp.getAsCurrentPoint();
+							ctx.lineTo(p.x, p.y);
+						}
 					}
-					else if (instructions[i].substr(0, 1) == 'H') {
-						cpx = parseInt(instructions[i].replace('H', ''), 10);
-						ctx.lineTo(cpx, cpy);
+					else if (pp.command.toUpperCase() == 'H') {
+						while (!pp.isCommandOrEnd()) {
+							pp.current.x = pp.getScalar();
+							ctx.lineTo(pp.current.x, pp.current.y);
+						}
 					}
-					else if (instructions[i].substr(0, 1) == 'V') {
-						cpy = parseInt(instructions[i].replace('V', ''), 10);
-						ctx.lineTo(cpx, cpy);
+					else if (pp.command.toUpperCase() == 'V') {
+						while (!pp.isCommandOrEnd()) {
+							pp.current.y = pp.getScalar();
+							ctx.lineTo(pp.current.x, pp.current.y);
+						}
 					}
-					else if (instructions[i].substr(0, 1) == 'Q') {
-						cntrlX = parseInt(instructions[i].replace('Q', ''), 10);
-						cntrlY = parseInt(instructions[i+1], 10);
-						cpx = parseInt(instructions[i+2], 10);
-						cpy = parseInt(instructions[i+3], 10);
-						ctx.quadraticCurveTo(cntrlX, cntrlY, cpx, cpy);
-						i = i + 3;
+					else if (pp.command.toUpperCase() == 'C') {
+						while (!pp.isCommandOrEnd()) {
+							var p1 = pp.getPoint();
+							var cntrl = pp.getAsControlPoint();
+							var cp = pp.getAsCurrentPoint();
+							ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+						}
+					}
+					else if (pp.command.toUpperCase() == 'S') {
+						while (!pp.isCommandOrEnd()) {
+							var p1 = pp.getReflectedControlPoint();
+							var cntrl = pp.getAsControlPoint();
+							var cp = pp.getAsCurrentPoint();
+							ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+						}				
 					}					
-					else if (instructions[i].substr(0, 1) == 'T') {
-						cntrlX = 2 * cpx - cntrlX; // reflect
-						cntrlY = 2 * cpy - cntrlY; // reflect
-						cpx = parseInt(instructions[i].replace('T', ''), 10);
-						cpy = parseInt(instructions[i+1], 10);
-						ctx.quadraticCurveTo(cntrlX, cntrlY, cpx, cpy);
-						i = i + 1;					
+					else if (pp.command.toUpperCase() == 'Q') {
+						while (!pp.isCommandOrEnd()) {
+							var cntrl = pp.getAsControlPoint();
+							var cp = pp.getAsCurrentPoint();
+							ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
+						}
+					}					
+					else if (pp.command.toUpperCase() == 'T') {
+						while (!pp.isCommandOrEnd()) {
+							var cntrl = pp.getReflectedControlPoint();
+							pp.control = cntrl;
+							var cp = pp.getAsCurrentPoint();
+							ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
+						}					
 					}
-					else if (instructions[i].substr(0, 1) == 'C') {
-						var x1 = parseInt(instructions[i].replace('C', ''), 10);
-						var y1 = parseInt(instructions[i+1], 10);
-						var x2 = parseInt(instructions[i+2], 10);
-						var y2 = parseInt(instructions[i+3], 10);
-						cpx = parseInt(instructions[i+4], 10);
-						cpy = parseInt(instructions[i+5], 10);
-						ctx.bezierCurveTo(x1, y1, x2, y2, cpx, cpy);
-						i = i + 5;
-					}
-					else if (instructions[i].substr(0, 1) == 'Z') {
+					else if (pp.command.toUpperCase() == 'Z') {
 						ctx.closePath();
 					}
 				}
@@ -831,7 +938,7 @@
 					this.text = this.text + node.childNodes[i].nodeValue;
 				}
 			}
-			this.text = this.text.trim();
+			this.text = svg.trim(this.text);
 			
 			this.render = function(ctx) {
 				var x = this.attribute('x').numValue();
@@ -862,6 +969,43 @@
 			}
 		}
 		svg.Element.g.prototype = new svg.Element.ElementBase;
+		
+		svg.Element.style = function(node) { 
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+			
+			var css = node.childNodes[0].nodeValue;
+			css = css.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(\/\/.*)/gm, ''); // remove comments
+			css = css.replace(/[\r\n\t\s]+/gm, ' '); // replace whitespace
+			var cssDefs = css.split('}');
+			for (var i=0; i<cssDefs.length; i++) {
+				if (svg.trim(cssDefs[i]) != '') {
+					var cssDef = cssDefs[i].split('{');
+					var cssClasses = cssDef[0].split(',');
+					var cssProps = cssDef[1].split(';');
+					for (var j=0; j<cssClasses.length; j++) {
+						var cssClass = svg.trim(cssClasses[j]);
+						if (cssClass != '') {
+							var props = {};
+							for (var k=0; k<cssProps.length; k++) {
+								var prop = cssProps[k].split(':');
+								var name = prop[0];
+								var value = prop[1];
+								if (name != null && value != null) {
+									props[svg.trim(prop[0])] = new svg.Property(svg.trim(prop[0]), svg.trim(prop[1]));
+								}
+							}
+							svg.Styles[cssClass] = props;
+						}
+					}
+				}
+			}
+			
+			this.render = function() {
+				// NOOP
+			}
+		}
+		svg.Element.style.prototype = new svg.Element.ElementBase;
 		
 		// use element 
 		svg.Element.use = function(node) {
