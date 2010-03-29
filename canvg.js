@@ -588,6 +588,7 @@
 			// TODO: floating points, convert to real lexer based on http://www.w3.org/TR/SVG11/paths.html#PathDataBNF
 			d = d.replace(/,/g,' '); // get rid of all commas
 			d = d.replace(/([A-Za-z])([^\s])/g,'$1 $2'); // separate commands from points
+			d = d.replace(/([^\s])([A-Za-z])/g,'$1 $2'); // separate commands from points
 			d = d.replace(/([0-9])([+\-])/g,'$1 $2'); // separate digits when no comma
 			d = d.replace(/(\.[0-9]*)(\.)/g,'$1 $2'); // separate digits when no comma
 			d = d.replace(/[\s\r\n]+/g,' '); // compress multiple spaces
@@ -660,7 +661,7 @@
 			})(d);
 			
 			this.path = function(ctx) {				
-				ctx.beginPath();
+				ctx.beginPath();				
 				
 				var pp = this.PathParser;
 				pp.reset();
