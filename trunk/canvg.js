@@ -407,20 +407,23 @@
 				ctx.save();
 				
 				// calculate view
-				var width = parseInt(ctx.canvas.width, 10);
-				var height = parseInt(ctx.canvas.height, 10);
 				if (this.attribute('width').hasValue()) {
-					width = this.attribute('width').numValue();
+					var width = this.attribute('width').numValue();
 					ctx.canvas.width = this.attribute('width').isNumValueRelative() ? ctx.canvas.parentNode.clientWidth * width : width;
 				}
 				if (this.attribute('height').hasValue()) {
-					height = this.attribute('height').numValue();
+					var height = this.attribute('height').numValue();
 					ctx.canvas.height = this.attribute('height').isNumValueRelative() ? ctx.canvas.parentNode.clientHeight * height : height;
 				}
 				if (this.attribute('viewBox').hasValue()) {
 					var viewBox = this.attribute('viewBox').value.split(' ');
-					ctx.translate(-parseInt(viewBox[0], 10), -parseInt(viewBox[1], 10));
-					ctx.scale(width / parseInt(viewBox[2], 10), height / parseInt(viewBox[3], 10));
+					var minX = parseInt(viewBox[0], 10);
+					var minY = parseInt(viewBox[1], 10);
+					var width = parseInt(viewBox[2], 10);
+					var height = parseInt(viewBox[3], 10);
+					
+					ctx.scale(ctx.canvas.clientWidth / width, ctx.canvas.clientHeight / height);
+					ctx.translate(-minX, -minY);
 				}
 				
 				this.baseRender(ctx);
@@ -853,7 +856,7 @@
 					if (attributeType == 'CSS') {
 						this.parent.style(attributeName, true).value = newValue;
 					}
-					else if (attributeType == 'XML') { 
+					else { // default or XML
 						if (this.attribute('type').hasValue()) {
 							// for transform, etc.
 							var type = this.attribute('type').value;
@@ -956,7 +959,7 @@
 				
 				ctx.font = fontSize + ' ' + fontFamily;
 				ctx.textBaseline = 'top';
-				ctx.fillText(this.text, 0, 0);
+				ctx.fillText(this.text, x, y);
 			}
 		}
 		svg.Element.text.prototype = new svg.Element.ElementBase;
@@ -1076,7 +1079,7 @@
 			
 			// render loop
 			svg.intervalID = setInterval(function() { 
-				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+				ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 				e.render(ctx);
 			}, 1000 / svg.FRAMERATE);
 		}
