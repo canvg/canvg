@@ -613,6 +613,8 @@
 				this.reset = function() {
 					this.i = -1;
 					this.command = '';
+					this.control = new svg.Point(0, 0);
+					this.current = new svg.Point(0, 0);
 				}
 				
 				this.isEnd = function() {
@@ -646,14 +648,12 @@
 					return this.makeAbsolute(p);
 				}
 				
-				this.control = new svg.Point(0, 0);
 				this.getAsControlPoint = function() {
 					var p = this.getPoint();
 					this.control = p;
 					return p;
 				}
 				
-				this.current = new svg.Point(0, 0);
 				this.getAsCurrentPoint = function() {
 					var p = this.getPoint();
 					this.current = p;
