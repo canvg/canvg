@@ -3,6 +3,14 @@
 		<title>canvg.js test</title>
 		<script type="text/javascript" src="rgbcolor.js"></script>
 		<script type="text/javascript" src="canvg.js"></script>
+		<script type="text/javascript">
+		function render() {
+			var c = document.getElementById('canvas');
+			c.width = document.getElementById('width').value;
+			c.height = document.getElementById('height').value;
+			canvg(c, document.getElementById('svg').value);
+		}
+		</script>
 	</head>
 	<body>
 		<b><a href="http://canvg.googlecode.com/">canvg</a> examples:</b>  C = see here on canvg, S = .svg, L = source<br />
@@ -37,8 +45,9 @@
 		<br /><br />
 		<b>your own:</b><br />
 		<textarea id="svg" rows="10" cols="50">&lt;svg&gt;&lt;text&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea><br />
-		<input type="button" value="Render" onclick="canvg('canvas', document.getElementById('svg').value);" />
-		
+		width: <input type="text" id="width" value="1000" size="7" />
+		height: <input type="text" id="height" value="600" size="7" />
+		<input type="button" value="Render" onclick="render();" />
 		<hr />
 		<canvas id="canvas" width="1000px" height="600px"></canvas>
 	</body>
