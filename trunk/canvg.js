@@ -586,7 +586,7 @@
 			
 			var d = this.attribute('d').value;
 			d = d.replace(/,/g,' '); // get rid of all commas
-			d = d.replace(/([A-Z])([^\s])/g,'$1 $2'); // separate commands from points
+			d = d.replace(/([A-Za-z])([^\s])/g,'$1 $2'); // separate commands from points
 			d = d.replace(/[\s\r\n]+/g,' '); // compress multiple spaces
 			d = svg.trim(d);
 			this.PathParser = new (function(d) {
