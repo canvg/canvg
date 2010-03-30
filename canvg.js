@@ -27,13 +27,14 @@
 			svg.stop();
 		}
 		
+		var ctx = target.getContext('2d');
 		if (s.substr(0,1) == '<') {
 			// load from xml string
-			svg.loadXml(target.getContext('2d'), s);
+			svg.loadXml(ctx, s);
 		}
 		else {
 			// load from url
-			svg.load(target.getContext('2d'), s);
+			svg.load(ctx, s);
 		}
 	}
 
@@ -51,8 +52,12 @@
 			svg.Animations = [];
 		}
 		svg.init();
+
+		// trim
+		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); }
 		
-		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); };
+		// compress spaces
+		svg.compressSpaces = function(s) { return s.replace(/[\s\r\t\n]+/g,' '); }
 		
 		// ajax
 		svg.ajax = function(url) {
@@ -178,13 +183,13 @@
 			this.y = y;
 		}
 		svg.CreatePoint = function(s) {
-			s = svg.trim(s.replace(' ',','));
-			return new svg.Point(parseInt(s.split(',')[0], 10), parseInt(s.split(',')[1], 10));
+			s = svg.trim(svg.compressSpaces(s.replace(',', ' ')));
+			return new svg.Point(parseInt(s.split(' ')[0], 10), parseInt(s.split(' ')[1], 10));
 		}
 		svg.CreatePath = function(s) {
 			var hasCommas = (s.indexOf(',') > -1);
 			var path = [];
-			var points = s.split(' ');
+			var points = svg.compressSpaces(s).split(' ');
 			for (var i=0; i<points.length; i++) {
 				if (hasCommas) {
 					path.push(svg.CreatePoint(points[i]));
@@ -385,8 +390,8 @@
 					if (child.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.addOpacity(child.style('stroke-opacity').value);
 					ctx.strokeStyle = strokeStyle.value;
 					ctx.lineWidth = child.style('stroke-width').value;
-					ctx.lineCap = child.style('stroke-linecap').value;
-					ctx.lineJoin = child.style('stroke-join').value;
+					ctx.lineCap = child.style('stroke-linecap').valueOrDefault('butt');
+					ctx.lineJoin = child.style('stroke-join').valueOrDefault('miter');
 					ctx.miterLimit = child.style('stroke-miterlimit').numValueOrDefault(4);
 
 					// transform
@@ -619,7 +624,7 @@
 			d = d.replace(/([^\s])([A-Za-z])/g,'$1 $2'); // separate commands from points
 			d = d.replace(/([0-9])([+\-])/g,'$1 $2'); // separate digits when no comma
 			d = d.replace(/(\.[0-9]*)(\.)/g,'$1 $2'); // separate digits when no comma
-			d = d.replace(/[\s\r\n]+/g,' '); // compress multiple spaces
+			d = svg.compressSpaces(d); // compress multiple spaces
 			d = svg.trim(d);
 			this.PathParser = new (function(d) {
 				this.tokens = d.split(' ');
@@ -1014,7 +1019,7 @@
 			
 			var css = node.childNodes[0].nodeValue;
 			css = css.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(\/\/.*)/gm, ''); // remove comments
-			css = css.replace(/[\r\n\t\s]+/gm, ' '); // replace whitespace
+			css = svg.compressSpaces(css); // replace whitespace
 			var cssDefs = css.split('}');
 			for (var i=0; i<cssDefs.length; i++) {
 				if (svg.trim(cssDefs[i]) != '') {
