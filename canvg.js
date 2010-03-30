@@ -1000,7 +1000,9 @@
 			
 			this.render = function(ctx) {
 				svg.context.push(this.attributes); // add my attributes to the stack
+				svg.context.push(this.styles); // add my styles to the stack
 				this.renderChildren(ctx);
+				svg.context.pop();		
 				svg.context.pop();		
 			}
 		}
@@ -1048,9 +1050,9 @@
 				var element = svg.Definitions[this.attribute('xlink:href').value.replace('#','')];
 				if (element != null) {
 					svg.context.push(this.attributes); // add my attributes to the stack
-					ctx.save();
+					svg.context.push(this.styles); // add my attributes to the stack
 					element.render(ctx);
-					ctx.restore();
+					svg.context.pop();
 					svg.context.pop();
 				}
 			}
