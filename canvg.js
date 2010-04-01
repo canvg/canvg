@@ -426,15 +426,16 @@
 						var fillStyle = child.style('fill');
 						if (child.style('opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(child.style('opacity').value);
 						if (child.style('fill-opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(child.style('fill-opacity').value);
-						ctx.fillStyle = (fillStyle.value == 'none' ? '' : fillStyle.value);
+						if (child.style('fill').hasValue()) ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
 					}
 										
 					// stroke
 					var strokeStyle = child.style('stroke');
 					if (child.style('opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(child.style('opacity').value);
 					if (child.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(child.style('stroke-opacity').value);
-					ctx.strokeStyle = strokeStyle.value;
-					ctx.lineWidth = child.style('stroke-width').Length.toPixels();
+					if (child.style('stroke').hasValue()) ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
+					
+					if (child.style('stroke-width').hasValue()) ctx.lineWidth = child.style('stroke-width').Length.toPixels();
 					ctx.lineCap = child.style('stroke-linecap').valueOrDefault('butt');
 					ctx.lineJoin = child.style('stroke-join').valueOrDefault('miter');
 					ctx.miterLimit = child.style('stroke-miterlimit').numValueOrDefault(4);
@@ -549,6 +550,10 @@
 					if (d == 'y') return height;
 					return Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) / Math.sqrt(2);
 				}
+				
+				// initial values
+				ctx.fillStyle = '#000000';
+				ctx.strokeStyle = 'rgba(0,0,0,0)';
 				
 				this.baseRender(ctx);
 				ctx.restore();
