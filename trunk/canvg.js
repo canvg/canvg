@@ -232,6 +232,95 @@
 			return path;
 		}
 		
+		// bounding box
+		svg.BoundingBox = function(x1, y1, x2, y2) { // pass in initial points if you want
+			this.x1 = Number.NaN;
+			this.y1 = Number.NaN;
+			this.x2 = Number.NaN;
+			this.y2 = Number.NaN;
+			
+			this.x = function() { return this.x1; }
+			this.y = function() { return this.y1; }
+			this.width = function() { return this.x2 - this.x1; }
+			this.height = function() { return this.y2 - this.y1; }
+			
+			this.addPoint = function(x, y) {	
+				if (x != null) {
+					if (isNaN(this.x1) || isNaN(this.x2)) {
+						this.x1 = x;
+						this.x2 = x;
+					}
+					if (x < this.x1) this.x1 = x;
+					if (x > this.x2) this.x2 = x;
+				}
+			
+				if (y != null) {
+					if (isNaN(this.y1) || isNaN(this.y2)) {
+						this.y1 = y;
+						this.y2 = y;
+					}
+					if (y < this.y1) this.y1 = y;
+					if (y > this.y2) this.y2 = y;
+				}
+			}			
+			this.addX = function(x) { this.addPoint(x, null); }
+			this.addY = function(y) { this.addPoint(null, y); }
+			
+			this.addQuadraticCurve = function(p0x, p0y, p1x, p1y, p2x, p2y) {
+				var cp1x = p0x + 2/3 * (p1x - p0x); // CP1 = QP0 + 2/3 *(QP1-QP0)
+				var cp1y = p0y + 2/3 * (p1y - p0y); // CP1 = QP0 + 2/3 *(QP1-QP0)
+				var cp2x = cp1x + 1/3 * (p2x - p0x); // CP2 = CP1 + 1/3 *(QP2-QP0)
+				var cp2y = cp1y + 1/3 * (p2y - p0y); // CP2 = CP1 + 1/3 *(QP2-QP0)
+				this.addBezierCurve(p0x, p0y, cp1x, cp2x, cp1y,	cp2y, p2x, p2y);
+			}
+			
+			this.addBezierCurve = function(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y) {
+				// from http://blog.hackers-cafe.net/2009/06/how-to-calculate-bezier-curves-bounding.html
+				var p0 = [p0x, p0y], p1 = [p1x, p1y], p2 = [p2x, p2y], p3 = [p3x, p3y];
+				this.addPoint(p0[0], p0[1]);
+				this.addPoint(p3[0], p3[1]);
+				
+				for (i=0; i<=1; i++) {
+					var f = function(t) { 
+						return Math.pow(1-t, 3) * p0[i]
+						+ 3 * Math.pow(1-t, 2) * t * p1[i]
+						+ 3 * (1-t) * Math.pow(t, 2) * p2[i]
+						+ Math.pow(t, 3) * p3[i];
+					}
+					
+					var b = 6 * p0[i] - 12 * p1[i] + 6 * p2[i];
+					var a = -3 * p0[i] + 9 * p1[i] - 9 * p2[i] + 3 * p3[i];
+					var c = 3 * p1[i] - 3 * p0[i];
+					
+					if (a == 0) {
+						if (b == 0) continue;
+						var t = -c / b;
+						if (0 < t && t < 1) {
+							if (i == 0) this.addX(f(t));
+							if (i == 1) this.addY(f(t));
+						}
+						continue;
+					}
+					
+					var b2ac = Math.pow(b, 2) - 4 * c * a;
+					if (b2ac < 0) continue;
+					var t1 = (-b + Math.sqrt(b2ac)) / (2 * a);
+					if (0 < t1 && t1 < 1) {
+						if (i == 0) this.addX(f(t1));
+						if (i == 1) this.addY(f(t1));
+					}
+					var t2 = (-b - Math.sqrt(b2ac)) / (2 * a);
+					if (0 < t2 && t2 < 1) {
+						if (i == 0) this.addX(f(t2));
+						if (i == 1) this.addY(f(t2));
+					}
+				}
+			}
+			
+			this.addPoint(x1, y1);
+			this.addPoint(x2, y2);
+		}
+		
 		// transforms
 		svg.Transform = function(v) {
 			this.Type = {}
@@ -434,35 +523,7 @@
 					var clip = this.attribute('clip-path').Definition.getDefinition();
 					if (clip != null) clip.apply(ctx);
 				}
-			}
-
-			this.currentX = function() { 
-				if (this.attribute('rx').hasValue()) return this.attribute('cx').Length.toPixels('x') - this.attribute('rx').Length.toPixels('x');
-				if (this.attribute('r').hasValue()) return this.attribute('cx').Length.toPixels('x') - this.attribute('r').Length.toPixels();
-				if (this.attribute('x1').hasValue()) return this.attribute('x1').Length.toPixels('x');
-				if (this.attribute('x').hasValue()) return this.attribute('x').Length.toPixels('x');
-			}
-			
-			this.currentY = function() { 
-				if (this.attribute('ry').hasValue()) return this.attribute('cy').Length.toPixels('y') - this.attribute('ry').Length.toPixels('y');
-				if (this.attribute('r').hasValue()) return this.attribute('cy').Length.toPixels('y') - this.attribute('r').Length.toPixels();
-				if (this.attribute('y1').hasValue()) return this.attribute('y1').Length.toPixels('y');
-				if (this.attribute('y').hasValue()) return this.attribute('y').Length.toPixels('y');
-			}
-			
-			this.currentWidth = function() {
-				if (this.attribute('rx').hasValue()) return 2 * this.attribute('rx').Length.toPixels('x');
-				if (this.attribute('r').hasValue()) return 2 * this.attribute('r').Length.toPixels();
-				if (this.attribute('x2').hasValue()) return this.attribute('x2').Length.toPixels('x') - this.attribute('x1').Length.toPixels('x');
-				if (this.attribute('width').hasValue()) return this.attribute('width').Length.toPixels('x');
-			}
-			
-			this.currentHeight = function() {
-				if (this.attribute('ry').hasValue()) return 2 * this.attribute('ry').Length.toPixels('y');
-				if (this.attribute('r').hasValue()) return 2 * this.attribute('r').Length.toPixels();
-				if (this.attribute('y2').hasValue()) return this.attribute('y2').Length.toPixels('y') - this.attribute('y1').Length.toPixels('y');
-				if (this.attribute('height').hasValue()) return this.attribute('height').Length.toPixels('y');
-			}			
+			}		
 		}
 		svg.Element.RenderedElementBase.prototype = new svg.Element.ElementBase;
 		
@@ -471,7 +532,7 @@
 			this.base(node);
 			
 			this.path = function(ctx) {
-				// OVERRIDE ME!
+				return new svg.BoundingBox();
 			}
 			
 			this.renderChildren = function(ctx) {
@@ -479,6 +540,10 @@
 				this.path(ctx);
 				if (ctx.fillStyle != '') ctx.fill();
 				if (ctx.strokeStyle != '') ctx.stroke();	
+			}
+			
+			this.getBoundingBox = function() {
+				return this.path();
 			}
 		}
 		svg.Element.PathElementBase.prototype = new svg.Element.RenderedElementBase;
@@ -546,16 +611,20 @@
 				if (this.attribute('rx').hasValue() && !this.attribute('ry').hasValue()) ry = rx;
 				if (this.attribute('ry').hasValue() && !this.attribute('rx').hasValue()) rx = ry;
 				
-				ctx.moveTo(x + rx, y);
-				ctx.lineTo(x + width - rx, y);
-				ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
-				ctx.lineTo(x + width, y + height - ry);
-				ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height)
-				ctx.lineTo(x + rx, y + height);
-				ctx.quadraticCurveTo(x, y + height, x, y + height - ry)
-				ctx.lineTo(x, y + ry);
-				ctx.quadraticCurveTo(x, y, x + rx, y)
-				ctx.closePath();
+				if (ctx != null) {
+					ctx.moveTo(x + rx, y);
+					ctx.lineTo(x + width - rx, y);
+					ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
+					ctx.lineTo(x + width, y + height - ry);
+					ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height)
+					ctx.lineTo(x + rx, y + height);
+					ctx.quadraticCurveTo(x, y + height, x, y + height - ry)
+					ctx.lineTo(x, y + ry);
+					ctx.quadraticCurveTo(x, y, x + rx, y)
+					ctx.closePath();
+				}
+				
+				return new svg.BoundingBox(x, y, x + width, y + height);
 			}
 		}
 		svg.Element.rect.prototype = new svg.Element.PathElementBase;
@@ -570,8 +639,12 @@
 				var cy = this.attribute('cy').Length.toPixels('y');
 				var r = this.attribute('r').Length.toPixels();
 			
-				ctx.arc(cx, cy, r, 0, Math.PI * 2, true); 
-				ctx.closePath();			
+				if (ctx != null) {
+					ctx.arc(cx, cy, r, 0, Math.PI * 2, true); 
+					ctx.closePath();
+				}
+				
+				return new svg.BoundingBox(cx - r, cy - r, cx + r, cy + r);
 			}
 		}
 		svg.Element.circle.prototype = new svg.Element.PathElementBase;	
@@ -589,12 +662,16 @@
 				var cy = this.attribute('cy').Length.toPixels('y');
 				var r = this.attribute('r').Length.toPixels();
 				
-				ctx.moveTo(cx, cy - ry);
-				ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry,  cx + rx, cy - (KAPPA * ry), cx + rx, cy);
-				ctx.bezierCurveTo(cx + rx, cy + (KAPPA * ry), cx + (KAPPA * rx), cy + ry, cx, cy + ry);
-				ctx.bezierCurveTo(cx - (KAPPA * rx), cy + ry, cx - rx, cy + (KAPPA * ry), cx - rx, cy);
-				ctx.bezierCurveTo(cx - rx, cy - (KAPPA * ry), cx - (KAPPA * rx), cy - ry, cx, cy - ry);
-				ctx.closePath();
+				if (ctx != null) {
+					ctx.moveTo(cx, cy - ry);
+					ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry,  cx + rx, cy - (KAPPA * ry), cx + rx, cy);
+					ctx.bezierCurveTo(cx + rx, cy + (KAPPA * ry), cx + (KAPPA * rx), cy + ry, cx, cy + ry);
+					ctx.bezierCurveTo(cx - (KAPPA * rx), cy + ry, cx - rx, cy + (KAPPA * ry), cx - rx, cy);
+					ctx.bezierCurveTo(cx - rx, cy - (KAPPA * ry), cx - (KAPPA * rx), cy - ry, cx, cy - ry);
+					ctx.closePath();
+				}
+				
+				return new svg.BoundingBox(cx - rx, cy - ry, cx + rx, cy + ry);
 			}
 		}
 		svg.Element.ellipse.prototype = new svg.Element.PathElementBase;			
@@ -610,8 +687,12 @@
 				var x2 = this.attribute('x2').Length.toPixels('x');
 				var y2 = this.attribute('y2').Length.toPixels('y');
 				
-				ctx.moveTo(x1, y1);
-				ctx.lineTo(x2, y2);
+				if (ctx != null) {
+					ctx.moveTo(x1, y1);
+					ctx.lineTo(x2, y2);
+				}
+				
+				return new svg.BoundingBox(x1, y1, x2, y2);
 			}
 		}
 		svg.Element.line.prototype = new svg.Element.PathElementBase;		
@@ -623,10 +704,13 @@
 			
 			this.points = svg.CreatePath(this.attribute('points').value);
 			this.path = function(ctx) {
-				ctx.moveTo(this.points[0].x, this.points[0].y);
+				var bb = new svg.BoundingBox(this.points[0].x, this.points[0].y);
+				if (ctx != null) ctx.moveTo(this.points[0].x, this.points[0].y);
 				for (var i=1; i<this.points.length; i++) {
-					ctx.lineTo(this.points[i].x, this.points[i].y);
+					bb.addPoint(this.points[i].x, this.points[i].y);
+					if (ctx != null) ctx.lineTo(this.points[i].x, this.points[i].y);
 				}
+				return bb;
 			}
 		}
 		svg.Element.polyline.prototype = new svg.Element.PathElementBase;				
@@ -638,9 +722,12 @@
 			
 			this.basePath = this.path;
 			this.path = function(ctx) {
-				this.basePath(ctx);
-				ctx.lineTo(this.points[0].x, this.points[0].y);
-				ctx.closePath();
+				var bb = this.basePath(ctx);
+				if (ctx != null) {
+					ctx.lineTo(this.points[0].x, this.points[0].y);
+					ctx.closePath();
+				}
+				return bb;
 			}
 		}
 		svg.Element.polygon.prototype = new svg.Element.polyline;
@@ -732,69 +819,85 @@
 				var pp = this.PathParser;
 				pp.reset();
 				
+				var bb = new svg.BoundingBox();
 				while (!pp.isEnd()) {
 					pp.nextCommand();
 					if (pp.command.toUpperCase() == 'M') {
 						var p = pp.getAsCurrentPoint();
-						ctx.moveTo(p.x, p.y);
+						bb.addPoint(p.x, p.y);
+						if (ctx != null) ctx.moveTo(p.x, p.y);
 						while (!pp.isCommandOrEnd()) {
 							var p = pp.getAsCurrentPoint();
-							ctx.lineTo(p.x, p.y);
+							bb.addPoint(p.x, p.y);
+							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'L') {
 						while (!pp.isCommandOrEnd()) {
 							var p = pp.getAsCurrentPoint();
-							ctx.lineTo(p.x, p.y);
+							bb.addPoint(p.x, p.y);
+							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'H') {
 						while (!pp.isCommandOrEnd()) {
 							pp.current.x = pp.getScalar();
-							ctx.lineTo(pp.current.x, pp.current.y);
+							bb.addPoint(pp.current.x, pp.current.y);
+							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'V') {
 						while (!pp.isCommandOrEnd()) {
 							pp.current.y = pp.getScalar();
-							ctx.lineTo(pp.current.x, pp.current.y);
+							bb.addPoint(pp.current.x, pp.current.y);
+							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'C') {
 						while (!pp.isCommandOrEnd()) {
+							var curr = pp.current;
 							var p1 = pp.getPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'S') {
 						while (!pp.isCommandOrEnd()) {
+							var curr = pp.current;
 							var p1 = pp.getReflectedControlPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}				
 					}					
 					else if (pp.command.toUpperCase() == 'Q') {
 						while (!pp.isCommandOrEnd()) {
+							var curr = pp.current;
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
+							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}
 					}					
 					else if (pp.command.toUpperCase() == 'T') {
 						while (!pp.isCommandOrEnd()) {
+							var curr = pp.current;
 							var cntrl = pp.getReflectedControlPoint();
 							pp.control = cntrl;
 							var cp = pp.getAsCurrentPoint();
-							ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
+							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
+							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}					
 					}
 					else if (pp.command.toUpperCase() == 'Z') {
-						ctx.closePath();
+						if (ctx != null) ctx.closePath();
 					}
 				}
+				
+				return bb;
 			}
 		}
 		svg.Element.path.prototype = new svg.Element.PathElementBase;
@@ -844,22 +947,19 @@
 			this.base(node);
 			
 			this.getGradient = function(ctx, element) {
-				var x = element.currentX();
-				var y = element.currentY();
-				var w = element.currentWidth();
-				var h = element.currentHeight();
+				var bb = element.getBoundingBox();
 				
 				var x1 = (this.gradientUnits == 'objectBoundingBox' 
-					? x + w * this.attribute('x1').numValue() 
+					? bb.x() + bb.width() * this.attribute('x1').numValue() 
 					: this.attribute('x1').Length.toPixels('x'));
 				var y1 = (this.gradientUnits == 'objectBoundingBox' 
-					? y + h * this.attribute('y1').numValue()
+					? bb.y() + bb.height() * this.attribute('y1').numValue()
 					: this.attribute('y1').Length.toPixels('y'));
 				var x2 = (this.gradientUnits == 'objectBoundingBox' 
-					? x + w * this.attribute('x2').numValue()
+					? bb.x() + bb.width() * this.attribute('x2').numValue()
 					: this.attribute('x2').Length.toPixels('x'));
 				var y2 = (this.gradientUnits == 'objectBoundingBox' 
-					? y + h * this.attribute('y2').numValue()
+					? bb.y() + bb.height() * this.attribute('y2').numValue()
 					: this.attribute('y2').Length.toPixels('y'));
 				
 				return ctx.createLinearGradient(x1, y1, x2, y2);
@@ -873,33 +973,30 @@
 			this.base(node);
 			
 			this.getGradient = function(ctx, element) {
-				var x = element.currentX();
-				var y = element.currentY();
-				var w = element.currentWidth();
-				var h = element.currentHeight();
+				var bb = element.getBoundingBox();
 				
 				var cx = (this.gradientUnits == 'objectBoundingBox' 
-					? x + w * this.attribute('cx').numValue() 
+					? bb.x() + bb.width() * this.attribute('cx').numValue() 
 					: this.attribute('cx').Length.toPixels('x'));
 				var cy = (this.gradientUnits == 'objectBoundingBox' 
-					? y + h * this.attribute('cy').numValue() 
+					? bb.y() + bb.height() * this.attribute('cy').numValue() 
 					: this.attribute('cy').Length.toPixels('y'));
 				
 				var fx = cx;
 				var fy = cy;
 				if (this.attribute('fx').hasValue()) {
 					fx = (this.gradientUnits == 'objectBoundingBox' 
-					? x + w * this.attribute('fx').numValue() 
+					? bb.x() + bb.width() * this.attribute('fx').numValue() 
 					: this.attribute('fx').Length.toPixels('x'));
 				}
 				if (this.attribute('fy').hasValue()) {
 					fy = (this.gradientUnits == 'objectBoundingBox' 
-					? y + h * this.attribute('fy').numValue() 
+					? bb.y() + bb.height() * this.attribute('fy').numValue() 
 					: this.attribute('fy').Length.toPixels('y'));
 				}
 				
 				var r = (this.gradientUnits == 'objectBoundingBox' 
-					? (w + h) / 2.0 * this.attribute('r').numValue()
+					? (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue()
 					: this.attribute('r').Length.toPixels());
 				
 				return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
