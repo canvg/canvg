@@ -848,14 +848,14 @@ if(!window.console) {
 					}
 					else if (pp.command.toUpperCase() == 'H') {
 						while (!pp.isCommandOrEnd()) {
-							pp.current.x = pp.getScalar();
+							pp.current.x = (pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar();
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'V') {
 						while (!pp.isCommandOrEnd()) {
-							pp.current.y = pp.getScalar();
+							pp.current.y = (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar();
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
