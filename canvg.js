@@ -505,9 +505,9 @@ if(!window.console) {
 				}
 				
 				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').Length.toPixels();
-				ctx.lineCap = this.style('stroke-linecap').valueOrDefault('butt');
-				ctx.lineJoin = this.style('stroke-join').valueOrDefault('miter');
-				ctx.miterLimit = this.style('stroke-miterlimit').numValueOrDefault(4);
+				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
+				if (this.style('stroke-join').hasValue()) ctx.lineJoin = this.style('stroke-join').value;
+				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
 
 				// font
 				if (this.style('font-size').hasValue()) {
@@ -596,6 +596,9 @@ if(!window.console) {
 				// initial values
 				ctx.fillStyle = '#000000';
 				ctx.strokeStyle = 'rgba(0,0,0,0)';
+				ctx.lineCap = 'butt';
+				ctx.lineJoin = 'miter';
+				ctx.miterLimit = 4;
 			}
 		}
 		svg.Element.svg.prototype = new svg.Element.RenderedElementBase;
