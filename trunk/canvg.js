@@ -6,7 +6,11 @@
  *
  * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
  */
- 
+if(!window.console) {
+	window.console = {};
+	window.console.log = function(str) {};
+	window.console.dir = function(str) {};
+}
 (function(){
 	// canvg(target, s)
 	// target: canvas element or the id of a canvas element
@@ -1152,6 +1156,12 @@
 			this.base(node);
 		}
 		svg.Element.g.prototype = new svg.Element.RenderedElementBase;
+
+		svg.Element.a = function(node) {
+			this.base = svg.Element.RenderedElementBase;
+			this.base(node);
+		}
+		svg.Element.a.prototype = new svg.Element.RenderedElementBase;
 		
 		svg.Element.style = function(node) { 
 			this.base = svg.Element.ElementBase;
