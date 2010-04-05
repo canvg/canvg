@@ -192,8 +192,9 @@ if(!window.console) {
 				// get the time as milliseconds
 				toMilliseconds: function() {
 					if (!that.hasValue()) return 0;
-					if (that.value.match(/s$/)) return that.numValue() * 1000;
-					if (that.value.match(/ms$/)) return that.numValue();
+					var s = that.value+'';
+					if (s.match(/s$/)) return that.numValue() * 1000;
+					if (s.match(/ms$/)) return that.numValue();
 					return that.numValue();
 				}
 			}
@@ -203,35 +204,36 @@ if(!window.console) {
 				// get the angle as radians
 				toRadians: function() {
 					if (!that.hasValue()) return 0;
-					if (that.value.match(/deg$/)) return that.numValue() * (Math.PI / 180.0);
-					if (that.value.match(/grad$/)) return that.numValue() * (Math.PI / 200.0);
-					if (that.value.match(/rad$/)) return that.numValue();
+					var s = that.value+'';
+					if (s.match(/deg$/)) return that.numValue() * (Math.PI / 180.0);
+					if (s.match(/grad$/)) return that.numValue() * (Math.PI / 200.0);
+					if (s.match(/rad$/)) return that.numValue();
 					return that.numValue() * (Math.PI / 180.0);
 				}
 			}
 		}
 		
 		// points and paths
+		svg.ToNumberArray = function(s) {
+			var a = svg.trim(svg.compressSpaces((s || '').replace(/,/g, ' '))).split(' ');
+			for (var i=0; i<a.length; i++) {
+				a[i] = parseFloat(a[i]);
+			}
+			return a;
+		}		
 		svg.Point = function(x, y) {
 			this.x = x;
 			this.y = y;
 		}
 		svg.CreatePoint = function(s) {
-			s = svg.trim(svg.compressSpaces(s.replace(',', ' ')));
-			return new svg.Point(parseFloat(s.split(' ')[0]), parseFloat(s.split(' ')[1]));
+			var a = svg.ToNumberArray(s);
+			return new svg.Point(a[0], a[1]);
 		}
 		svg.CreatePath = function(s) {
-			var hasCommas = (s.indexOf(',') > -1);
+			var a = svg.ToNumberArray(s);
 			var path = [];
-			var points = svg.compressSpaces(s).split(' ');
-			for (var i=0; i<points.length; i++) {
-				if (hasCommas) {
-					path.push(svg.CreatePoint(points[i]));
-				}
-				else {
-					path.push(svg.CreatePoint(points[i] + ',' + points[i+1]));
-					i++;
-				}
+			for (var i=0; i<a.length; i+=2) {
+				path.push(new svg.Point(a[i], a[i+1]));
 			}
 			return path;
 		}
@@ -326,7 +328,8 @@ if(!window.console) {
 		}
 		
 		// transforms
-		svg.Transform = function(v) {
+		svg.Transform = function(v) {	
+			var that = this;
 			this.Type = {}
 		
 			// translate
@@ -339,9 +342,14 @@ if(!window.console) {
 			
 			// rotate
 			this.Type.rotate = function(s) {
-				this.angle = new svg.Property('angle', s);
+				var a = svg.ToNumberArray(s);
+				this.angle = new svg.Property('angle', a[0]);
+				this.cx = a[1] || 0;
+				this.cy = a[2] || 0;
 				this.apply = function(ctx) {
+					ctx.translate(this.cx, this.cy);
 					ctx.rotate(this.angle.Angle.toRadians());
+					ctx.translate(-this.cx, -this.cy);
 				}
 			}
 			
@@ -352,6 +360,34 @@ if(!window.console) {
 				}
 			}
 			
+			this.Type.matrix = function(s) {
+				this.m = svg.ToNumberArray(s);
+				this.apply = function(ctx) {
+					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], this.m[4], this.m[5]);
+				}
+			}
+			
+			this.Type.SkewBase = function(s) {
+				this.base = that.Type.matrix;
+				this.base(s);
+				this.angle = new svg.Property('angle', s);
+			}
+			this.Type.SkewBase.prototype = new this.Type.matrix;
+			
+			this.Type.skewX = function(s) {
+				this.base = that.Type.SkewBase;
+				this.base(s);
+				this.m = [1, 0, Math.tan(this.angle.Angle.toRadians()), 1, 0, 0];
+			}
+			this.Type.skewX.prototype = new this.Type.SkewBase;
+			
+			this.Type.skewY = function(s) {
+				this.base = that.Type.SkewBase;
+				this.base(s);
+				this.m = [1, Math.tan(this.angle.Angle.toRadians()), 0, 1, 0, 0];
+			}
+			this.Type.skewY.prototype = new this.Type.SkewBase;
+		
 			this.transforms = [];
 			this.apply = function(ctx) {
 				for (var i=0; i<this.transforms.length; i++) {
@@ -359,7 +395,6 @@ if(!window.console) {
 				}
 			}
 			
-			// ex: transform(200, 4) rotate(-30)
 			var data = v.split(/\s(?=[a-z])/);
 			for (var i=0; i<data.length; i++) {
 				var type = data[i].split('(')[0];
@@ -368,7 +403,7 @@ if(!window.console) {
 				this.transforms.push(transform);
 			}
 		}
-
+		
 		// elements
 		svg.Element = {}
 		
@@ -575,14 +610,11 @@ if(!window.console) {
 				var width = ctx.canvas.clientWidth;
 				var height = ctx.canvas.clientHeight
 				if (this.attribute('viewBox').hasValue()) {
-					var viewBox = this.attribute('viewBox').value.split(' ');
-					var minX = parseFloat(viewBox[0]);
-					var minY = parseFloat(viewBox[1]);
-					width = parseFloat(viewBox[2]);
-					height = parseFloat(viewBox[3]);
-					
+					var viewBox = svg.ToNumberArray(this.attribute('viewBox').value);
+					width = viewBox[2];
+					height = viewBox[3];
 					ctx.scale(ctx.canvas.clientWidth / width, ctx.canvas.clientHeight / height);
-					ctx.translate(-minX, -minY);
+					ctx.translate(-viewBox[0], -viewBox[1]); // translate by minX, minY
 				}
 				
 				// custom viewport
@@ -938,7 +970,7 @@ if(!window.console) {
 							if (sweepFlag == 0 && ad > 0) ad = ad - 2 * Math.PI;
 							if (sweepFlag == 1 && ad < 0) ad = ad + 2 * Math.PI;
 							
-							bb.addPoint(cp.x, cp.y); // TODO: this is to naive, make it better
+							bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
 							if (ctx != null) {
 								var r = rx > ry ? rx : ry;
 								var sx = rx > ry ? 1 : rx / ry;
