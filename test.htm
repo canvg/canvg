@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="canvg.js"></script>
 		<script type="text/javascript">
 		var context;
-		function onload() { if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; }
+		function bodyonload() { if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; }
 		function render() {
 			var c = document.getElementById('canvas');
 			c.width = document.getElementById('width').value;
@@ -25,7 +25,7 @@
 		}
 		</script>
 	</head>
-	<body onload="onload();">
+	<body onload="bodyonload();">
 		<h1><a href="http://code.google.com/p/canvg/issues/list" target="_blank">need a feature? have a bug or issue? svg not rendering? log it here!</a></h1>
 		<b><a href="http://canvg.googlecode.com/">canvg</a> examples:</b>  C = see here on canvg, S = .svg, L = source<br />
 		complex
