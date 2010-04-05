@@ -85,6 +85,7 @@ if(!window.console) {
 			}
 			else 
 			{
+				xml = xml.replace(/<!DOCTYPE svg[^>]*>/, '');
 				var xmlDoc = new ActiveXObject('Microsoft.XMLDOM');
 				xmlDoc.async = 'false';
 				xmlDoc.loadXML(xml); 
