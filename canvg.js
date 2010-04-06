@@ -526,7 +526,6 @@ if(!window.console) {
 				else {
 					if (this.style('fill').hasValue()) {
 						var fillStyle = this.style('fill');
-						if (this.style('opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(this.style('opacity').value);
 						if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(this.style('fill-opacity').value);
 						ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
 					}
@@ -535,11 +534,9 @@ if(!window.console) {
 				// stroke
 				if (this.style('stroke').hasValue()) {
 					var strokeStyle = this.style('stroke');
-					if (this.style('opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(this.style('opacity').value);
 					if (this.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(this.style('stroke-opacity').value);
 					ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
 				}
-				
 				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').Length.toPixels();
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-join').hasValue()) ctx.lineJoin = this.style('stroke-join').value;
@@ -548,7 +545,7 @@ if(!window.console) {
 				// font
 				if (this.style('font-size').hasValue()) {
 					var fontFamily = this.style('font-family').valueOrDefault('Arial');
-					var fontSize = this.style('font-size').valueOrDefault('12px');
+					var fontSize = this.style('font-size').numValueOrDefault('12') + 'px';
 					ctx.font = fontSize + ' ' + fontFamily;
 				}
 				
@@ -563,6 +560,11 @@ if(!window.console) {
 					var clip = this.attribute('clip-path').Definition.getDefinition();
 					if (clip != null) clip.apply(ctx);
 				}
+				
+				// opacity
+				if (this.style('opacity').hasValue()) {
+					ctx.globalAlpha = this.style('opacity').numValue();
+				}
 			}		
 		}
 		svg.Element.RenderedElementBase.prototype = new svg.Element.ElementBase;
@@ -572,11 +574,11 @@ if(!window.console) {
 			this.base(node);
 			
 			this.path = function(ctx) {
+				if (ctx != null) ctx.beginPath();
 				return new svg.BoundingBox();
 			}
 			
 			this.renderChildren = function(ctx) {
-				ctx.beginPath();
 				this.path(ctx);
 				if (ctx.fillStyle != '') ctx.fill();
 				if (ctx.strokeStyle != '') ctx.stroke();	
@@ -652,6 +654,7 @@ if(!window.console) {
 				if (this.attribute('ry').hasValue() && !this.attribute('rx').hasValue()) rx = ry;
 				
 				if (ctx != null) {
+					ctx.beginPath();
 					ctx.moveTo(x + rx, y);
 					ctx.lineTo(x + width - rx, y);
 					ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
@@ -680,6 +683,7 @@ if(!window.console) {
 				var r = this.attribute('r').Length.toPixels();
 			
 				if (ctx != null) {
+					ctx.beginPath();
 					ctx.arc(cx, cy, r, 0, Math.PI * 2, true); 
 					ctx.closePath();
 				}
@@ -702,6 +706,7 @@ if(!window.console) {
 				var cy = this.attribute('cy').Length.toPixels('y');
 				
 				if (ctx != null) {
+					ctx.beginPath();
 					ctx.moveTo(cx, cy - ry);
 					ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry,  cx + rx, cy - (KAPPA * ry), cx + rx, cy);
 					ctx.bezierCurveTo(cx + rx, cy + (KAPPA * ry), cx + (KAPPA * rx), cy + ry, cx, cy + ry);
@@ -727,6 +732,7 @@ if(!window.console) {
 				var y2 = this.attribute('y2').Length.toPixels('y');
 				
 				if (ctx != null) {
+					ctx.beginPath();
 					ctx.moveTo(x1, y1);
 					ctx.lineTo(x2, y2);
 				}
@@ -744,7 +750,10 @@ if(!window.console) {
 			this.points = svg.CreatePath(this.attribute('points').value);
 			this.path = function(ctx) {
 				var bb = new svg.BoundingBox(this.points[0].x, this.points[0].y);
-				if (ctx != null) ctx.moveTo(this.points[0].x, this.points[0].y);
+				if (ctx != null) {
+					ctx.beginPath();
+					ctx.moveTo(this.points[0].x, this.points[0].y);
+				}
 				for (var i=1; i<this.points.length; i++) {
 					bb.addPoint(this.points[i].x, this.points[i].y);
 					if (ctx != null) ctx.lineTo(this.points[i].x, this.points[i].y);
@@ -859,6 +868,7 @@ if(!window.console) {
 				pp.reset();
 				
 				var bb = new svg.BoundingBox();
+				if (ctx != null) ctx.beginPath();
 				while (!pp.isEnd()) {
 					pp.nextCommand();
 					if (pp.command.toUpperCase() == 'M') {
@@ -1332,7 +1342,7 @@ if(!window.console) {
 		
 		// element factory
 		svg.CreateElement = function(node) {
-			var className = 'svg.Element.' + node.nodeName;
+			var className = 'svg.Element.' + node.nodeName.replace(/^[^:]+:/,'');
 			if (!eval(className)) className = 'svg.Element.MISSING';
 		
 			var e = eval('new ' + className + '(node)');
