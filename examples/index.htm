@@ -20,49 +20,86 @@
 		function r() {
 			var c = document.getElementById('canvas');
 			c.width = '1000';
-			c.height = '800';
+			c.height = '600';
 			if (context) c.getContext = context;
 		}
 		</script>
+		
+		<style type="text/css">
+		body { font-family: verdana; }
+		#title { padding: 0 0 5px 5px; margin: 0; }
+		#message { background-color: orangered; padding: 5px; margin-bottom: 10px; }
+		#message a { color: white; }
+		td { vertical-align: top; }
+		td.examples { width: 150px; }
+		td.examples table { width: 150px; margin: 0 20px 10px 0; }
+		td.examples table thead th { text-align: left;  background: darkblue; color: white; padding: 2px; }
+		hr { border: 1px solid darkblue; margin: 15px 0; }
+		label { color: darkblue; }
+		a image { border: 0; }
+		</style>
 	</head>
 	<body onload="bodyonload();">
-		<h1><a href="http://code.google.com/p/canvg/issues/list" target="_blank">need a feature? have a bug or issue? svg not rendering? log it here!</a></h1>
-		<b><a href="http://canvg.googlecode.com/">canvg</a> examples:</b>  C = see here on canvg, S = .svg, L = source<br />
-		complex
-		<a href="javascript:r();canvg('canvas', '../svgs/1.svg')">C</a> <a href="../svgs/1.svg" target="_blank">S</a> <a href="http://en.wikipedia.org/wiki/File:Soccer_ball_animated.svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/22.svg')">C</a> <a href="../svgs/22.svg" target="_blank">S</a> <a href="http://en.wikipedia.org/wiki/Blank_map" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/23.svg')">C</a> <a href="../svgs/23.svg" target="_blank">S</a> <a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/25.svg')">C</a> <a href="../svgs/25.svg" target="_blank">S</a> <a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/26.svg')">C</a> <a href="../svgs/26.svg" target="_blank">S</a> <a href="http://cse.unl.edu/~nbenes/snippets/Test%20Case_347938.snip" target="_blank">L</a>
-		basic shapes
-		<a href="javascript:r();canvg('canvas', '../svgs/2.svg')">C</a> <a href="../svgs/2.svg" target="_blank">S</a> <a href="http://keith-wood.name/svg.html#examples" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/8.svg')">C</a> <a href="../svgs/8.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=ellipse2&type=svg" target="_blank">L</a>
-		paths
-		<a href="javascript:r();canvg('canvas', '../svgs/10.svg')">C</a> <a href="../svgs/10.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=line1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/11.svg')">C</a> <a href="../svgs/11.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=polygon1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/13.svg')">C</a> <a href="../svgs/13.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=polyline1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/15.svg')">C</a> <a href="../svgs/15.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=path2&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/27.svg')">C</a> <a href="../svgs/27.svg" target="_blank">S</a> <a href="http://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands" target="_blank">L</a>		
-		gradients
-		<a href="javascript:r();canvg('canvas', '../svgs/16.svg')">C</a> <a href="../svgs/16.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=linear1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/17.svg')">C</a> <a href="../svgs/17.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=linear3&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/18.svg')">C</a> <a href="../svgs/18.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=radial1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/19.svg')">C</a> <a href="../svgs/19.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=radial2&type=svg" target="_blank">L</a>
-		animations
-		<a href="javascript:r();canvg('canvas', '../svgs/20.svg')">C</a> <a href="../svgs/20.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_1&type=svg" target="_blank">L</a>
-		- <a href="javascript:r();canvg('canvas', '../svgs/21.svg')">C</a> <a href="../svgs/21.svg" target="_blank">S</a> <a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_2&type=svg" target="_blank">L</a>
-		units
-		<a href="javascript:r();canvg('canvas', '../svgs/24.svg')">C</a> <a href="../svgs/24.svg" target="_blank">S</a> <a href="http://www.w3.org/TR/SVG11/coords.html#Units" target="_blank">L</a>
-		viewport
-		<a href="javascript:r();canvg('canvas', '../svgs/28.svg')">C</a> <a href="../svgs/28.svg" target="_blank">S</a> <a href="http://www.w3.org/TR/SVG11/coords.html#PreserveAspectRatioAttribute" target="_blank">L</a>
-		<br /><br />
-		<b>your own:</b><br />
-		<textarea id="svg" rows="10" cols="50">&lt;svg&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea><br />
-		width: <input type="text" id="width" value="1000" size="7" />
-		height: <input type="text" id="height" value="600" size="7" />
+		<h1 id="title"><a href="http://canvg.googlecode.com/">canvg</a> examples</h1>
+		<div id="message"><a href="http://code.google.com/p/canvg/issues/list" target="_blank">need a feature? have a bug or issue? svg not rendering? log it here!</a></div>
+
+		<table><tr><td rowspan="2" class="examples">
+		
+		<table><thead><tr><th colspan="3">complex</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/1.svg')">soccer</a></td><td> <a href="../svgs/1.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://en.wikipedia.org/wiki/File:Soccer_ball_animated.svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/22.svg')">world</a></td><td> <a href="../svgs/22.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://en.wikipedia.org/wiki/Blank_map" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/23.svg')">tiger</a></td><td> <a href="../svgs/23.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/25.svg')">butterfly</a></td><td> <a href="../svgs/25.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/26.svg')">floorplan</a></td><td> <a href="../svgs/26.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://cse.unl.edu/~nbenes/snippets/Test%20Case_347938.snip" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">basic shapes</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/2.svg')">all</a></td><td> <a href="../svgs/2.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://keith-wood.name/svg.html#examples" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/8.svg')">layers</a></td><td> <a href="../svgs/8.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=ellipse2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">paths</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/10.svg')">line</a></td><td> <a href="../svgs/10.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=line1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/11.svg')">poly</a></td><td> <a href="../svgs/11.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=polygon1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/13.svg')">path</a></td><td> <a href="../svgs/13.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=polyline1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/15.svg')">curve</a></td><td> <a href="../svgs/15.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=path2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/27.svg')">arcs</a></td><td> <a href="../svgs/27.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands" target="_blank"><img src="images/link.png" /></a></td></tr>		
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">gradients</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/16.svg')">linear</a></td><td> <a href="../svgs/16.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=linear1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/18.svg')">radial</a></td><td> <a href="../svgs/18.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=radial1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/19.svg')">radial focus</a></td><td> <a href="../svgs/19.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=radial2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">animations</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/20.svg')">repeated</a></td><td> <a href="../svgs/20.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/21.svg')">multiple</a></td><td> <a href="../svgs/21.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">units</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/24.svg')">px / % / em</a></td><td> <a href="../svgs/24.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/coords.html#Units" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		<table><thead><tr><th colspan="3">viewport</th></tr></thead><tbody>
+			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/28.svg')">multiple</a></td><td> <a href="../svgs/28.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/coords.html#PreserveAspectRatioAttribute" target="_blank"><img src="images/link.png" /></a></td></tr>
+		</tbody></table>
+		
+		</td><td>
+		
+		<label><b>your own:</b></label><br />
+		<textarea id="svg" rows="5" cols="50">&lt;svg&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea><br />
+		<label>width:</label> <input type="text" id="width" value="1000" size="7" />
+		<label>height:</label> <input type="text" id="height" value="600" size="7" />
 		<input type="button" value="Render" onclick="render();" />
-		<div style="border: 1px solid gray; width: 1000px; height: 800px;">
-			<canvas id="canvas" width="1000px" height="800px"></canvas>
+		<hr>
+				
+		</td><tr><td>
+		
+		<div style="border: 1px solid gray; width: 1000px; height: 600px;">
+			<canvas id="canvas" width="1000px" height="600px"></canvas>
 		</div>
+		
+		</td></tr></table>
 	</body>
 </html>
