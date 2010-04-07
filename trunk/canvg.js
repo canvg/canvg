@@ -54,6 +54,20 @@ if(!window.console) {
 			svg.Styles = {};
 			svg.Animations = [];
 			svg.ctx = ctx;
+			svg.ViewPort = new (function () {
+				this.viewPorts = [];
+				this.SetCurrent = function(width, height) { this.viewPorts.push({ width: width, height: height }); }
+				this.RemoveCurrent = function() { this.viewPorts.pop(); }
+				this.Current = function() { return this.viewPorts[this.viewPorts.length - 1]; }
+				this.width = function() { return this.Current().width; }
+				this.height = function() { return this.Current().height; }
+				this.ComputeSize = function(d) {
+					if (d != null && typeof(d) == 'number') return d;
+					if (d == 'x') return this.width();
+					if (d == 'y') return this.height();
+					return Math.sqrt(Math.pow(this.width(), 2) + Math.pow(this.height(), 2)) / Math.sqrt(2);			
+				}
+			});
 		}
 		svg.init();
 
@@ -183,7 +197,7 @@ if(!window.console) {
 					if (s.match(/cm$/)) return that.numValue() * this.DPI(viewPort) / 2.54;
 					if (s.match(/mm$/)) return that.numValue() * this.DPI(viewPort) / 25.4;
 					if (s.match(/in$/)) return that.numValue() * this.DPI(viewPort);
-					if (s.match(/%$/)) return that.numValue() * svg.getViewPortSize(viewPort);
+					if (s.match(/%$/)) return that.numValue() * svg.ViewPort.ComputeSize(viewPort);
 					return that.numValue();
 				}
 			}
@@ -443,6 +457,7 @@ if(!window.console) {
 				ctx.save();
 				this.setContext(ctx);
 				this.renderChildren(ctx);
+				this.clearContext(ctx);
 				ctx.restore();
 			}
 			
@@ -450,6 +465,11 @@ if(!window.console) {
 			this.setContext = function(ctx) {
 				// OVERRIDE ME!
 			}
+			
+			// base clear context
+			this.clearContext = function(ctx) {
+				// OVERRIDE ME!
+			}			
 			
 			// base render children
 			this.renderChildren = function(ctx) {
@@ -595,38 +615,72 @@ if(!window.console) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
+			this.baseClearContext = this.clearContext;
+			this.clearContext = function(ctx) {
+				this.baseClearContext(ctx);
+				svg.ViewPort.RemoveCurrent();
+			}
+			
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
 				
-				// default viewport
-				svg.getViewPortSize = function(d) { return d; }
-				
-				// calculate view
-				if (this.attribute('width').hasValue()) {
-					ctx.canvas.width = this.attribute('width').Length.toPixels(ctx.canvas.parentNode.clientWidth);
-				}
-				if (this.attribute('height').hasValue()) {
-					ctx.canvas.height = this.attribute('height').Length.toPixels(ctx.canvas.parentNode.clientHeight);
+				// create new view port
+				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
+					ctx.translate(this.attribute('x').Length.toPixels('x'), this.attribute('y').Length.toPixels('y'));
 				}
 				
-				var width = ctx.canvas.clientWidth;
-				var height = ctx.canvas.clientHeight
-				if (this.attribute('viewBox').hasValue()) {
+				var width = svg.ViewPort.width();
+				var height = svg.ViewPort.height();
+				if (this.attribute('width').hasValue() && this.attribute('height').hasValue()) {
+					width = this.attribute('width').Length.toPixels('x');
+					height = this.attribute('height').Length.toPixels('y');
+					ctx.beginPath();
+					ctx.moveTo(0, 0);
+					ctx.lineTo(width, 0);
+					ctx.lineTo(width, height);
+					ctx.lineTo(0, height);
+					ctx.closePath();
+					ctx.clip();
+				}
+				svg.ViewPort.SetCurrent(width, height);	
+						
+				// viewbox
+				if (this.attribute('viewBox').hasValue()) {				
 					var viewBox = svg.ToNumberArray(this.attribute('viewBox').value);
+					var minX = viewBox[0];
+					var minY = viewBox[1];
 					width = viewBox[2];
 					height = viewBox[3];
-					ctx.scale(ctx.canvas.clientWidth / width, ctx.canvas.clientHeight / height);
-					ctx.translate(-viewBox[0], -viewBox[1]); // translate by minX, minY
-				}
-				
-				// custom viewport
-				svg.getViewPortSize = function(d) {
-					if (d != null && typeof(d) == 'number') return d;
-					if (d == 'x') return width;
-					if (d == 'y') return height;
-					return Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) / Math.sqrt(2);
-				}
+					
+					// aspect ratio - http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
+					var preserveAspectRatio = svg.compressSpaces(this.attribute('preserveAspectRatio').value);
+					preserveAspectRatio = preserveAspectRatio.replace(/^defer\s/,''); // ignore defer
+					var align = preserveAspectRatio.split(' ')[0] || 'xMidYMid';
+					var meetOrSlice = preserveAspectRatio.split(' ')[1] || 'meet';					
+					
+					// calculate scale
+					var scaleX = svg.ViewPort.width() / width;
+					var scaleY = svg.ViewPort.height() / height;
+					var scaleMin = Math.min(scaleX, scaleY);
+					var scaleMax = Math.max(scaleX, scaleY);
+					if (meetOrSlice == 'meet') { width *= scaleMin; height *= scaleMin; }
+					if (meetOrSlice == 'slice') { width *= scaleMax; height *= scaleMax; }	
+
+					// align
+					if (align.match(/^xMid/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(svg.ViewPort.width() / 2.0 - width / 2.0, 0); 
+					if (align.match(/YMid$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, svg.ViewPort.height() / 2.0 - height / 2.0); 
+					if (align.match(/^xMax/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(svg.ViewPort.width() - width, 0); 
+					if (align.match(/YMax$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, svg.ViewPort.height() - height); 
+
+					// scale
+					if (meetOrSlice == 'meet') ctx.scale(scaleMin, scaleMin); 
+					if (meetOrSlice == 'slice') ctx.scale(scaleMax, scaleMax); 	
+					ctx.translate(-minX, -minY);		
+
+					svg.ViewPort.RemoveCurrent();	
+					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
+				}				
 				
 				// initial values
 				ctx.fillStyle = '#000000';
@@ -1361,6 +1415,15 @@ if(!window.console) {
 		
 			var dom = svg.parseXml(xml);
 			var e = svg.CreateElement(dom.documentElement);
+			
+			// set canvas size
+			if (e.attribute('width').hasValue()) {
+				ctx.canvas.width = e.attribute('width').Length.toPixels(ctx.canvas.parentNode.clientWidth);
+			}
+			if (e.attribute('height').hasValue()) {
+				ctx.canvas.height = e.attribute('height').Length.toPixels(ctx.canvas.parentNode.clientHeight);
+			}
+			svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 			
 			// render loop
 			svg.intervalID = setInterval(function() { 
