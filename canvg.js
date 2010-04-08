@@ -155,17 +155,10 @@ if(!window.console) {
 			
 			// definition extensions
 			this.Definition = {
-				hasDefinition: function() {
-					return (that.value.indexOf('url(') == 0);
-				},
-
 				// get the definition from the definitions table
 				getDefinition: function() {
-					if (that.Definition.hasDefinition()) {
-						var name = that.value.replace('url(#','').replace(')','');
-						return svg.Definitions[name];
-					}
-					return null;
+					var name = that.value.replace(/^(url\()?#([^\)]+)\)?$/, '$2');
+					return svg.Definitions[name];
 				}	
 			}
 			
@@ -493,7 +486,7 @@ if(!window.console) {
 					var attribute = node.attributes[i];
 					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.nodeValue);
 				}
-							
+										
 				// add tag styles
 				var styles = svg.Styles[this.type];
 				if (styles != null) {
@@ -527,6 +520,9 @@ if(!window.console) {
 						}
 					}
 				}
+				
+				// set id
+				if (this.attribute('id').hasValue()) svg.Definitions[this.attribute('id').value] = this;				
 			}
 		}
 		
@@ -536,7 +532,7 @@ if(!window.console) {
 			
 			this.setContext = function(ctx) {
 				// fill
-				if (this.style('fill').Definition.hasDefinition()) {
+				if (this.style('fill').value.indexOf('url(') == 0) {
 					var grad = this.style('fill').Definition.getDefinition();
 					if (grad != null && grad.createGradient) {
 						ctx.fillStyle = grad.createGradient(ctx, this);
@@ -1063,12 +1059,7 @@ if(!window.console) {
 		// definitions element
 		svg.Element.defs = function(node) {
 			this.base = svg.Element.ElementBase;
-			this.base(node);
-			
-			for (var i=0; i<this.children.length; i++) {
-				var child = this.children[i];
-				svg.Definitions[child.attribute('id').value] = child;
-			}			
+			this.base(node);			
 		}
 		svg.Element.defs.prototype = new svg.Element.ElementBase;
 		
@@ -1355,8 +1346,15 @@ if(!window.console) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
+			this.baseSetContext = this.setContext;
+			this.setContext = function(ctx) {
+				this.baseSetContext(ctx);
+				if (this.attribute('x').hasValue()) ctx.translate(this.attribute('x').Length.toPixels('x'), 0);
+				if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').Length.toPixels('y'));
+			}
+			
 			this.renderChildren = function(ctx) {
-				var element = svg.Definitions[this.attribute('xlink:href').value.replace('#','')];
+				var element = this.attribute('xlink:href').Definition.getDefinition();
 				if (element != null) element.render(ctx);
 			}
 		}
