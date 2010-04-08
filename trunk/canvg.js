@@ -49,7 +49,6 @@ if(!window.console) {
 		
 		// globals
 		svg.init = function(ctx) {
-			svg.neverRendered = true;
 			svg.Definitions = {};
 			svg.Styles = {};
 			svg.Animations = [];
@@ -1426,6 +1425,8 @@ if(!window.console) {
 			svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 			
 			// render loop
+			ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+			e.render(ctx);
 			svg.intervalID = setInterval(function() { 
 				// update animations
 				var needUpdate = false;
@@ -1434,8 +1435,7 @@ if(!window.console) {
 				}
 			
 				// render if needed
-				if (svg.neverRendered || needUpdate) {
-					svg.neverRendered = false;
+				if (needUpdate) {
 					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 					e.render(ctx);
 				}
