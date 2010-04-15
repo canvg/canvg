@@ -171,7 +171,7 @@ if(!window.console) {
 				EM: function(viewPort) {
 					var em = 12;
 					
-					var fontSize = new svg.Property('fontSize', svg.ctx.font.match(/[0-9][^\s\t\n\r\/]*/g)[0]);
+					var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
 					if (fontSize.hasValue()) em = fontSize.Length.toPixels(viewPort);
 					
 					return em;
@@ -219,6 +219,41 @@ if(!window.console) {
 				}
 			}
 		}
+		
+		// fonts
+		svg.Font = new (function() {
+			this.Styles = ['normal','italic','oblique','inherit'];
+			this.Variants = ['normal','small-caps','inherit'];
+			this.Weights = ['normal','bold','bolder','lighter','100','200','300','400','500','600','700','800','900','inherit'];
+			
+			this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) { 
+				var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
+				return { 
+					fontFamily: fontFamily || f.fontFamily, 
+					fontSize: fontSize || f.fontSize, 
+					fontStyle: fontStyle || f.fontStyle, 
+					fontWeight: fontWeight || f.fontWeight, 
+					fontVariant: fontVariant || f.fontVariant,
+					toString: function () { return [this.fontStyle, this.fontVariant, this.fontWeight, this.fontSize, this.fontFamily].join(' ') } 
+				} 
+			}
+			
+			var that = this;
+			this.Parse = function(s) {
+				var f = {};
+				var d = svg.trim(svg.compressSpaces(s || '')).split(' ');
+				var set = { fontSize: false, fontStyle: false, fontWeight: false, fontVariant: false }
+				var ff = '';
+				for (var i=0; i<d.length; i++) {
+					if (!set.fontStyle && that.Styles.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontStyle = d[i]; set.fontStyle = true; }
+					else if (!set.fontVariant && that.Variants.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontVariant = d[i]; set.fontStyle = set.fontVariant = true;	}
+					else if (!set.fontWeight && that.Weights.indexOf(d[i]) != -1) {	if (d[i] != 'inherit') f.fontWeight = d[i]; set.fontStyle = set.fontVariant = set.fontWeight = true; }
+					else if (!set.fontSize) { if (d[i] != 'inherit') f.fontSize = d[i].split('/')[0]; set.fontStyle = set.fontVariant = set.fontWeight = set.fontSize = true; }
+					else { if (d[i] != 'inherit') ff += d[i]; }
+				} if (ff != '') f.fontFamily = ff;
+				return f;
+			}
+		});
 		
 		// points and paths
 		svg.ToNumberArray = function(s) {
@@ -558,11 +593,12 @@ if(!window.console) {
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
 
 				// font
-				if (this.style('font-size').hasValue()) {
-					var fontFamily = this.style('font-family').valueOrDefault('Arial');
-					var fontSize = this.style('font-size').numValueOrDefault('12') + 'px';
-					ctx.font = fontSize + ' ' + fontFamily;
-				}
+				ctx.font = svg.Font.CreateFont( 
+					this.style('font-style').value, 
+					this.style('font-variant').value, 
+					this.style('font-weight').value, 
+					this.style('font-size').hasValue() ? this.style('font-size').Length.toPixels() + 'px' : '', 
+					this.style('font-family').value).toString();
 				
 				// transform
 				if (this.attribute('transform').hasValue()) { 
@@ -1275,7 +1311,7 @@ if(!window.console) {
 		
 		// text element
 		svg.Element.text = function(node) {
-			this.base = svg.Element.ElementBase;
+			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
 			// accumulate all the child text nodes, then trim them
@@ -1287,13 +1323,13 @@ if(!window.console) {
 			}
 			this.text = svg.trim(this.text);
 			
-			this.render = function(ctx) {
+			this.renderChildren = function(ctx) {
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
 				if (ctx.fillText) ctx.fillText(this.text, x, y);
 			}
 		}
-		svg.Element.text.prototype = new svg.Element.ElementBase;
+		svg.Element.text.prototype = new svg.Element.RenderedElementBase;
 		
 		// group element
 		svg.Element.g = function(node) {
