@@ -1323,6 +1323,16 @@ if(!window.console) {
 			}
 			this.text = svg.trim(this.text);
 			
+			this.baseSetContext = this.setContext;
+			this.setContext = function(ctx) {
+				this.baseSetContext(ctx);
+				if (this.attribute('text-anchor').hasValue()) {
+					var textAnchor = this.attribute('text-anchor').value;
+					ctx.textAlign = textAnchor == 'middle' ? 'center' : textAnchor;
+				}
+				if (this.attribute('alignment-baseline').hasValue()) ctx.textBaseline = this.attribute('alignment-baseline').value;
+			}
+			
 			this.renderChildren = function(ctx) {
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
