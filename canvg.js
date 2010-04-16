@@ -159,7 +159,19 @@ if(!window.console) {
 				getDefinition: function() {
 					var name = that.value.replace(/^(url\()?#([^\)]+)\)?$/, '$2');
 					return svg.Definitions[name];
-				}	
+				},
+				
+				isUrl: function() {
+					return that.value.indexOf('url(') == 0
+				},
+				
+				getGradient: function(e) {
+					var grad = this.getDefinition();
+					if (grad != null && grad.createGradient) {
+						return grad.createGradient(svg.ctx, e);
+					}
+					return null;
+				}
 			}
 			
 			// length extensions
@@ -567,22 +579,22 @@ if(!window.console) {
 			
 			this.setContext = function(ctx) {
 				// fill
-				if (this.style('fill').value.indexOf('url(') == 0) {
-					var grad = this.style('fill').Definition.getDefinition();
-					if (grad != null && grad.createGradient) {
-						ctx.fillStyle = grad.createGradient(ctx, this);
-					}
+				if (this.style('fill').Definition.isUrl()) {
+					var grad = this.style('fill').Definition.getGradient(this);
+					if (grad != null) ctx.fillStyle = grad;
 				}
-				else {
-					if (this.style('fill').hasValue()) {
-						var fillStyle = this.style('fill');
-						if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(this.style('fill-opacity').value);
-						ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
-					}
+				else if (this.style('fill').hasValue()) {
+					var fillStyle = this.style('fill');
+					if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(this.style('fill-opacity').value);
+					ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
 				}
 									
 				// stroke
-				if (this.style('stroke').hasValue()) {
+				if (this.style('stroke').Definition.isUrl()) {
+					var grad = this.style('stroke').Definition.getGradient(this);
+					if (grad != null) ctx.strokeStyle = grad;
+				}
+				else if (this.style('stroke').hasValue()) {
 					var strokeStyle = this.style('stroke');
 					if (this.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(this.style('stroke-opacity').value);
 					ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
@@ -714,8 +726,6 @@ if(!window.console) {
 				}				
 				
 				// initial values
-				ctx.fillStyle = '#000000';
-				ctx.strokeStyle = 'rgba(0,0,0,0)';
 				ctx.lineCap = 'butt';
 				ctx.lineJoin = 'miter';
 				ctx.miterLimit = 4;
