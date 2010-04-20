@@ -605,12 +605,14 @@ if(!window.console) {
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
 
 				// font
-				ctx.font = svg.Font.CreateFont( 
-					this.style('font-style').value, 
-					this.style('font-variant').value, 
-					this.style('font-weight').value, 
-					this.style('font-size').hasValue() ? this.style('font-size').Length.toPixels() + 'px' : '', 
-					this.style('font-family').value).toString();
+				if (typeof(ctx.font) != 'undefined') {
+					ctx.font = svg.Font.CreateFont( 
+						this.style('font-style').value, 
+						this.style('font-variant').value, 
+						this.style('font-weight').value, 
+						this.style('font-size').hasValue() ? this.style('font-size').Length.toPixels() + 'px' : '', 
+						this.style('font-family').value).toString();
+				}
 				
 				// transform
 				if (this.attribute('transform').hasValue()) { 
