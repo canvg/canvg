@@ -889,6 +889,7 @@ if(!window.console) {
 			d = d.replace(/([^\s])([A-Za-z])/gm,'$1 $2'); // separate commands from points
 			d = d.replace(/([0-9])([+\-])/gm,'$1 $2'); // separate digits when no comma
 			d = d.replace(/(\.[0-9]*)(\.)/gm,'$1 $2'); // separate digits when no comma
+			d = d.replace(/([Aa](\s+[0-9]+){3})\s+([01])\s*([01])/gm,'$1 $3 $4 '); // shorthand elliptical arc path syntax
 			d = svg.compressSpaces(d); // compress multiple spaces
 			d = svg.trim(d);
 			this.PathParser = new (function(d) {
