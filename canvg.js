@@ -492,10 +492,10 @@ if(!window.console) {
 			}
 			
 			// base render
-			this.render = function(ctx) {
+			this.render = function(ctx, drawContext) {
 				ctx.save();
 				this.setContext(ctx);
-				this.renderChildren(ctx);
+				this.renderChildren(ctx, drawContext);
 				this.clearContext(ctx);
 				ctx.restore();
 			}
@@ -511,21 +511,24 @@ if(!window.console) {
 			}			
 			
 			// base render children
-			this.renderChildren = function(ctx) {
+			this.renderChildren = function(ctx, drawContext) {
 				for (var i=0; i<this.children.length; i++) {
-					this.children[i].render(ctx);
+					this.children[i].render(ctx, drawContext);
 				}
 			}
+			
+			this.addChild = function(childNode, create) {
+				var child = childNode;
+				if (create) child = svg.CreateElement(childNode);
+				child.parent = this;
+				this.children.push(child);			
+			}
 				
-			if (node != null) {
+			if (node != null && node.nodeType == 1) { //ELEMENT_NODE
 				// add children
 				for (var i=0; i<node.childNodes.length; i++) {
 					var childNode = node.childNodes[i];
-					if (childNode.nodeType == 1) { //ELEMENT_NODE
-						var child = svg.CreateElement(childNode);
-						child.parent = this;
-						this.children.push(child);
-					}
+					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
 				}
 				
 				// add attributes
@@ -1427,14 +1430,19 @@ if(!window.console) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
-			// accumulate all the child text nodes, then trim them
-			this.text = '';
-			for (var i=0; i<node.childNodes.length; i++) {
-				if (node.childNodes[i].nodeType == 3) { // TEXT
-					this.text = this.text + node.childNodes[i].nodeValue;
+			if (node != null) {
+				// add children
+				this.children = [];
+				for (var i=0; i<node.childNodes.length; i++) {
+					var childNode = node.childNodes[i];
+					if (childNode.nodeType == 1) { // capture tspan and tref nodes
+						this.addChild(childNode, true);
+					}
+					else if (childNode.nodeType == 3) { // capture text
+						this.addChild(new svg.Element.tspan(childNode), false);
+					}
 				}
 			}
-			this.text = svg.trim(this.text);
 			
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
@@ -1449,10 +1457,55 @@ if(!window.console) {
 			this.renderChildren = function(ctx) {
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
-				if (ctx.fillText) ctx.fillText(this.text, x, y);
+				var drawContext = { x: x, y: y };
+				for (var i=0; i<this.children.length; i++) {
+					this.children[i].render(ctx, drawContext);
+				}
 			}
 		}
 		svg.Element.text.prototype = new svg.Element.RenderedElementBase;
+		
+		// text base
+		svg.Element.TextElementBase = function(node) {
+			this.base = svg.Element.RenderedElementBase;
+			this.base(node);
+			
+			this.renderChildren = function(ctx, drawContext) {
+				var text = svg.compressSpaces(this.getText());
+				ctx.fillText(text, drawContext.x, drawContext.y);
+				drawContext.x += ctx.measureText(text).width;
+			}
+			
+			this.getText = function() {
+				// OVERRIDE ME
+			}
+		}
+		svg.Element.TextElementBase.prototype = new svg.Element.RenderedElementBase;
+		
+		// tspan 
+		svg.Element.tspan = function(node) {
+			this.base = svg.Element.TextElementBase;
+			this.base(node);
+			
+			//								 TEXT			  ELEMENT
+			this.text = node.nodeType == 3 ? node.nodeValue : node.childNodes[0].nodeValue;
+			this.getText = function() {
+				return this.text;
+			}
+		}
+		svg.Element.tspan.prototype = new svg.Element.TextElementBase;
+		
+		// tref
+		svg.Element.tref = function(node) {
+			this.base = svg.Element.TextElementBase;
+			this.base(node);
+			
+			this.getText = function() {
+				var element = this.attribute('xlink:href').Definition.getDefinition();
+				if (element != null) return element.children[0].getText();
+			}
+		}
+		svg.Element.tref.prototype = new svg.Element.TextElementBase;		
 		
 		// group element
 		svg.Element.g = function(node) {
