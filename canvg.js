@@ -492,10 +492,10 @@ if(!window.console) {
 			}
 			
 			// base render
-			this.render = function(ctx, drawContext) {
+			this.render = function(ctx) {
 				ctx.save();
 				this.setContext(ctx);
-				this.renderChildren(ctx, drawContext);
+				this.renderChildren(ctx);
 				this.clearContext(ctx);
 				ctx.restore();
 			}
@@ -511,9 +511,9 @@ if(!window.console) {
 			}			
 			
 			// base render children
-			this.renderChildren = function(ctx, drawContext) {
+			this.renderChildren = function(ctx) {
 				for (var i=0; i<this.children.length; i++) {
-					this.children[i].render(ctx, drawContext);
+					this.children[i].render(ctx);
 				}
 			}
 			
@@ -1457,9 +1457,11 @@ if(!window.console) {
 			this.renderChildren = function(ctx) {
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
-				var drawContext = { x: x, y: y };
 				for (var i=0; i<this.children.length; i++) {
-					this.children[i].render(ctx, drawContext);
+					this.children[i].x = x;
+					this.children[i].y = y;
+					this.children[i].render(ctx);
+					x += this.children[i].measureText(ctx);
 				}
 			}
 		}
@@ -1470,14 +1472,16 @@ if(!window.console) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
-			this.renderChildren = function(ctx, drawContext) {
-				var text = svg.compressSpaces(this.getText());
-				ctx.fillText(text, drawContext.x, drawContext.y);
-				drawContext.x += ctx.measureText(text).width;
+			this.renderChildren = function(ctx) {
+				ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
 			}
 			
 			this.getText = function() {
 				// OVERRIDE ME
+			}
+			
+			this.measureText = function(ctx) {
+				return ctx.measureText(svg.compressSpaces(this.getText())).width;
 			}
 		}
 		svg.Element.TextElementBase.prototype = new svg.Element.RenderedElementBase;
