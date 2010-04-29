@@ -165,11 +165,19 @@ if(!window.console) {
 					return that.value.indexOf('url(') == 0
 				},
 				
-				getGradient: function(e) {
-					var grad = this.getDefinition();
-					if (grad != null && grad.createGradient) {
-						return grad.createGradient(svg.ctx, e);
+				getFillStyle: function(e) {
+					var def = this.getDefinition();
+					
+					// gradient
+					if (def != null && def.createGradient) {
+						return def.createGradient(svg.ctx, e);
 					}
+					
+					// pattern
+					if (def != null && def.createPattern) {
+						return def.createPattern(svg.ctx, e);
+					}
+					
 					return null;
 				}
 			}
@@ -587,8 +595,8 @@ if(!window.console) {
 			this.setContext = function(ctx) {
 				// fill
 				if (this.style('fill').Definition.isUrl()) {
-					var grad = this.style('fill').Definition.getGradient(this);
-					if (grad != null) ctx.fillStyle = grad;
+					var fs = this.style('fill').Definition.getFillStyle(this);
+					if (fs != null) ctx.fillStyle = fs;
 				}
 				else if (this.style('fill').hasValue()) {
 					var fillStyle = this.style('fill');
@@ -598,8 +606,8 @@ if(!window.console) {
 									
 				// stroke
 				if (this.style('stroke').Definition.isUrl()) {
-					var grad = this.style('stroke').Definition.getGradient(this);
-					if (grad != null) ctx.strokeStyle = grad;
+					var fs = this.style('stroke').Definition.getFillStyle(this);
+					if (fs != null) ctx.strokeStyle = fs;
 				}
 				else if (this.style('stroke').hasValue()) {
 					var strokeStyle = this.style('stroke');
@@ -1237,6 +1245,31 @@ if(!window.console) {
 		}
 		svg.Element.path.prototype = new svg.Element.PathElementBase;
 		
+		// pattern element
+		svg.Element.pattern = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+			
+			this.createPattern = function(ctx, element) {
+				// render me using a temporary svg element
+				var tempSvg = new svg.Element.svg();
+				tempSvg.attributes['viewBox'] = new svg.Property('viewBox', this.attribute('viewBox').value);
+				tempSvg.attributes['x'] = new svg.Property('x', this.attribute('x').value);
+				tempSvg.attributes['y'] = new svg.Property('y', this.attribute('y').value);
+				tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
+				tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
+				tempSvg.children = this.children;
+				
+				var c = document.createElement('canvas');
+				c.width = this.attribute('width').Length.toPixels();
+				c.height = this.attribute('height').Length.toPixels();
+				tempSvg.render(c.getContext('2d'));		
+				return ctx.createPattern(c, 'repeat');
+			}
+		}
+		svg.Element.pattern.prototype = new svg.Element.ElementBase;
+		
+		// marker element
 		svg.Element.marker = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
