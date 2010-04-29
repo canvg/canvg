@@ -278,6 +278,10 @@ if(!window.console) {
 		svg.Point = function(x, y) {
 			this.x = x;
 			this.y = y;
+			
+			this.angleTo = function(p) {
+				return Math.atan((p.y - this.y) / (p.x - this.x));
+			}
 		}
 		svg.CreatePoint = function(s) {
 			var a = svg.ToNumberArray(s);
@@ -650,26 +654,36 @@ if(!window.console) {
 				this.path(ctx);
 				if (ctx.fillStyle != '') ctx.fill();
 				if (ctx.strokeStyle != '') ctx.stroke();
-
-				if (this.attribute('marker-end').Definition.isUrl()) {
-					var marker = this.attribute('marker-end').Definition.getDefinition();
-					var endPoint = this.getEndPoint();
-					var endAngle = this.getEndAngle();
-					if (endPoint != null && endAngle != null) {
-						marker.render(ctx, endPoint, endAngle);
+				
+				var points = this.getPoints();
+				var angles = this.getAngles();
+				if (points != null && angles != null) {
+					if (this.attribute('marker-start').Definition.isUrl()) {
+						var marker = this.attribute('marker-start').Definition.getDefinition();
+						marker.render(ctx, points[0], angles[0]);
 					}
-				}						
+					if (this.attribute('marker-mid').Definition.isUrl()) {
+						var marker = this.attribute('marker-mid').Definition.getDefinition();
+						for (var i=1;i<points.length-1;i++) {
+							marker.render(ctx, points[i], angles[i]);
+						}
+					}
+					if (this.attribute('marker-end').Definition.isUrl()) {
+						var marker = this.attribute('marker-end').Definition.getDefinition();
+						marker.render(ctx, points[points.length-1], angles[angles.length-1]);
+					}
+				}					
 			}
 			
 			this.getBoundingBox = function() {
 				return this.path();
 			}
 			
-			this.getEndPoint = function() {
+			this.getPoints = function() {
 				return null;
 			}
 			
-			this.getEndAngle = function() {
+			this.getAngles = function() {
 				return null;
 			}
 		}
@@ -855,7 +869,7 @@ if(!window.console) {
 		svg.Element.line = function(node) {
 			this.base = svg.Element.PathElementBase;
 			this.base(node);
-						
+								
 			this.path = function(ctx) {
 				var x1 = this.attribute('x1').Length.toPixels('x');
 				var y1 = this.attribute('y1').Length.toPixels('y');
@@ -871,18 +885,21 @@ if(!window.console) {
 				return new svg.BoundingBox(x1, y1, x2, y2);
 			}
 			
-			this.getEndPoint = function() {
+			this.getPoints = function() {
+				var x1 = this.attribute('x1').Length.toPixels('x');
+				var y1 = this.attribute('y1').Length.toPixels('y');
 				var x2 = this.attribute('x2').Length.toPixels('x');
-				var y2 = this.attribute('y2').Length.toPixels('y');			
-				return new svg.Point(x2, y2);
+				var y2 = this.attribute('y2').Length.toPixels('y');		
+				return [new svg.Point(x1, y1), new svg.Point(x2, y2)];
 			}
 			
-			this.getEndAngle = function() {
+			this.getAngles = function() {
 				var x1 = this.attribute('x1').Length.toPixels('x');
 				var y1 = this.attribute('y1').Length.toPixels('y');
 				var x2 = this.attribute('x2').Length.toPixels('x');
 				var y2 = this.attribute('y2').Length.toPixels('y');
-				return Math.atan((y2-y1)/(x2-x1));
+				var a = (new svg.Point(x1, y1)).angleTo(new svg.Point(x2, y2));
+				return [a, a];
 			}
 		}
 		svg.Element.line.prototype = new svg.Element.PathElementBase;		
@@ -949,19 +966,11 @@ if(!window.console) {
 					this.i = -1;
 					this.command = '';
 					this.control = new svg.Point(0, 0);
-					this.last = new svg.Point(0, 0);
 					this.current = new svg.Point(0, 0);
+					this.points = [];
+					this.angles = [];
 				}
-				
-				this.angle = function() {
-					return Math.atan((this.current.y - this.last.y) / (this.current.x - this.last.x));
-				}
-				
-				this.setCurrent = function(p) {
-					this.last = this.current;
-					this.current = p;
-				}
-				
+								
 				this.isEnd = function() {
 					return this.i == this.tokens.length - 1;
 				}
@@ -1001,7 +1010,7 @@ if(!window.console) {
 				
 				this.getAsCurrentPoint = function() {
 					var p = this.getPoint();
-					this.setCurrent(p);
+					this.current = p;
 					return p;	
 				}
 				
@@ -1017,6 +1026,30 @@ if(!window.console) {
 					}
 					return p;
 				}
+				
+				this.addMarker = function(p, from) {
+					this.addMarkerAngle(p, from == null ? null : from.angleTo(p));
+				}
+				
+				this.addMarkerAngle = function(p, a) {
+					this.points.push(p);
+					this.angles.push(a);
+				}				
+				
+				this.getMarkerPoints = function() { return this.points; }
+				this.getMarkerAngles = function() {
+					for (var i=0; i<this.angles.length; i++) {
+						if (this.angles[i] == null) {
+							for (var j=i+1; j<this.angles.length; j++) {
+								if (this.angles[j] != null) {
+									this.angles[i] = this.angles[j];
+									break;
+								}
+							}
+						}
+					}
+					return this.angles;
+				}
 			})(d);
 			
 			this.path = function(ctx) {		
@@ -1029,33 +1062,39 @@ if(!window.console) {
 					pp.nextCommand();
 					if (pp.command.toUpperCase() == 'M') {
 						var p = pp.getAsCurrentPoint();
+						pp.addMarker(p);
 						bb.addPoint(p.x, p.y);
 						if (ctx != null) ctx.moveTo(p.x, p.y);
 						while (!pp.isCommandOrEnd()) {
 							var p = pp.getAsCurrentPoint();
+							pp.addMarker(p);
 							bb.addPoint(p.x, p.y);
 							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'L') {
 						while (!pp.isCommandOrEnd()) {
+							var c = pp.current;
 							var p = pp.getAsCurrentPoint();
+							pp.addMarker(p, c);
 							bb.addPoint(p.x, p.y);
 							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'H') {
 						while (!pp.isCommandOrEnd()) {
-							pp.current.x = (pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar();
-							pp.setCurrent(pp.current);
+							var newP = new svg.Point((pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar(), pp.current.y);
+							pp.addMarker(newP, pp.current);
+							pp.current = newP;
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
 					}
 					else if (pp.command.toUpperCase() == 'V') {
 						while (!pp.isCommandOrEnd()) {
-							pp.current.y = (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar();
-							pp.setCurrent(pp.current);
+							var newP = new svg.Point(pp.current.x, (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar());
+							pp.addMarker(newP, pp.current);
+							pp.current = newP;
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
@@ -1066,6 +1105,7 @@ if(!window.console) {
 							var p1 = pp.getPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
+							pp.addMarker(cp, cntrl);
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}
@@ -1076,6 +1116,7 @@ if(!window.console) {
 							var p1 = pp.getReflectedControlPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
+							pp.addMarker(cp, cntrl);
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}				
@@ -1085,6 +1126,7 @@ if(!window.console) {
 							var curr = pp.current;
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
+							pp.addMarker(cp, cntrl);
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}
@@ -1095,6 +1137,7 @@ if(!window.console) {
 							var cntrl = pp.getReflectedControlPoint();
 							pp.control = cntrl;
 							var cp = pp.getAsCurrentPoint();
+							pp.addMarker(cp, cntrl);
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}					
@@ -1116,6 +1159,12 @@ if(!window.console) {
 								Math.cos(xAxisRotation) * (curr.x - cp.x) / 2.0 + Math.sin(xAxisRotation) * (curr.y - cp.y) / 2.0,
 								-Math.sin(xAxisRotation) * (curr.x - cp.x) / 2.0 + Math.cos(xAxisRotation) * (curr.y - cp.y) / 2.0
 							);
+							// adjust radii
+							var l = Math.pow(currp.x,2)/Math.pow(rx,2)+Math.pow(currp.y,2)/Math.pow(ry,2);
+							if (l > 1) {
+								rx *= Math.sqrt(l);
+								ry *= Math.sqrt(l);
+							}
 							// cx', cy'
 							var s = (largeArcFlag == sweepFlag ? -1 : 1) * Math.sqrt(
 								((Math.pow(rx,2)*Math.pow(ry,2))-(Math.pow(rx,2)*Math.pow(currp.y,2))-(Math.pow(ry,2)*Math.pow(currp.x,2))) /
@@ -1130,15 +1179,30 @@ if(!window.console) {
 							);
 							// vector magnitude
 							var m = function(v) { return Math.sqrt(Math.pow(v[0],2) + Math.pow(v[1],2)); }
+							// ratio between two vectors
+							var r = function(u, v) { return (u[0]*v[0]+u[1]*v[1]) / (m(u)*m(v)) }
 							// angle between two vectors
-							var a = function(u, v) { return (u[0]*v[1] < u[1]*v[0] ? -1 : 1) * Math.acos((u[0]*v[0]+u[1]*v[1]) / (m(u)*m(v))); }
+							var a = function(u, v) { return (u[0]*v[1] < u[1]*v[0] ? -1 : 1) * Math.acos(r(u,v)); }
 							// initial angle
 							var a1 = a([1,0], [(currp.x-cpp.x)/rx,(currp.y-cpp.y)/ry]);
 							// angle delta
-							var ad = a([(currp.x-cpp.x)/rx,(currp.y-cpp.y)/ry], [(-currp.x-cpp.x)/rx,(-currp.y-cpp.y)/ry]);
+							var u = [(currp.x-cpp.x)/rx,(currp.y-cpp.y)/ry];
+							var v = [(-currp.x-cpp.x)/rx,(-currp.y-cpp.y)/ry];
+							var ad = a(u, v);
+							if (r(u,v) <= -1) ad = Math.PI;
+							if (r(u,v) >= 1) ad = 0;
+							
 							if (sweepFlag == 0 && ad > 0) ad = ad - 2 * Math.PI;
 							if (sweepFlag == 1 && ad < 0) ad = ad + 2 * Math.PI;
 							
+							// for markers
+							var halfWay = new svg.Point(
+								centp.x - rx * Math.cos((a1 + ad) / 2),
+								centp.y - ry * Math.sin((a1 + ad) / 2)
+							);
+							pp.addMarkerAngle(halfWay, (a1 + ad) / 2 + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
+							pp.addMarkerAngle(cp, ad + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
+														
 							bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
 							if (ctx != null) {
 								var r = rx > ry ? rx : ry;
@@ -1163,12 +1227,12 @@ if(!window.console) {
 				return bb;
 			}
 			
-			this.getEndPoint = function() {
-				return this.PathParser.current;
+			this.getPoints = function() {
+				return this.PathParser.getMarkerPoints();
 			}
 			
-			this.getEndAngle = function() {
-				return this.PathParser.angle();
+			this.getAngles = function() {
+				return this.PathParser.getMarkerAngles();
 			}
 		}
 		svg.Element.path.prototype = new svg.Element.PathElementBase;
@@ -1178,9 +1242,9 @@ if(!window.console) {
 			this.base(node);
 			
 			this.baseRender = this.render;
-			this.render = function(ctx, endPoint, endAngle) {
-				ctx.translate(endPoint.x, endPoint.y);
-				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(endAngle);
+			this.render = function(ctx, point, angle) {
+				ctx.translate(point.x, point.y);
+				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(angle);
 				if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(ctx.lineWidth, ctx.lineWidth);
 				ctx.save();
 							
@@ -1198,8 +1262,8 @@ if(!window.console) {
 				
 				ctx.restore();
 				if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(1/ctx.lineWidth, 1/ctx.lineWidth);
-				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(-endAngle);
-				ctx.translate(-endPoint.x, -endPoint.y);
+				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(-angle);
+				ctx.translate(-point.x, -point.y);
 			}
 		}
 		svg.Element.marker.prototype = new svg.Element.ElementBase;
