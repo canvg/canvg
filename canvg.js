@@ -288,7 +288,7 @@ if(!window.console) {
 			this.y = y;
 			
 			this.angleTo = function(p) {
-				return Math.atan((p.y - this.y) / (p.x - this.x));
+				return Math.atan2(p.y - this.y, p.x - this.x);
 			}
 		}
 		svg.CreatePoint = function(s) {
@@ -663,22 +663,21 @@ if(!window.console) {
 				if (ctx.fillStyle != '') ctx.fill();
 				if (ctx.strokeStyle != '') ctx.stroke();
 				
-				var points = this.getPoints();
-				var angles = this.getAngles();
-				if (points != null && angles != null) {
+				var markers = this.getMarkers();
+				if (markers != null) {
 					if (this.attribute('marker-start').Definition.isUrl()) {
 						var marker = this.attribute('marker-start').Definition.getDefinition();
-						marker.render(ctx, points[0], angles[0]);
+						marker.render(ctx, markers[0][0], markers[0][1]);
 					}
 					if (this.attribute('marker-mid').Definition.isUrl()) {
 						var marker = this.attribute('marker-mid').Definition.getDefinition();
-						for (var i=1;i<points.length-1;i++) {
-							marker.render(ctx, points[i], angles[i]);
+						for (var i=1;i<markers.length-1;i++) {
+							marker.render(ctx, markers[i][0], markers[i][1]);
 						}
 					}
 					if (this.attribute('marker-end').Definition.isUrl()) {
 						var marker = this.attribute('marker-end').Definition.getDefinition();
-						marker.render(ctx, points[points.length-1], angles[angles.length-1]);
+						marker.render(ctx, markers[markers.length-1][0], markers[markers.length-1][1]);
 					}
 				}					
 			}
@@ -687,11 +686,7 @@ if(!window.console) {
 				return this.path();
 			}
 			
-			this.getPoints = function() {
-				return null;
-			}
-			
-			this.getAngles = function() {
+			this.getMarkers = function() {
 				return null;
 			}
 		}
@@ -877,37 +872,29 @@ if(!window.console) {
 		svg.Element.line = function(node) {
 			this.base = svg.Element.PathElementBase;
 			this.base(node);
+			
+			this.getPoints = function() {
+				return [
+					new svg.Point(this.attribute('x1').Length.toPixels('x'), this.attribute('y1').Length.toPixels('y')),
+					new svg.Point(this.attribute('x2').Length.toPixels('x'), this.attribute('y2').Length.toPixels('y'))];
+			}
 								
 			this.path = function(ctx) {
-				var x1 = this.attribute('x1').Length.toPixels('x');
-				var y1 = this.attribute('y1').Length.toPixels('y');
-				var x2 = this.attribute('x2').Length.toPixels('x');
-				var y2 = this.attribute('y2').Length.toPixels('y');
+				var points = this.getPoints();
 				
 				if (ctx != null) {
 					ctx.beginPath();
-					ctx.moveTo(x1, y1);
-					ctx.lineTo(x2, y2);
+					ctx.moveTo(points[0].x, points[0].y);
+					ctx.lineTo(points[1].x, points[1].y);
 				}
 				
-				return new svg.BoundingBox(x1, y1, x2, y2);
+				return new svg.BoundingBox(points[0].x, points[0].y, points[1].x, points[1].y);
 			}
 			
-			this.getPoints = function() {
-				var x1 = this.attribute('x1').Length.toPixels('x');
-				var y1 = this.attribute('y1').Length.toPixels('y');
-				var x2 = this.attribute('x2').Length.toPixels('x');
-				var y2 = this.attribute('y2').Length.toPixels('y');		
-				return [new svg.Point(x1, y1), new svg.Point(x2, y2)];
-			}
-			
-			this.getAngles = function() {
-				var x1 = this.attribute('x1').Length.toPixels('x');
-				var y1 = this.attribute('y1').Length.toPixels('y');
-				var x2 = this.attribute('x2').Length.toPixels('x');
-				var y2 = this.attribute('y2').Length.toPixels('y');
-				var a = (new svg.Point(x1, y1)).angleTo(new svg.Point(x2, y2));
-				return [a, a];
+			this.getMarkers = function() {
+				var points = this.getPoints();	
+				var a = points[0].angleTo(points[1]);
+				return [[points[0], a], [points[1], a]];
 			}
 		}
 		svg.Element.line.prototype = new svg.Element.PathElementBase;		
@@ -930,6 +917,15 @@ if(!window.console) {
 				}
 				return bb;
 			}
+			
+			this.getMarkers = function() {
+				var markers = [];
+				for (var i=0; i<this.points.length - 1; i++) {
+					markers.push([this.points[i], this.points[i].angleTo(this.points[i+1])]);
+				}
+				markers.push([this.points[this.points.length-1], markers[markers.length-1][1]]);
+				return markers;
+			}			
 		}
 		svg.Element.polyline.prototype = new svg.Element.PathElementBase;				
 				
@@ -1235,12 +1231,15 @@ if(!window.console) {
 				return bb;
 			}
 			
-			this.getPoints = function() {
-				return this.PathParser.getMarkerPoints();
-			}
-			
-			this.getAngles = function() {
-				return this.PathParser.getMarkerAngles();
+			this.getMarkers = function() {
+				var points = this.PathParser.getMarkerPoints();
+				var angles = this.PathParser.getMarkerAngles();
+				
+				var markers = [];
+				for (var i=0; i<points.length; i++) {
+					markers.push([points[i], angles[i]]);
+				}
+				return markers;
 			}
 		}
 		svg.Element.path.prototype = new svg.Element.PathElementBase;
