@@ -1614,12 +1614,21 @@ if(!window.console) {
 		}
 		svg.Element.g.prototype = new svg.Element.RenderedElementBase;
 
+		// symbol element
+		svg.Element.symbol = function(node) {
+			this.base = svg.Element.RenderedElementBase;
+			this.base(node);
+		}
+		svg.Element.symbol.prototype = new svg.Element.RenderedElementBase;		
+		
+		// a element
 		svg.Element.a = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 		}
 		svg.Element.a.prototype = new svg.Element.RenderedElementBase;
 		
+		// style element
 		svg.Element.style = function(node) { 
 			this.base = svg.Element.ElementBase;
 			this.base(node);
