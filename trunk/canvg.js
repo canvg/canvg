@@ -1617,7 +1617,10 @@ if(!window.console) {
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			this.hasText = (node.childNodes[0] != null && node.childNodes[0].nodeType == 3);
+			this.hasText = true;
+			for (var i=0; i<node.childNodes.length; i++) {
+				if (node.childNodes[i].nodeType != 3) this.hasText = false;
+			}
 			
 			// this might contain text
 			this.text = this.hasText ? node.childNodes[0].nodeValue : '';
@@ -1792,7 +1795,6 @@ if(!window.console) {
 			}
 			ctx.canvas.onmousemove = function(e) {
 				var p = mapXY(new svg.Point(e.clientX, e.clientY));
-				console.log(p.x + ' ' + p.y);
 				svg.Mouse.onmousemove(p.x, p.y);
 			}
 		
