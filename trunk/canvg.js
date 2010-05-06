@@ -1652,10 +1652,6 @@ if(!window.console) {
 			this.onmousemove = function() {
 				svg.ctx.canvas.style.cursor = 'pointer';
 			}
-			
-			this.noevents = function() {
-				svg.ctx.canvas.style.cursor = '';
-			}
 		}
 		svg.Element.a.prototype = new svg.Element.TextElementBase;		
 		
@@ -1854,33 +1850,24 @@ if(!window.console) {
 			}			
 			
 			this.eventElements = [];
-			this.noEventElements = [];
 			
 			this.checkPath = function(element, ctx) {
-				var found = false;
 				for (var i=0; i<this.events.length; i++) {
 					var e = this.events[i];
-					if (ctx.isPointInPath(e.x, e.y)) {
-						this.eventElements[i] = element;
-						found = true;
-					}
+					if (ctx.isPointInPath(e.x, e.y)) this.eventElements[i] = element;
 				}
-				if (!found) this.noEventElements.push(element);
 			}
 			
 			this.checkBoundingBox = function(element, bb) {
-				var found = false;
 				for (var i=0; i<this.events.length; i++) {
 					var e = this.events[i];
-					if (bb.isPointInBox(e.x, e.y)) {
-						this.eventElements[i] = element;
-						found = true;
-					}
+					if (bb.isPointInBox(e.x, e.y)) this.eventElements[i] = element;
 				}			
-				if (!found) this.noEventElements.push(element);
 			}
 			
 			this.runEvents = function() {
+				svg.ctx.canvas.style.cursor = '';
+				
 				for (var i=0; i<this.events.length; i++) {
 					var e = this.events[i];
 					var element = this.eventElements[i];
@@ -1889,16 +1876,10 @@ if(!window.console) {
 						element = element.parent;
 					}
 				}		
-
-				for (var i=0; i<this.noEventElements.length; i++) {
-					var element = this.noEventElements[i];
-					if (element.noevents) element.noevents();
-				}
-				
+			
 				// done running, clear
 				this.events = []; 
 				this.eventElements = [];
-				this.noEventElements = [];
 			}
 		});
 		
