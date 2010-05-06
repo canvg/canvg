@@ -389,6 +389,10 @@ if(!window.console) {
 				}
 			}
 			
+			this.isPointInBox = function(x, y) {
+				return (this.x1 <= x && x <= this.x2 && this.y1 <= y && y <= this.y2);
+			}
+			
 			this.addPoint(x1, y1);
 			this.addPoint(x2, y2);
 		}
@@ -660,6 +664,7 @@ if(!window.console) {
 			
 			this.renderChildren = function(ctx) {
 				this.path(ctx);
+				svg.Mouse.checkPath(this, ctx);
 				if (ctx.fillStyle != '') ctx.fill();
 				if (ctx.strokeStyle != '') ctx.stroke();
 				
@@ -1607,6 +1612,50 @@ if(!window.console) {
 		}
 		svg.Element.tref.prototype = new svg.Element.TextElementBase;		
 		
+		// a element
+		svg.Element.a = function(node) {
+			this.base = svg.Element.TextElementBase;
+			this.base(node);
+			
+			this.hasText = (node.childNodes[0] != null && node.childNodes[0].nodeType == 3);
+			
+			// this might contain text
+			this.text = this.hasText ? node.childNodes[0].nodeValue : '';
+			this.getText = function() {
+				return this.text;
+			}		
+
+			this.baseRenderChildren = this.renderChildren;
+			this.renderChildren = function(ctx) {
+				if (this.hasText) {
+					// render as text element
+					this.baseRenderChildren(ctx);
+					var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
+					svg.Mouse.checkBoundingBox(this, new svg.BoundingBox(this.x, this.y - fontSize.Length.toPixels('y'), this.x + this.measureText(ctx), this.y));					
+				}
+				else {
+					// render as temporary group
+					var g = new svg.Element.g();
+					g.children = this.children;
+					g.parent = this;
+					g.render(ctx);
+				}
+			}
+			
+			this.onclick = function() {
+				window.open(this.attribute('xlink:href').value);
+			}
+			
+			this.onmousemove = function() {
+				svg.ctx.canvas.style.cursor = 'pointer';
+			}
+			
+			this.noevents = function() {
+				svg.ctx.canvas.style.cursor = '';
+			}
+		}
+		svg.Element.a.prototype = new svg.Element.TextElementBase;		
+		
 		// group element
 		svg.Element.g = function(node) {
 			this.base = svg.Element.RenderedElementBase;
@@ -1620,14 +1669,7 @@ if(!window.console) {
 			this.base(node);
 		}
 		svg.Element.symbol.prototype = new svg.Element.RenderedElementBase;		
-		
-		// a element
-		svg.Element.a = function(node) {
-			this.base = svg.Element.RenderedElementBase;
-			this.base(node);
-		}
-		svg.Element.a.prototype = new svg.Element.RenderedElementBase;
-		
+			
 		// style element
 		svg.Element.style = function(node) { 
 			this.base = svg.Element.ElementBase;
@@ -1730,6 +1772,29 @@ if(!window.console) {
 		// load from xml
 		svg.loadXml = function(ctx, xml) {
 			svg.init(ctx);
+			
+			var mapXY = function(p) {
+				var e = ctx.canvas;
+				while (e) {
+					p.x -= e.offsetLeft;
+					p.y -= e.offsetTop;
+					e = e.offsetParent;
+				}
+				p.x += window.scrollX;
+				p.y += window.scrollY;
+				return p;
+			}
+			
+			// bind mouse
+			ctx.canvas.onclick = function(e) {
+				var p = mapXY(new svg.Point(e.clientX, e.clientY));
+				svg.Mouse.onclick(p.x, p.y);
+			}
+			ctx.canvas.onmousemove = function(e) {
+				var p = mapXY(new svg.Point(e.clientX, e.clientY));
+				console.log(p.x + ' ' + p.y);
+				svg.Mouse.onmousemove(p.x, p.y);
+			}
 		
 			var dom = svg.parseXml(xml);
 			var e = svg.CreateElement(dom.documentElement);
@@ -1747,16 +1812,19 @@ if(!window.console) {
 			ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 			e.render(ctx);
 			svg.intervalID = setInterval(function() { 
-				// update animations
-				var needUpdate = false;
+				// need update from mouse events?
+				var needUpdate = svg.Mouse.hasEvents();
+			
+				// need update from animations?
 				for (var i=0; i<svg.Animations.length; i++) {
 					needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
 				}
-			
+
 				// render if needed
 				if (needUpdate) {
 					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 					e.render(ctx);
+					svg.Mouse.runEvents(); // run and clear our events
 				}
 			}, 1000 / svg.FRAMERATE);
 		}
@@ -1766,6 +1834,71 @@ if(!window.console) {
 				clearInterval(svg.intervalID);
 			}
 		}
+		
+		svg.Mouse = new (function() {
+			this.events = [];
+			this.hasEvents = function() { return this.events.length != 0; }
+		
+			this.onclick = function(x, y) {
+				this.events.push({ type: 'onclick', x: x, y: y, 
+					run: function(e) { if (e.onclick) e.onclick(); }
+				});
+			}
+			
+			this.onmousemove = function(x, y) {
+				this.events.push({ type: 'onmousemove', x: x, y: y,
+					run: function(e) { if (e.onmousemove) e.onmousemove(); }
+				});
+			}			
+			
+			this.eventElements = [];
+			this.noEventElements = [];
+			
+			this.checkPath = function(element, ctx) {
+				var found = false;
+				for (var i=0; i<this.events.length; i++) {
+					var e = this.events[i];
+					if (ctx.isPointInPath(e.x, e.y)) {
+						this.eventElements[i] = element;
+						found = true;
+					}
+				}
+				if (!found) this.noEventElements.push(element);
+			}
+			
+			this.checkBoundingBox = function(element, bb) {
+				var found = false;
+				for (var i=0; i<this.events.length; i++) {
+					var e = this.events[i];
+					if (bb.isPointInBox(e.x, e.y)) {
+						this.eventElements[i] = element;
+						found = true;
+					}
+				}			
+				if (!found) this.noEventElements.push(element);
+			}
+			
+			this.runEvents = function() {
+				for (var i=0; i<this.events.length; i++) {
+					var e = this.events[i];
+					var element = this.eventElements[i];
+					while (element) {
+						e.run(element);
+						element = element.parent;
+					}
+				}		
+
+				for (var i=0; i<this.noEventElements.length; i++) {
+					var element = this.noEventElements[i];
+					if (element.noevents) element.noevents();
+				}
+				
+				// done running, clear
+				this.events = []; 
+				this.eventElements = [];
+				this.noEventElements = [];
+			}
+		});
 		
 		return svg;
 	}
