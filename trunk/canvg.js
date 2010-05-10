@@ -1328,12 +1328,17 @@ if(!window.console) {
 				var child = this.children[i];
 				this.stops.push(child);
 			}	
-
+			
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}			
 
 			this.createGradient = function(ctx, element) {
+				if (this.attribute('xlink:href').hasValue()) {
+					var gradient = this.attribute('xlink:href').Definition.getDefinition();
+					if (gradient != null) return gradient.createGradient(ctx, element);
+				}
+			
 				var g = this.getGradient(ctx, element);
 				for (var i=0; i<this.stops.length; i++) {
 					g.addColorStop(this.stops[i].offset, this.stops[i].color);
