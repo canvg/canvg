@@ -1564,10 +1564,26 @@ if(!window.console) {
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
 				for (var i=0; i<this.children.length; i++) {
-					this.children[i].x = x;
-					this.children[i].y = y;
-					this.children[i].render(ctx);
-					x += this.children[i].measureText(ctx);
+					var child = this.children[i];
+				
+					if (child.attribute('x').hasValue()) {
+						child.x = child.attribute('x').Length.toPixels('x');
+					}
+					else {
+						if (child.attribute('dx').hasValue()) x += child.attribute('dx').Length.toPixels('x');
+						child.x = x;
+						x += child.measureText(ctx);
+					}
+					
+					if (child.attribute('y').hasValue()) {
+						child.y = child.attribute('y').Length.toPixels('y');
+					}
+					else {
+						if (child.attribute('dy').hasValue()) y += child.attribute('dy').Length.toPixels('y');
+						child.y = y;
+					}	
+					
+					child.render(ctx);
 				}
 			}
 		}
