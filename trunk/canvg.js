@@ -290,6 +290,13 @@ if(!window.console) {
 			this.angleTo = function(p) {
 				return Math.atan2(p.y - this.y, p.x - this.x);
 			}
+			
+			this.applyTransform = function(v) {
+				var xp = this.x * v[0] + this.y * v[2] + v[4];
+				var yp = this.x * v[1] + this.y * v[3] + v[5];
+				this.x = xp;
+				this.y = yp;
+			}
 		}
 		svg.CreatePoint = function(s) {
 			var a = svg.ToNumberArray(s);
@@ -408,6 +415,9 @@ if(!window.console) {
 				this.apply = function(ctx) {
 					ctx.translate(this.p.x || 0.0, this.p.y || 0.0);
 				}
+				this.applyToPoint = function(p) {
+					p.applyTransform([1, 0, 0, 1, this.p.x || 0.0, this.p.y || 0.0]);
+				}
 			}
 			
 			// rotate
@@ -421,6 +431,12 @@ if(!window.console) {
 					ctx.rotate(this.angle.Angle.toRadians());
 					ctx.translate(-this.cx, -this.cy);
 				}
+				this.applyToPoint = function(p) {
+					var a = this.angle.Angle.toRadians();
+					p.applyTransform([1, 0, 0, 1, this.p.x || 0.0, this.p.y || 0.0]);
+					p.applyTransform([Math.cos(a), Math.sin(a), -Math.sin(a), Math.cos(a), 0, 0]);
+					p.applyTransform([1, 0, 0, 1, -this.p.x || 0.0, -this.p.y || 0.0]);
+				}			
 			}
 			
 			this.Type.scale = function(s) {
@@ -428,6 +444,9 @@ if(!window.console) {
 				this.apply = function(ctx) {
 					ctx.scale(this.p.x || 1.0, this.p.y || this.p.x || 1.0);
 				}
+				this.applyToPoint = function(p) {
+					p.applyTransform([this.p.x || 0.0, 0, 0, this.p.y || 0.0, 0, 0]);
+				}				
 			}
 			
 			this.Type.matrix = function(s) {
@@ -435,6 +454,9 @@ if(!window.console) {
 				this.apply = function(ctx) {
 					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], this.m[4], this.m[5]);
 				}
+				this.applyToPoint = function(p) {
+					p.applyTransform(this.m);
+				}					
 			}
 			
 			this.Type.SkewBase = function(s) {
@@ -459,9 +481,16 @@ if(!window.console) {
 			this.Type.skewY.prototype = new this.Type.SkewBase;
 		
 			this.transforms = [];
+			
 			this.apply = function(ctx) {
 				for (var i=0; i<this.transforms.length; i++) {
 					this.transforms[i].apply(ctx);
+				}
+			}
+			
+			this.applyToPoint = function(p) {
+				for (var i=0; i<this.transforms.length; i++) {
+					this.transforms[i].applyToPoint(p);
 				}
 			}
 			
@@ -1334,14 +1363,14 @@ if(!window.console) {
 			}			
 
 			this.createGradient = function(ctx, element) {
+				var stopsContainer = this;
 				if (this.attribute('xlink:href').hasValue()) {
-					var gradient = this.attribute('xlink:href').Definition.getDefinition();
-					if (gradient != null) return gradient.createGradient(ctx, element);
+					stopsContainer = this.attribute('xlink:href').Definition.getDefinition();
 				}
 			
 				var g = this.getGradient(ctx, element);
-				for (var i=0; i<this.stops.length; i++) {
-					g.addColorStop(this.stops[i].offset, this.stops[i].color);
+				for (var i=0; i<stopsContainer.stops.length; i++) {
+					g.addColorStop(stopsContainer.stops[i].offset, stopsContainer.stops[i].color);
 				}
 				return g;				
 			}
@@ -1369,7 +1398,15 @@ if(!window.console) {
 					? bb.y() + bb.height() * this.attribute('y2').numValue()
 					: this.attribute('y2').Length.toPixels('y'));
 				
-				return ctx.createLinearGradient(x1, y1, x2, y2);
+				var p1 = new svg.Point(x1, y1);
+				var p2 = new svg.Point(x2, y2);
+				if (this.attribute('gradientTransform').hasValue()) { 
+					var transform = new svg.Transform(this.attribute('gradientTransform').value);
+					transform.applyToPoint(p1);
+					transform.applyToPoint(p2);
+				}
+				
+				return ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
 			}
 		}
 		svg.Element.linearGradient.prototype = new svg.Element.GradientBase;
