@@ -1443,7 +1443,15 @@ if(!window.console) {
 					? (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue()
 					: this.attribute('r').Length.toPixels());
 				
-				return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
+				var c = new svg.Point(cx, cy);
+				var f = new svg.Point(fx, fy);
+				if (this.attribute('gradientTransform').hasValue()) { 
+					var transform = new svg.Transform(this.attribute('gradientTransform').value);
+					transform.applyToPoint(c);
+					transform.applyToPoint(f);
+				}				
+				
+				return ctx.createRadialGradient(f.x, f.y, 0, c.x, c.y, r);
 			}
 		}
 		svg.Element.radialGradient.prototype = new svg.Element.GradientBase;
