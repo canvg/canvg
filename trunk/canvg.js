@@ -1003,6 +1003,7 @@ if(!window.console) {
 				this.reset = function() {
 					this.i = -1;
 					this.command = '';
+					this.previousCommand = '';
 					this.control = new svg.Point(0, 0);
 					this.current = new svg.Point(0, 0);
 					this.points = [];
@@ -1021,7 +1022,7 @@ if(!window.console) {
 				this.isRelativeCommand = function() {
 					return this.command == this.command.toLowerCase();
 				}
-				
+							
 				this.getToken = function() {
 					this.i = this.i + 1;
 					return this.tokens[this.i];
@@ -1032,6 +1033,7 @@ if(!window.console) {
 				}
 				
 				this.nextCommand = function() {
+					this.previousCommand = this.command;
 					this.command = this.getToken();
 				}				
 				
@@ -1053,6 +1055,11 @@ if(!window.console) {
 				}
 				
 				this.getReflectedControlPoint = function() {
+					if (this.previousCommand.toLowerCase() != 'c' && this.previousCommand.toLowerCase() != 's') {
+						return this.current;
+					}
+					
+					// reflect point
 					var p = new svg.Point(2 * this.current.x - this.control.x, 2 * this.current.y - this.control.y);					
 					return this.makeAbsolute(p);
 				}
