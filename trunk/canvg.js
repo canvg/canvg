@@ -503,6 +503,43 @@ if(!window.console) {
 			}
 		}
 		
+		// aspect ratio
+		svg.AspectRatio = function(ctx, aspectRatio, width, desiredWidth, height, desiredHeight, minX, minY, refX, refY) {
+			// aspect ratio - http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
+			aspectRatio = svg.compressSpaces(aspectRatio);
+			aspectRatio = aspectRatio.replace(/^defer\s/,''); // ignore defer
+			var align = aspectRatio.split(' ')[0] || 'xMidYMid';
+			var meetOrSlice = aspectRatio.split(' ')[1] || 'meet';					
+	
+			// calculate scale
+			var scaleX = width / desiredWidth;
+			var scaleY = height / desiredHeight;
+			var scaleMin = Math.min(scaleX, scaleY);
+			var scaleMax = Math.max(scaleX, scaleY);
+			if (meetOrSlice == 'meet') { desiredWidth *= scaleMin; desiredHeight *= scaleMin; }
+			if (meetOrSlice == 'slice') { desiredWidth *= scaleMax; desiredHeight *= scaleMax; }	
+			
+			refX = new svg.Property('refX', refX);
+			refY = new svg.Property('refY', refY);
+			if (refX.hasValue() && refY.hasValue()) {				
+				ctx.translate(-scaleMin * refX.Length.toPixels('x'), -scaleMin * refY.Length.toPixels('y'));
+			} 
+			else {					
+				// align
+				if (align.match(/^xMid/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(width / 2.0 - desiredWidth / 2.0, 0); 
+				if (align.match(/YMid$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, height / 2.0 - desiredHeight / 2.0); 
+				if (align.match(/^xMax/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(width - desiredWidth, 0); 
+				if (align.match(/YMax$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, height - desiredHeight); 
+			}
+			
+			// scale
+			if (meetOrSlice == 'meet') ctx.scale(scaleMin, scaleMin); 
+			if (meetOrSlice == 'slice') ctx.scale(scaleMax, scaleMax); 	
+			
+			// translate
+			ctx.translate(minX == null ? 0 : -minX, minY == null ? 0 : -minY);			
+		}
+		
 		// elements
 		svg.Element = {}
 		
@@ -777,36 +814,17 @@ if(!window.console) {
 					width = viewBox[2];
 					height = viewBox[3];
 					
-					// aspect ratio - http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
-					var preserveAspectRatio = svg.compressSpaces(this.attribute('preserveAspectRatio').value);
-					preserveAspectRatio = preserveAspectRatio.replace(/^defer\s/,''); // ignore defer
-					var align = preserveAspectRatio.split(' ')[0] || 'xMidYMid';
-					var meetOrSlice = preserveAspectRatio.split(' ')[1] || 'meet';					
-					
-					// calculate scale
-					var scaleX = svg.ViewPort.width() / width;
-					var scaleY = svg.ViewPort.height() / height;
-					var scaleMin = Math.min(scaleX, scaleY);
-					var scaleMax = Math.max(scaleX, scaleY);
-					if (meetOrSlice == 'meet') { width *= scaleMin; height *= scaleMin; }
-					if (meetOrSlice == 'slice') { width *= scaleMax; height *= scaleMax; }	
-					
-					if (this.attribute('refX').hasValue() && this.attribute('refY').hasValue()) {
-						ctx.translate(-scaleMin * this.attribute('refX').Length.toPixels('x'), -scaleMin * this.attribute('refY').Length.toPixels('y'));
-					} 
-					else {					
-						// align
-						if (align.match(/^xMid/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(svg.ViewPort.width() / 2.0 - width / 2.0, 0); 
-						if (align.match(/YMid$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, svg.ViewPort.height() / 2.0 - height / 2.0); 
-						if (align.match(/^xMax/) && ((meetOrSlice == 'meet' && scaleMin == scaleY) || (meetOrSlice == 'slice' && scaleMax == scaleY))) ctx.translate(svg.ViewPort.width() - width, 0); 
-						if (align.match(/YMax$/) && ((meetOrSlice == 'meet' && scaleMin == scaleX) || (meetOrSlice == 'slice' && scaleMax == scaleX))) ctx.translate(0, svg.ViewPort.height() - height); 
-					}
-					
-					// scale
-					if (meetOrSlice == 'meet') ctx.scale(scaleMin, scaleMin); 
-					if (meetOrSlice == 'slice') ctx.scale(scaleMax, scaleMax); 	
-					ctx.translate(-minX, -minY);	
-					
+					svg.AspectRatio(ctx,
+									this.attribute('preserveAspectRatio').value, 
+									svg.ViewPort.width(), 
+									width,
+									svg.ViewPort.height(),
+									height,
+									minX,
+									minY,
+									this.attribute('refX').value,
+									this.attribute('refY').value);
+										
 					svg.ViewPort.RemoveCurrent();	
 					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
 				}				
@@ -1727,6 +1745,52 @@ if(!window.console) {
 			}
 		}
 		svg.Element.a.prototype = new svg.Element.TextElementBase;		
+		
+		// image element
+		svg.Element.image = function(node) {
+			this.base = svg.Element.RenderedElementBase;
+			this.base(node);
+			
+			this.img = document.createElement('image');
+			this.loaded = false;
+			
+			var that = this;
+			this.renderChildren = function(ctx) {
+				if (!this.loaded) {
+					this.img.onload = function() {
+						that.loaded = true;
+						that.drawImage(ctx);
+					}
+					this.img.src = this.attribute('xlink:href').value;
+				}
+				else {
+					this.drawImage(ctx);
+				}
+			}
+			
+			this.drawImage = function(ctx) {
+				var x = this.attribute('x').Length.toPixels('x');
+				var y = this.attribute('y').Length.toPixels('y');
+				
+				var width = this.attribute('width').Length.toPixels('x');
+				var height = this.attribute('height').Length.toPixels('y');			
+				if (width == 0 || height == 0) return;
+			
+				ctx.save();
+				ctx.translate(x, y);
+				svg.AspectRatio(ctx,
+								this.attribute('preserveAspectRatio').value,
+								width,
+								this.img.width,
+								height,
+								this.img.height,
+								0,
+								0);	
+				ctx.drawImage(this.img, 0, 0);			
+				ctx.restore();
+			}
+		}
+		svg.Element.image.prototype = new svg.Element.RenderedElementBase;
 		
 		// group element
 		svg.Element.g = function(node) {
