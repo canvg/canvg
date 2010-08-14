@@ -592,6 +592,9 @@ if(!Array.indexOf){
 			
 			// base render
 			this.render = function(ctx) {
+				// don't render display=none
+				if (this.attribute('display').value == 'none') return;
+			
 				ctx.save();
 				this.setContext(ctx);
 				this.renderChildren(ctx);
@@ -1096,7 +1099,7 @@ if(!Array.indexOf){
 					
 					// reflect point
 					var p = new svg.Point(2 * this.current.x - this.control.x, 2 * this.current.y - this.control.y);					
-					return this.makeAbsolute(p);
+					return p;
 				}
 				
 				this.makeAbsolute = function(p) {
