@@ -1773,7 +1773,7 @@ if(!Array.indexOf){
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
-			this.img = document.createElement('image');
+			this.img = document.createElement('img');
 			this.loaded = false;
 			
 			var that = this;
