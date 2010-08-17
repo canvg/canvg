@@ -8,8 +8,21 @@
 		<script type="text/javascript" src="../rgbcolor.js"></script>
 		<script type="text/javascript" src="../canvg.js"></script>
 		<script type="text/javascript">
+		function q(k) {
+			var qs = window.location.search.substring(1);
+			var t = qs.split("&");
+			for (i=0;i<t.length;i++) {
+				kv = t[i].split("=");
+				if (kv[0] == k) return unescape(kv[1]).replace('+',' ');
+			}		
+			return null;
+		}		
 		var context;
-		function bodyonload() { if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; }
+		function bodyonload() { 
+			if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; 
+			var qUrl = q('url'); if (qUrl != null && qUrl != '') { r(); canvg('canvas', qUrl); }
+			var qSvg = q('svg'); if (qSvg != null && qSvg != '') { r(); canvg('canvas', qSvg); }			
+		}
 		function render() {
 			var c = document.getElementById('canvas');
 			c.width = document.getElementById('width').value;
