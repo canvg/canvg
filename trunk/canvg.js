@@ -1875,8 +1875,17 @@ if(!Array.indexOf){
 				if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').Length.toPixels('y'));
 			}
 			
+			this.getDefinition = function() {
+				return this.attribute('xlink:href').Definition.getDefinition();
+			}
+			
+			this.path = function(ctx) {
+				var element = this.getDefinition();
+				if (element != null) element.path(ctx);
+			}
+			
 			this.renderChildren = function(ctx) {
-				var element = this.attribute('xlink:href').Definition.getDefinition();
+				var element = this.getDefinition();
 				if (element != null) element.render(ctx);
 			}
 		}
