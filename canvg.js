@@ -671,10 +671,7 @@ if(!Array.indexOf){
 							this.styles[name] = new svg.Property(name, value);
 						}
 					}
-				}
-				
-				// set id
-				if (this.attribute('id').hasValue()) svg.Definitions[this.attribute('id').value] = this;				
+				}		
 			}
 		}
 		
@@ -1382,7 +1379,14 @@ if(!Array.indexOf){
 		// definitions element
 		svg.Element.defs = function(node) {
 			this.base = svg.Element.ElementBase;
-			this.base(node);			
+			this.base(node);	
+
+			for (var i=0; i<this.children.length; i++) {
+				var child = this.children[i];
+				if (child.attribute('id').hasValue()) {
+					svg.Definitions[child.attribute('id').value] = child;
+				}
+			}				
 			
 			this.render = function(ctx) {
 				// NOOP
