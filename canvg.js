@@ -1789,7 +1789,8 @@ if(!Array.indexOf){
 			svg.Images.push(this);
 			this.img = document.createElement('img');
 			this.loaded = false;
-			this.img.onload = function() { this.loaded = true; }
+			var that = this;
+			this.img.onload = function() { that.loaded = true; }
 			this.img.src = this.attribute('xlink:href').value;
 			
 			this.renderChildren = function(ctx) {
