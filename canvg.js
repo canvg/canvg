@@ -90,7 +90,7 @@ if(!Array.indexOf){
 		
 		// images loaded
 		svg.ImagesLoaded = function() { 
-			for (var i=0; i<svg.Images.Length; i++) {
+			for (var i=0; i<svg.Images.length; i++) {
 				if (!svg.Images[i].loaded) return false;
 			}
 			return true;
