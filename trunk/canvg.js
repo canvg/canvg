@@ -1064,7 +1064,7 @@ if(!Array.indexOf){
 				}
 								
 				this.isEnd = function() {
-					return this.i == this.tokens.length - 1;
+					return this.i >= this.tokens.length - 1;
 				}
 				
 				this.isCommandOrEnd = function() {
