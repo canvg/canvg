@@ -31,6 +31,12 @@ if(!Array.indexOf){
 	// opts: optional hash of options
 	//		 ignoreMouse: true => ignore mouse events
 	//		 ignoreAnimation: true => ignore animations
+	//		 ignoreDimensions: true => does not try to resize canvas
+	//		 ignoreClear: true => does not clear canvas
+	//		 offsetX: int => draws at a x offset
+	//		 offsetY: int => draws at a y offset
+	//		 scaleWidth: int => scales horizontally to width
+	//		 scaleHeight: int => scales vertically to height
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 	this.canvg = function (target, s, opts) {
@@ -561,8 +567,9 @@ if(!Array.indexOf){
 			}
 			
 			// scale
-			if (meetOrSlice == 'meet') ctx.scale(scaleMin, scaleMin); 
-			if (meetOrSlice == 'slice') ctx.scale(scaleMax, scaleMax); 	
+			if (align == 'none') ctx.scale(scaleX, scaleY);
+			else if (meetOrSlice == 'meet') ctx.scale(scaleMin, scaleMin); 
+			else if (meetOrSlice == 'slice') ctx.scale(scaleMax, scaleMax); 	
 			
 			// translate
 			ctx.translate(minX == null ? 0 : -minX, minY == null ? 0 : -minY);			
@@ -1975,17 +1982,30 @@ if(!Array.indexOf){
 			// render loop
 			var isFirstRender = true;
 			var draw = function() {
-				// set canvas size
-				if (e.style('width').hasValue()) {
-					ctx.canvas.width = e.style('width').Length.toPixels(ctx.canvas.parentNode.clientWidth);
+				if (svg.opts == null || svg.opts['ignoreDimensions'] != true) {
+					// set canvas size
+					if (e.style('width').hasValue()) {
+						ctx.canvas.width = e.style('width').Length.toPixels(ctx.canvas.parentNode.clientWidth);
+					}
+					if (e.style('height').hasValue()) {
+						ctx.canvas.height = e.style('height').Length.toPixels(ctx.canvas.parentNode.clientHeight);
+					}
 				}
-				if (e.style('height').hasValue()) {
-					ctx.canvas.height = e.style('height').Length.toPixels(ctx.canvas.parentNode.clientHeight);
+				svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);		
+				
+				if (svg.opts != null && svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
+				if (svg.opts != null && svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
+				if (svg.opts != null && svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
+					e.attribute('width', true).value = svg.opts['scaleWidth'];
+					e.attribute('height', true).value = svg.opts['scaleHeight'];			
+					e.attribute('viewBox', true).value = '0 0 ' + ctx.canvas.clientWidth + ' ' + ctx.canvas.clientHeight;
+					e.attribute('preserveAspectRatio', true).value = 'none';
 				}
-				svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);			
 			
 				// clear and render
-				ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+				if (svg.opts != null && svg.opts['ignoreClear'] != true) {
+					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+				}
 				e.render(ctx);
 				if (isFirstRender) {
 					isFirstRender = false;
@@ -2090,3 +2110,18 @@ if(!Array.indexOf){
 		return svg;
 	}
 })();
+
+if (CanvasRenderingContext2D) {
+	CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh) {
+		canvg(this.canvas, s, { 
+			ignoreMouse: true, 
+			ignoreAnimation: true, 
+			ignoreDimensions: true, 
+			ignoreClear: true, 
+			offsetX: dx, 
+			offsetY: dy, 
+			scaleWidth: dw, 
+			scaleHeight: dh
+		});
+	}
+}
