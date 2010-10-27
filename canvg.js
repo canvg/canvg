@@ -379,6 +379,11 @@ if(!Array.indexOf){
 			this.addX = function(x) { this.addPoint(x, null); }
 			this.addY = function(y) { this.addPoint(null, y); }
 			
+			this.addBoundingBox = function(bb) {
+				this.addPoint(bb.x1, bb.y1);
+				this.addPoint(bb.x2, bb.y2);
+			}
+			
 			this.addQuadraticCurve = function(p0x, p0y, p1x, p1y, p2x, p2y) {
 				var cp1x = p0x + 2/3 * (p1x - p0x); // CP1 = QP0 + 2/3 *(QP1-QP0)
 				var cp1y = p0y + 2/3 * (p1y - p0y); // CP1 = QP0 + 2/3 *(QP1-QP0)
@@ -1830,6 +1835,14 @@ if(!Array.indexOf){
 		svg.Element.g = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
+			
+			this.getBoundingBox = function() {
+				var bb = new svg.BoundingBox();
+				for (var i=0; i<this.children.length; i++) {
+					bb.addBoundingBox(this.children[i].getBoundingBox());
+				}
+				return bb;
+			};
 		}
 		svg.Element.g.prototype = new svg.Element.RenderedElementBase;
 
