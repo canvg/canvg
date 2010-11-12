@@ -1551,18 +1551,41 @@ if(!Array.indexOf){
 			this.duration = 0.0;
 			this.begin = this.attribute('begin').Time.toMilliseconds();
 			this.maxDuration = this.begin + this.attribute('dur').Time.toMilliseconds();
+			
+			this.getProperty = function() {
+				var attributeType = this.attribute('attributeType').value;
+				var attributeName = this.attribute('attributeName').value;
+				
+				if (attributeType == 'CSS') {
+					return this.parent.style(attributeName, true);
+				}
+				return this.parent.attribute(attributeName, true);			
+			};
+			
+			this.initialValue = null;
+			this.removed = false;			
 
 			this.calcValue = function() {
 				// OVERRIDE ME!
 				return '';
 			}
 			
-			this.update = function(delta) {			
+			this.update = function(delta) {	
+				// set initial value
+				if (this.initialValue == null) {
+					this.initialValue = this.getProperty().value;
+				}
+			
 				// if we're past the end time
 				if (this.duration > this.maxDuration) {
 					// loop for indefinitely repeating animations
 					if (this.attribute('repeatCount').value == 'indefinite') {
 						this.duration = 0.0
+					}
+					else if (this.attribute('fill').valueOrDefault('remove') == 'remove' && !this.removed) {
+						this.removed = true;
+						this.getProperty().value = this.initialValue;
+						return true;
 					}
 					else {
 						return false; // no updates made
@@ -1574,25 +1597,15 @@ if(!Array.indexOf){
 				var updated = false;
 				if (this.begin < this.duration) {
 					var newValue = this.calcValue(); // tween
-					var attributeType = this.attribute('attributeType').value;
-					var attributeName = this.attribute('attributeName').value;
 					
-					if (this.parent != null) {
-						if (attributeType == 'CSS') {
-							this.parent.style(attributeName, true).value = newValue;
-						}
-						else { // default or XML
-							if (this.attribute('type').hasValue()) {
-								// for transform, etc.
-								var type = this.attribute('type').value;
-								this.parent.attribute(attributeName, true).value = type + '(' + newValue + ')';
-							}
-							else {
-								this.parent.attribute(attributeName, true).value = newValue;
-							}
-						}
-						updated = true;
+					if (this.attribute('type').hasValue()) {
+						// for transform, etc.
+						var type = this.attribute('type').value;
+						newValue = type + '(' + newValue + ')';
 					}
+					
+					this.getProperty().value = newValue;
+					updated = true;
 				}
 				
 				return updated;
@@ -2016,7 +2029,7 @@ if(!Array.indexOf){
 				}
 			
 				// clear and render
-				if (svg.opts != null && svg.opts['ignoreClear'] != true) {
+				if (svg.opts == null || svg.opts['ignoreClear'] != true) {
 					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 				}
 				e.render(ctx);
