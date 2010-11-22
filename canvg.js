@@ -1069,6 +1069,7 @@ if(!Array.indexOf){
 					this.i = -1;
 					this.command = '';
 					this.previousCommand = '';
+					this.start = new svg.Point(0, 0);
 					this.control = new svg.Point(0, 0);
 					this.current = new svg.Point(0, 0);
 					this.points = [];
@@ -1161,28 +1162,30 @@ if(!Array.indexOf){
 					return this.angles;
 				}
 			})(d);
-			
-			this.path = function(ctx) {		
+
+			this.path = function(ctx) {
 				var pp = this.PathParser;
 				pp.reset();
-				
+
 				var bb = new svg.BoundingBox();
 				if (ctx != null) ctx.beginPath();
 				while (!pp.isEnd()) {
 					pp.nextCommand();
-					if (pp.command.toUpperCase() == 'M') {
+					switch (pp.command.toUpperCase()) {
+					case 'M':
 						var p = pp.getAsCurrentPoint();
 						pp.addMarker(p);
 						bb.addPoint(p.x, p.y);
 						if (ctx != null) ctx.moveTo(p.x, p.y);
+						pp.start = pp.current;
 						while (!pp.isCommandOrEnd()) {
 							var p = pp.getAsCurrentPoint();
 							pp.addMarker(p);
 							bb.addPoint(p.x, p.y);
 							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
-					}
-					else if (pp.command.toUpperCase() == 'L') {
+						break;
+					case 'L':
 						while (!pp.isCommandOrEnd()) {
 							var c = pp.current;
 							var p = pp.getAsCurrentPoint();
@@ -1190,8 +1193,8 @@ if(!Array.indexOf){
 							bb.addPoint(p.x, p.y);
 							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
-					}
-					else if (pp.command.toUpperCase() == 'H') {
+						break;
+					case 'H':
 						while (!pp.isCommandOrEnd()) {
 							var newP = new svg.Point((pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar(), pp.current.y);
 							pp.addMarker(newP, pp.current);
@@ -1199,8 +1202,8 @@ if(!Array.indexOf){
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
-					}
-					else if (pp.command.toUpperCase() == 'V') {
+						break;
+					case 'V':
 						while (!pp.isCommandOrEnd()) {
 							var newP = new svg.Point(pp.current.x, (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar());
 							pp.addMarker(newP, pp.current);
@@ -1208,8 +1211,8 @@ if(!Array.indexOf){
 							bb.addPoint(pp.current.x, pp.current.y);
 							if (ctx != null) ctx.lineTo(pp.current.x, pp.current.y);
 						}
-					}
-					else if (pp.command.toUpperCase() == 'C') {
+						break;
+					case 'C':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var p1 = pp.getPoint();
@@ -1219,8 +1222,8 @@ if(!Array.indexOf){
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}
-					}
-					else if (pp.command.toUpperCase() == 'S') {
+						break;
+					case 'S':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var p1 = pp.getReflectedControlPoint();
@@ -1229,9 +1232,9 @@ if(!Array.indexOf){
 							pp.addMarker(cp, cntrl);
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
-						}				
-					}					
-					else if (pp.command.toUpperCase() == 'Q') {
+						}
+						break;
+					case 'Q':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var cntrl = pp.getAsControlPoint();
@@ -1240,8 +1243,8 @@ if(!Array.indexOf){
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}
-					}					
-					else if (pp.command.toUpperCase() == 'T') {
+						break;
+					case 'T':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var cntrl = pp.getReflectedControlPoint();
@@ -1250,9 +1253,9 @@ if(!Array.indexOf){
 							pp.addMarker(cp, cntrl);
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
-						}					
-					}
-					else if (pp.command.toUpperCase() == 'A') {
+						}
+						break;
+					case 'A':
 						while (!pp.isCommandOrEnd()) {
 						    var curr = pp.current;
 							var rx = pp.getScalar();
@@ -1261,7 +1264,7 @@ if(!Array.indexOf){
 							var largeArcFlag = pp.getScalar();
 							var sweepFlag = pp.getScalar();
 							var cp = pp.getAsCurrentPoint();
-							
+
 							// Conversion from endpoint to center parameterization
 							// http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
 							// x1', y1'
@@ -1301,10 +1304,10 @@ if(!Array.indexOf){
 							var ad = a(u, v);
 							if (r(u,v) <= -1) ad = Math.PI;
 							if (r(u,v) >= 1) ad = 0;
-							
+
 							if (sweepFlag == 0 && ad > 0) ad = ad - 2 * Math.PI;
 							if (sweepFlag == 1 && ad < 0) ad = ad + 2 * Math.PI;
-							
+
 							// for markers
 							var halfWay = new svg.Point(
 								centp.x - rx * Math.cos((a1 + ad) / 2),
@@ -1312,13 +1315,13 @@ if(!Array.indexOf){
 							);
 							pp.addMarkerAngle(halfWay, (a1 + ad) / 2 + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
 							pp.addMarkerAngle(cp, ad + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
-														
+
 							bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
 							if (ctx != null) {
 								var r = rx > ry ? rx : ry;
 								var sx = rx > ry ? 1 : rx / ry;
 								var sy = rx > ry ? ry / rx : 1;
-							
+
 								ctx.translate(centp.x, centp.y);
 								ctx.rotate(xAxisRotation);
 								ctx.scale(sx, sy);
@@ -1328,15 +1331,16 @@ if(!Array.indexOf){
 								ctx.translate(-centp.x, -centp.y);
 							}
 						}
-					}
-					else if (pp.command.toUpperCase() == 'Z') {
+						break;
+					case 'Z':
 						if (ctx != null) ctx.closePath();
+						pp.current = pp.start;
 					}
 				}
-							
+
 				return bb;
 			}
-			
+
 			this.getMarkers = function() {
 				var points = this.PathParser.getMarkerPoints();
 				var angles = this.PathParser.getMarkerAngles();
