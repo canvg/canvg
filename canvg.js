@@ -823,6 +823,12 @@ if(!Array.indexOf){
 			
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
+				// initial values
+				ctx.strokeStyle = 'rgba(0,0,0,0)';
+				ctx.lineCap = 'butt';
+				ctx.lineJoin = 'miter';
+				ctx.miterLimit = 4;			
+			
 				this.baseSetContext(ctx);
 				
 				// create new view port
@@ -875,12 +881,6 @@ if(!Array.indexOf){
 					svg.ViewPort.RemoveCurrent();	
 					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
 				}				
-				
-				// initial values
-				ctx.strokeStyle = 'rgba(0,0,0,0)';
-				ctx.lineCap = 'butt';
-				ctx.lineJoin = 'miter';
-				ctx.miterLimit = 4;
 			}
 		}
 		svg.Element.svg.prototype = new svg.Element.RenderedElementBase;
