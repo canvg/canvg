@@ -1,14 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>canvg.js convert test</title>
+		<title>canvg.js parameterless call test</title>
 		<!--[if IE]>
 		<script type="text/javascript" src="flashcanvas.js"></script>
 		<![endif]-->		
 		<script type="text/javascript" src="../rgbcolor.js"></script>
 		<script type="text/javascript" src="../canvg.js"></script>
 	</head>
-	<body >
+	<body onload="canvg()">
+		<h1>parameterless call example</h1>
+		<p>if you view source, you'll see that there's an inline svg image below this text. if you inspect the page after loading, you'll see a canvas element in its place.</p>
 		<svg xmlns="http://www.w3.org/2000/svg"
 		 xmlns:xlink="http://www.w3.org/1999/xlink"> 
 		<path style="stroke-width:1;fill:rgb(246,127,0);stroke:none"
