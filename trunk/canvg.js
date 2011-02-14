@@ -26,6 +26,7 @@ if(!Array.indexOf){
 
 (function(){
 	// canvg(target, s)
+	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
 	// s: svg string or url to svg file
 	// opts: optional hash of options
@@ -40,6 +41,23 @@ if(!Array.indexOf){
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 	this.canvg = function (target, s, opts) {
+		// no parameters
+		if (target == null && s == null && opts == null) {
+			var svgTags = document.getElementsByTagName('svg');
+			for (var i=0; i<svgTags.length; i++) {
+				var svgTag = svgTags[i];
+				var c = document.createElement('canvas');
+				c.width = svgTag.clientWidth;
+				c.height = svgTag.clientHeight;
+				svgTag.parentNode.insertBefore(c, svgTag);
+				svgTag.parentNode.removeChild(svgTag);
+				var div = document.createElement('div');
+				div.appendChild(svgTag);
+				canvg(c, div.innerHTML);
+			}
+			return;
+		}	
+	
 		if (typeof target == 'string') {
 			target = document.getElementById(target);
 		}
