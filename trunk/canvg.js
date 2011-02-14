@@ -1525,6 +1525,13 @@ if(!Array.indexOf){
 					var transform = new svg.Transform(this.attribute('gradientTransform').value);
 					transform.applyToPoint(c);
 					transform.applyToPoint(f);
+					
+					for (var i=0; i<transform.transforms.length; i++) {
+						// average the scaling part of the transform, apply to radius
+						var scale1 = transform.transforms[i].m[0];
+						var scale2 = transform.transforms[i].m[3];
+						r = r * ((scale1 + scale2) / 2.0);
+					}
 				}				
 				
 				return ctx.createRadialGradient(f.x, f.y, 0, c.x, c.y, r);
