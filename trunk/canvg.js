@@ -1900,6 +1900,31 @@ if(!Array.indexOf){
 		svg.Element.symbol = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
+			
+			this.baseSetContext = this.setContext;
+			this.setContext = function(ctx) {		
+				this.baseSetContext(ctx);
+				
+				// viewbox
+				if (this.attribute('viewBox').hasValue()) {				
+					var viewBox = svg.ToNumberArray(this.attribute('viewBox').value);
+					var minX = viewBox[0];
+					var minY = viewBox[1];
+					width = viewBox[2];
+					height = viewBox[3];
+					
+					svg.AspectRatio(ctx,
+									this.attribute('preserveAspectRatio').value, 
+									this.attribute('width').Length.toPixels('x'),
+									width,
+									this.attribute('height').Length.toPixels('y'),
+									height,
+									minX,
+									minY);
+
+					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
+				}
+			}			
 		}
 		svg.Element.symbol.prototype = new svg.Element.RenderedElementBase;		
 			
@@ -1950,7 +1975,10 @@ if(!Array.indexOf){
 			}
 			
 			this.getDefinition = function() {
-				return this.attribute('xlink:href').Definition.getDefinition();
+				var element = this.attribute('xlink:href').Definition.getDefinition();
+				if (this.attribute('width').hasValue()) element.attribute('width', true).value = this.attribute('width').value;
+				if (this.attribute('height').hasValue()) element.attribute('height', true).value = this.attribute('height').value;
+				return element;
 			}
 			
 			this.path = function(ctx) {
