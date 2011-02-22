@@ -555,15 +555,7 @@ if(!Array.indexOf){
 			for (var i=0; i<data.length; i++) {
 				var type = data[i].split('(')[0];
 				var s = data[i].split('(')[1].replace(')','');
-				var transform = null;
-				switch (type.toLowerCase()) {
-					case 'translate': transform = new this.Type.translate(s); break;
-					case 'rotate': transform = new this.Type.rotate(s); break;
-					case 'scale': transform = new this.Type.scale(s); break;
-					case 'matrix': transform = new this.Type.matrix(s); break;
-					case 'skewx': transform = new this.Type.skewX(s); break;
-					case 'skewy': transform = new this.Type.skewY(s); break;
-				}
+				var transform = new this.Type[type](s);
 				this.transforms.push(transform);
 			}
 		}
@@ -2028,37 +2020,11 @@ if(!Array.indexOf){
 		svg.CreateElement = function(node) {	
 			var className = node.nodeName.replace(/^[^:]+:/,'');
 			var e = null;
-			switch (className.toLowerCase()) {
-				case 'svg': e = new svg.Element.svg(node); break; 
-				case 'rect': e = new svg.Element.rect(node); break; 
-				case 'circle': e = new svg.Element.circle(node); break; 
-				case 'ellipse': e = new svg.Element.ellipse(node); break; 
-				case 'line': e = new svg.Element.line(node); break; 
-				case 'polyline': e = new svg.Element.polyline(node); break; 
-				case 'polygon': e = new svg.Element.polygon(node); break; 
-				case 'path': e = new svg.Element.path(node); break; 
-				case 'pattern': e = new svg.Element.pattern(node); break; 
-				case 'marker': e = new svg.Element.marker(node); break; 
-				case 'defs': e = new svg.Element.defs(node); break; 
-				case 'lineargradient': e = new svg.Element.linearGradient(node); break; 
-				case 'radialgradient': e = new svg.Element.radialGradient(node); break; 
-				case 'stop': e = new svg.Element.stop(node); break; 
-				case 'animate': e = new svg.Element.animate(node); break; 
-				case 'animatecolor': e = new svg.Element.animateColor(node); break; 
-				case 'animatetransform': e = new svg.Element.animateTransform(node); break; 
-				case 'text': e = new svg.Element.text(node); break; 
-				case 'tspan': e = new svg.Element.tspan(node); break; 
-				case 'tref': e = new svg.Element.tref(node); break; 
-				case 'a': e = new svg.Element.a(node); break; 
-				case 'image': e = new svg.Element.image(node); break; 
-				case 'g': e = new svg.Element.g(node); break; 
-				case 'symbol': e = new svg.Element.symbol(node); break; 
-				case 'style': e = new svg.Element.style(node); break;  
-				case 'use': e = new svg.Element.use(node); break; 
-				case 'clippath': e = new svg.Element.clipPath(node); break; 
-				case 'title': e = new svg.Element.title(node); break; 
-				case 'desc': e = new svg.Element.desc(node); break; 
-				default: e = new svg.Element.MISSING(node); break; 			
+			if (typeof(svg.Element[className]) != 'undefined') {
+				e = new svg.Element[className](node);
+			}
+			else {
+				e = new svg.Element.MISSING(node);
 			}
 
 			e.type = node.nodeName;
