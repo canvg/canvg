@@ -1,4 +1,4 @@
-Copyright (c) 2010 Gabe Lerner (gabelerner@gmail.com) - http://code.google.com/p/canvg/
+Copyright (c) 2010-2011 Gabe Lerner (gabelerner@gmail.com) - http://code.google.com/p/canvg/
 
  Permission is hereby granted, free of charge, to any person
  obtaining a copy of this software and associated documentation
