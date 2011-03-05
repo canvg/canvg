@@ -635,6 +635,9 @@ if(!Array.indexOf){
 			this.render = function(ctx) {
 				// don't render display=none
 				if (this.attribute('display').value == 'none') return;
+				
+				// don't render visibility=hidden
+				if (this.attribute('visibility').value == 'hidden') return;
 			
 				ctx.save();
 				this.setContext(ctx);
