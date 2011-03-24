@@ -99,6 +99,7 @@ if(!Array.indexOf){
 			svg.ctx = ctx;
 			svg.ViewPort = new (function () {
 				this.viewPorts = [];
+				this.Clear = function() { this.viewPorts = []; }
 				this.SetCurrent = function(width, height) { this.viewPorts.push({ width: width, height: height }); }
 				this.RemoveCurrent = function() { this.viewPorts.pop(); }
 				this.Current = function() { return this.viewPorts[this.viewPorts.length - 1]; }
@@ -859,7 +860,7 @@ if(!Array.indexOf){
 				
 				var width = svg.ViewPort.width();
 				var height = svg.ViewPort.height();
-				if (this.attribute('width').hasValue() && this.attribute('height').hasValue()) {
+				if (typeof(this.root) == 'undefined' && this.attribute('width').hasValue() && this.attribute('height').hasValue()) {
 					width = this.attribute('width').Length.toPixels('x');
 					height = this.attribute('height').Length.toPixels('y');
 					
@@ -2069,17 +2070,21 @@ if(!Array.indexOf){
 		
 			var dom = svg.parseXml(xml);
 			var e = svg.CreateElement(dom.documentElement);
+			e.root = true;
 					
 			// render loop
 			var isFirstRender = true;
 			var draw = function() {
+				svg.ViewPort.Clear();
+				svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+			
 				if (svg.opts == null || svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
 					if (e.style('width').hasValue()) {
-						ctx.canvas.width = e.style('width').Length.toPixels(ctx.canvas.parentNode.clientWidth);
+						ctx.canvas.width = e.style('width').Length.toPixels('x');
 					}
 					if (e.style('height').hasValue()) {
-						ctx.canvas.height = e.style('height').Length.toPixels(ctx.canvas.parentNode.clientHeight);
+						ctx.canvas.height = e.style('height').Length.toPixels('y');
 					}
 				}
 				svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);		
