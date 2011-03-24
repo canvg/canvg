@@ -2089,9 +2089,11 @@ if(!Array.indexOf){
 					// set canvas size
 					if (e.style('width').hasValue()) {
 						ctx.canvas.width = e.style('width').Length.toPixels('x');
+						ctx.canvas.style.width = ctx.canvas.width + 'px';
 					}
 					if (e.style('height').hasValue()) {
 						ctx.canvas.height = e.style('height').Length.toPixels('y');
+						ctx.canvas.style.height = ctx.canvas.height + 'px';
 					}
 				}
 				svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);		
