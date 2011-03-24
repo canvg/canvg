@@ -28,7 +28,7 @@ if(!Array.indexOf){
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
-	// s: svg string or url to svg file
+	// s: svg string, url to svg file, or xml document
 	// opts: optional hash of options
 	//		 ignoreMouse: true => ignore mouse events
 	//		 ignoreAnimation: true => ignore animations
@@ -75,7 +75,11 @@ if(!Array.indexOf){
 		svg.opts = opts;
 		
 		var ctx = target.getContext('2d');
-		if (s.substr(0,1) == '<') {
+		if (typeof(s.documentElement) != 'undefined') {
+			// load from xml doc
+			svg.loadXmlDoc(ctx, s);
+		}
+		else if (s.substr(0,1) == '<') {
 			// load from xml string
 			svg.loadXml(ctx, s);
 		}
@@ -2042,6 +2046,10 @@ if(!Array.indexOf){
 		
 		// load from xml
 		svg.loadXml = function(ctx, xml) {
+			svg.loadXmlDoc(ctx, svg.parseXml(xml));
+		}
+		
+		svg.loadXmlDoc = function(ctx, dom) {
 			svg.init(ctx);
 			
 			var mapXY = function(p) {
@@ -2068,7 +2076,6 @@ if(!Array.indexOf){
 				};
 			}
 		
-			var dom = svg.parseXml(xml);
 			var e = svg.CreateElement(dom.documentElement);
 			e.root = true;
 					
