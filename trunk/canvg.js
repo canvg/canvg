@@ -556,7 +556,7 @@ if(!Array.indexOf){
 				}
 			}
 			
-			var data = v.split(/\s(?=[a-z])/);
+			var data = svg.trim(svg.compressSpaces(v)).split(/\s(?=[a-z])/);
 			for (var i=0; i<data.length; i++) {
 				var type = data[i].split('(')[0];
 				var s = data[i].split('(')[1].replace(')','');
@@ -629,6 +629,15 @@ if(!Array.indexOf){
 				var a = this.attribute(name);
 				if (a != null && a.hasValue()) {
 					return a;
+				}
+				
+				var p = this.parent;
+				while (p) {
+					var ps = p.style(name);
+					if (ps != null && ps.hasValue()) {
+						return ps;
+					}
+					p = p.parent;
 				}
 					
 				s = new svg.Property(name, '');
@@ -1707,14 +1716,21 @@ if(!Array.indexOf){
 		// font element
 		svg.Element.font = function(node) {
 			this.base = svg.Element.ElementBase;
-			this.base(node);	
+			this.base(node);
+
+			this.horizAdvX = this.attribute('horiz-adv-x').numValue();			
 					
 			this.fontFace = null;
 			this.missingGlyph = null;
 			this.glyphs = [];			
 			for (var i=0; i<this.children.length; i++) {
 				var child = this.children[i];
-				if (child.type == 'font-face') this.fontFace = child;
+				if (child.type == 'font-face') {
+					this.fontFace = child;
+					if (child.style('font-family').hasValue()) {
+						svg.Definitions[child.style('font-family').value] = this;
+					}
+				}
 				else if (child.type == 'missing-glyph') this.missingGlyph = child;
 				else if (child.type == 'glyph') this.glyphs[child.unicode] = child;
 			}	
@@ -1818,12 +1834,14 @@ if(!Array.indexOf){
 				var customFont = this.parent.style('font-family').Definition.getDefinition();
 				if (customFont != null) {
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
+					var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
 					var text = this.getText();
 					
 					if (this.parent.attribute('text-anchor').value == 'middle') {
 						this.x = this.x - this.measureText(ctx) / 2.0;
 					}
 					
+					var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 					for (var i=0; i<text.length; i++) {
 						var c = text[i];
 						var glyph = customFont.glyphs[c];
@@ -1834,12 +1852,17 @@ if(!Array.indexOf){
 						ctx.scale(scale, -scale);
 						var lw = ctx.lineWidth;
 						ctx.lineWidth = ctx.lineWidth * customFont.fontFace.unitsPerEm / fontSize;
+						if (fontStyle == 'italic') ctx.transform(1, 0, .4, 1, 0, 0);
 						glyph.render(ctx);
+						if (fontStyle == 'italic') ctx.transform(1, 0, -.4, 1, 0, 0);
 						ctx.lineWidth = lw;
 						ctx.scale(1/scale, -1/scale);
 						ctx.translate(-this.x, -this.y);	
-						
-						this.x += fontSize * glyph.horizAdvX / customFont.fontFace.unitsPerEm;
+											
+						this.x += fontSize * (glyph.horizAdvX || customFont.horizAdvX) / customFont.fontFace.unitsPerEm;
+						if (typeof(dx[i]) != 'undefined') {
+							this.x += dx[i];
+						}
 					}
 					return;
 				}
@@ -1858,13 +1881,16 @@ if(!Array.indexOf){
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 					var measure = 0;
 					var text = this.getText();
+					var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 					for (var i=0; i<text.length; i++) {
 						var c = text[i];
 						var glyph = customFont.glyphs[c];
 						if (glyph == null) glyph = customFont.missingGlyph;
-						measure += glyph.horizAdvX;
+						measure += (glyph.horizAdvX || customFont.horizAdvX) * fontSize / customFont.fontFace.unitsPerEm;
+						if (typeof(dx[i]) != 'undefined') {
+							measure += dx[i];
+						}
 					}
-					measure = fontSize * measure / customFont.fontFace.unitsPerEm;
 					return measure;
 				}
 			
@@ -2061,7 +2087,7 @@ if(!Array.indexOf){
 									if (srcs[s].indexOf('format("svg")') > 0) {
 										var urlStart = srcs[s].indexOf('url');
 										var urlEnd = srcs[s].indexOf(')', urlStart);
-										var url = srcs[s].substr(urlStart + 6, urlEnd - urlStart - 7);
+										var url = srcs[s].substr(urlStart + 5, urlEnd - urlStart - 6);
 										var doc = svg.parseXml(svg.ajax(url));
 										var fonts = doc.getElementsByTagName('font');
 										for (var f=0; f<fonts.length; f++) {
