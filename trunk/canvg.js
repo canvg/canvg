@@ -12,7 +12,6 @@ if(!window.console) {
 	window.console.dir = function(str) {};
 }
 
-// <3 IE
 if(!Array.indexOf){
 	Array.prototype.indexOf = function(obj){
 		for(var i=0; i<this.length; i++){
@@ -632,12 +631,11 @@ if(!Array.indexOf){
 				}
 				
 				var p = this.parent;
-				while (p) {
+				if (p != null) {
 					var ps = p.style(name);
 					if (ps != null && ps.hasValue()) {
 						return ps;
 					}
-					p = p.parent;
 				}
 					
 				s = new svg.Property(name, '');
@@ -1719,7 +1717,9 @@ if(!Array.indexOf){
 			this.base(node);
 
 			this.horizAdvX = this.attribute('horiz-adv-x').numValue();			
-					
+			
+			this.isRTL = false;
+			this.isArabic = false;
 			this.fontFace = null;
 			this.missingGlyph = null;
 			this.glyphs = [];			
@@ -1732,7 +1732,17 @@ if(!Array.indexOf){
 					}
 				}
 				else if (child.type == 'missing-glyph') this.missingGlyph = child;
-				else if (child.type == 'glyph') this.glyphs[child.unicode] = child;
+				else if (child.type == 'glyph') {
+					if (child.arabicForm != '') {
+						this.isRTL = true;
+						this.isArabic = true;
+						if (typeof(this.glyphs[child.unicode]) == 'undefined') this.glyphs[child.unicode] = [];
+						this.glyphs[child.unicode][child.arabicForm] = child;
+					}
+					else {
+						this.glyphs[child.unicode] = child;
+					}
+				}
 			}	
 		}
 		svg.Element.font.prototype = new svg.Element.ElementBase;
@@ -1764,6 +1774,7 @@ if(!Array.indexOf){
 			
 			this.horizAdvX = this.attribute('horiz-adv-x').numValue();
 			this.unicode = this.attribute('unicode').value;
+			this.arabicForm = this.attribute('arabic-form').value;
 		}
 		svg.Element.glyph.prototype = new svg.Element.path;
 		
@@ -1830,12 +1841,33 @@ if(!Array.indexOf){
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
+			this.getGlyph = function(font, text, i) {
+				var c = text[i];
+				var glyph = null;
+				if (font.isArabic) {
+					var arabicForm = 'isolated';
+					if ((i==0 || text[i-1]==' ') && i<text.length-2 && text[i+1]!=' ') arabicForm = 'terminal'; 
+					if (i>0 && text[i-1]!=' ' && i<text.length-2 && text[i+1]!=' ') arabicForm = 'medial';
+					if (i>0 && text[i-1]!=' ' && (i == text.length-1 || text[i+1]==' ')) arabicForm = 'initial';
+					if (typeof(font.glyphs[c]) != 'undefined') {
+						glyph = font.glyphs[c][arabicForm];
+						if (glyph == null && font.glyphs[c].type == 'glyph') glyph = font.glyphs[c];
+					}
+				}
+				else {
+					glyph = font.glyphs[c];
+				}
+				if (glyph == null) glyph = font.missingGlyph;
+				return glyph;
+			}
+			
 			this.renderChildren = function(ctx) {
 				var customFont = this.parent.style('font-family').Definition.getDefinition();
 				if (customFont != null) {
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 					var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
 					var text = this.getText();
+					if (customFont.isRTL) text = text.split("").reverse().join("");
 					
 					if (this.parent.attribute('text-anchor').value == 'middle') {
 						this.x = this.x - this.measureText(ctx) / 2.0;
@@ -1843,10 +1875,7 @@ if(!Array.indexOf){
 					
 					var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 					for (var i=0; i<text.length; i++) {
-						var c = text[i];
-						var glyph = customFont.glyphs[c];
-						if (glyph == null) glyph = customFont.missingGlyph;
-						
+						var glyph = this.getGlyph(customFont, text, i);
 						var scale = fontSize / customFont.fontFace.unitsPerEm;
 						ctx.translate(this.x, this.y);
 						ctx.scale(scale, -scale);
@@ -1858,9 +1887,9 @@ if(!Array.indexOf){
 						ctx.lineWidth = lw;
 						ctx.scale(1/scale, -1/scale);
 						ctx.translate(-this.x, -this.y);	
-											
+						
 						this.x += fontSize * (glyph.horizAdvX || customFont.horizAdvX) / customFont.fontFace.unitsPerEm;
-						if (typeof(dx[i]) != 'undefined') {
+						if (typeof(dx[i]) != 'undefined' && !isNaN(dx[i])) {
 							this.x += dx[i];
 						}
 					}
@@ -1881,13 +1910,12 @@ if(!Array.indexOf){
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 					var measure = 0;
 					var text = this.getText();
+					if (customFont.isRTL) text = text.split("").reverse().join("");
 					var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 					for (var i=0; i<text.length; i++) {
-						var c = text[i];
-						var glyph = customFont.glyphs[c];
-						if (glyph == null) glyph = customFont.missingGlyph;
+						var glyph = this.getGlyph(customFont, text, i);
 						measure += (glyph.horizAdvX || customFont.horizAdvX) * fontSize / customFont.fontFace.unitsPerEm;
-						if (typeof(dx[i]) != 'undefined') {
+						if (typeof(dx[i]) != 'undefined' && !isNaN(dx[i])) {
 							measure += dx[i];
 						}
 					}
