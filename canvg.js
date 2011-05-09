@@ -2254,7 +2254,7 @@ if(!Array.indexOf){
 			var isFirstRender = true;
 			var draw = function() {
 				svg.ViewPort.Clear();
-				svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
 			
 				if (svg.opts == null || svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
