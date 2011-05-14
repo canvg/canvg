@@ -620,7 +620,7 @@ if(!Array.indexOf){
 				return a;
 			}
 			
-			// get or create style
+			// get or create style, crawls up node tree
 			this.style = function(name, createIfNotExists) {
 				var s = this.styles[name];
 				if (s != null) return s;
@@ -1800,8 +1800,8 @@ if(!Array.indexOf){
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
-				if (this.attribute('text-anchor').hasValue()) {
-					var textAnchor = this.attribute('text-anchor').value;
+				if (this.style('text-anchor').hasValue()) {
+					var textAnchor = this.style('text-anchor').value;
 					ctx.textAlign = textAnchor == 'middle' ? 'center' : textAnchor;
 				}
 				if (this.attribute('alignment-baseline').hasValue()) ctx.textBaseline = this.attribute('alignment-baseline').value;
@@ -1869,7 +1869,7 @@ if(!Array.indexOf){
 					var text = this.getText();
 					if (customFont.isRTL) text = text.split("").reverse().join("");
 					
-					if (this.parent.attribute('text-anchor').value == 'middle') {
+					if (this.parent.style('text-anchor').value == 'middle') {
 						this.x = this.x - this.measureText(ctx) / 2.0;
 					}
 					
