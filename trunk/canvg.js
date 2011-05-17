@@ -92,6 +92,7 @@ if(!Array.indexOf){
 		var svg = { };
 		
 		svg.FRAMERATE = 30;
+		svg.MAX_VIRTUAL_PIXELS = 30000;
 		
 		// globals
 		svg.init = function(ctx) {
@@ -1487,6 +1488,37 @@ if(!Array.indexOf){
 				for (var i=0; i<stopsContainer.stops.length; i++) {
 					g.addColorStop(stopsContainer.stops[i].offset, stopsContainer.stops[i].color);
 				}
+				
+				if (this.attribute('gradientTransform').hasValue()) {
+					// render as transformed pattern on temporary canvas
+					var rootView = svg.ViewPort.viewPorts[0];
+					
+					var rect = new svg.Element.rect();
+					rect.attributes['x'] = new svg.Property('x', -svg.MAX_VIRTUAL_PIXELS/3.0);
+					rect.attributes['y'] = new svg.Property('y', -svg.MAX_VIRTUAL_PIXELS/3.0);
+					rect.attributes['width'] = new svg.Property('width', svg.MAX_VIRTUAL_PIXELS);
+					rect.attributes['height'] = new svg.Property('height', svg.MAX_VIRTUAL_PIXELS);
+					
+					var group = new svg.Element.g();
+					group.attributes['transform'] = new svg.Property('transform', this.attribute('gradientTransform').value);
+					group.children = [ rect ];
+					
+					var tempSvg = new svg.Element.svg();
+					tempSvg.attributes['x'] = new svg.Property('x', 0);
+					tempSvg.attributes['y'] = new svg.Property('y', 0);
+					tempSvg.attributes['width'] = new svg.Property('width', rootView.width);
+					tempSvg.attributes['height'] = new svg.Property('height', rootView.height);
+					tempSvg.children = [ group ];
+					
+					var c = document.createElement('canvas');
+					c.width = rootView.width;
+					c.height = rootView.height;
+					var tempCtx = c.getContext('2d');
+					tempCtx.fillStyle = g;
+					tempSvg.render(tempCtx);		
+					return tempCtx.createPattern(c, 'no-repeat');
+				}
+				
 				return g;				
 			}
 		}
@@ -1512,16 +1544,8 @@ if(!Array.indexOf){
 				var y2 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.y() + bb.height() * this.attribute('y2').numValue()
 					: this.attribute('y2').Length.toPixels('y'));
-				
-				var p1 = new svg.Point(x1, y1);
-				var p2 = new svg.Point(x2, y2);
-				if (this.attribute('gradientTransform').hasValue()) { 
-					var transform = new svg.Transform(this.attribute('gradientTransform').value);
-					transform.applyToPoint(p1);
-					transform.applyToPoint(p2);
-				}
-				
-				return ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+
+				return ctx.createLinearGradient(x1, y1, x2, y2);
 			}
 		}
 		svg.Element.linearGradient.prototype = new svg.Element.GradientBase;
@@ -1558,22 +1582,7 @@ if(!Array.indexOf){
 					? (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue()
 					: this.attribute('r').Length.toPixels());
 				
-				var c = new svg.Point(cx, cy);
-				var f = new svg.Point(fx, fy);
-				if (this.attribute('gradientTransform').hasValue()) { 
-					var transform = new svg.Transform(this.attribute('gradientTransform').value);
-					transform.applyToPoint(c);
-					transform.applyToPoint(f);
-					
-					for (var i=0; i<transform.transforms.length; i++) {
-						// average the scaling part of the transform, apply to radius
-						var scale1 = transform.transforms[i].m[0];
-						var scale2 = transform.transforms[i].m[3];
-						r = r * ((scale1 + scale2) / 2.0);
-					}
-				}				
-				
-				return ctx.createRadialGradient(f.x, f.y, 0, c.x, c.y, r);
+				return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
 			}
 		}
 		svg.Element.radialGradient.prototype = new svg.Element.GradientBase;
@@ -2175,6 +2184,10 @@ if(!Array.indexOf){
 						ctx.clip();
 					}
 				}
+			}
+			
+			this.render = function(ctx) {
+				// NO RENDER
 			}
 		}
 		svg.Element.clipPath.prototype = new svg.Element.ElementBase;
