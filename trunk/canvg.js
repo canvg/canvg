@@ -1943,8 +1943,9 @@ if(!Array.indexOf){
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			//								 TEXT			  ELEMENT
-			this.text = node.nodeType == 3 ? node.nodeValue : node.childNodes[0].nodeValue;
+			this.text = node.nodeType == 3 ? node.nodeValue : // text
+						node.childNodes.length > 0 ? node.childNodes[0].nodeValue : // element
+						node.text;
 			this.getText = function() {
 				return this.text;
 			}
