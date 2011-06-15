@@ -2190,30 +2190,27 @@ if(!Array.indexOf){
 				var width = this.attribute('width').Length.toPixels('x');
 				var height = this.attribute('height').Length.toPixels('y');
 				
-				width = 800;
-				height = 800;
-
 				// temporarily remove mask to avoid recursion
 				var mask = element.attribute('mask').value;
 				element.attribute('mask').value = '';
 				
 					var cMask = document.createElement('canvas');
-					cMask.width = width;
-					cMask.height = height;
+					cMask.width = x + width;
+					cMask.height = y + height;
 					var maskCtx = cMask.getContext('2d');
 					this.renderChildren(maskCtx);
 				
 					var c = document.createElement('canvas');
-					c.width = width;
-					c.height = height;
+					c.width = x + width;
+					c.height = y + height;
 					var tempCtx = c.getContext('2d');
 					element.render(tempCtx);
 					tempCtx.globalCompositeOperation = 'destination-in';
 					tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
-					tempCtx.fillRect(0, 0, width, height);
+					tempCtx.fillRect(0, 0, x + width, y + height);
 					
 					ctx.fillStyle = tempCtx.createPattern(c, 'no-repeat');
-					ctx.fillRect(0, 0, width, height);
+					ctx.fillRect(0, 0, x + width, y + height);
 					
 				// reassign mask
 				element.attribute('mask').value = mask;	
