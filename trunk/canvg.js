@@ -653,9 +653,14 @@ if(!Array.indexOf){
 				if (this.attribute('visibility').value == 'hidden') return;
 			
 				ctx.save();
-				this.setContext(ctx);
-				this.renderChildren(ctx);
-				this.clearContext(ctx);
+					this.setContext(ctx);
+						// mask
+						if (this.attribute('mask').hasValue()) {
+							var mask = this.attribute('mask').Definition.getDefinition();
+							if (mask != null) mask.apply(ctx, this);
+						}
+						else this.renderChildren(ctx);				
+					this.clearContext(ctx);
 				ctx.restore();
 			}
 			
@@ -2172,6 +2177,53 @@ if(!Array.indexOf){
 			}
 		}
 		svg.Element.use.prototype = new svg.Element.RenderedElementBase;
+		
+		// mask element
+		svg.Element.mask = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+						
+			this.apply = function(ctx, element) {
+				// render as temp svg	
+				var x = this.attribute('x').Length.toPixels('x');
+				var y = this.attribute('y').Length.toPixels('y');
+				var width = this.attribute('width').Length.toPixels('x');
+				var height = this.attribute('height').Length.toPixels('y');
+				
+				width = 800;
+				height = 800;
+
+				// temporarily remove mask to avoid recursion
+				var mask = element.attribute('mask').value;
+				element.attribute('mask').value = '';
+				
+					var cMask = document.createElement('canvas');
+					cMask.width = width;
+					cMask.height = height;
+					var maskCtx = cMask.getContext('2d');
+					this.renderChildren(maskCtx);
+				
+					var c = document.createElement('canvas');
+					c.width = width;
+					c.height = height;
+					var tempCtx = c.getContext('2d');
+					element.render(tempCtx);
+					tempCtx.globalCompositeOperation = 'destination-in';
+					tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
+					tempCtx.fillRect(0, 0, width, height);
+					
+					ctx.fillStyle = tempCtx.createPattern(c, 'no-repeat');
+					ctx.fillRect(0, 0, width, height);
+					
+				// reassign mask
+				element.attribute('mask').value = mask;	
+			}
+			
+			this.render = function(ctx) {
+				// NO RENDER
+			}
+		}
+		svg.Element.mask.prototype = new svg.Element.ElementBase;
 		
 		// clip element
 		svg.Element.clipPath = function(node) {
