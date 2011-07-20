@@ -56,6 +56,7 @@ if(!Array.indexOf){
 			}
 			return;
 		}	
+		opts = opts || {};
 	
 		if (typeof target == 'string') {
 			target = document.getElementById(target);
@@ -658,6 +659,10 @@ if(!Array.indexOf){
 						if (this.attribute('mask').hasValue()) {
 							var mask = this.attribute('mask').Definition.getDefinition();
 							if (mask != null) mask.apply(ctx, this);
+						}
+						else if (this.style('filter').hasValue()) {
+							var filter = this.style('filter').Definition.getDefinition();
+							if (filter != null) filter.apply(ctx, this);
 						}
 						else this.renderChildren(ctx);				
 					this.clearContext(ctx);
@@ -1415,8 +1420,8 @@ if(!Array.indexOf){
 				tempSvg.children = this.children;
 				
 				var c = document.createElement('canvas');
-				c.width = this.attribute('width').Length.toPixels();
-				c.height = this.attribute('height').Length.toPixels();
+				c.width = this.attribute('width').Length.toPixels('x');
+				c.height = this.attribute('height').Length.toPixels('y');
 				tempSvg.render(c.getContext('2d'));		
 				return ctx.createPattern(c, 'repeat');
 			}
@@ -2242,6 +2247,133 @@ if(!Array.indexOf){
 		}
 		svg.Element.clipPath.prototype = new svg.Element.ElementBase;
 
+		// filters
+		svg.Element.filter = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+						
+			this.apply = function(ctx, element) {
+				// render as temp svg	
+				var bb = element.getBoundingBox();
+				var x = this.attribute('x').Length.toPixels('x');
+				var y = this.attribute('y').Length.toPixels('y');
+				if (x == 0 || y == 0) {
+					x = bb.x1;
+					y = bb.y1;
+				}
+				var width = this.attribute('width').Length.toPixels('x');
+				var height = this.attribute('height').Length.toPixels('y');
+				if (width == 0 || height == 0) {
+					width = bb.width();
+					height = bb.height();
+				}
+				
+				// temporarily remove filter to avoid recursion
+				var filter = element.style('filter').value;
+				element.style('filter').value = '';
+				
+				// max filter distance
+				var extraPercent = .20;
+				var px = extraPercent * width;
+				var py = extraPercent * height;
+				
+				var c = document.createElement('canvas');
+				c.width = width + 2*px;
+				c.height = height + 2*py;
+				var tempCtx = c.getContext('2d');
+				tempCtx.translate(-x + px, -y + py);
+				element.render(tempCtx);
+			
+				// apply filters
+				for (var i=0; i<this.children.length; i++) {
+					this.children[i].apply(tempCtx, 0, 0, width + 2*px, height + 2*py);
+				}
+				
+				// render on me
+				ctx.drawImage(c, 0, 0, width + 2*px, height + 2*py, x - px, y - py, width + 2*px, height + 2*py);
+				
+				// reassign filter
+				element.style('filter', true).value = filter;	
+			}
+			
+			this.render = function(ctx) {
+				// NO RENDER
+			}		
+		}
+		svg.Element.filter.prototype = new svg.Element.ElementBase;
+		
+		svg.Element.feGaussianBlur = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);	
+			
+			function make_fgauss(sigma) {
+				sigma = Math.max(sigma, 0.01);			      
+				var len = Math.ceil(sigma * 4.0) + 1;                     
+				mask = [];                               
+				for (var i = 0; i < len; i++) {                             
+					mask[i] = Math.exp(-0.5 * (i / sigma) * (i / sigma));                                           
+				}                                                           
+				return mask; 
+			}
+			
+			function normalize(mask) {
+				var sum = 0;
+				for (var i = 1; i < mask.length; i++) {
+					sum += Math.abs(mask[i]);
+				}
+				sum = 2 * sum + Math.abs(mask[0]);
+				for (var i = 0; i < mask.length; i++) {
+					mask[i] /= sum;
+				}
+				return mask;
+			}
+			
+			function convolve_even(src, dst, mask, width, height) {
+			  for (var y = 0; y < height; y++) {
+				for (var x = 0; x < width; x++) {
+				  var a = imGet(src, x, y, width, height, 3)/255;
+				  for (var rgba = 0; rgba < 4; rgba++) {					  
+					  var sum = mask[0] * (a==0?255:imGet(src, x, y, width, height, rgba)) * (a==0||rgba==3?1:a);
+					  for (var i = 1; i < mask.length; i++) {
+						var a1 = imGet(src, Math.max(x-i,0), y, width, height, 3)/255;
+					    var a2 = imGet(src, Math.min(x+i, width-1), y, width, height, 3)/255;
+						sum += mask[i] * 
+						  ((a1==0?255:imGet(src, Math.max(x-i,0), y, width, height, rgba)) * (a1==0||rgba==3?1:a1) + 
+						   (a2==0?255:imGet(src, Math.min(x+i, width-1), y, width, height, rgba)) * (a2==0||rgba==3?1:a2));
+					  }
+					  imSet(dst, y, x, height, width, rgba, sum);
+				  }			  
+				}
+			  }
+			}		
+
+			function imGet(img, x, y, width, height, rgba) {
+				return img[y*width*4 + x*4 + rgba];
+			}
+			
+			function imSet(img, x, y, width, height, rgba, val) {
+				img[y*width*4 + x*4 + rgba] = val;
+			}
+						
+			function blur(ctx, width, height, sigma)
+			{
+				var srcData = ctx.getImageData(0, 0, width, height);
+				var mask = make_fgauss(sigma);
+				mask = normalize(mask);
+				tmp = [];
+				convolve_even(srcData.data, tmp, mask, width, height);
+				convolve_even(tmp, srcData.data, mask, height, width);
+				ctx.clearRect(0, 0, width, height);
+				ctx.putImageData(srcData, 0, 0);
+			}			
+		
+			this.apply = function(ctx, x, y, width, height) {
+				// assuming x==0 && y==0 for now
+				blur(ctx, width, height, this.attribute('stdDeviation').numValue());
+			}
+		}
+		svg.Element.filter.prototype = new svg.Element.feGaussianBlur;
+		
 		// title element, do nothing
 		svg.Element.title = function(node) {
 		}
@@ -2299,7 +2431,7 @@ if(!Array.indexOf){
 			}
 			
 			// bind mouse
-			if (svg.opts == null || svg.opts['ignoreMouse'] != true) {
+			if (svg.opts['ignoreMouse'] != true) {
 				ctx.canvas.onclick = function(e) {
 					var p = mapXY(new svg.Point(e != null ? e.clientX : event.clientX, e != null ? e.clientY : event.clientY));
 					svg.Mouse.onclick(p.x, p.y);
@@ -2319,7 +2451,7 @@ if(!Array.indexOf){
 				svg.ViewPort.Clear();
 				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
 			
-				if (svg.opts == null || svg.opts['ignoreDimensions'] != true) {
+				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
 					if (e.style('width').hasValue()) {
 						ctx.canvas.width = e.style('width').Length.toPixels('x');
@@ -2342,7 +2474,7 @@ if(!Array.indexOf){
 				}
 			
 				// clear and render
-				if (svg.opts == null || svg.opts['ignoreClear'] != true) {
+				if (svg.opts['ignoreClear'] != true) {
 					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
 				}
 				e.render(ctx);
@@ -2366,12 +2498,12 @@ if(!Array.indexOf){
 				}
 			
 				// need update from mouse events?
-				if (svg.opts == null || svg.opts['ignoreMouse'] != true) {
+				if (svg.opts['ignoreMouse'] != true) {
 					needUpdate = needUpdate | svg.Mouse.hasEvents();
 				}
 			
 				// need update from animations?
-				if (svg.opts == null || svg.opts['ignoreAnimation'] != true) {
+				if (svg.opts['ignoreAnimation'] != true) {
 					for (var i=0; i<svg.Animations.length; i++) {
 						needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
 					}
