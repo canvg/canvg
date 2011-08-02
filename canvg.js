@@ -1101,7 +1101,7 @@ if(!Array.indexOf){
 			this.base(node);
 					
 			var d = this.attribute('d').value;
-			// TODO: floating points, convert to real lexer based on http://www.w3.org/TR/SVG11/paths.html#PathDataBNF
+			// TODO: convert to real lexer based on http://www.w3.org/TR/SVG11/paths.html#PathDataBNF
 			d = d.replace(/,/gm,' '); // get rid of all commas
 			d = d.replace(/([MmZzLlHhVvCcSsQqTtAa])([MmZzLlHhVvCcSsQqTtAa])/gm,'$1 $2'); // separate commands from commands
 			d = d.replace(/([MmZzLlHhVvCcSsQqTtAa])([MmZzLlHhVvCcSsQqTtAa])/gm,'$1 $2'); // separate commands from commands
@@ -1132,7 +1132,7 @@ if(!Array.indexOf){
 				
 				this.isCommandOrEnd = function() {
 					if (this.isEnd()) return true;
-					return this.tokens[this.i + 1].match(/[A-Za-z]/) != null;
+					return this.tokens[this.i + 1].match(/^[A-Za-z]$/) != null;
 				}
 				
 				this.isRelativeCommand = function() {
