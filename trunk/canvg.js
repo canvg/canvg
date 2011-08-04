@@ -1838,8 +1838,8 @@ if(!Array.indexOf){
 					else {
 						if (child.attribute('dx').hasValue()) x += child.attribute('dx').Length.toPixels('x');
 						child.x = x;
-						x += child.measureText(ctx);
 					}
+					x = child.x + child.measureText(ctx);
 					
 					if (child.attribute('y').hasValue()) {
 						child.y = child.attribute('y').Length.toPixels('y');
@@ -1848,6 +1848,7 @@ if(!Array.indexOf){
 						if (child.attribute('dy').hasValue()) y += child.attribute('dy').Length.toPixels('y');
 						child.y = y;
 					}	
+					y = child.y;
 					
 					child.render(ctx);
 				}
@@ -1943,7 +1944,12 @@ if(!Array.indexOf){
 			
 				var textToMeasure = svg.compressSpaces(this.getText());
 				if (!ctx.measureText) return textToMeasure.length * 10;
-				return ctx.measureText(textToMeasure).width;
+				
+				ctx.save();
+				this.setContext(ctx);
+				var width = ctx.measureText(textToMeasure).width;
+				ctx.restore();
+				return width;
 			}
 		}
 		svg.Element.TextElementBase.prototype = new svg.Element.RenderedElementBase;
