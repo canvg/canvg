@@ -2468,20 +2468,22 @@ if(!Array.indexOf){
 						ctx.canvas.style.height = ctx.canvas.height + 'px';
 					}
 				}
-				svg.ViewPort.SetCurrent(ctx.canvas.clientWidth, ctx.canvas.clientHeight);		
+				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
+				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
+				svg.ViewPort.SetCurrent(cWidth, cHeight);		
 				
 				if (svg.opts != null && svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
 				if (svg.opts != null && svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
 				if (svg.opts != null && svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];			
-					e.attribute('viewBox', true).value = '0 0 ' + ctx.canvas.clientWidth + ' ' + ctx.canvas.clientHeight;
+					e.attribute('viewBox', true).value = '0 0 ' + cWidth + ' ' + cHeight;
 					e.attribute('preserveAspectRatio', true).value = 'none';
 				}
 			
 				// clear and render
 				if (svg.opts['ignoreClear'] != true) {
-					ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+					ctx.clearRect(0, 0, cWidth, cHeight);
 				}
 				e.render(ctx);
 				if (isFirstRender) {
