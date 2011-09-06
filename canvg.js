@@ -169,7 +169,7 @@ if(!Array.indexOf){
 			this.value = value;
 			
 			this.hasValue = function() {
-				return (this.value != null && this.value != '');
+				return (this.value != null && this.value !== '');
 			}
 							
 			// return the numerical value of the property
@@ -2475,9 +2475,13 @@ if(!Array.indexOf){
 				if (svg.opts != null && svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
 				if (svg.opts != null && svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
 				if (svg.opts != null && svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
+					var xRatio = 1, yRatio = 1;
+					if (e.attribute('width').hasValue()) xRatio = e.attribute('width').Length.toPixels('x') / svg.opts['scaleWidth'];
+					if (e.attribute('height').hasValue()) yRatio = e.attribute('height').Length.toPixels('y') / svg.opts['scaleHeight'];
+				
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];			
-					e.attribute('viewBox', true).value = '0 0 ' + cWidth + ' ' + cHeight;
+					e.attribute('viewBox', true).value = '0 0 ' + (cWidth * xRatio) + ' ' + (cHeight * yRatio);
 					e.attribute('preserveAspectRatio', true).value = 'none';
 				}
 			
