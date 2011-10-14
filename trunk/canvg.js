@@ -648,7 +648,7 @@ if(!Array.indexOf){
 			// base render
 			this.render = function(ctx) {
 				// don't render display=none
-				if (this.attribute('display').value == 'none') return;
+				if (this.style('display').value == 'none') return;
 				
 				// don't render visibility=hidden
 				if (this.attribute('visibility').value == 'hidden') return;
@@ -833,18 +833,18 @@ if(!Array.indexOf){
 				
 				var markers = this.getMarkers();
 				if (markers != null) {
-					if (this.attribute('marker-start').Definition.isUrl()) {
-						var marker = this.attribute('marker-start').Definition.getDefinition();
+					if (this.style('marker-start').Definition.isUrl()) {
+						var marker = this.style('marker-start').Definition.getDefinition();
 						marker.render(ctx, markers[0][0], markers[0][1]);
 					}
-					if (this.attribute('marker-mid').Definition.isUrl()) {
-						var marker = this.attribute('marker-mid').Definition.getDefinition();
+					if (this.style('marker-mid').Definition.isUrl()) {
+						var marker = this.style('marker-mid').Definition.getDefinition();
 						for (var i=1;i<markers.length-1;i++) {
 							marker.render(ctx, markers[i][0], markers[i][1]);
 						}
 					}
-					if (this.attribute('marker-end').Definition.isUrl()) {
-						var marker = this.attribute('marker-end').Definition.getDefinition();
+					if (this.style('marker-end').Definition.isUrl()) {
+						var marker = this.style('marker-end').Definition.getDefinition();
 						marker.render(ctx, markers[markers.length-1][0], markers[markers.length-1][1]);
 					}
 				}					
@@ -1230,7 +1230,7 @@ if(!Array.indexOf){
 						pp.start = pp.current;
 						while (!pp.isCommandOrEnd()) {
 							var p = pp.getAsCurrentPoint();
-							pp.addMarker(p);
+							pp.addMarker(p, pp.start);
 							bb.addPoint(p.x, p.y);
 							if (ctx != null) ctx.lineTo(p.x, p.y);
 						}
