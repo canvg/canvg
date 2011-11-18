@@ -12,7 +12,7 @@ if(!window.console) {
 	window.console.dir = function(str) {};
 }
 
-if(!Array.indexOf){
+if(!Array.prototype.indexOf){
 	Array.prototype.indexOf = function(obj){
 		for(var i=0; i<this.length; i++){
 			if(this[i]==obj){
