@@ -1823,7 +1823,8 @@ if(!Array.prototype.indexOf){
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
-				if (this.attribute('alignment-baseline').hasValue()) ctx.textBaseline = this.attribute('alignment-baseline').value;
+				if (this.style('dominant-baseline').hasValue()) ctx.textBaseline = this.style('dominant-baseline').value;
+				if (this.style('alignment-baseline').hasValue()) ctx.textBaseline = this.style('alignment-baseline').value;
 			}
 			
 			this.renderChildren = function(ctx) {
