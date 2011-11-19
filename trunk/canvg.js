@@ -1188,7 +1188,11 @@ if(!Array.prototype.indexOf){
 					return p;
 				}
 				
-				this.addMarker = function(p, from) {
+				this.addMarker = function(p, from, priorTo) {
+					// if the last angle isn't filled in because we didn't have this point yet ...
+					if (priorTo != null && this.angles.length > 0 && this.angles[this.angles.length-1] == null) {
+						this.angles[this.angles.length-1] = this.points[this.points.length-1].angleTo(priorTo);
+					}
 					this.addMarkerAngle(p, from == null ? null : from.angleTo(p));
 				}
 				
@@ -1268,7 +1272,7 @@ if(!Array.prototype.indexOf){
 							var p1 = pp.getPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							pp.addMarker(cp, cntrl);
+							pp.addMarker(cp, cntrl, p1);
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}
@@ -1279,7 +1283,7 @@ if(!Array.prototype.indexOf){
 							var p1 = pp.getReflectedControlPoint();
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							pp.addMarker(cp, cntrl);
+							pp.addMarker(cp, cntrl, p1);
 							bb.addBezierCurve(curr.x, curr.y, p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.bezierCurveTo(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
 						}
@@ -1289,7 +1293,7 @@ if(!Array.prototype.indexOf){
 							var curr = pp.current;
 							var cntrl = pp.getAsControlPoint();
 							var cp = pp.getAsCurrentPoint();
-							pp.addMarker(cp, cntrl);
+							pp.addMarker(cp, cntrl, cntrl);
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}
@@ -1300,7 +1304,7 @@ if(!Array.prototype.indexOf){
 							var cntrl = pp.getReflectedControlPoint();
 							pp.control = cntrl;
 							var cp = pp.getAsCurrentPoint();
-							pp.addMarker(cp, cntrl);
+							pp.addMarker(cp, cntrl, cntrl);
 							bb.addQuadraticCurve(curr.x, curr.y, cntrl.x, cntrl.y, cp.x, cp.y);
 							if (ctx != null) ctx.quadraticCurveTo(cntrl.x, cntrl.y, cp.x, cp.y);
 						}
