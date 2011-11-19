@@ -150,13 +150,17 @@
 		svg.Property = function(name, value) {
 			this.name = name;
 			this.value = value;
-			
-			this.hasValue = function() {
+		}	
+			svg.Property.prototype.getValue = function() {
+				return this.value;
+			}
+		
+			svg.Property.prototype.hasValue = function() {
 				return (this.value != null && this.value !== '');
 			}
 							
 			// return the numerical value of the property
-			this.numValue = function() {
+			svg.Property.prototype.numValue = function() {
 				if (!this.hasValue()) return 0;
 				
 				var n = parseFloat(this.value);
@@ -166,47 +170,41 @@
 				return n;
 			}
 			
-			this.valueOrDefault = function(def) {
+			svg.Property.prototype.valueOrDefault = function(def) {
 				if (this.hasValue()) return this.value;
 				return def;
 			}
 			
-			this.numValueOrDefault = function(def) {
+			svg.Property.prototype.numValueOrDefault = function(def) {
 				if (this.hasValue()) return this.numValue();
 				return def;
 			}
 			
-			/* EXTENSIONS */
-			var that = this;
-			
 			// color extensions
-			this.Color = {
 				// augment the current color value with the opacity
-				addOpacity: function(opacity) {
-					var newValue = that.value;
+				svg.Property.prototype.addOpacity = function(opacity) {
+					var newValue = this.value;
 					if (opacity != null && opacity != '') {
-						var color = new RGBColor(that.value);
+						var color = new RGBColor(this.value);
 						if (color.ok) {
 							newValue = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + opacity + ')';
 						}
 					}
-					return new svg.Property(that.name, newValue);
+					return new svg.Property(this.name, newValue);
 				}
-			}
 			
 			// definition extensions
-			this.Definition = {
 				// get the definition from the definitions table
-				getDefinition: function() {
-					var name = that.value.replace(/^(url\()?#([^\)]+)\)?$/, '$2');
+				svg.Property.prototype.getDefinition = function() {
+					var name = this.value.replace(/^(url\()?#([^\)]+)\)?$/, '$2');
 					return svg.Definitions[name];
-				},
+				}
 				
-				isUrl: function() {
-					return that.value.indexOf('url(') == 0
-				},
+				svg.Property.prototype.isUrlDefinition = function() {
+					return this.value.indexOf('url(') == 0
+				}
 				
-				getFillStyle: function(e) {
+				svg.Property.prototype.getFillStyleDefinition = function(e) {
 					var def = this.getDefinition();
 					
 					// gradient
@@ -221,65 +219,57 @@
 					
 					return null;
 				}
-			}
 			
 			// length extensions
-			this.Length = {
-				DPI: function(viewPort) {
+				svg.Property.prototype.getDPI = function(viewPort) {
 					return 96.0; // TODO: compute?
-				},
+				}
 				
-				EM: function(viewPort) {
+				svg.Property.prototype.getEM = function(viewPort) {
 					var em = 12;
 					
 					var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
-					if (fontSize.hasValue()) em = fontSize.Length.toPixels(viewPort);
+					if (fontSize.hasValue()) em = fontSize.toPixels(viewPort);
 					
 					return em;
-				},
+				}
 			
 				// get the length as pixels
-				toPixels: function(viewPort) {
-					if (!that.hasValue()) return 0;
-					var s = that.value+'';
-					if (s.match(/em$/)) return that.numValue() * this.EM(viewPort);
-					if (s.match(/ex$/)) return that.numValue() * this.EM(viewPort) / 2.0;
-					if (s.match(/px$/)) return that.numValue();
-					if (s.match(/pt$/)) return that.numValue() * 1.25;
-					if (s.match(/pc$/)) return that.numValue() * 15;
-					if (s.match(/cm$/)) return that.numValue() * this.DPI(viewPort) / 2.54;
-					if (s.match(/mm$/)) return that.numValue() * this.DPI(viewPort) / 25.4;
-					if (s.match(/in$/)) return that.numValue() * this.DPI(viewPort);
-					if (s.match(/%$/)) return that.numValue() * svg.ViewPort.ComputeSize(viewPort);
-					return that.numValue();
+				svg.Property.prototype.toPixels = function(viewPort) {
+					if (!this.hasValue()) return 0;
+					var s = this.value+'';
+					if (s.match(/em$/)) return this.numValue() * this.getEM(viewPort);
+					if (s.match(/ex$/)) return this.numValue() * this.getEM(viewPort) / 2.0;
+					if (s.match(/px$/)) return this.numValue();
+					if (s.match(/pt$/)) return this.numValue() * 1.25;
+					if (s.match(/pc$/)) return this.numValue() * 15;
+					if (s.match(/cm$/)) return this.numValue() * this.getDPI(viewPort) / 2.54;
+					if (s.match(/mm$/)) return this.numValue() * this.getDPI(viewPort) / 25.4;
+					if (s.match(/in$/)) return this.numValue() * this.getDPI(viewPort);
+					if (s.match(/%$/)) return this.numValue() * svg.ViewPort.ComputeSize(viewPort);
+					return this.numValue();
 				}
-			}
-			
+
 			// time extensions
-			this.Time = {
 				// get the time as milliseconds
-				toMilliseconds: function() {
-					if (!that.hasValue()) return 0;
-					var s = that.value+'';
-					if (s.match(/s$/)) return that.numValue() * 1000;
-					if (s.match(/ms$/)) return that.numValue();
-					return that.numValue();
+				svg.Property.prototype.toMilliseconds = function() {
+					if (!this.hasValue()) return 0;
+					var s = this.value+'';
+					if (s.match(/s$/)) return this.numValue() * 1000;
+					if (s.match(/ms$/)) return this.numValue();
+					return this.numValue();
 				}
-			}
 			
 			// angle extensions
-			this.Angle = {
 				// get the angle as radians
-				toRadians: function() {
-					if (!that.hasValue()) return 0;
-					var s = that.value+'';
-					if (s.match(/deg$/)) return that.numValue() * (Math.PI / 180.0);
-					if (s.match(/grad$/)) return that.numValue() * (Math.PI / 200.0);
-					if (s.match(/rad$/)) return that.numValue();
-					return that.numValue() * (Math.PI / 180.0);
+				svg.Property.prototype.toRadians = function() {
+					if (!this.hasValue()) return 0;
+					var s = this.value+'';
+					if (s.match(/deg$/)) return this.numValue() * (Math.PI / 180.0);
+					if (s.match(/grad$/)) return this.numValue() * (Math.PI / 200.0);
+					if (s.match(/rad$/)) return this.numValue();
+					return this.numValue() * (Math.PI / 180.0);
 				}
-			}
-		}
 		
 		// fonts
 		svg.Font = new (function() {
@@ -327,18 +317,18 @@
 		svg.Point = function(x, y) {
 			this.x = x;
 			this.y = y;
-			
-			this.angleTo = function(p) {
+		}	
+			svg.Point.prototype.angleTo = function(p) {
 				return Math.atan2(p.y - this.y, p.x - this.x);
 			}
 			
-			this.applyTransform = function(v) {
+			svg.Point.prototype.applyTransform = function(v) {
 				var xp = this.x * v[0] + this.y * v[2] + v[4];
 				var yp = this.x * v[1] + this.y * v[3] + v[5];
 				this.x = xp;
 				this.y = yp;
 			}
-		}
+
 		svg.CreatePoint = function(s) {
 			var a = svg.ToNumberArray(s);
 			return new svg.Point(a[0], a[1]);
@@ -474,11 +464,11 @@
 				this.cy = a[2] || 0;
 				this.apply = function(ctx) {
 					ctx.translate(this.cx, this.cy);
-					ctx.rotate(this.angle.Angle.toRadians());
+					ctx.rotate(this.angle.toRadians());
 					ctx.translate(-this.cx, -this.cy);
 				}
 				this.applyToPoint = function(p) {
-					var a = this.angle.Angle.toRadians();
+					var a = this.angle.toRadians();
 					p.applyTransform([1, 0, 0, 1, this.p.x || 0.0, this.p.y || 0.0]);
 					p.applyTransform([Math.cos(a), Math.sin(a), -Math.sin(a), Math.cos(a), 0, 0]);
 					p.applyTransform([1, 0, 0, 1, -this.p.x || 0.0, -this.p.y || 0.0]);
@@ -515,14 +505,14 @@
 			this.Type.skewX = function(s) {
 				this.base = that.Type.SkewBase;
 				this.base(s);
-				this.m = [1, 0, Math.tan(this.angle.Angle.toRadians()), 1, 0, 0];
+				this.m = [1, 0, Math.tan(this.angle.toRadians()), 1, 0, 0];
 			}
 			this.Type.skewX.prototype = new this.Type.SkewBase;
 			
 			this.Type.skewY = function(s) {
 				this.base = that.Type.SkewBase;
 				this.base(s);
-				this.m = [1, Math.tan(this.angle.Angle.toRadians()), 0, 1, 0, 0];
+				this.m = [1, Math.tan(this.angle.toRadians()), 0, 1, 0, 0];
 			}
 			this.Type.skewY.prototype = new this.Type.SkewBase;
 		
@@ -568,7 +558,7 @@
 			refX = new svg.Property('refX', refX);
 			refY = new svg.Property('refY', refY);
 			if (refX.hasValue() && refY.hasValue()) {				
-				ctx.translate(-scaleMin * refX.Length.toPixels('x'), -scaleMin * refY.Length.toPixels('y'));
+				ctx.translate(-scaleMin * refX.toPixels('x'), -scaleMin * refY.toPixels('y'));
 			} 
 			else {					
 				// align
@@ -590,6 +580,8 @@
 		// elements
 		svg.Element = {}
 		
+		svg.EmptyProperty = new svg.Property('EMPTY', '');
+		
 		svg.Element.ElementBase = function(node) {	
 			this.attributes = {};
 			this.styles = {};
@@ -600,9 +592,8 @@
 				var a = this.attributes[name];
 				if (a != null) return a;
 							
-				a = new svg.Property(name, '');
-				if (createIfNotExists == true) this.attributes[name] = a;
-				return a;
+				if (createIfNotExists == true) { a = new svg.Property(name, ''); this.attributes[name] = a; }
+				return a || svg.EmptyProperty;
 			}
 			
 			// get or create style, crawls up node tree
@@ -612,6 +603,7 @@
 				
 				var a = this.attribute(name);
 				if (a != null && a.hasValue()) {
+					this.styles[name] = a; // move up to me to cache
 					return a;
 				}
 				
@@ -619,13 +611,13 @@
 				if (p != null) {
 					var ps = p.style(name);
 					if (ps != null && ps.hasValue()) {
+						this.styles[name] = ps; // move up to me to cache
 						return ps;
 					}
 				}
 					
-				s = new svg.Property(name, '');
-				if (createIfNotExists == true) this.styles[name] = s;
-				return s;
+				if (createIfNotExists == true) { s = new svg.Property(name, ''); this.styles[name] = s; }
+				return s || svg.EmptyProperty;
 			}
 			
 			// base render
@@ -640,11 +632,11 @@
 					this.setContext(ctx);
 						// mask
 						if (this.attribute('mask').hasValue()) {
-							var mask = this.attribute('mask').Definition.getDefinition();
+							var mask = this.attribute('mask').getDefinition();
 							if (mask != null) mask.apply(ctx, this);
 						}
 						else if (this.style('filter').hasValue()) {
-							var filter = this.style('filter').Definition.getDefinition();
+							var filter = this.style('filter').getDefinition();
 							if (filter != null) filter.apply(ctx, this);
 						}
 						else this.renderChildren(ctx);				
@@ -744,27 +736,27 @@
 			
 			this.setContext = function(ctx) {
 				// fill
-				if (this.style('fill').Definition.isUrl()) {
-					var fs = this.style('fill').Definition.getFillStyle(this);
+				if (this.style('fill').isUrlDefinition()) {
+					var fs = this.style('fill').getFillStyleDefinition(this);
 					if (fs != null) ctx.fillStyle = fs;
 				}
 				else if (this.style('fill').hasValue()) {
 					var fillStyle = this.style('fill');
-					if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.Color.addOpacity(this.style('fill-opacity').value);
+					if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.addOpacity(this.style('fill-opacity').value);
 					ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
 				}
 									
 				// stroke
-				if (this.style('stroke').Definition.isUrl()) {
-					var fs = this.style('stroke').Definition.getFillStyle(this);
+				if (this.style('stroke').isUrlDefinition()) {
+					var fs = this.style('stroke').getFillStyleDefinition(this);
 					if (fs != null) ctx.strokeStyle = fs;
 				}
 				else if (this.style('stroke').hasValue()) {
 					var strokeStyle = this.style('stroke');
-					if (this.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.Color.addOpacity(this.style('stroke-opacity').value);
+					if (this.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity').value);
 					ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
 				}
-				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').Length.toPixels();
+				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').toPixels();
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
@@ -775,7 +767,7 @@
 						this.style('font-style').value, 
 						this.style('font-variant').value, 
 						this.style('font-weight').value, 
-						this.style('font-size').hasValue() ? this.style('font-size').Length.toPixels() + 'px' : '', 
+						this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '', 
 						this.style('font-family').value).toString();
 				}
 				
@@ -787,7 +779,7 @@
 				
 				// clip
 				if (this.attribute('clip-path').hasValue()) {
-					var clip = this.attribute('clip-path').Definition.getDefinition();
+					var clip = this.attribute('clip-path').getDefinition();
 					if (clip != null) clip.apply(ctx);
 				}
 				
@@ -816,18 +808,18 @@
 				
 				var markers = this.getMarkers();
 				if (markers != null) {
-					if (this.style('marker-start').Definition.isUrl()) {
-						var marker = this.style('marker-start').Definition.getDefinition();
+					if (this.style('marker-start').isUrlDefinition()) {
+						var marker = this.style('marker-start').getDefinition();
 						marker.render(ctx, markers[0][0], markers[0][1]);
 					}
-					if (this.style('marker-mid').Definition.isUrl()) {
-						var marker = this.style('marker-mid').Definition.getDefinition();
+					if (this.style('marker-mid').isUrlDefinition()) {
+						var marker = this.style('marker-mid').getDefinition();
 						for (var i=1;i<markers.length-1;i++) {
 							marker.render(ctx, markers[i][0], markers[i][1]);
 						}
 					}
-					if (this.style('marker-end').Definition.isUrl()) {
-						var marker = this.style('marker-end').Definition.getDefinition();
+					if (this.style('marker-end').isUrlDefinition()) {
+						var marker = this.style('marker-end').getDefinition();
 						marker.render(ctx, markers[markers.length-1][0], markers[markers.length-1][1]);
 					}
 				}					
@@ -866,20 +858,20 @@
 				
 				// create new view port
 				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
-					ctx.translate(this.attribute('x').Length.toPixels('x'), this.attribute('y').Length.toPixels('y'));
+					ctx.translate(this.attribute('x').toPixels('x'), this.attribute('y').toPixels('y'));
 				}
 				
 				var width = svg.ViewPort.width();
 				var height = svg.ViewPort.height();
 				if (typeof(this.root) == 'undefined' && this.attribute('width').hasValue() && this.attribute('height').hasValue()) {
-					width = this.attribute('width').Length.toPixels('x');
-					height = this.attribute('height').Length.toPixels('y');
+					width = this.attribute('width').toPixels('x');
+					height = this.attribute('height').toPixels('y');
 					
 					var x = 0;
 					var y = 0;
 					if (this.attribute('refX').hasValue() && this.attribute('refY').hasValue()) {
-						x = -this.attribute('refX').Length.toPixels('x');
-						y = -this.attribute('refY').Length.toPixels('y');
+						x = -this.attribute('refX').toPixels('x');
+						y = -this.attribute('refY').toPixels('y');
 					}
 					
 					ctx.beginPath();
@@ -924,12 +916,12 @@
 			this.base(node);
 			
 			this.path = function(ctx) {
-				var x = this.attribute('x').Length.toPixels('x');
-				var y = this.attribute('y').Length.toPixels('y');
-				var width = this.attribute('width').Length.toPixels('x');
-				var height = this.attribute('height').Length.toPixels('y');
-				var rx = this.attribute('rx').Length.toPixels('x');
-				var ry = this.attribute('ry').Length.toPixels('y');
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
+				var width = this.attribute('width').toPixels('x');
+				var height = this.attribute('height').toPixels('y');
+				var rx = this.attribute('rx').toPixels('x');
+				var ry = this.attribute('ry').toPixels('y');
 				if (this.attribute('rx').hasValue() && !this.attribute('ry').hasValue()) ry = rx;
 				if (this.attribute('ry').hasValue() && !this.attribute('rx').hasValue()) rx = ry;
 				
@@ -958,9 +950,9 @@
 			this.base(node);
 			
 			this.path = function(ctx) {
-				var cx = this.attribute('cx').Length.toPixels('x');
-				var cy = this.attribute('cy').Length.toPixels('y');
-				var r = this.attribute('r').Length.toPixels();
+				var cx = this.attribute('cx').toPixels('x');
+				var cy = this.attribute('cy').toPixels('y');
+				var r = this.attribute('r').toPixels();
 			
 				if (ctx != null) {
 					ctx.beginPath();
@@ -980,10 +972,10 @@
 			
 			this.path = function(ctx) {
 				var KAPPA = 4 * ((Math.sqrt(2) - 1) / 3);
-				var rx = this.attribute('rx').Length.toPixels('x');
-				var ry = this.attribute('ry').Length.toPixels('y');
-				var cx = this.attribute('cx').Length.toPixels('x');
-				var cy = this.attribute('cy').Length.toPixels('y');
+				var rx = this.attribute('rx').toPixels('x');
+				var ry = this.attribute('ry').toPixels('y');
+				var cx = this.attribute('cx').toPixels('x');
+				var cy = this.attribute('cy').toPixels('y');
 				
 				if (ctx != null) {
 					ctx.beginPath();
@@ -1007,8 +999,8 @@
 			
 			this.getPoints = function() {
 				return [
-					new svg.Point(this.attribute('x1').Length.toPixels('x'), this.attribute('y1').Length.toPixels('y')),
-					new svg.Point(this.attribute('x2').Length.toPixels('x'), this.attribute('y2').Length.toPixels('y'))];
+					new svg.Point(this.attribute('x1').toPixels('x'), this.attribute('y1').toPixels('y')),
+					new svg.Point(this.attribute('x2').toPixels('x'), this.attribute('y2').toPixels('y'))];
 			}
 								
 			this.path = function(ctx) {
@@ -1119,11 +1111,26 @@
 				}
 				
 				this.isRelativeCommand = function() {
-					return this.command == this.command.toLowerCase();
+					switch(this.command)
+					{
+						case 'm':
+						case 'l':
+						case 'h':
+						case 'v':
+						case 'c':
+						case 's':
+						case 'q':
+						case 't':
+						case 'a':
+						case 'z':
+							return true;
+							break;
+					}
+					return false;
 				}
 							
 				this.getToken = function() {
-					this.i = this.i + 1;
+					this.i++;
 					return this.tokens[this.i];
 				}
 				
@@ -1165,8 +1172,8 @@
 				
 				this.makeAbsolute = function(p) {
 					if (this.isRelativeCommand()) {
-						p.x = this.current.x + p.x;
-						p.y = this.current.y + p.y;
+						p.x += this.current.x;
+						p.y += this.current.y;
 					}
 					return p;
 				}
@@ -1208,8 +1215,9 @@
 				if (ctx != null) ctx.beginPath();
 				while (!pp.isEnd()) {
 					pp.nextCommand();
-					switch (pp.command.toUpperCase()) {
+					switch (pp.command) {
 					case 'M':
+					case 'm':
 						var p = pp.getAsCurrentPoint();
 						pp.addMarker(p);
 						bb.addPoint(p.x, p.y);
@@ -1223,6 +1231,7 @@
 						}
 						break;
 					case 'L':
+					case 'l':
 						while (!pp.isCommandOrEnd()) {
 							var c = pp.current;
 							var p = pp.getAsCurrentPoint();
@@ -1232,6 +1241,7 @@
 						}
 						break;
 					case 'H':
+					case 'h':
 						while (!pp.isCommandOrEnd()) {
 							var newP = new svg.Point((pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar(), pp.current.y);
 							pp.addMarker(newP, pp.current);
@@ -1241,6 +1251,7 @@
 						}
 						break;
 					case 'V':
+					case 'v':
 						while (!pp.isCommandOrEnd()) {
 							var newP = new svg.Point(pp.current.x, (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar());
 							pp.addMarker(newP, pp.current);
@@ -1250,6 +1261,7 @@
 						}
 						break;
 					case 'C':
+					case 'c':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var p1 = pp.getPoint();
@@ -1261,6 +1273,7 @@
 						}
 						break;
 					case 'S':
+					case 's':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var p1 = pp.getReflectedControlPoint();
@@ -1272,6 +1285,7 @@
 						}
 						break;
 					case 'Q':
+					case 'q':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var cntrl = pp.getAsControlPoint();
@@ -1282,6 +1296,7 @@
 						}
 						break;
 					case 'T':
+					case 't':
 						while (!pp.isCommandOrEnd()) {
 							var curr = pp.current;
 							var cntrl = pp.getReflectedControlPoint();
@@ -1293,6 +1308,7 @@
 						}
 						break;
 					case 'A':
+					case 'a':
 						while (!pp.isCommandOrEnd()) {
 						    var curr = pp.current;
 							var rx = pp.getScalar();
@@ -1370,6 +1386,7 @@
 						}
 						break;
 					case 'Z':
+					case 'z':
 						if (ctx != null) ctx.closePath();
 						pp.current = pp.start;
 					}
@@ -1407,8 +1424,8 @@
 				tempSvg.children = this.children;
 				
 				var c = document.createElement('canvas');
-				c.width = this.attribute('width').Length.toPixels('x');
-				c.height = this.attribute('height').Length.toPixels('y');
+				c.width = this.attribute('width').toPixels('x');
+				c.height = this.attribute('height').toPixels('y');
 				tempSvg.render(c.getContext('2d'));		
 				return ctx.createPattern(c, 'repeat');
 			}
@@ -1478,7 +1495,7 @@
 			this.createGradient = function(ctx, element) {
 				var stopsContainer = this;
 				if (this.attribute('xlink:href').hasValue()) {
-					stopsContainer = this.attribute('xlink:href').Definition.getDefinition();
+					stopsContainer = this.attribute('xlink:href').getDefinition();
 				}
 			
 				var g = this.getGradient(ctx, element);
@@ -1531,16 +1548,16 @@
 				
 				var x1 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('x1').numValue() 
-					: this.attribute('x1').Length.toPixels('x'));
+					: this.attribute('x1').toPixels('x'));
 				var y1 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.y() + bb.height() * this.attribute('y1').numValue()
-					: this.attribute('y1').Length.toPixels('y'));
+					: this.attribute('y1').toPixels('y'));
 				var x2 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('x2').numValue()
-					: this.attribute('x2').Length.toPixels('x'));
+					: this.attribute('x2').toPixels('x'));
 				var y2 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.y() + bb.height() * this.attribute('y2').numValue()
-					: this.attribute('y2').Length.toPixels('y'));
+					: this.attribute('y2').toPixels('y'));
 
 				return ctx.createLinearGradient(x1, y1, x2, y2);
 			}
@@ -1557,27 +1574,27 @@
 				
 				var cx = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('cx').numValue() 
-					: this.attribute('cx').Length.toPixels('x'));
+					: this.attribute('cx').toPixels('x'));
 				var cy = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.y() + bb.height() * this.attribute('cy').numValue() 
-					: this.attribute('cy').Length.toPixels('y'));
+					: this.attribute('cy').toPixels('y'));
 				
 				var fx = cx;
 				var fy = cy;
 				if (this.attribute('fx').hasValue()) {
 					fx = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('fx').numValue() 
-					: this.attribute('fx').Length.toPixels('x'));
+					: this.attribute('fx').toPixels('x'));
 				}
 				if (this.attribute('fy').hasValue()) {
 					fy = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.y() + bb.height() * this.attribute('fy').numValue() 
-					: this.attribute('fy').Length.toPixels('y'));
+					: this.attribute('fy').toPixels('y'));
 				}
 				
 				var r = (this.gradientUnits == 'objectBoundingBox' 
 					? (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue()
-					: this.attribute('r').Length.toPixels());
+					: this.attribute('r').toPixels());
 				
 				return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
 			}
@@ -1592,7 +1609,7 @@
 			this.offset = this.attribute('offset').numValue();
 			
 			var stopColor = this.style('stop-color');
-			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.Color.addOpacity(this.style('stop-opacity').value);
+			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.addOpacity(this.style('stop-opacity').value);
 			this.color = stopColor.value;
 		}
 		svg.Element.stop.prototype = new svg.Element.ElementBase;
@@ -1605,8 +1622,8 @@
 			svg.Animations.push(this);
 			
 			this.duration = 0.0;
-			this.begin = this.attribute('begin').Time.toMilliseconds();
-			this.maxDuration = this.begin + this.attribute('dur').Time.toMilliseconds();
+			this.begin = this.attribute('begin').toMilliseconds();
+			this.maxDuration = this.begin + this.attribute('dur').toMilliseconds();
 			
 			this.getProperty = function() {
 				var attributeType = this.attribute('attributeType').value;
@@ -1812,16 +1829,16 @@
 			
 			this.renderChildren = function(ctx) {
 				var textAnchor = this.style('text-anchor').valueOrDefault('start');
-				var x = this.attribute('x').Length.toPixels('x');
-				var y = this.attribute('y').Length.toPixels('y');
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
 				for (var i=0; i<this.children.length; i++) {
 					var child = this.children[i];
 				
 					if (child.attribute('x').hasValue()) {
-						child.x = child.attribute('x').Length.toPixels('x');
+						child.x = child.attribute('x').toPixels('x');
 					}
 					else {
-						if (child.attribute('dx').hasValue()) x += child.attribute('dx').Length.toPixels('x');
+						if (child.attribute('dx').hasValue()) x += child.attribute('dx').toPixels('x');
 						child.x = x;
 					}
 					
@@ -1839,10 +1856,10 @@
 					x = child.x + childLength;
 					
 					if (child.attribute('y').hasValue()) {
-						child.y = child.attribute('y').Length.toPixels('y');
+						child.y = child.attribute('y').toPixels('y');
 					}
 					else {
-						if (child.attribute('dy').hasValue()) y += child.attribute('dy').Length.toPixels('y');
+						if (child.attribute('dy').hasValue()) y += child.attribute('dy').toPixels('y');
 						child.y = y;
 					}	
 					y = child.y;
@@ -1879,7 +1896,7 @@
 			}
 			
 			this.renderChildren = function(ctx) {
-				var customFont = this.parent.style('font-family').Definition.getDefinition();
+				var customFont = this.parent.style('font-family').getDefinition();
 				if (customFont != null) {
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 					var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
@@ -1918,7 +1935,7 @@
 			}
 			
 			this.measureText = function(ctx) {
-				var customFont = this.parent.style('font-family').Definition.getDefinition();
+				var customFont = this.parent.style('font-family').getDefinition();
 				if (customFont != null) {
 					var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 					var measure = 0;
@@ -1967,7 +1984,7 @@
 			this.base(node);
 			
 			this.getText = function() {
-				var element = this.attribute('xlink:href').Definition.getDefinition();
+				var element = this.attribute('xlink:href').getDefinition();
 				if (element != null) return element.children[0].getText();
 			}
 		}
@@ -1995,7 +2012,7 @@
 					// render as text element
 					this.baseRenderChildren(ctx);
 					var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
-					svg.Mouse.checkBoundingBox(this, new svg.BoundingBox(this.x, this.y - fontSize.Length.toPixels('y'), this.x + this.measureText(ctx), this.y));					
+					svg.Mouse.checkBoundingBox(this, new svg.BoundingBox(this.x, this.y - fontSize.toPixels('y'), this.x + this.measureText(ctx), this.y));					
 				}
 				else {
 					// render as temporary group
@@ -2029,11 +2046,11 @@
 			this.img.src = this.attribute('xlink:href').value;
 			
 			this.renderChildren = function(ctx) {
-				var x = this.attribute('x').Length.toPixels('x');
-				var y = this.attribute('y').Length.toPixels('y');
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
 				
-				var width = this.attribute('width').Length.toPixels('x');
-				var height = this.attribute('height').Length.toPixels('y');			
+				var width = this.attribute('width').toPixels('x');
+				var height = this.attribute('height').toPixels('y');			
 				if (width == 0 || height == 0) return;
 			
 				ctx.save();
@@ -2086,9 +2103,9 @@
 					
 					svg.AspectRatio(ctx,
 									this.attribute('preserveAspectRatio').value, 
-									this.attribute('width').Length.toPixels('x'),
+									this.attribute('width').toPixels('x'),
 									width,
-									this.attribute('height').Length.toPixels('y'),
+									this.attribute('height').toPixels('y'),
 									height,
 									minX,
 									minY);
@@ -2159,12 +2176,12 @@
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
-				if (this.attribute('x').hasValue()) ctx.translate(this.attribute('x').Length.toPixels('x'), 0);
-				if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').Length.toPixels('y'));
+				if (this.attribute('x').hasValue()) ctx.translate(this.attribute('x').toPixels('x'), 0);
+				if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').toPixels('y'));
 			}
 			
 			this.getDefinition = function() {
-				var element = this.attribute('xlink:href').Definition.getDefinition();
+				var element = this.attribute('xlink:href').getDefinition();
 				if (this.attribute('width').hasValue()) element.attribute('width', true).value = this.attribute('width').value;
 				if (this.attribute('height').hasValue()) element.attribute('height', true).value = this.attribute('height').value;
 				return element;
@@ -2189,10 +2206,10 @@
 						
 			this.apply = function(ctx, element) {
 				// render as temp svg	
-				var x = this.attribute('x').Length.toPixels('x');
-				var y = this.attribute('y').Length.toPixels('y');
-				var width = this.attribute('width').Length.toPixels('x');
-				var height = this.attribute('height').Length.toPixels('y');
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
+				var width = this.attribute('width').toPixels('x');
+				var height = this.attribute('height').toPixels('y');
 				
 				// temporarily remove mask to avoid recursion
 				var mask = element.attribute('mask').value;
@@ -2254,14 +2271,14 @@
 			this.apply = function(ctx, element) {
 				// render as temp svg	
 				var bb = element.getBoundingBox();
-				var x = this.attribute('x').Length.toPixels('x');
-				var y = this.attribute('y').Length.toPixels('y');
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
 				if (x == 0 || y == 0) {
 					x = bb.x1;
 					y = bb.y1;
 				}
-				var width = this.attribute('width').Length.toPixels('x');
-				var height = this.attribute('height').Length.toPixels('y');
+				var width = this.attribute('width').toPixels('x');
+				var height = this.attribute('height').toPixels('y');
 				if (width == 0 || height == 0) {
 					width = bb.width();
 					height = bb.height();
@@ -2453,11 +2470,11 @@
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
 					if (e.style('width').hasValue()) {
-						ctx.canvas.width = e.style('width').Length.toPixels('x');
+						ctx.canvas.width = e.style('width').toPixels('x');
 						ctx.canvas.style.width = ctx.canvas.width + 'px';
 					}
 					if (e.style('height').hasValue()) {
-						ctx.canvas.height = e.style('height').Length.toPixels('y');
+						ctx.canvas.height = e.style('height').toPixels('y');
 						ctx.canvas.style.height = ctx.canvas.height + 'px';
 					}
 				}
@@ -2469,8 +2486,8 @@
 				if (svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
 				if (svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
 					var xRatio = 1, yRatio = 1;
-					if (e.attribute('width').hasValue()) xRatio = e.attribute('width').Length.toPixels('x') / svg.opts['scaleWidth'];
-					if (e.attribute('height').hasValue()) yRatio = e.attribute('height').Length.toPixels('y') / svg.opts['scaleHeight'];
+					if (e.attribute('width').hasValue()) xRatio = e.attribute('width').toPixels('x') / svg.opts['scaleWidth'];
+					if (e.attribute('height').hasValue()) yRatio = e.attribute('height').toPixels('y') / svg.opts['scaleHeight'];
 				
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];			
