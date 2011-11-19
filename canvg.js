@@ -6,23 +6,6 @@
  *
  * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
  */
-if(!window.console) {
-	window.console = {};
-	window.console.log = function(str) {};
-	window.console.dir = function(str) {};
-}
-
-if(!Array.prototype.indexOf){
-	Array.prototype.indexOf = function(obj){
-		for(var i=0; i<this.length; i++){
-			if(this[i]==obj){
-				return i;
-			}
-		}
-		return -1;
-	}
-}
-
 (function(){
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
@@ -300,9 +283,9 @@ if(!Array.prototype.indexOf){
 		
 		// fonts
 		svg.Font = new (function() {
-			this.Styles = ['normal','italic','oblique','inherit'];
-			this.Variants = ['normal','small-caps','inherit'];
-			this.Weights = ['normal','bold','bolder','lighter','100','200','300','400','500','600','700','800','900','inherit'];
+			this.Styles = 'normal|italic|oblique|inherit';
+			this.Variants = 'normal|small-caps|inherit';
+			this.Weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
 			
 			this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) { 
 				var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
@@ -2482,9 +2465,9 @@ if(!Array.prototype.indexOf){
 				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
 				svg.ViewPort.SetCurrent(cWidth, cHeight);		
 				
-				if (svg.opts != null && svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
-				if (svg.opts != null && svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
-				if (svg.opts != null && svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
+				if (svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
+				if (svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
+				if (svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
 					var xRatio = 1, yRatio = 1;
 					if (e.attribute('width').hasValue()) xRatio = e.attribute('width').Length.toPixels('x') / svg.opts['scaleWidth'];
 					if (e.attribute('height').hasValue()) yRatio = e.attribute('height').Length.toPixels('y') / svg.opts['scaleHeight'];
@@ -2502,7 +2485,7 @@ if(!Array.prototype.indexOf){
 				e.render(ctx);
 				if (isFirstRender) {
 					isFirstRender = false;
-					if (svg.opts != null && typeof(svg.opts['renderCallback']) == 'function') svg.opts['renderCallback']();
+					if (typeof(svg.opts['renderCallback']) == 'function') svg.opts['renderCallback']();
 				}			
 			}
 			
@@ -2532,7 +2515,7 @@ if(!Array.prototype.indexOf){
 				}
 				
 				// need update from redraw?
-				if (svg.opts != null && typeof(svg.opts['forceRedraw']) == 'function') {
+				if (typeof(svg.opts['forceRedraw']) == 'function') {
 					if (svg.opts['forceRedraw']() == true) needUpdate = true;
 				}
 				
