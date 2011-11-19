@@ -1819,14 +1819,11 @@ if(!Array.prototype.indexOf){
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
-				if (this.style('text-anchor').hasValue()) {
-					var textAnchor = this.style('text-anchor').value;
-					ctx.textAlign = textAnchor == 'middle' ? 'center' : textAnchor;
-				}
 				if (this.attribute('alignment-baseline').hasValue()) ctx.textBaseline = this.attribute('alignment-baseline').value;
 			}
 			
 			this.renderChildren = function(ctx) {
+				var textAnchor = this.style('text-anchor').valueOrDefault('start');
 				var x = this.attribute('x').Length.toPixels('x');
 				var y = this.attribute('y').Length.toPixels('y');
 				for (var i=0; i<this.children.length; i++) {
@@ -1839,7 +1836,19 @@ if(!Array.prototype.indexOf){
 						if (child.attribute('dx').hasValue()) x += child.attribute('dx').Length.toPixels('x');
 						child.x = x;
 					}
-					x = child.x + child.measureText(ctx);
+					
+					var childLength = child.measureText(ctx);
+					if (textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
+						// loop through rest of children
+						var groupLength = childLength;
+						for (var j=i+1; j<this.children.length; j++) {
+							var childInGroup = this.children[j];
+							if (childInGroup.attribute('x').hasValue()) break; // new group
+							groupLength += childInGroup.measureText(ctx);
+						}
+						child.x -= (textAnchor == 'end' ? groupLength : groupLength / 2.0);
+					}
+					x = child.x + childLength;
 					
 					if (child.attribute('y').hasValue()) {
 						child.y = child.attribute('y').Length.toPixels('y');
@@ -1888,10 +1897,6 @@ if(!Array.prototype.indexOf){
 					var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
 					var text = this.getText();
 					if (customFont.isRTL) text = text.split("").reverse().join("");
-					
-					if (this.parent.style('text-anchor').value == 'middle') {
-						this.x = this.x - this.measureText(ctx) / 2.0;
-					}
 					
 					var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 					for (var i=0; i<text.length; i++) {
