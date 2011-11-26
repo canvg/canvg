@@ -2045,12 +2045,21 @@
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
+			var href = this.attribute('xlink:href').value;
+			var isSvg = href.match(/\.svg$/)
+			
 			svg.Images.push(this);
-			this.img = document.createElement('img');
 			this.loaded = false;
-			var that = this;
-			this.img.onload = function() { that.loaded = true; }
-			this.img.src = this.attribute('xlink:href').value;
+			if (!isSvg) {
+				this.img = document.createElement('img');
+				var that = this;
+				this.img.onload = function() { that.loaded = true; }
+				this.img.src = href;
+			}
+			else {
+				this.img = svg.ajax(href);
+				this.loaded = true;
+			}
 			
 			this.renderChildren = function(ctx) {
 				var x = this.attribute('x').toPixels('x');
@@ -2062,15 +2071,20 @@
 			
 				ctx.save();
 				ctx.translate(x, y);
-				svg.AspectRatio(ctx,
-								this.attribute('preserveAspectRatio').value,
-								width,
-								this.img.width,
-								height,
-								this.img.height,
-								0,
-								0);	
-				ctx.drawImage(this.img, 0, 0);			
+				if (isSvg) {
+					ctx.drawSvg(this.img, 0, 0);
+				}
+				else {
+					svg.AspectRatio(ctx,
+									this.attribute('preserveAspectRatio').value,
+									width,
+									this.img.width,
+									height,
+									this.img.height,
+									0,
+									0);	
+					ctx.drawImage(this.img, 0, 0);		
+				}
 				ctx.restore();
 			}
 		}
