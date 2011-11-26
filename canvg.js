@@ -611,7 +611,6 @@
 				if (p != null) {
 					var ps = p.style(name);
 					if (ps != null && ps.hasValue()) {
-						this.styles[name] = ps; // move up to me to cache
 						return ps;
 					}
 				}
@@ -742,8 +741,12 @@
 				}
 				else if (this.style('fill').hasValue()) {
 					var fillStyle = this.style('fill');
-					if (this.style('fill-opacity').hasValue()) fillStyle = fillStyle.addOpacity(this.style('fill-opacity').value);
 					ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
+				}
+				if (this.style('fill-opacity').hasValue()) {
+					var fillStyle = new svg.Property('fill', ctx.fillStyle);
+					fillStyle = fillStyle.addOpacity(this.style('fill-opacity').value);
+					ctx.fillStyle = fillStyle.value;
 				}
 									
 				// stroke
@@ -753,8 +756,12 @@
 				}
 				else if (this.style('stroke').hasValue()) {
 					var strokeStyle = this.style('stroke');
-					if (this.style('stroke-opacity').hasValue()) strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity').value);
 					ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
+				}
+				if (this.style('stroke-opacity').hasValue()) {
+					var strokeStyle = new svg.Property('stroke', ctx.strokeStyle);
+					strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity').value);
+					ctx.strokeStyle = strokeStyle.value;
 				}
 				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').toPixels();
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
@@ -2194,7 +2201,13 @@
 			
 			this.renderChildren = function(ctx) {
 				var element = this.getDefinition();
-				if (element != null) element.render(ctx);
+				if (element != null) {
+					// temporarily detach from parent and render
+					var oldParent = element.parent;
+					element.parent = null;
+					element.render(ctx);
+					element.parent = oldParent;
+				}
 			}
 		}
 		svg.Element.use.prototype = new svg.Element.RenderedElementBase;
