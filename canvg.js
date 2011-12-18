@@ -233,6 +233,11 @@
 					
 					return em;
 				}
+				
+				svg.Property.prototype.getUnits = function() {
+					var s = this.value+'';
+					return s.replace(/[0-9\.\-]/g,'');
+				}
 			
 				// get the length as pixels
 				svg.Property.prototype.toPixels = function(viewPort) {
@@ -1643,17 +1648,19 @@
 			};
 			
 			this.initialValue = null;
+			this.initialUnits = '';
 			this.removed = false;			
 
 			this.calcValue = function() {
 				// OVERRIDE ME!
 				return '';
 			}
-			
+					
 			this.update = function(delta) {	
 				// set initial value
 				if (this.initialValue == null) {
 					this.initialValue = this.getProperty().value;
+					this.initialUnits = this.getProperty().getUnits();
 				}
 			
 				// if we're past the end time
@@ -1691,9 +1698,26 @@
 				return updated;
 			}
 			
+			this.from = this.attribute('from');
+			this.to = this.attribute('to');
+			this.values = this.attribute('values');
+			if (this.values.hasValue()) this.values.value = this.values.value.split(';');
+			
 			// fraction of duration we've covered
 			this.progress = function() {
-				return ((this.duration - this.begin) / (this.maxDuration - this.begin));
+				var ret = { progress: (this.duration - this.begin) / (this.maxDuration - this.begin) };
+				if (this.values.hasValue()) {
+					var p = ret.progress * (this.values.value.length - 1);
+					var lb = Math.floor(p), ub = Math.ceil(p);
+					ret.from = new svg.Property('from', parseFloat(this.values.value[lb]));
+					ret.to = new svg.Property('to', parseFloat(this.values.value[ub]));
+					ret.progress = (p - lb) / (ub - lb);
+				}
+				else {
+					ret.from = this.from;
+					ret.to = this.to;
+				}
+				return ret;
 			}			
 		}
 		svg.Element.AnimateBase.prototype = new svg.Element.ElementBase;
@@ -1704,11 +1728,11 @@
 			this.base(node);
 			
 			this.calcValue = function() {
-				var from = this.attribute('from').numValue();
-				var to = this.attribute('to').numValue();
+				var p = this.progress();
 				
 				// tween value linearly
-				return from + (to - from) * this.progress(); 
+				var newValue = p.from.numValue() + (p.to.numValue() - p.from.numValue()) * p.progress; 
+				return newValue + this.initialUnits;
 			};
 		}
 		svg.Element.animate.prototype = new svg.Element.AnimateBase;
@@ -1719,14 +1743,15 @@
 			this.base(node);
 
 			this.calcValue = function() {
-				var from = new RGBColor(this.attribute('from').value);
-				var to = new RGBColor(this.attribute('to').value);
+				var p = this.progress();
+				var from = new RGBColor(p.from.value);
+				var to = new RGBColor(p.to.value);
 				
 				if (from.ok && to.ok) {
 					// tween color linearly
-					var r = from.r + (to.r - from.r) * this.progress();
-					var g = from.g + (to.g - from.g) * this.progress();
-					var b = from.b + (to.b - from.b) * this.progress();
+					var r = from.r + (to.r - from.r) * p.progress;
+					var g = from.g + (to.g - from.g) * p.progress;
+					var b = from.b + (to.b - from.b) * p.progress;
 					return 'rgb('+parseInt(r,10)+','+parseInt(g,10)+','+parseInt(b,10)+')';
 				}
 				return this.attribute('from').value;
