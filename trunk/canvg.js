@@ -1584,6 +1584,10 @@
 			this.getGradient = function(ctx, element) {
 				var bb = element.getBoundingBox();
 				
+				if (!this.attribute('cx').hasValue()) this.attribute('cx', true).value = '50%';
+				if (!this.attribute('cy').hasValue()) this.attribute('cy', true).value = '50%';
+				if (!this.attribute('r').hasValue()) this.attribute('r', true).value = '50%';
+				
 				var cx = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('cx').numValue() 
 					: this.attribute('cx').toPixels('x'));
