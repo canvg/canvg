@@ -2536,6 +2536,10 @@
 				}
 				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
 				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
+				if (svg.opts['ignoreDimensions'] == true && e.style('width').hasValue() && e.style('height').hasValue()) {
+					cWidth = e.style('width').toPixels('x');
+					cHeight = e.style('height').toPixels('y');
+				}
 				svg.ViewPort.SetCurrent(cWidth, cHeight);		
 				
 				if (svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
