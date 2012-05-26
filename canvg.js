@@ -1368,11 +1368,11 @@
 
 							// for markers
 							var halfWay = new svg.Point(
-								centp.x - rx * Math.cos((a1 + ad) / 2),
-								centp.y - ry * Math.sin((a1 + ad) / 2)
+								centp.x + rx * Math.cos((a1 + (a1 + ad)) / 2),
+								centp.y + ry * Math.sin((a1 + (a1 + ad)) / 2)
 							);
-							pp.addMarkerAngle(halfWay, (a1 + ad) / 2 + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
-							pp.addMarkerAngle(cp, ad + (sweepFlag == 0 ? 1 : -1) * Math.PI / 2);
+							pp.addMarkerAngle(halfWay, (a1 + (a1 + ad)) / 2 + (sweepFlag == 0 ? -1 : 1) * Math.PI / 2);
+							pp.addMarkerAngle(cp, (a1 + ad) + (sweepFlag == 0 ? -1 : 1) * Math.PI / 2);
 
 							bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
 							if (ctx != null) {
