@@ -45,16 +45,9 @@
 			target = document.getElementById(target);
 		}
 		
-		// reuse class per canvas
-		var svg;
-		if (target.svg == null) {
-			svg = build();
-			target.svg = svg;
-		}
-		else {
-			svg = target.svg;
-			svg.stop();
-		}
+		// store class on canvas
+		if (target.svg != null) target.svg.stop();
+		target.svg = svg = build();
 		svg.opts = opts;
 		
 		var ctx = target.getContext('2d');
