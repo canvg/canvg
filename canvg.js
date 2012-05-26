@@ -862,13 +862,16 @@
 				this.baseSetContext(ctx);
 				
 				// create new view port
-				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
-					ctx.translate(this.attribute('x').toPixels('x'), this.attribute('y').toPixels('y'));
-				}
+				if (!this.attribute('x').hasValue()) this.attribute('x', true).value = 0;
+				if (!this.attribute('y').hasValue()) this.attribute('y', true).value = 0;
+				ctx.translate(this.attribute('x').toPixels('x'), this.attribute('y').toPixels('y'));
 				
 				var width = svg.ViewPort.width();
 				var height = svg.ViewPort.height();
-				if (typeof(this.root) == 'undefined' && this.attribute('width').hasValue() && this.attribute('height').hasValue()) {
+				
+				if (!this.attribute('width').hasValue()) this.attribute('width', true).value = '100%';
+				if (!this.attribute('height').hasValue()) this.attribute('height', true).value = '100%';
+				if (typeof(this.root) == 'undefined') {
 					width = this.attribute('width').toPixels('x');
 					height = this.attribute('height').toPixels('y');
 					
