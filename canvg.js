@@ -1432,8 +1432,9 @@
 				tempSvg.children = this.children;
 				
 				var c = document.createElement('canvas');
-				c.width = this.attribute('width').toPixels('x');
-				c.height = this.attribute('height').toPixels('y');
+				document.body.appendChild(c);
+				c.width = this.attribute('width').toPixels('x') + this.attribute('x').toPixels('x');
+				c.height = this.attribute('height').toPixels('y')  + this.attribute('y').toPixels('y');
 				tempSvg.render(c.getContext('2d'));		
 				return ctx.createPattern(c, 'repeat');
 			}
