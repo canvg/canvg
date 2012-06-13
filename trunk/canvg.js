@@ -705,6 +705,16 @@
 					}
 				}
 				
+				// add id styles
+				if (this.attribute('id').hasValue()) {
+					var styles = svg.Styles['#' + this.attribute('id').value];
+					if (styles != null) {
+						for (var name in styles) {
+							this.styles[name] = styles[name];
+						}
+					}
+				}
+				
 				// add inline styles
 				if (this.attribute('style').hasValue()) {
 					var styles = this.attribute('style').value.split(';');
