@@ -1520,7 +1520,7 @@
 				}
 			
 				var g = this.getGradient(ctx, element);
-				if (g == null) return stopsContainer.stops[Math.floor(stopsContainer.stops.length / 2)].color;
+				if (g == null) return stopsContainer.stops[stopsContainer.stops.length - 1].color;
 				for (var i=0; i<stopsContainer.stops.length; i++) {
 					g.addColorStop(stopsContainer.stops[i].offset, stopsContainer.stops[i].color);
 				}
@@ -1581,7 +1581,7 @@
 					? bb.y() + bb.height() * this.attribute('y2').numValue()
 					: this.attribute('y2').toPixels('y'));
 
-				if (x1 == x2 || y1 == y2) return null;
+				if (x1 == x2 && y1 == y2) return null;
 				return ctx.createLinearGradient(x1, y1, x2, y2);
 			}
 		}
