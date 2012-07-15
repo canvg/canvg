@@ -1885,6 +1885,7 @@
 						child.x = child.attribute('x').toPixels('x');
 					}
 					else {
+						if (this.attribute('dx').hasValue()) y += this.attribute('dx').toPixels('x');
 						if (child.attribute('dx').hasValue()) x += child.attribute('dx').toPixels('x');
 						child.x = x;
 					}
@@ -1906,6 +1907,7 @@
 						child.y = child.attribute('y').toPixels('y');
 					}
 					else {
+						if (this.attribute('dy').hasValue()) y += this.attribute('dy').toPixels('y');
 						if (child.attribute('dy').hasValue()) y += child.attribute('dy').toPixels('y');
 						child.y = y;
 					}	
