@@ -1447,6 +1447,7 @@
 				document.body.appendChild(c);
 				c.width = this.attribute('width').toPixels('x') + this.attribute('x').toPixels('x');
 				c.height = this.attribute('height').toPixels('y')  + this.attribute('y').toPixels('y');
+				c.style.display = 'none';
 				tempSvg.render(c.getContext('2d'));		
 				return ctx.createPattern(c, 'repeat');
 			}
