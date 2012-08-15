@@ -189,7 +189,8 @@
 			// definition extensions
 				// get the definition from the definitions table
 				svg.Property.prototype.getDefinition = function() {
-					var name = this.value.replace(/^(url\()?#([^\)]+)\)?$/, '$2');
+					var name = this.value.match(/#([^\)']+)/);
+					if (name) { name = name[1]; }
 					return svg.Definitions[name];
 				}
 				
