@@ -534,6 +534,7 @@
 				var type = data[i].split('(')[0];
 				var s = data[i].split('(')[1].replace(')','');
 				var transform = new this.Type[type](s);
+				transform.type = type;
 				this.transforms.push(transform);
 			}
 		}
@@ -1441,13 +1442,23 @@
 				tempSvg.attributes['y'] = new svg.Property('y', this.attribute('y').value);
 				tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
 				tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
+				tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
 				tempSvg.children = this.children;
 				
+				var extraWidth = 0, extraHeight = 0;
+				if (tempSvg.attributes['transform'].hasValue()) {
+					var t = new svg.Transform(tempSvg.attributes['transform'].value);
+					for (var i=0; i<t.transforms.length; i++) {
+						if (t.transforms[i].type == 'translate') {
+							extraWidth += t.transforms[i].p.x;
+							extraHeight += t.transforms[i].p.y;
+						}
+					}
+				}
+
 				var c = document.createElement('canvas');
-				document.body.appendChild(c);
-				c.width = this.attribute('width').toPixels('x') + this.attribute('x').toPixels('x');
-				c.height = this.attribute('height').toPixels('y')  + this.attribute('y').toPixels('y');
-				c.style.display = 'none';
+				c.width = this.attribute('width').toPixels('x') + this.attribute('x').toPixels('x') + extraWidth;
+				c.height = this.attribute('height').toPixels('y')  + this.attribute('y').toPixels('y') + extraHeight;
 				tempSvg.render(c.getContext('2d'));		
 				return ctx.createPattern(c, 'repeat');
 			}
