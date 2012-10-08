@@ -775,7 +775,10 @@
 					strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity').value);
 					ctx.strokeStyle = strokeStyle.value;
 				}
-				if (this.style('stroke-width').hasValue()) ctx.lineWidth = this.style('stroke-width').toPixels();
+				if (this.style('stroke-width').hasValue()) {
+					var newLineWidth = this.style('stroke-width').toPixels();
+					ctx.lineWidth = newLineWidth == 0 ? 0.001 : newLineWidth; // browsers don't respect 0
+			    }
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
