@@ -949,7 +949,8 @@
 				var ry = this.attribute('ry').toPixels('y');
 				if (this.attribute('rx').hasValue() && !this.attribute('ry').hasValue()) ry = rx;
 				if (this.attribute('ry').hasValue() && !this.attribute('rx').hasValue()) rx = ry;
-				
+				rx = Math.min(rx, width / 2.0);
+				ry = Math.min(ry, height / 2.0);
 				if (ctx != null) {
 					ctx.beginPath();
 					ctx.moveTo(x + rx, y);
