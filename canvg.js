@@ -2198,7 +2198,10 @@
 			this.base(node);
 			
 			// text, or spaces then CDATA
-			var css = node.childNodes[0].nodeValue + (node.childNodes.length > 1 ? node.childNodes[1].nodeValue : '');
+			var css = ''
+			for (var i=0; i<node.childNodes.length; i++) {
+			  css += node.childNodes[i].nodeValue;
+			}
 			css = css.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, ''); // remove comments
 			css = svg.compressSpaces(css); // replace whitespace
 			var cssDefs = css.split('}');
