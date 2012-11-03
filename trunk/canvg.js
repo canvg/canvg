@@ -1529,7 +1529,7 @@
 			this.stops = [];			
 			for (var i=0; i<this.children.length; i++) {
 				var child = this.children[i];
-				this.stops.push(child);
+				if (child.type == 'stop') this.stops.push(child);
 			}	
 			
 			this.getGradient = function() {
@@ -1675,6 +1675,8 @@
 			this.base(node);
 			
 			this.offset = this.attribute('offset').numValue();
+			if (this.offset < 0) this.offset = 0;
+			if (this.offset > 1) this.offset = 1;
 			
 			var stopColor = this.style('stop-color');
 			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.addOpacity(this.style('stop-opacity').value);
