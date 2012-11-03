@@ -1725,7 +1725,8 @@
 				// if we're past the end time
 				if (this.duration > this.maxDuration) {
 					// loop for indefinitely repeating animations
-					if (this.attribute('repeatCount').value == 'indefinite') {
+					if (this.attribute('repeatCount').value == 'indefinite'
+					 || this.attribute('repeatDur').value == 'indefinite') {
 						this.duration = 0.0
 					}
 					else if (this.attribute('fill').valueOrDefault('remove') == 'remove' && !this.removed) {
@@ -1820,8 +1821,21 @@
 		
 		// animate transform element
 		svg.Element.animateTransform = function(node) {
-			this.base = svg.Element.animate;
+			this.base = svg.Element.AnimateBase;
 			this.base(node);
+			
+			this.calcValue = function() {
+				var p = this.progress();
+				
+				// tween value linearly
+				var from = svg.ToNumberArray(p.from.value);
+				var to = svg.ToNumberArray(p.to.value);
+				var newValue = '';
+				for (var i=0; i<from.length; i++) {
+					newValue += from[i] + (to[i] - from[i]) * p.progress + ' ';
+				}
+				return newValue;
+			};
 		}
 		svg.Element.animateTransform.prototype = new svg.Element.animate;
 		
