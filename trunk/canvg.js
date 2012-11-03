@@ -47,7 +47,9 @@
 		
 		// store class on canvas
 		if (target.svg != null) target.svg.stop();
-		target.svg = svg = build();
+		var svg = build();
+		// on i.e. 8 for flash canvas, we can't assign the property so check for it
+		if (!(target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
 		svg.opts = opts;
 		
 		var ctx = target.getContext('2d');
