@@ -198,12 +198,12 @@
 					return this.value.indexOf('url(') == 0
 				}
 				
-				svg.Property.prototype.getFillStyleDefinition = function(e) {
+				svg.Property.prototype.getFillStyleDefinition = function(e, opacityProp) {
 					var def = this.getDefinition();
 					
 					// gradient
 					if (def != null && def.createGradient) {
-						return def.createGradient(svg.ctx, e);
+						return def.createGradient(svg.ctx, e, opacityProp);
 					}
 					
 					// pattern
@@ -234,7 +234,7 @@
 				}
 			
 				// get the length as pixels
-				svg.Property.prototype.toPixels = function(viewPort) {
+				svg.Property.prototype.toPixels = function(viewPort, processPercent) {
 					if (!this.hasValue()) return 0;
 					var s = this.value+'';
 					if (s.match(/em$/)) return this.numValue() * this.getEM(viewPort);
@@ -246,7 +246,9 @@
 					if (s.match(/mm$/)) return this.numValue() * this.getDPI(viewPort) / 25.4;
 					if (s.match(/in$/)) return this.numValue() * this.getDPI(viewPort);
 					if (s.match(/%$/)) return this.numValue() * svg.ViewPort.ComputeSize(viewPort);
-					return this.numValue();
+					var n = this.numValue();
+					if (processPercent && n < 1.0) return n * svg.ViewPort.ComputeSize(viewPort);
+					return n;
 				}
 
 			// time extensions
@@ -746,7 +748,7 @@
 			this.setContext = function(ctx) {
 				// fill
 				if (this.style('fill').isUrlDefinition()) {
-					var fs = this.style('fill').getFillStyleDefinition(this);
+					var fs = this.style('fill').getFillStyleDefinition(this, this.style('fill-opacity'));
 					if (fs != null) ctx.fillStyle = fs;
 				}
 				else if (this.style('fill').hasValue()) {
@@ -762,7 +764,7 @@
 									
 				// stroke
 				if (this.style('stroke').isUrlDefinition()) {
-					var fs = this.style('stroke').getFillStyleDefinition(this);
+					var fs = this.style('stroke').getFillStyleDefinition(this, this.style('stroke-opacity'));
 					if (fs != null) ctx.strokeStyle = fs;
 				}
 				else if (this.style('stroke').hasValue()) {
@@ -1439,32 +1441,35 @@
 			this.base(node);
 			
 			this.createPattern = function(ctx, element) {
+				var width = this.attribute('width').toPixels('x', true);
+				var height = this.attribute('height').toPixels('y', true);
+			
 				// render me using a temporary svg element
 				var tempSvg = new svg.Element.svg();
 				tempSvg.attributes['viewBox'] = new svg.Property('viewBox', this.attribute('viewBox').value);
-				tempSvg.attributes['x'] = new svg.Property('x', this.attribute('x').value);
-				tempSvg.attributes['y'] = new svg.Property('y', this.attribute('y').value);
-				tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
-				tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
+				tempSvg.attributes['width'] = new svg.Property('width', width + 'px');
+				tempSvg.attributes['height'] = new svg.Property('height', height + 'px');
 				tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
 				tempSvg.children = this.children;
 				
-				var extraWidth = 0, extraHeight = 0;
-				if (tempSvg.attributes['transform'].hasValue()) {
-					var t = new svg.Transform(tempSvg.attributes['transform'].value);
-					for (var i=0; i<t.transforms.length; i++) {
-						if (t.transforms[i].type == 'translate') {
-							extraWidth += t.transforms[i].p.x;
-							extraHeight += t.transforms[i].p.y;
-						}
+				var c = document.createElement('canvas');
+				c.width = width;
+				c.height = height;
+				var cctx = c.getContext('2d');
+				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
+					cctx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
+				}
+				// render 3x3 grid so when we transform there's no white space on edges
+				for (var x=-1; x<=1; x++) {
+					for (var y=-1; y<=1; y++) {
+						cctx.save();
+						cctx.translate(x * c.width, y * c.height);
+						tempSvg.render(cctx);
+						cctx.restore();
 					}
 				}
-
-				var c = document.createElement('canvas');
-				c.width = this.attribute('width').toPixels('x') + this.attribute('x').toPixels('x') + extraWidth;
-				c.height = this.attribute('height').toPixels('y')  + this.attribute('y').toPixels('y') + extraHeight;
-				tempSvg.render(c.getContext('2d'));		
-				return ctx.createPattern(c, 'repeat');
+				var pattern = ctx.createPattern(c, 'repeat');
+				return pattern;
 			}
 		}
 		svg.Element.pattern.prototype = new svg.Element.ElementBase;
@@ -1529,16 +1534,24 @@
 				// OVERRIDE ME!
 			}			
 
-			this.createGradient = function(ctx, element) {
+			this.createGradient = function(ctx, element, parentOpacityProp) {
 				var stopsContainer = this;
 				if (this.attribute('xlink:href').hasValue()) {
 					stopsContainer = this.attribute('xlink:href').getDefinition();
 				}
+				
+				var addParentOpacity = function (color) {
+					if (parentOpacityProp.hasValue()) {
+						var p = new svg.Property('color', color);
+						return p.addOpacity(parentOpacityProp.value).value;
+					}
+					return color;
+				};
 			
 				var g = this.getGradient(ctx, element);
-				if (g == null) return stopsContainer.stops[stopsContainer.stops.length - 1].color;
+				if (g == null) return addParentOpacity(stopsContainer.stops[stopsContainer.stops.length - 1].color);
 				for (var i=0; i<stopsContainer.stops.length; i++) {
-					g.addColorStop(stopsContainer.stops[i].offset, stopsContainer.stops[i].color);
+					g.addColorStop(stopsContainer.stops[i].offset, addParentOpacity(stopsContainer.stops[i].color));
 				}
 				
 				if (this.attribute('gradientTransform').hasValue()) {
@@ -1583,6 +1596,16 @@
 			
 			this.getGradient = function(ctx, element) {
 				var bb = element.getBoundingBox();
+				
+				if (!this.attribute('x1').hasValue()
+				 && !this.attribute('y1').hasValue()
+				 && !this.attribute('x2').hasValue()
+				 && !this.attribute('y2').hasValue()) {
+					this.attribute('x1', true).value = 0;
+					this.attribute('y1', true).value = 0;
+					this.attribute('x2', true).value = 1;
+					this.attribute('y2', true).value = 0;
+				 }
 				
 				var x1 = (this.gradientUnits == 'objectBoundingBox' 
 					? bb.x() + bb.width() * this.attribute('x1').numValue() 
