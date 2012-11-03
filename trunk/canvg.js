@@ -193,6 +193,7 @@
 				svg.Property.prototype.getDefinition = function() {
 					var name = this.value.match(/#([^\)']+)/);
 					if (name) { name = name[1]; }
+					if (!name) { name = this.value; }
 					return svg.Definitions[name];
 				}
 				
