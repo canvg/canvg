@@ -677,6 +677,7 @@
 				for (var i=0; i<node.childNodes.length; i++) {
 					var childNode = node.childNodes[i];
 					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
+					if (this.captureTextNodes && childNode.nodeType == 3) this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
 				}
 				
 				// add attributes
@@ -1908,22 +1909,9 @@
 		
 		// text element
 		svg.Element.text = function(node) {
+			this.captureTextNodes = true;
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
-			
-			if (node != null) {
-				// add children
-				this.children = [];
-				for (var i=0; i<node.childNodes.length; i++) {
-					var childNode = node.childNodes[i];
-					if (childNode.nodeType == 1) { // capture tspan and tref nodes
-						this.addChild(childNode, true);
-					}
-					else if (childNode.nodeType == 3) { // capture text
-						this.addChild(new svg.Element.tspan(childNode), false);
-					}
-				}
-			}
 			
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
@@ -1933,45 +1921,51 @@
 			}
 			
 			this.renderChildren = function(ctx) {
-				var textAnchor = this.style('text-anchor').valueOrDefault('start');
-				var x = this.attribute('x').toPixels('x');
-				var y = this.attribute('y').toPixels('y');
+				this.textAnchor = this.style('text-anchor').valueOrDefault('start');
+				this.x = this.attribute('x').toPixels('x');
+				this.y = this.attribute('y').toPixels('y');
 				for (var i=0; i<this.children.length; i++) {
-					var child = this.children[i];
+					this.renderChild(ctx, this.children[i]);
+				}
+			}
+			
+			this.renderChild = function(ctx, child) {
+				if (child.attribute('x').hasValue()) {
+					child.x = child.attribute('x').toPixels('x');
+				}
+				else {
+					if (this.attribute('dx').hasValue()) this.y += this.attribute('dx').toPixels('x');
+					if (child.attribute('dx').hasValue()) this.x += child.attribute('dx').toPixels('x');
+					child.x = this.x;
+				}
 				
-					if (child.attribute('x').hasValue()) {
-						child.x = child.attribute('x').toPixels('x');
+				var childLength = child.measureText(ctx);
+				if (this.textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
+					// loop through rest of children
+					var groupLength = childLength;
+					for (var j=i+1; j<this.children.length; j++) {
+						var childInGroup = this.children[j];
+						if (childInGroup.attribute('x').hasValue()) break; // new group
+						groupLength += childInGroup.measureText(ctx);
 					}
-					else {
-						if (this.attribute('dx').hasValue()) y += this.attribute('dx').toPixels('x');
-						if (child.attribute('dx').hasValue()) x += child.attribute('dx').toPixels('x');
-						child.x = x;
-					}
-					
-					var childLength = child.measureText(ctx);
-					if (textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
-						// loop through rest of children
-						var groupLength = childLength;
-						for (var j=i+1; j<this.children.length; j++) {
-							var childInGroup = this.children[j];
-							if (childInGroup.attribute('x').hasValue()) break; // new group
-							groupLength += childInGroup.measureText(ctx);
-						}
-						child.x -= (textAnchor == 'end' ? groupLength : groupLength / 2.0);
-					}
-					x = child.x + childLength;
-					
-					if (child.attribute('y').hasValue()) {
-						child.y = child.attribute('y').toPixels('y');
-					}
-					else {
-						if (this.attribute('dy').hasValue()) y += this.attribute('dy').toPixels('y');
-						if (child.attribute('dy').hasValue()) y += child.attribute('dy').toPixels('y');
-						child.y = y;
-					}	
-					y = child.y;
-					
-					child.render(ctx);
+					child.x -= (this.textAnchor == 'end' ? groupLength : groupLength / 2.0);
+				}
+				this.x = child.x + childLength;
+				
+				if (child.attribute('y').hasValue()) {
+					child.y = child.attribute('y').toPixels('y');
+				}
+				else {
+					if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
+					if (child.attribute('dy').hasValue()) this.y += child.attribute('dy').toPixels('y');
+					child.y = this.y;
+				}	
+				this.y = child.y;
+				
+				child.render(ctx);
+				
+				for (var i=0; i<child.children.length; i++) {
+					this.renderChild(ctx, child.children[i]);
 				}
 			}
 		}
@@ -2073,12 +2067,11 @@
 		
 		// tspan 
 		svg.Element.tspan = function(node) {
+			this.captureTextNodes = true;
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			this.text = node.nodeType == 3 ? node.nodeValue : // text
-						node.childNodes.length > 0 ? node.childNodes[0].nodeValue : // element
-						node.text;
+			this.text = node.nodeValue || node.text || '';
 			this.getText = function() {
 				return this.text;
 			}
