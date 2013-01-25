@@ -534,7 +534,7 @@
 				}
 			}
 			
-			var data = svg.trim(svg.compressSpaces(v)).split(/\s(?=[a-z])/);
+			var data = svg.trim(svg.compressSpaces(v)).replace(/\)(\s?,\s?)/g,') ').split(/\s(?=[a-z])/);
 			for (var i=0; i<data.length; i++) {
 				var type = data[i].split('(')[0];
 				var s = data[i].split('(')[1].replace(')','');
