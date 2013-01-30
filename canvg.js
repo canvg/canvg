@@ -633,18 +633,19 @@
 				if (this.attribute('visibility').value == 'hidden') return;
 			
 				ctx.save();
+				if (this.attribute('mask').hasValue()) { // mask
+					var mask = this.attribute('mask').getDefinition();
+					if (mask != null) mask.apply(ctx, this);
+				}
+				else if (this.style('filter').hasValue()) { // filter
+					var filter = this.style('filter').getDefinition();
+					if (filter != null) filter.apply(ctx, this);
+				}
+				else {	
 					this.setContext(ctx);
-						// mask
-						if (this.attribute('mask').hasValue()) {
-							var mask = this.attribute('mask').getDefinition();
-							if (mask != null) mask.apply(ctx, this);
-						}
-						else if (this.style('filter').hasValue()) {
-							var filter = this.style('filter').getDefinition();
-							if (filter != null) filter.apply(ctx, this);
-						}
-						else this.renderChildren(ctx);				
-					this.clearContext(ctx);
+					this.renderChildren(ctx);	
+					this.clearContext(ctx);							
+				}
 				ctx.restore();
 			}
 			
@@ -2181,6 +2182,14 @@
 				}
 				ctx.restore();
 			}
+			
+			this.getBoundingBox = function() {
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
+				var width = this.attribute('width').toPixels('x');
+				var height = this.attribute('height').toPixels('y');
+				return new svg.BoundingBox(x, y, x + width, y + height);
+			}
 		}
 		svg.Element.image.prototype = new svg.Element.RenderedElementBase;
 		
@@ -2397,13 +2406,13 @@
 				var bb = element.getBoundingBox();
 				var x = this.attribute('x').toPixels('x');
 				var y = this.attribute('y').toPixels('y');
-				if (x == 0 || y == 0) {
+				if (element.type == 'image' || x == 0 || y == 0) {
 					x = bb.x1;
 					y = bb.y1;
 				}
 				var width = this.attribute('width').toPixels('x');
 				var height = this.attribute('height').toPixels('y');
-				if (width == 0 || height == 0) {
+				if (element.type == 'image' || width == 0 || height == 0) {
 					width = bb.width();
 					height = bb.height();
 				}
@@ -2413,7 +2422,7 @@
 				element.style('filter').value = '';
 				
 				// max filter distance
-				var extraPercent = .20;
+				var extraPercent = element.type == 'image' ? 0 : .20;
 				var px = extraPercent * width;
 				var py = extraPercent * height;
 				
@@ -2441,6 +2450,39 @@
 			}		
 		}
 		svg.Element.filter.prototype = new svg.Element.ElementBase;
+		
+		svg.Element.feColorMatrix = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+			
+			function imGet(img, x, y, width, height, rgba) {
+				return img[y*width*4 + x*4 + rgba];
+			}
+			
+			function imSet(img, x, y, width, height, rgba, val) {
+				img[y*width*4 + x*4 + rgba] = val;
+			}
+			
+			this.apply = function(ctx, x, y, width, height) {
+				// only supporting grayscale for now per Issue 195, need to extend to all matrix
+				// assuming x==0 && y==0 for now
+				var srcData = ctx.getImageData(0, 0, width, height);
+				for (var y = 0; y < height; y++) {
+					for (var x = 0; x < width; x++) {
+						var r = imGet(srcData.data, x, y, width, height, 0);
+						var g = imGet(srcData.data, x, y, width, height, 1);
+						var b = imGet(srcData.data, x, y, width, height, 2);
+						var gray = (r + g + b) / 3;
+						imSet(srcData.data, x, y, width, height, 0, gray);
+						imSet(srcData.data, x, y, width, height, 1, gray);
+						imSet(srcData.data, x, y, width, height, 2, gray);
+					}
+				}
+				ctx.clearRect(0, 0, width, height);
+				ctx.putImageData(srcData, 0, 0);
+			}
+		}
+		svg.Element.filter.prototype = new svg.Element.feColorMatrix;
 		
 		svg.Element.feGaussianBlur = function(node) {
 			this.base = svg.Element.ElementBase;
