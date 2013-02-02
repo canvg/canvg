@@ -1926,11 +1926,12 @@
 				this.x = this.attribute('x').toPixels('x');
 				this.y = this.attribute('y').toPixels('y');
 				for (var i=0; i<this.children.length; i++) {
-					this.renderChild(ctx, this.children[i]);
+					this.renderChild(ctx, this, i);
 				}
 			}
 			
-			this.renderChild = function(ctx, child) {
+			this.renderChild = function(ctx, parent, i) {
+				var child = parent.children[i];
 				if (child.attribute('x').hasValue()) {
 					child.x = child.attribute('x').toPixels('x');
 				}
@@ -1966,7 +1967,7 @@
 				child.render(ctx);
 				
 				for (var i=0; i<child.children.length; i++) {
-					this.renderChild(ctx, child.children[i]);
+					this.renderChild(ctx, child, i);
 				}
 			}
 		}
