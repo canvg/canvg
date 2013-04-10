@@ -601,6 +601,15 @@
 				return a || svg.EmptyProperty;
 			}
 			
+			this.getHrefAttribute = function() {
+				for (var a in this.attributes) { 
+					if (a.match(/:href$/)) { 
+						return this.attributes[a]; 
+					} 
+				}
+				return svg.EmptyProperty;
+			}
+			
 			// get or create style, crawls up node tree
 			this.style = function(name, createIfNotExists) {
 				var s = this.styles[name];
@@ -1541,8 +1550,8 @@
 
 			this.createGradient = function(ctx, element, parentOpacityProp) {
 				var stopsContainer = this;
-				if (this.attribute('xlink:href').hasValue()) {
-					stopsContainer = this.attribute('xlink:href').getDefinition();
+				if (this.getHrefAttribute().hasValue()) {
+					stopsContainer = this.getHrefAttribute().getDefinition();
 				}
 				
 				var addParentOpacity = function (color) {
@@ -2086,7 +2095,7 @@
 			this.base(node);
 			
 			this.getText = function() {
-				var element = this.attribute('xlink:href').getDefinition();
+				var element = this.getHrefAttribute().getDefinition();
 				if (element != null) return element.children[0].getText();
 			}
 		}
@@ -2126,7 +2135,7 @@
 			}
 			
 			this.onclick = function() {
-				window.open(this.attribute('xlink:href').value);
+				window.open(this.getHrefAttribute().value);
 			}
 			
 			this.onmousemove = function() {
@@ -2140,7 +2149,7 @@
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
 			
-			var href = this.attribute('xlink:href').value;
+			var href = this.getHrefAttribute().value;
 			var isSvg = href.match(/\.svg$/)
 			
 			svg.Images.push(this);
@@ -2309,7 +2318,7 @@
 			}
 			
 			this.getDefinition = function() {
-				var element = this.attribute('xlink:href').getDefinition();
+				var element = this.getHrefAttribute().getDefinition();
 				if (this.attribute('width').hasValue()) element.attribute('width', true).value = this.attribute('width').value;
 				if (this.attribute('height').hasValue()) element.attribute('height', true).value = this.attribute('height').value;
 				return element;
