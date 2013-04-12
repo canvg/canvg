@@ -1932,6 +1932,11 @@
 				if (this.style('alignment-baseline').hasValue()) ctx.textBaseline = this.style('alignment-baseline').value;
 			}
 			
+			this.getBoundingBox = function () {
+				// TODO: implement
+				return new svg.BoundingBox(this.attribute('x').toPixels('x'), this.attribute('y').toPixels('y'), 0, 0);
+			}
+			
 			this.renderChildren = function(ctx) {
 				this.textAnchor = this.style('text-anchor').valueOrDefault('start');
 				this.x = this.attribute('x').toPixels('x');
@@ -1952,7 +1957,7 @@
 					child.x = this.x;
 				}
 				
-				var childLength = child.measureText(ctx);
+				var childLength = typeof(child.measureText == 'undefined') ? 0 : child.measureText(ctx);
 				if (this.textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
 					// loop through rest of children
 					var groupLength = childLength;
@@ -2331,6 +2336,11 @@
 				if (element != null) element.path(ctx);
 			}
 			
+			this.getBoundingBox = function() {
+				var element = this.getDefinition();
+				if (element != null) return element.getBoundingBox();
+			}
+			
 			this.renderChildren = function(ctx) {
 				var element = this.getDefinition();
 				if (element != null) {
@@ -2457,6 +2467,16 @@
 		}
 		svg.Element.filter.prototype = new svg.Element.ElementBase;
 		
+		svg.Element.feMorphology = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+			
+			this.apply = function(ctx, x, y, width, height) {
+				// TODO: implement
+			}
+		}
+		svg.Element.feMorphology.prototype = new svg.Element.ElementBase;
+		
 		svg.Element.feColorMatrix = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
@@ -2488,7 +2508,7 @@
 				ctx.putImageData(srcData, 0, 0);
 			}
 		}
-		svg.Element.filter.prototype = new svg.Element.feColorMatrix;
+		svg.Element.feColorMatrix.prototype = new svg.Element.ElementBase;
 		
 		svg.Element.feGaussianBlur = function(node) {
 			this.base = svg.Element.ElementBase;
@@ -2511,7 +2531,7 @@
 				document.body.removeChild(ctx.canvas);
 			}
 		}
-		svg.Element.filter.prototype = new svg.Element.feGaussianBlur;
+		svg.Element.feGaussianBlur.prototype = new svg.Element.ElementBase;
 		
 		// title element, do nothing
 		svg.Element.title = function(node) {
