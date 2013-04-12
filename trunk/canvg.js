@@ -1205,7 +1205,10 @@
 				}
 				
 				this.getReflectedControlPoint = function() {
-					if (this.previousCommand.toLowerCase() != 'c' && this.previousCommand.toLowerCase() != 's') {
+					if (this.previousCommand.toLowerCase() != 'c' && 
+					    this.previousCommand.toLowerCase() != 's' &&
+						this.previousCommand.toLowerCase() != 'q' && 
+						this.previousCommand.toLowerCase() != 't' ){
 						return this.current;
 					}
 					
