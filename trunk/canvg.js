@@ -1955,7 +1955,7 @@
 					child.x = child.attribute('x').toPixels('x');
 				}
 				else {
-					if (this.attribute('dx').hasValue()) this.y += this.attribute('dx').toPixels('x');
+					if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
 					if (child.attribute('dx').hasValue()) this.x += child.attribute('dx').toPixels('x');
 					child.x = this.x;
 				}
