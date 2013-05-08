@@ -2654,7 +2654,7 @@
 				e.render(ctx);
 				if (isFirstRender) {
 					isFirstRender = false;
-					if (typeof(svg.opts['renderCallback']) == 'function') svg.opts['renderCallback']();
+					if (typeof(svg.opts['renderCallback']) == 'function') svg.opts['renderCallback'](dom);
 				}			
 			}
 			
