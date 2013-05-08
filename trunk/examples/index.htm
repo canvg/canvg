@@ -19,10 +19,11 @@
 			}		
 			return null;
 		}		
+		var overrideTextBox = false;
 		var context;
 		function bodyonload() {
-			var qUrl = q('url'); if (qUrl != null && qUrl != '') { render(qUrl); }
-			var qSvg = q('svg'); if (qSvg != null && qSvg != '') { render(qSvg); }
+			var qUrl = q('url'); if (qUrl != null && qUrl != '') { overrideTextBox = true; render(qUrl); }
+			var qSvg = q('svg'); if (qSvg != null && qSvg != '') { overrideTextBox = true; render(qSvg); }
 			
 			var examples = document.getElementById('examples');
 			examples.onchange = function () {
@@ -50,7 +51,12 @@
 				if (typeof FlashCanvas != "undefined") {
 					document.getElementById('svg').innerHTML = 'svg not supported';
 				} else {
-					document.getElementById('svg').innerHTML = (new XMLSerializer()).serializeToString(dom);
+					var svg = (new XMLSerializer()).serializeToString(dom);
+					document.getElementById('svg').innerHTML = svg;
+					if (overrideTextBox) {
+						document.getElementById('input').value = svg;
+						overrideTextBox = false;
+					}
 				}
 			}});
 		}
