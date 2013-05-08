@@ -689,7 +689,12 @@
 				for (var i=0; i<node.childNodes.length; i++) {
 					var childNode = node.childNodes[i];
 					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
-					if (this.captureTextNodes && childNode.nodeType == 3) this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
+					if (this.captureTextNodes && childNode.nodeType == 3) {
+						var text = childNode.nodeValue || childNode.text || '';
+						if (svg.trim(svg.compressSpaces(text)) != '') {
+							this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
+						}
+					}
 				}
 				
 				// add attributes
@@ -1941,38 +1946,39 @@
 			}
 			
 			this.renderChildren = function(ctx) {
-				this.textAnchor = this.style('text-anchor').valueOrDefault('start');
 				this.x = this.attribute('x').toPixels('x');
 				this.y = this.attribute('y').toPixels('y');
+				this.x += this.getAnchorDelta(ctx, this, 0);
 				for (var i=0; i<this.children.length; i++) {
 					this.renderChild(ctx, this, i);
 				}
 			}
 			
+			var textAnchor = this.style('text-anchor').valueOrDefault('start');
+			this.getAnchorDelta = function (ctx, parent, startI) {
+				if (textAnchor != 'start') {
+					var width = 0;
+					for (var i=startI; i<parent.children.length; i++) {
+						var child = parent.children[i];
+						if (i > startI && child.attribute('x').hasValue()) break; // new group
+						width += child.measureTextRecursive(ctx);
+					}
+					return -1 * (textAnchor == 'end' ? width : width / 2.0);
+				}
+				return 0;
+			}
+			
 			this.renderChild = function(ctx, parent, i) {
 				var child = parent.children[i];
 				if (child.attribute('x').hasValue()) {
-					child.x = child.attribute('x').toPixels('x');
+					child.x = child.attribute('x').toPixels('x') + this.getAnchorDelta(ctx, parent, i);
 				}
 				else {
 					if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
 					if (child.attribute('dx').hasValue()) this.x += child.attribute('dx').toPixels('x');
 					child.x = this.x;
 				}
-				
-				var childLength = 0;
-				if (typeof(child.measureText != 'undefined')) { childLength = child.measureText(ctx); }
-				if (this.textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
-					// loop through rest of children
-					var groupLength = childLength;
-					for (var j=i+1; j<this.children.length; j++) {
-						var childInGroup = this.children[j];
-						if (childInGroup.attribute('x').hasValue()) break; // new group
-						groupLength += childInGroup.measureText(ctx);
-					}
-					child.x -= (this.textAnchor == 'end' ? groupLength : groupLength / 2.0);
-				}
-				this.x = child.x + childLength;
+				this.x = child.x + child.measureText(ctx);
 				
 				if (child.attribute('y').hasValue()) {
 					child.y = child.attribute('y').toPixels('y');
@@ -1981,7 +1987,7 @@
 					if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
 					if (child.attribute('dy').hasValue()) this.y += child.attribute('dy').toPixels('y');
 					child.y = this.y;
-				}	
+				}
 				this.y = child.y;
 				
 				child.render(ctx);
@@ -2055,6 +2061,14 @@
 			
 			this.getText = function() {
 				// OVERRIDE ME
+			}
+			
+			this.measureTextRecursive = function(ctx) {
+				var width = this.measureText(ctx);
+				for (var i=0; i<this.children.length; i++) {
+					width += this.children[i].measureTextRecursive(ctx);
+				}
+				return width;
 			}
 			
 			this.measureText = function(ctx) {
