@@ -2,12 +2,13 @@
 <html>
 	<head>
 		<title>canvg.js test</title>
-		<!--[if IE]>
+		<!--[if lt IE 9]>
 		<script type="text/javascript" src="flashcanvas.js"></script>
 		<![endif]-->		
 		<script type="text/javascript" src="../rgbcolor.js"></script>
     <script type="text/javascript" src="../StackBlur.js"></script>
 		<script type="text/javascript" src="../canvg.js"></script>
+		<script type="text/javascript" src="../StackBlur.js"></script>
 		<script type="text/javascript">
 		function q(k) {
 			var qs = window.location.search.substring(1);
@@ -19,38 +20,57 @@
 			return null;
 		}		
 		var context;
-		function bodyonload() { 
-			if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; 
-			var qUrl = q('url'); if (qUrl != null && qUrl != '') { r(); canvg('canvas', qUrl); }
-			var qSvg = q('svg'); if (qSvg != null && qSvg != '') { r(); canvg('canvas', qSvg); }			
+		function bodyonload() {
+			var qUrl = q('url'); if (qUrl != null && qUrl != '') { render(qUrl); }
+			var qSvg = q('svg'); if (qSvg != null && qSvg != '') { render(qSvg); }
+			
+			var examples = document.getElementById('examples');
+			examples.onchange = function () {
+				if (!examples.value) return;
+				render('../svgs/' + examples.value);
+			};
+			
+			var issues = document.getElementById('issues');
+			issues.onchange = function () {
+				if (!issues.value) return;
+				render('../svgs/' + issues.value);
+			};
 		}
-		function render() {
-			var c = document.getElementById('canvas');
-			c.width = document.getElementById('width').value;
-			c.height = document.getElementById('height').value;
-			if (context) c.getContext = context;
-			canvg(c, document.getElementById('svg').value);
+		function render(svg, width, height) {
+			document.createElement('canvas')
+			var c = document.createElement('canvas');		
+			c.width = width || 500;
+			c.height = height || 500;
+			document.getElementById('canvas').innerHTML = '';
+			document.getElementById('canvas').appendChild(c);
+			if (typeof FlashCanvas != "undefined") {
+				FlashCanvas.initElement(c);
+			}
+			canvg(c, svg, { renderCallback: function (dom) {
+				if (typeof FlashCanvas != "undefined") {
+					document.getElementById('svg').innerHTML = 'svg not supported';
+				} else {
+					document.getElementById('svg').innerHTML = (new XMLSerializer()).serializeToString(dom);
+				}
+			}});
 		}
-		function r() {
-			var c = document.getElementById('canvas');
-			c.width = '1000';
-			c.height = '600';
-			if (context) c.getContext = context;
+		function renderCustom() {
+			render(document.getElementById('input').value,
+				   document.getElementById('width').value,
+				   document.getElementById('height').value);
 		}
 		</script>
 		
 		<style type="text/css">
 		body { font-family: verdana; }
-		#title { padding: 0 0 5px 5px; margin: 0; }
+		h1, h2 { margin: 0; }
+		#title { padding: 0 0 5px 5px; }
+		h2 { font-size: 18px; }
 		#message { background-color: orangered; padding: 5px; margin-bottom: 10px; }
 		#message a { color: white; }
-		td { vertical-align: top; }
-		td.examples { width: 150px; }
-		td.examples table { width: 150px; margin: 0 20px 10px 0; }
-		td.examples table thead th { text-align: left;  background: darkblue; color: white; padding: 2px; }
-		hr { border: 1px solid darkblue; margin: 15px 0; }
-		label { color: darkblue; }
+		td { vertical-align: top; padding-right: 10px; }
 		a image { border: 0; }
+		.output { border: 1px solid gray; width: 500px; height: 500px; overflow: scroll; }
 		</style>
 		<script type="text/javascript">
 
@@ -70,72 +90,154 @@
 		<h1 id="title"><a href="http://canvg.googlecode.com/">canvg</a> examples</h1>
 		<div id="message"><a href="http://code.google.com/p/canvg/issues/list" target="_blank">need a feature? have a bug or issue? svg not rendering? log it here!</a></div>
 
-		<table><tr><td rowspan="2" class="examples">
-		
-		<table><thead><tr><th colspan="3">complex</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/1.svg')">soccer</a></td><td> <a href="../svgs/1.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://en.wikipedia.org/wiki/File:Soccer_ball_animated.svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/22.svg')">world</a></td><td> <a href="../svgs/22.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://en.wikipedia.org/wiki/Blank_map" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/23.svg')">tiger</a></td><td> <a href="../svgs/23.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/25.svg')">butterfly</a></td><td> <a href="../svgs/25.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.croczilla.com/bits_and_pieces/svg/samples/" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/26.svg')">floorplan</a></td><td> <a href="../svgs/26.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://cse.unl.edu/~nbenes/snippets/Test%20Case_347938.snip" target="_blank"><img src="images/link.png" /></a></td></tr>
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">basic shapes</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/2.svg')">all</a></td><td> <a href="../svgs/2.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://keith-wood.name/svg.html#examples" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/8.svg')">layers</a></td><td> <a href="../svgs/8.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=ellipse2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">paths</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/10.svg')">line</a></td><td> <a href="../svgs/10.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=line1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/11.svg')">poly</a></td><td> <a href="../svgs/11.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=polygon1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/13.svg')">path</a></td><td> <a href="../svgs/13.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=polyline1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/15.svg')">curve</a></td><td> <a href="../svgs/15.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=path2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/27.svg')">arcs</a></td><td> <a href="../svgs/27.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/paths.html#PathDataEllipticalArcCommands" target="_blank"><img src="images/link.png" /></a></td></tr>		
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/29.svg')">markers</a></td><td> <a href="../svgs/29.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://apike.ca/prog_svg_paths.html" target="_blank"><img src="images/link.png" /></a></td></tr>		
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">gradients &amp; patterns</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/16.svg')">linear</a></td><td> <a href="../svgs/16.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=linear1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/18.svg')">radial</a></td><td> <a href="../svgs/18.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=radial1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/19.svg')">radial focus</a></td><td> <a href="../svgs/19.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=radial2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/30.svg')">pattern</a></td><td> <a href="../svgs/30.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/pservers.html#Patterns" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/34.svg')">transform</a></td><td> <a href="../svgs/34.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/pservers.html#LinearGradientElementGradientTransformAttribute" target="_blank"><img src="images/link.png" /></a></td></tr>
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">animations</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/20.svg')">indefinite</a></td><td> <a href="../svgs/20.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_1&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/21.svg')">multiple</a></td><td> <a href="../svgs/21.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3schools.com/svg/tryit.asp?filename=animate_2&type=svg" target="_blank"><img src="images/link.png" /></a></td></tr>
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">text</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/35.svg')">glyphs</a></td><td> <a href="../svgs/35.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/fonts.html#GlyphElement" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/36.svg')">external</a></td><td> <a href="../svgs/36.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/fonts.html#SVGFontsOverview" target="_blank"><img src="images/link.png" /></a></td></tr>
-		</tbody></table>
-		
-		<table><thead><tr><th colspan="3">other</th></tr></thead><tbody>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/33.svg')">masks</a></td><td> <a href="../svgs/33.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/masking.html#Masking" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/24.svg')">units</a></td><td> <a href="../svgs/24.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/coords.html#Units" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/28.svg')">viewport</a></td><td> <a href="../svgs/28.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG11/coords.html#PreserveAspectRatioAttribute" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/31.svg')">links</a></td><td> <a href="../svgs/31.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/linking.html" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td><a href="javascript:r();canvg('canvas', '../svgs/32.svg')">images</a></td><td> <a href="../svgs/32.svg" target="_blank"><img src="images/svg.png" /></a></td><td><a href="http://www.w3.org/TR/SVG/struct.html#ImageElement" target="_blank"><img src="images/link.png" /></a></td></tr>
-			<tr><td colspan="2"><a href="callback.htm">callbacks</a></td></tr>
-		</tbody></table>
-	
+		<table><tr><td>
+			<h2>Select an example ...</h2>
+			<select id="examples"><!-- image/svg+xml -->
+				<option value="">Select an example ...</option>
+				<optgroup label="complex">
+					<option value="1.svg">soccer</option>
+					<option value="22.svg">world</option>
+					<option value="23.svg">tiger</option>
+					<option value="25.svg">butterfly</option>
+					<option value="26.svg">floorplan</option>
+				</optgroup>
+				<optgroup label="basic shapes">
+					<option value="2.svg">all</option>
+					<option value="8.svg">layers</option>
+				</optgroup>
+				<optgroup label="paths">
+					<option value="10.svg">line</option>
+					<option value="11.svg">poly</option>
+					<option value="13.svg">path</option>
+					<option value="15.svg">curve</option>
+					<option value="27.svg">arcs</option>
+					<option value="29.svg">markers</option>
+				</optgroup>
+				<optgroup label="gradients &amp; patterns">
+					<option value="16.svg">linear</option>
+					<option value="18.svg">radial</option>
+					<option value="19.svg">radial focus</option>
+					<option value="30.svg">pattern</option>
+					<option value="34.svg">transform</option>
+				</optgroup>
+				<optgroup label="animations">
+					<option value="20.svg">indefinite</option>
+					<option value="21.svg">multiple</option>
+				</optgroup>
+				<optgroup label="text">
+					<option value="35.svg">glyphs</option>
+					<option value="36.svg">external</option>
+				</optgroup>
+				<optgroup label="other">
+					<option value="33.svg">masks</option>
+					<option value="24.svg">units</option>
+					<option value="28.svg">viewport</option>
+					<option value="31.svg">links</option>
+					<option value="32.svg">images</option>
+				</optgroup>
+			</select><br />
+			<a href="callback.htm">callback example</a><br />
+			<a href="convert.htm">convert example</a><br />
+			<br />
+			<select id="issues"><!-- image/svg+xml -->
+				<option value="">Select an Issue:</option>
+				<option value="issue3.svg">Issue #3: radial gradient (broken)</option>
+				<option value="issue8.svg">Issue #8: stroke linecap</option>
+				<option value="issue24.svg">Issue #24: clipPath</option>
+				<option value="issue25.svg">Issue #25: stroke-linejoin</option>
+				<option value="issue30.svg">Issue #30: text-anchor</option>
+				<option value="issue31.svg">Issue #31: font-size</option>
+				<option value="issue32.svg">Issue #32: font-family</option>
+				<option value="issue33.svg">Issue #33: font-style</option>
+				<option value="issue34.svg">Issue #34: font-weight</option>
+				<option value="issue35.svg">Issue #35: gradient strokes</option>
+				<option value="issue36.svg">Issue #36: marker</option>
+				<option value="issue38.svg">Issue #38: tspan</option>
+				<option value="issue39.svg">Issue #39: tref</option>
+				<option value="issue40.svg">Issue #40: pattern</option>
+				<option value="issue41.svg">Issue #41: symbol</option>
+				<option value="issue42.svg">Issue #42: polyline marker</option>
+				<option value="issue44.svg">Issue #44: inner links</option>
+				<option value="issue45.svg">Issue #45: gradient transform (broken)</option>
+				<option value="issue46.svg">Issue #46: multi-line text</option>
+				<option value="issue48.svg">Issue #48: complex radial gradient</option>
+				<option value="issue50.svg">Issue #50: gradient changing paths</option>
+				<option value="issue54.svg">Issue #54: path control points</option>
+				<option value="issue55.svg">Issue #55: clipPath</option>
+				<option value="issue57.svg">Issue #57: use and def</option>
+				<option value="issue57b.svg">Issue #57b: complex gradient</option>
+				<option value="issue66.svg">Issue #66: gaussian blur</option>
+				<option value="issue67.svg">Issue #67: complex paths</option>
+				<option value="issue70.svg">Issue #70: bounding box (broken - missing shadow)</option>
+				<option value="issue71.svg">Issue #71: glyph</option>
+				<option value="issue73.svg">Issue #73: animation fill freeze</option>
+				<option value="issue75.svg">Issue #75: path command z</option>
+				<option value="issue77.svg">Issue #77: inherited stroke colors</option>
+				<option value="issue79.svg">Issue #79: use width height</option>
+				<option value="issue82.svg">Issue #82: external font (broken - text alignment)</option>
+				<option value="issue85.svg">Issue #85: arabic glyphs</option>
+				<option value="issue88.svg">Issue #88: centered text (broken - text alignment)</option>
+				<option value="issue89.svg">Issue #89: gradient transforms</option>
+				<option value="issue91.svg">Issue #91: opacity masks</option>
+				<option value="issue94.svg">Issue #94: visibility attribute (broken - text alignment)</option>
+				<option value="issue97.svg">Issue #97: slow loading time</option>
+				<option value="issue98.svg">Issue #98: path error</option>
+				<option value="issue99.svg">Issue #99: tspan offset (broken - text alignment)</option>
+				<option value="issue104.svg">Issue #104: linear gradient</option>
+				<option value="issue106.svg">Issue #106: gradient transform</option>
+				<option value="issue112.svg">Issue #112: marker orientation</option>
+				<option value="issue114.svg">Issue #114: text anchor (broken - text alignment)</option>
+				<option value="issue115.svg">Issue #115: marker orientation</option>
+				<option value="issue116.svg">Issue #116: text dominant baseline</option>
+				<option value="issue117.svg">Issue #117: svg logo</option>
+				<option value="issue121.svg">Issue #121: ellipse animation</option>
+				<option value="issue122.svg">Issue #122: radial gradient (broken - don't scale)</option>
+				<option value="issue125a.svg">Issue #125a: complex path and gradient</option>
+				<option value="issue125b.svg">Issue #125b: complex path and gradient</option>
+				<option value="issue128.svg">Issue #128: markers (broken - don't align)</option>
+				<option value="issue132.svg">Issue #132: radial gradients (broken - don't scale)</option>
+				<option value="issue134.svg">Issue #134: positioning (broken - text alignment)</option>
+				<option value="issue135.svg">Issue #135: gradient transform (broken)</option>
+				<option value="issue137.svg">Issue #137: positioning (broken)</option>
+				<option value="issue138.svg">Issue #138: image in pattern (broken)</option>
+				<option value="issue144.svg">Issue #144: large complex</option>
+				<option value="issue145.svg">Issue #145: css id selector</option>
+				<option value="issue158.svg">Issue #158: complex w/ data images (broken - missing images in circles)</option>
+				<option value="issue161.svg">Issue #161: google chart gradient (svg error)</option>
+				<option value="issue166.svg">Issue #166: custom glyphs</option>
+				<option value="issue172.svg">Issue #172: cylinder gradient (broken - radial gradient off)</option>
+				<option value="issue175.svg">Issue #175: stroke width</option>
+				<option value="issue176.svg">Issue #176: rounded rectangles</option>
+				<option value="issue178.svg">Issue #178: pattern offset</option>
+				<option value="issue179.svg">Issue #179: animate rotate transform center</option>
+				<option value="issue180.svg">Issue #180: pattern x offset width (open)</option>
+				<option value="issue181.svg">Issue #181: linear gradient (broken - not appearing)</option>
+				<option value="issue182.svg">Issue #182: blur (broken - a bit off on intensity)</option>
+				<option value="issue183.svg">Issue #183: mask error (broken)</option>
+				<option value="issue184.svg">Issue #184: transformed pattern (broken)</option>
+				<option value="issue187.svg">Issue #187: nested tspans</option>
+				<option value="issue195.svg">Issue #195: gray filter</option>
+				<option value="issue196.svg">Issue #196: incorrect radial gradient</option>
+				<option value="issue197.svg">Issue #197: non smooth lines</option>
+				<option value="issue202.svg">Issue #202: text anchor middle (broken, misaligned)</option>
+				<option value="issue206.svg">Issue #206: blur</option>
+				<option value="issue211.svg">Issue #211: transform</option>
+				<option value="issue212.svg">Issue #212: path shorthand quadratic bezier</option>
+			</select>
 		</td><td>
+			<h2>or use your own</h2>
+			<textarea id="input" rows="5" cols="50">&lt;svg&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea><br />
+			<label>width:</label> <input type="text" id="width" value="500" size="7" />
+			<label>height:</label> <input type="text" id="height" value="500" size="7" />
+			<input type="button" value="Render" onclick="renderCustom();" />		
+		</td></tr></table>
 		
-		<label><b>your own:</b></label><br />
-		<textarea id="svg" rows="5" cols="50">&lt;svg&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea><br />
-		<label>width:</label> <input type="text" id="width" value="1000" size="7" />
-		<label>height:</label> <input type="text" id="height" value="600" size="7" />
-		<input type="button" value="Render" onclick="render();" />
-		<hr>
-				
-		</td><tr><td>
-		
-		<div style="border: 1px solid gray; width: 1000px; height: 600px;">
-			<canvas id="canvas" width="1000px" height="600px"></canvas>
-		</div>
-		
+		<table><tr><td>
+			<h2>canvg output</h2>
+			<div class="output" id="canvas"></div>
+		</td><td>
+			<h2>svg output</h2>
+			<div class="output" id="svg"></div>
 		</td></tr></table>
 	</body>
 </html>
