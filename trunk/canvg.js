@@ -1960,7 +1960,8 @@
 					child.x = this.x;
 				}
 				
-				var childLength = typeof(child.measureText == 'undefined') ? 0 : child.measureText(ctx);
+				var childLength = 0;
+				if (typeof(child.measureText != 'undefined')) { childLength = child.measureText(ctx); }
 				if (this.textAnchor != 'start' && (i==0 || child.attribute('x').hasValue())) { // new group?
 					// loop through rest of children
 					var groupLength = childLength;
