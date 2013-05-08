@@ -213,6 +213,11 @@
 					
 					// pattern
 					if (def != null && def.createPattern) {
+						if (def.getHrefAttribute().hasValue()) {
+							var pt = def.attribute('patternTransform');
+							def = def.getHrefAttribute().getDefinition();
+							if (pt.hasValue()) { def.attribute('patternTransform', true).value = pt.value; }
+						}
 						return def.createPattern(svg.ctx, e);
 					}
 					
