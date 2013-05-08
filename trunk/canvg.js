@@ -2395,6 +2395,17 @@
 				var width = this.attribute('width').toPixels('x');
 				var height = this.attribute('height').toPixels('y');
 				
+				if (width == 0 && height == 0) {
+					var bb = new svg.BoundingBox();
+					for (var i=0; i<this.children.length; i++) {
+						bb.addBoundingBox(this.children[i].getBoundingBox());
+					}
+					var x = Math.floor(bb.x1);
+					var y = Math.floor(bb.y1);
+					var width = Math.floor(bb.width());
+					var	height = Math.floor(bb.height());
+				}
+				
 				// temporarily remove mask to avoid recursion
 				var mask = element.attribute('mask').value;
 				element.attribute('mask').value = '';

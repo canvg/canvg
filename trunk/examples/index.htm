@@ -28,12 +28,14 @@
 			var examples = document.getElementById('examples');
 			examples.onchange = function () {
 				if (!examples.value) return;
+				overrideTextBox = true; 
 				render('../svgs/' + examples.value);
 			};
 			
 			var issues = document.getElementById('issues');
 			issues.onchange = function () {
 				if (!issues.value) return;
+				overrideTextBox = true; 
 				render('../svgs/' + issues.value);
 			};
 		}
