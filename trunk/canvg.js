@@ -2216,7 +2216,7 @@
 				this.img = document.createElement('img');
 				var self = this;
 				this.img.onload = function() { self.loaded = true; }
-				this.img.onerror = function() { if (console) console.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
+				this.img.onerror = function() { if (typeof(console) != 'undefined') { console.log('ERROR: image "' + href + '" not found'); self.loaded = true; } }
 				this.img.src = href;
 			}
 			else {
@@ -2588,7 +2588,7 @@
 			
 			this.apply = function(ctx, x, y, width, height) {
 				if (typeof(stackBlurCanvasRGBA) == 'undefined') {
-					console.log('ERROR: StackBlur.js must be included for blur to work');
+					if (typeof(console) != 'undefined') { console.log('ERROR: StackBlur.js must be included for blur to work'); }
 					return;
 				}
 				
@@ -2613,7 +2613,7 @@
 		svg.Element.desc.prototype = new svg.Element.ElementBase;		
 		
 		svg.Element.MISSING = function(node) {
-			if (console) console.log('ERROR: Element \'' + node.nodeName + '\' not yet implemented.');
+			if (typeof(console) != 'undefined') { console.log('ERROR: Element \'' + node.nodeName + '\' not yet implemented.'); }
 		}
 		svg.Element.MISSING.prototype = new svg.Element.ElementBase;
 		
