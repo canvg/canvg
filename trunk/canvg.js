@@ -881,7 +881,10 @@
 			this.renderChildren = function(ctx) {
 				this.path(ctx);
 				svg.Mouse.checkPath(this, ctx);
-				if (ctx.fillStyle != '') ctx.fill();
+				if (ctx.fillStyle != '') {
+					if (this.attribute('fill-rule').hasValue()) { ctx.fill(this.attribute('fill-rule').value); }
+					else { ctx.fill(); }
+				}
 				if (ctx.strokeStyle != '') ctx.stroke();
 				
 				var markers = this.getMarkers();
