@@ -193,7 +193,7 @@
 			// definition extensions
 				// get the definition from the definitions table
 				svg.Property.prototype.getDefinition = function() {
-					var name = this.value.match(/#([^\)']+)/);
+					var name = this.value.match(/#([^\)'"]+)/);
 					if (name) { name = name[1]; }
 					if (!name) { name = this.value; }
 					return svg.Definitions[name];
