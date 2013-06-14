@@ -1990,8 +1990,8 @@
 				}
 			}
 			
-			var textAnchor = this.style('text-anchor').valueOrDefault('start');
 			this.getAnchorDelta = function (ctx, parent, startI) {
+				var textAnchor = this.style('text-anchor').valueOrDefault('start');
 				if (textAnchor != 'start') {
 					var width = 0;
 					for (var i=startI; i<parent.children.length; i++) {
