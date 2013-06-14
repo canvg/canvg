@@ -856,8 +856,8 @@
 				}
 				
 				// clip
-				if (this.attribute('clip-path').hasValue()) {
-					var clip = this.attribute('clip-path').getDefinition();
+				if (this.style('clip-path').hasValue()) {
+					var clip = this.style('clip-path').getDefinition();
 					if (clip != null) clip.apply(ctx);
 				}
 				
