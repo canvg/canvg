@@ -827,7 +827,7 @@
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
-				if (this.style('stroke-dasharray').hasValue()) {
+				if (this.style('stroke-dasharray').hasValue() && this.style('stroke-dasharray').value != 'none') {
 					var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
 					if (typeof(ctx.setLineDash) != 'undefined') { ctx.setLineDash(gaps); }
 					else if (typeof(ctx.webkitLineDash) != 'undefined') { ctx.webkitLineDash = gaps; }
