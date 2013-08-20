@@ -882,7 +882,7 @@
 				this.path(ctx);
 				svg.Mouse.checkPath(this, ctx);
 				if (ctx.fillStyle != '') {
-					if (this.attribute('fill-rule').hasValue()) { ctx.fill(this.attribute('fill-rule').value); }
+					if (this.attribute('fill-rule').valueOrDefault('inherit') != 'inherit') { ctx.fill(this.attribute('fill-rule').value); }
 					else { ctx.fill(); }
 				}
 				if (ctx.strokeStyle != '') ctx.stroke();
@@ -1655,7 +1655,7 @@
 			this.base(node);
 			
 			this.getGradient = function(ctx, element) {
-				var bb = element.getBoundingBox();
+				var bb = this.gradientUnits == 'objectBoundingBox' ? element.getBoundingBox() : null;
 				
 				if (!this.attribute('x1').hasValue()
 				 && !this.attribute('y1').hasValue()
@@ -1977,8 +1977,10 @@
 			}
 			
 			this.getBoundingBox = function () {
-				// TODO: implement
-				return new svg.BoundingBox(this.attribute('x').toPixels('x'), this.attribute('y').toPixels('y'), 0, 0);
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
+				var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
+				return new svg.BoundingBox(x, y - fontSize, x + Math.floor(fontSize * 2.0 / 3.0) * this.children[0].getText().length, y);
 			}
 			
 			this.renderChildren = function(ctx) {
@@ -2549,9 +2551,47 @@
 		}
 		svg.Element.feMorphology.prototype = new svg.Element.ElementBase;
 		
+		svg.Element.feComposite = function(node) {
+			this.base = svg.Element.ElementBase;
+			this.base(node);
+			
+			this.apply = function(ctx, x, y, width, height) {
+				// TODO: implement
+			}
+		}
+		svg.Element.feComposite.prototype = new svg.Element.ElementBase;
+		
 		svg.Element.feColorMatrix = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
+			
+			var matrix = svg.ToNumberArray(this.attribute('values').value);
+			switch (this.attribute('type').valueOrDefault('matrix')) { // http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
+				case 'saturate':
+					var s = matrix[0];
+					matrix = [0.213+0.787*s,0.715-0.715*s,0.072-0.072*s,0,0,
+							  0.213-0.213*s,0.715+0.285*s,0.072-0.072*s,0,0,
+							  0.213-0.213*s,0.715-0.715*s,0.072+0.928*s,0,0,
+							  0,0,0,1,0,
+							  0,0,0,0,1];
+					break;
+				case 'hueRotate':
+					var a = matrix[0] * Math.PI / 180.0;
+					var c = function (m1,m2,m3) { return m1 + Math.cos(a)*m2 + Math.sin(a)*m3; };
+					matrix = [c(0.213,0.787,-0.213),c(0.715,-0.715,-0.715),c(0.072,-0.072,0.928),0,0,
+							  c(0.213,-0.213,0.143),c(0.715,0.285,0.140),c(0.072,-0.072,-0.283),0,0,
+							  c(0.213,-0.213,-0.787),c(0.715,-0.715,0.715),c(0.072,0.928,0.072),0,0,
+							  0,0,0,1,0,
+							  0,0,0,0,1];
+					break;
+				case 'luminanceToAlpha':
+					matrix = [0,0,0,0,0,
+							  0,0,0,0,0,
+							  0,0,0,0,0,
+							  0.2125,0.7154,0.0721,0,0,
+							  0,0,0,0,1];
+					break;
+			}
 			
 			function imGet(img, x, y, width, height, rgba) {
 				return img[y*width*4 + x*4 + rgba];
@@ -2570,10 +2610,11 @@
 						var r = imGet(srcData.data, x, y, width, height, 0);
 						var g = imGet(srcData.data, x, y, width, height, 1);
 						var b = imGet(srcData.data, x, y, width, height, 2);
-						var gray = (r + g + b) / 3;
-						imSet(srcData.data, x, y, width, height, 0, gray);
-						imSet(srcData.data, x, y, width, height, 1, gray);
-						imSet(srcData.data, x, y, width, height, 2, gray);
+						var a = imGet(srcData.data, x, y, width, height, 3);
+						imSet(srcData.data, x, y, width, height, 0, matrix[0]*r+matrix[1]*g+matrix[2]*b+matrix[3]*a+matrix[4]);
+						imSet(srcData.data, x, y, width, height, 1, matrix[5]*r+matrix[6]*g+matrix[7]*b+matrix[8]*a+matrix[9]);
+						imSet(srcData.data, x, y, width, height, 2, matrix[10]*r+matrix[11]*g+matrix[12]*b+matrix[13]*a+matrix[14]);
+						imSet(srcData.data, x, y, width, height, 3, matrix[15]*r+matrix[16]*g+matrix[17]*b+matrix[18]*a+matrix[19]);
 					}
 				}
 				ctx.clearRect(0, 0, width, height);
