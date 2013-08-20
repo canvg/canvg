@@ -2601,8 +2601,12 @@
 				img[y*width*4 + x*4 + rgba] = val;
 			}
 			
+			function m(i, v) {
+				var mi = matrix[i];
+				return mi * (mi < 0 ? v - 255 : v);
+			}
+						
 			this.apply = function(ctx, x, y, width, height) {
-				// only supporting grayscale for now per Issue 195, need to extend to all matrix
 				// assuming x==0 && y==0 for now
 				var srcData = ctx.getImageData(0, 0, width, height);
 				for (var y = 0; y < height; y++) {
@@ -2611,10 +2615,10 @@
 						var g = imGet(srcData.data, x, y, width, height, 1);
 						var b = imGet(srcData.data, x, y, width, height, 2);
 						var a = imGet(srcData.data, x, y, width, height, 3);
-						imSet(srcData.data, x, y, width, height, 0, matrix[0]*r+matrix[1]*g+matrix[2]*b+matrix[3]*a+matrix[4]);
-						imSet(srcData.data, x, y, width, height, 1, matrix[5]*r+matrix[6]*g+matrix[7]*b+matrix[8]*a+matrix[9]);
-						imSet(srcData.data, x, y, width, height, 2, matrix[10]*r+matrix[11]*g+matrix[12]*b+matrix[13]*a+matrix[14]);
-						imSet(srcData.data, x, y, width, height, 3, matrix[15]*r+matrix[16]*g+matrix[17]*b+matrix[18]*a+matrix[19]);
+						imSet(srcData.data, x, y, width, height, 0, m(0,r)+m(1,g)+m(2,b)+m(3,a)+m(4,1));
+						imSet(srcData.data, x, y, width, height, 1, m(5,r)+m(6,g)+m(7,b)+m(8,a)+m(9,1));
+						imSet(srcData.data, x, y, width, height, 2, m(10,r)+m(11,g)+m(12,b)+m(13,a)+m(14,1));
+						imSet(srcData.data, x, y, width, height, 3, m(15,r)+m(16,g)+m(17,b)+m(18,a)+m(19,1));
 					}
 				}
 				ctx.clearRect(0, 0, width, height);
