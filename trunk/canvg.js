@@ -663,7 +663,7 @@
 				if (this.style('display').value == 'none') return;
 				
 				// don't render visibility=hidden
-				if (this.attribute('visibility').value == 'hidden') return;
+				if (this.style('visibility').value == 'hidden') return;
 			
 				ctx.save();
 				if (this.attribute('mask').hasValue()) { // mask
