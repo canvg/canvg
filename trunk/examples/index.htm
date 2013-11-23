@@ -49,7 +49,7 @@
 			if (typeof FlashCanvas != "undefined") {
 				FlashCanvas.initElement(c);
 			}
-			canvg(c, svg, { renderCallback: function (dom) {
+			canvg(c, svg, { log: true, renderCallback: function (dom) {
 				if (typeof FlashCanvas != "undefined") {
 					document.getElementById('svg').innerHTML = 'svg not supported';
 				} else {
