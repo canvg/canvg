@@ -38,8 +38,7 @@
 				canvg(c, div.innerHTML);
 			}
 			return;
-		}	
-		opts = opts || {};
+		}
 	
 		if (typeof target == 'string') {
 			target = document.getElementById(target);
@@ -47,10 +46,9 @@
 		
 		// store class on canvas
 		if (target.svg != null) target.svg.stop();
-		var svg = build();
+		var svg = build(opts || {});
 		// on i.e. 8 for flash canvas, we can't assign the property so check for it
 		if (!(target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
-		svg.opts = opts;
 		
 		var ctx = target.getContext('2d');
 		if (typeof(s.documentElement) != 'undefined') {
@@ -67,11 +65,16 @@
 		}
 	}
 
-	function build() {
-		var svg = { };
+	function build(opts) {
+		var svg = { opts: opts };
 		
 		svg.FRAMERATE = 30;
 		svg.MAX_VIRTUAL_PIXELS = 30000;
+		
+		svg.log = function(msg) {};
+		if (svg.opts['log'] == true && typeof(console) != 'undefined') {
+			svg.log = function(msg) { console.log(msg); };
+		};
 		
 		// globals
 		svg.init = function(ctx) {
@@ -2221,7 +2224,7 @@
 				this.img = document.createElement('img');
 				var self = this;
 				this.img.onload = function() { self.loaded = true; }
-				this.img.onerror = function() { if (typeof(console) != 'undefined') { console.log('ERROR: image "' + href + '" not found'); self.loaded = true; } }
+				this.img.onerror = function() { svg.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
 				this.img.src = href;
 			}
 			else {
@@ -2636,7 +2639,7 @@
 			
 			this.apply = function(ctx, x, y, width, height) {
 				if (typeof(stackBlurCanvasRGBA) == 'undefined') {
-					if (typeof(console) != 'undefined') { console.log('ERROR: StackBlur.js must be included for blur to work'); }
+					svg.log('ERROR: StackBlur.js must be included for blur to work');
 					return;
 				}
 				
@@ -2661,7 +2664,7 @@
 		svg.Element.desc.prototype = new svg.Element.ElementBase;		
 		
 		svg.Element.MISSING = function(node) {
-			if (typeof(console) != 'undefined') { console.log('ERROR: Element \'' + node.nodeName + '\' not yet implemented.'); }
+			svg.log('ERROR: Element \'' + node.nodeName + '\' not yet implemented.');
 		}
 		svg.Element.MISSING.prototype = new svg.Element.ElementBase;
 		
