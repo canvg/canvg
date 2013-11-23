@@ -285,13 +285,33 @@
 					return this.numValue() * (Math.PI / 180.0);
 				}
 		
+			// text extensions
+				// get the text baseline
+				var textBaselineMapping = {
+					'baseline': 'alphabetic',
+					'before-edge': 'top',
+					'text-before-edge': 'top',
+					'middle': 'middle',
+					'central': 'middle',
+					'after-edge': 'bottom',
+					'text-after-edge': 'bottom',
+					'ideographic': 'ideographic',
+					'alphabetic': 'alphabetic',
+					'hanging': 'hanging',
+					'mathematical': 'alphabetic'
+				};
+				svg.Property.prototype.toTextBaseline = function () {
+					if (!this.hasValue()) return null;
+					return textBaselineMapping[this.value];
+				}
+				
 		// fonts
 		svg.Font = new (function() {
 			this.Styles = 'normal|italic|oblique|inherit';
 			this.Variants = 'normal|small-caps|inherit';
 			this.Weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
 			
-			this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) { 
+			this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) {
 				var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
 				return { 
 					fontFamily: fontFamily || f.fontFamily, 
@@ -932,11 +952,14 @@
 			
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
-				// initial values
+				// initial values and defaults
 				ctx.strokeStyle = 'rgba(0,0,0,0)';
 				ctx.lineCap = 'butt';
 				ctx.lineJoin = 'miter';
-				ctx.miterLimit = 4;			
+				ctx.miterLimit = 4;	
+				if (typeof(ctx.font) != 'undefined' && typeof(window.getComputedStyle) != 'undefined') {
+					ctx.font = window.getComputedStyle(ctx.canvas).getPropertyValue('font');
+				}
 			
 				this.baseSetContext(ctx);
 				
@@ -1977,8 +2000,10 @@
 			this.baseSetContext = this.setContext;
 			this.setContext = function(ctx) {
 				this.baseSetContext(ctx);
-				if (this.style('dominant-baseline').hasValue()) ctx.textBaseline = this.style('dominant-baseline').value;
-				if (this.style('alignment-baseline').hasValue()) ctx.textBaseline = this.style('alignment-baseline').value;
+				
+				var textBaseline = this.style('dominant-baseline').toTextBaseline();
+				if (textBaseline == null) textBaseline = this.style('alignment-baseline').toTextBaseline();
+				if (textBaseline != null) ctx.textBaseline = textBaseline;
 			}
 			
 			this.getBoundingBox = function () {
