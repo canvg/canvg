@@ -25,7 +25,7 @@
 	this.canvg = function (target, s, opts) {
 		// no parameters
 		if (target == null && s == null && opts == null) {
-			var svgTags = document.getElementsByTagName('svg');
+			var svgTags = document.querySelectorAll('svg');
 			for (var i=0; i<svgTags.length; i++) {
 				var svgTag = svgTags[i];
 				var c = document.createElement('canvas');
