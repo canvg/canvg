@@ -961,13 +961,15 @@
 						y = -this.attribute('refY').toPixels('y');
 					}
 					
-					ctx.beginPath();
-					ctx.moveTo(x, y);
-					ctx.lineTo(width, y);
-					ctx.lineTo(width, height);
-					ctx.lineTo(x, height);
-					ctx.closePath();
-					ctx.clip();
+					if (this.attribute('overflow').valueOrDefault('hidden') != 'visible') {
+						ctx.beginPath();
+						ctx.moveTo(x, y);
+						ctx.lineTo(width, y);
+						ctx.lineTo(width, height);
+						ctx.lineTo(x, height);
+						ctx.closePath();
+						ctx.clip();
+					}
 				}
 				svg.ViewPort.SetCurrent(width, height);	
 						
@@ -989,9 +991,9 @@
 									minY,
 									this.attribute('refX').value,
 									this.attribute('refY').value);
-										
-					svg.ViewPort.RemoveCurrent();	
-					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
+					
+					svg.ViewPort.RemoveCurrent();
+					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);
 				}				
 			}
 		}
@@ -2288,31 +2290,10 @@
 		svg.Element.symbol = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
-			
-			this.baseSetContext = this.setContext;
-			this.setContext = function(ctx) {		
-				this.baseSetContext(ctx);
-				
-				// viewbox
-				if (this.attribute('viewBox').hasValue()) {				
-					var viewBox = svg.ToNumberArray(this.attribute('viewBox').value);
-					var minX = viewBox[0];
-					var minY = viewBox[1];
-					width = viewBox[2];
-					height = viewBox[3];
-					
-					svg.AspectRatio(ctx,
-									this.attribute('preserveAspectRatio').value, 
-									this.attribute('width').toPixels('x'),
-									width,
-									this.attribute('height').toPixels('y'),
-									height,
-									minX,
-									minY);
 
-					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);						
-				}
-			}			
+			this.render = function(ctx) {
+				// NO RENDER
+			};
 		}
 		svg.Element.symbol.prototype = new svg.Element.RenderedElementBase;		
 			
@@ -2383,31 +2364,34 @@
 				if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').toPixels('y'));
 			}
 			
-			this.getDefinition = function() {
-				var element = this.getHrefAttribute().getDefinition();
-				if (this.attribute('width').hasValue()) element.attribute('width', true).value = this.attribute('width').value;
-				if (this.attribute('height').hasValue()) element.attribute('height', true).value = this.attribute('height').value;
-				return element;
-			}
+			var element = this.getHrefAttribute().getDefinition();
 			
 			this.path = function(ctx) {
-				var element = this.getDefinition();
 				if (element != null) element.path(ctx);
 			}
 			
 			this.getBoundingBox = function() {
-				var element = this.getDefinition();
 				if (element != null) return element.getBoundingBox();
 			}
 			
 			this.renderChildren = function(ctx) {
-				var element = this.getDefinition();
 				if (element != null) {
-					// temporarily detach from parent and render
-					var oldParent = element.parent;
-					element.parent = null;
-					element.render(ctx);
-					element.parent = oldParent;
+					var tempSvg = element;
+					if (element.type == 'symbol') {
+						// render me using a temporary svg element in symbol cases (http://www.w3.org/TR/SVG/struct.html#UseElement)
+						tempSvg = new svg.Element.svg();
+						tempSvg.type = 'svg';
+						tempSvg.attributes['viewBox'] = new svg.Property('viewBox', element.attribute('viewBox').value);
+						tempSvg.attributes['preserveAspectRatio'] = new svg.Property('preserveAspectRatio', element.attribute('preserveAspectRatio').value);
+						tempSvg.attributes['overflow'] = new svg.Property('overflow', element.attribute('overflow').value);
+						tempSvg.children = element.children;
+					}
+					if (tempSvg.type == 'svg') {
+						// if symbol or svg, inherit width/height from me
+						tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
+						tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
+					}
+					tempSvg.render(ctx);
 				}
 			}
 		}
