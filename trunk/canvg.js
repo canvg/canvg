@@ -2224,6 +2224,7 @@
 			this.loaded = false;
 			if (!isSvg) {
 				this.img = document.createElement('img');
+				if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
 				var self = this;
 				this.img.onload = function() { self.loaded = true; }
 				this.img.onerror = function() { svg.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
