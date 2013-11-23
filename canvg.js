@@ -2414,10 +2414,13 @@
 					}
 					if (tempSvg.type == 'svg') {
 						// if symbol or svg, inherit width/height from me
-						tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
-						tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
+						if (this.attribute('width').hasValue()) tempSvg.attributes['width'] = new svg.Property('width', this.attribute('width').value);
+						if (this.attribute('height').hasValue()) tempSvg.attributes['height'] = new svg.Property('height', this.attribute('height').value);
 					}
+					var oldParent = tempSvg.parent;
+					tempSvg.parent = null;
 					tempSvg.render(ctx);
+					tempSvg.parent = oldParent;
 				}
 			}
 		}
