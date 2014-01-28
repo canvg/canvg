@@ -734,7 +734,7 @@
 				for (var i=0; i<node.childNodes.length; i++) {
 					var childNode = node.childNodes[i];
 					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
-					if (this.captureTextNodes && childNode.nodeType == 3) {
+					if (this.captureTextNodes && (childNode.nodeType == 3 || childNode.nodeType == 4)) {
 						var text = childNode.nodeValue || childNode.text || '';
 						if (svg.trim(svg.compressSpaces(text)) != '') {
 							this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
