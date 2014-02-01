@@ -658,7 +658,7 @@
 			}
 			
 			// get or create style, crawls up node tree
-			this.style = function(name, createIfNotExists) {
+			this.style = function(name, createIfNotExists, skipAncestors) {
 				var s = this.styles[name];
 				if (s != null) return s;
 				
@@ -668,11 +668,13 @@
 					return a;
 				}
 				
-				var p = this.parent;
-				if (p != null) {
-					var ps = p.style(name);
-					if (ps != null && ps.hasValue()) {
-						return ps;
+				if (skipAncestors != true) {
+					var p = this.parent;
+					if (p != null) {
+						var ps = p.style(name);
+						if (ps != null && ps.hasValue()) {
+							return ps;
+						}
 					}
 				}
 					
@@ -879,8 +881,8 @@
 				}
 				
 				// clip
-				if (this.style('clip-path').hasValue()) {
-					var clip = this.style('clip-path').getDefinition();
+				if (this.style('clip-path', false, true).hasValue()) {
+					var clip = this.style('clip-path', false, true).getDefinition();
 					if (clip != null) clip.apply(ctx);
 				}
 				
