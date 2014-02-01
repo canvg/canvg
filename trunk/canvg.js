@@ -854,7 +854,7 @@
 					var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
 					if (typeof(ctx.setLineDash) != 'undefined') { ctx.setLineDash(gaps); }
 					else if (typeof(ctx.webkitLineDash) != 'undefined') { ctx.webkitLineDash = gaps; }
-					else if (typeof(ctx.mozDash ) != 'undefined') { ctx.mozDash  = gaps; }
+					else if (typeof(ctx.mozDash) != 'undefined' && !(gaps.length==1 && gaps[0]==0)) { ctx.mozDash = gaps; }
 					
 					var offset = this.style('stroke-dashoffset').numValueOrDefault(1);
 					if (typeof(ctx.lineDashOffset) != 'undefined') { ctx.lineDashOffset = offset; }
