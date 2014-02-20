@@ -907,7 +907,7 @@
 				this.path(ctx);
 				svg.Mouse.checkPath(this, ctx);
 				if (ctx.fillStyle != '') {
-					if (this.attribute('fill-rule').valueOrDefault('inherit') != 'inherit') { ctx.fill(this.attribute('fill-rule').value); }
+					if (this.style('fill-rule').valueOrDefault('inherit') != 'inherit') { ctx.fill(this.style('fill-rule').value); }
 					else { ctx.fill(); }
 				}
 				if (ctx.strokeStyle != '') ctx.stroke();
