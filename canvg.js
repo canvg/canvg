@@ -2042,6 +2042,7 @@
 				var child = parent.children[i];
 				if (child.attribute('x').hasValue()) {
 					child.x = child.attribute('x').toPixels('x') + this.getAnchorDelta(ctx, parent, i);
+					if (child.attribute('dx').hasValue()) child.x += child.attribute('dx').toPixels('x');
 				}
 				else {
 					if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
@@ -2052,6 +2053,7 @@
 				
 				if (child.attribute('y').hasValue()) {
 					child.y = child.attribute('y').toPixels('y');
+					if (child.attribute('dy').hasValue()) child.y += child.attribute('dy').toPixels('y');
 				}
 				else {
 					if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
