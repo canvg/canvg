@@ -728,7 +728,7 @@
 				var child = childNode;
 				if (create) child = svg.CreateElement(childNode);
 				child.parent = this;
-				this.children.push(child);			
+				if (child.type != 'title') { this.children.push(child);	}
 			}
 				
 			if (node != null && node.nodeType == 1) { //ELEMENT_NODE
