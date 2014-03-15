@@ -182,12 +182,12 @@
 			
 			// color extensions
 				// augment the current color value with the opacity
-				svg.Property.prototype.addOpacity = function(opacity) {
+				svg.Property.prototype.addOpacity = function(opacityProp) {
 					var newValue = this.value;
-					if (opacity != null && opacity != '' && typeof(this.value)=='string') { // can only add opacity to colors, not patterns
+					if (opacityProp.value != null && opacityProp.value != '' && typeof(this.value)=='string') { // can only add opacity to colors, not patterns
 						var color = new RGBColor(this.value);
 						if (color.ok) {
-							newValue = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + opacity + ')';
+							newValue = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + opacityProp.numValue() + ')';
 						}
 					}
 					return new svg.Property(this.name, newValue);
@@ -826,7 +826,7 @@
 				}
 				if (this.style('fill-opacity').hasValue()) {
 					var fillStyle = new svg.Property('fill', ctx.fillStyle);
-					fillStyle = fillStyle.addOpacity(this.style('fill-opacity').value);
+					fillStyle = fillStyle.addOpacity(this.style('fill-opacity'));
 					ctx.fillStyle = fillStyle.value;
 				}
 									
@@ -842,7 +842,7 @@
 				}
 				if (this.style('stroke-opacity').hasValue()) {
 					var strokeStyle = new svg.Property('stroke', ctx.strokeStyle);
-					strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity').value);
+					strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity'));
 					ctx.strokeStyle = strokeStyle.value;
 				}
 				if (this.style('stroke-width').hasValue()) {
@@ -1633,7 +1633,7 @@
 				var addParentOpacity = function (color) {
 					if (parentOpacityProp.hasValue()) {
 						var p = new svg.Property('color', color);
-						return p.addOpacity(parentOpacityProp.value).value;
+						return p.addOpacity(parentOpacityProp).value;
 					}
 					return color;
 				};
@@ -1767,7 +1767,7 @@
 			if (this.offset > 1) this.offset = 1;
 			
 			var stopColor = this.style('stop-color');
-			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.addOpacity(this.style('stop-opacity').value);
+			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.addOpacity(this.style('stop-opacity'));
 			this.color = stopColor.value;
 		}
 		svg.Element.stop.prototype = new svg.Element.ElementBase;
