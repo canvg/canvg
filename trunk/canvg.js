@@ -2768,12 +2768,21 @@
 				
 				if (svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
 				if (svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
-				if (svg.opts['scaleWidth'] != null && svg.opts['scaleHeight'] != null) {
-					var xRatio = 1, yRatio = 1, viewBox = svg.ToNumberArray(e.attribute('viewBox').value);
-					if (e.attribute('width').hasValue()) xRatio = e.attribute('width').toPixels('x') / svg.opts['scaleWidth'];
-					else if (!isNaN(viewBox[2])) xRatio = viewBox[2] / svg.opts['scaleWidth'];
-					if (e.attribute('height').hasValue()) yRatio = e.attribute('height').toPixels('y') / svg.opts['scaleHeight'];
-					else if (!isNaN(viewBox[3])) yRatio = viewBox[3] / svg.opts['scaleHeight'];
+				if (svg.opts['scaleWidth'] != null || svg.opts['scaleHeight'] != null) {
+					var xRatio = null, yRatio = null, viewBox = svg.ToNumberArray(e.attribute('viewBox').value);
+					
+					if (svg.opts['scaleWidth'] != null) {
+						if (e.attribute('width').hasValue()) xRatio = e.attribute('width').toPixels('x') / svg.opts['scaleWidth'];
+						else if (!isNaN(viewBox[2])) xRatio = viewBox[2] / svg.opts['scaleWidth'];
+					}
+					
+					if (svg.opts['scaleHeight'] != null) {
+						if (e.attribute('height').hasValue()) yRatio = e.attribute('height').toPixels('y') / svg.opts['scaleHeight'];
+						else if (!isNaN(viewBox[3])) yRatio = viewBox[3] / svg.opts['scaleHeight'];
+					}
+
+					if (xRatio == null) { xRatio = yRatio; }
+					if (yRatio == null) { yRatio = xRatio; }
 					
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];			
