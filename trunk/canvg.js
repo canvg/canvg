@@ -1795,7 +1795,7 @@
 			
 			this.initialValue = null;
 			this.initialUnits = '';
-			this.removed = false;			
+			this.removed = false;		
 
 			this.calcValue = function() {
 				// OVERRIDE ME!
@@ -1816,14 +1816,17 @@
 					 || this.attribute('repeatDur').value == 'indefinite') {
 						this.duration = 0.0
 					}
+					else if (this.attribute('fill').valueOrDefault('remove') == 'freeze' && !this.frozen) {
+						this.frozen = true;
+						this.parent.animationFrozen = true;
+						this.parent.animationFrozenValue = this.getProperty().value;
+					}
 					else if (this.attribute('fill').valueOrDefault('remove') == 'remove' && !this.removed) {
 						this.removed = true;
-						this.getProperty().value = this.initialValue;
+						this.getProperty().value = this.parent.animationFrozen ? this.parent.animationFrozenValue : this.initialValue;
 						return true;
 					}
-					else {
-						return false; // no updates made
-					}
+					return false;
 				}			
 				this.duration = this.duration + delta;
 			
