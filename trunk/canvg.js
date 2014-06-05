@@ -535,6 +535,9 @@
 				this.apply = function(ctx) {
 					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], this.m[4], this.m[5]);
 				}
+				this.unapply = function(ctx) {
+					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], -1.0 * this.m[4], -1.0 * this.m[5]);
+				}
 				this.applyToPoint = function(p) {
 					p.applyTransform(this.m);
 				}					
