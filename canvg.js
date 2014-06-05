@@ -2253,6 +2253,7 @@
 			this.base(node);
 			
 			var href = this.getHrefAttribute().value;
+			if (href == '') { return; }
 			var isSvg = href.match(/\.svg$/)
 			
 			svg.Images.push(this);
