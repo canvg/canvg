@@ -2498,6 +2498,13 @@
 			this.base(node);
 			
 			this.apply = function(ctx) {
+				var oldBeginPath = CanvasRenderingContext2D.prototype.beginPath;
+				CanvasRenderingContext2D.prototype.beginPath = function () { };
+				
+				var oldClosePath = CanvasRenderingContext2D.prototype.closePath;
+				CanvasRenderingContext2D.prototype.closePath = function () { };
+			
+				oldBeginPath.call(ctx);
 				for (var i=0; i<this.children.length; i++) {
 					var child = this.children[i];
 					if (typeof(child.path) != 'undefined') {
@@ -2507,10 +2514,15 @@
 							transform.apply(ctx);
 						}
 						child.path(ctx);
-						ctx.clip();
+						CanvasRenderingContext2D.prototype.closePath = oldClosePath;
 						if (transform) { transform.unapply(ctx); }
 					}
 				}
+				oldClosePath.call(ctx);
+				ctx.clip();
+				
+				CanvasRenderingContext2D.prototype.beginPath = oldBeginPath;
+				CanvasRenderingContext2D.prototype.closePath = oldClosePath;
 			}
 			
 			this.render = function(ctx) {
