@@ -2804,9 +2804,8 @@
 					if (yRatio == null) { yRatio = xRatio; }
 					
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
-					e.attribute('height', true).value = svg.opts['scaleHeight'];			
-					e.attribute('viewBox', true).value = '0 0 ' + (cWidth * xRatio) + ' ' + (cHeight * yRatio);
-					e.attribute('preserveAspectRatio', true).value = 'none';
+					e.attribute('height', true).value = svg.opts['scaleHeight'];
+					e.attribute('transform', true).value += ' scale('+(1.0/xRatio)+','+(1.0/yRatio)+')';
 				}
 			
 				// clear and render
