@@ -132,7 +132,14 @@
 		
 		// parse xml
 		svg.parseXml = function(xml) {
-			if (window.DOMParser)
+			if (Windows && Windows.Data && Windows.Data.Xml) {
+				var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
+				var settings = new Windows.Data.Xml.Dom.XmlLoadSettings();
+				settings.prohibitDtd = false;
+				xmlDoc.loadXml(xml, settings);
+				return xmlDoc;
+			}
+			else if (window.DOMParser)
 			{
 				var parser = new DOMParser();
 				return parser.parseFromString(xml, 'text/xml');
