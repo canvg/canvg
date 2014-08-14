@@ -132,7 +132,7 @@
 		
 		// parse xml
 		svg.parseXml = function(xml) {
-			if (Windows && Windows.Data && Windows.Data.Xml) {
+			if (typeof(Windows) != 'undefined' && typeof(Windows.Data) != 'undefined' && typeof(Windows.Data.Xml) != 'undefined') {
 				var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
 				var settings = new Windows.Data.Xml.Dom.XmlLoadSettings();
 				settings.prohibitDtd = false;
