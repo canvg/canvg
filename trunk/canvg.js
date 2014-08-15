@@ -543,7 +543,24 @@
 					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], this.m[4], this.m[5]);
 				}
 				this.unapply = function(ctx) {
-					ctx.transform(this.m[0], this.m[1], this.m[2], this.m[3], -1.0 * this.m[4], -1.0 * this.m[5]);
+					var a = this.m[0];
+					var b = this.m[2];
+					var c = this.m[4];
+					var d = this.m[1];
+					var e = this.m[3];
+					var f = this.m[5];
+					var g = 0.0;
+					var h = 0.0;
+					var i = 1.0;
+					var det = 1 / (a*(e*i-f*h)-b*(d*i-f*g)+c*(d*h-e*g));
+					ctx.transform(
+						det*(e*i-f*h),
+						det*(f*g-d*i),
+						det*(c*h-b*i),
+						det*(a*i-c*g),
+						det*(b*f-c*e),
+						det*(c*d-a*f)
+					);
 				}
 				this.applyToPoint = function(p) {
 					p.applyTransform(this.m);
