@@ -2233,7 +2233,7 @@
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			this.hasText = true;
+			this.hasText = node.childNodes.length > 0;
 			for (var i=0; i<node.childNodes.length; i++) {
 				if (node.childNodes[i].nodeType != 3) this.hasText = false;
 			}
@@ -2252,7 +2252,7 @@
 					var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
 					svg.Mouse.checkBoundingBox(this, new svg.BoundingBox(this.x, this.y - fontSize.toPixels('y'), this.x + this.measureText(ctx), this.y));					
 				}
-				else {
+				else if (this.children.length > 0) {
 					// render as temporary group
 					var g = new svg.Element.g();
 					g.children = this.children;
