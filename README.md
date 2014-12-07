@@ -1,14 +1,14 @@
 Introduction
 ============
-canvg is a SVG parser and renderer. It takes a URL to a SVG file or the text of an SVG file, parses it in !JavaScript, and renders the result on a [http://dev.w3.org/html5/2dcontext/ Canvas] element.  The rendering speed of the examples is about as fast as native SVG.
+canvg is a SVG parser and renderer. It takes a URL to a SVG file or the text of an SVG file, parses it in JavaScript, and renders the result on a [Canvas](http://dev.w3.org/html5/2dcontext/) element.  The rendering speed of the examples is about as fast as native SVG.
 
 What's implemented?
 ===================
-The end goal is everything from the [http://www.w3.org/TR/SVG/ SVG spec]. The majority of the rendering and animation is working.  If you would like to see a feature implemented, don't hesitate to contact me or add it to the issues list.
+The end goal is everything from the [SVG spec](http://www.w3.org/TR/SVG/). The majority of the rendering and animation is working.  If you would like to see a feature implemented, don't hesitate to contact me or add it to the issues list.
 
 Potential uses
 ===============
-* Allows for inline embedding of SVG through !JavaScript (w/o having to request another file or break validation)
+* Allows for inline embedding of SVG through JavaScript (w/o having to request another file or break validation)
 * Allows for single SVG version across all browsers that support Canvas
 * Allows for mobile devices supporting Canvas but not SVG to render SVG
 * Allows for SVG -> Canvas -> png transition all on the client side (through [toDataUrl](http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl))
