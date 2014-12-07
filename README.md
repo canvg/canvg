@@ -15,7 +15,7 @@ Potential uses
 
 Example Demonstration
 =====================
-[view here](http://canvg.googlecode.com/svn/trunk/examples/index.htm view here)
+[view here](http://gabelerner.github.io/canvg/examples/index.htm)
 Tested in Chrome, Firefox, Opera, and IE (through FlashCanvas)
 
 [jsfiddle playground](http://jsfiddle.net/qDmhV/)
@@ -24,9 +24,9 @@ Usage
 =====
 Include the following files in your page:
 ```html
-<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
-<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
-<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script> 
 ```
 
 Put a canvas on your page
@@ -64,7 +64,7 @@ The third parameter is options:
 * forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 * useCORS: true => will attempt to use CORS on images to not taint canvas
 
-You can call canvg without parameters to replace all svg images on a page. See the [example](http://canvg.googlecode.com/svn/trunk/examples/convert.htm).
+You can call canvg without parameters to replace all svg images on a page. See the [example](http://gabelerner.github.io/canvg/examples/convert.htm).
 
 There is also a built in extension method to the canvas context to draw svgs similar to the way [drawImage](http://www.w3.org/TR/2dcontext/#dom-context-2d-drawimage) works:
 ```javascript
