@@ -806,10 +806,10 @@
 				}
 
 				// add tag styles
-				var styles = svg.Styles[node.nodeName];
+				var styles = getNodeStyles(node);
 				if (styles != null) {
 					for (var name in styles) {
-						this.styles[name] = styles[name];
+						this.styles[name] = new svg.Property(name, styles[name]);
 					}
 				}
 
