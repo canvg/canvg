@@ -55,15 +55,55 @@
 			// load from xml doc
 			svg.loadXmlDoc(ctx, s);
 		}
-		else if (s.substr(0,1) == '<') {
-			// load from xml string
-			svg.loadXml(ctx, s);
+		else if (typeof(s) == 'string') {
+			if (s.substr(0,1) == '<') {
+				// load from xml string
+				svg.loadXml(ctx, s);
+			}
+			else {
+				// load from url
+				svg.load(ctx, s);
+			}
 		}
 		else {
-			// load from url
-			svg.load(ctx, s);
+			svg.loadXmlDoc(ctx, s);
 		}
 	}
+
+	// from http://acuriousanimal.com/blog/2012/07/09/look-mom-no-jquery-getting-all-css-properties-of-a-dom-element-in-pure-javascript/
+	function getNodeStyles( dom ) {
+		if (!dom || dom.nodeType == 3) return;
+		var style;
+		var returns = {};
+		// FireFox and Chrome way
+		if(window.getComputedStyle){
+			style = window.getComputedStyle(dom, null);
+			for(var i = 0, l = style.length; i < l; i++){
+				var prop = style[i];
+				var val = style.getPropertyValue(prop);
+				returns[prop] = val;
+			}
+			return returns;
+		}
+		// IE and Opera way
+		if(dom.currentStyle){
+			style = dom.currentStyle;
+			for(var prop in style){
+				returns[prop] = style[prop];
+			}
+			return returns;
+		}
+		// Style from style attribute
+		if(style = dom.style){
+			for(var prop in style){
+				if(typeof style[prop] != 'function'){
+					returns[prop] = style[prop];
+				}
+			}
+			return returns;
+		}
+		return returns;
+	};
 
 	function build(opts) {
 		var svg = { opts: opts };
