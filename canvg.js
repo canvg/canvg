@@ -762,9 +762,9 @@
 					var mask = this.attribute('mask').getDefinition();
 					if (mask != null) mask.apply(ctx, this);
 				}
-				else if (this.style('filter').hasValue()) { // filter
+				else if (this.style('filter').hasValue() && this.style('filter').value != 'none') { // filter
 					var filter = this.style('filter').getDefinition();
-					if (filter != null) filter.apply(ctx, this);
+					if (filter) filter.apply(ctx, this);
 				}
 				else {
 					this.setContext(ctx);
