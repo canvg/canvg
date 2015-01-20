@@ -1087,6 +1087,11 @@
 					svg.ViewPort.RemoveCurrent();
 					svg.ViewPort.SetCurrent(viewBox[2], viewBox[3]);
 				}
+
+				if (this.style('background-color').hasValue()) {
+					ctx.fillStyle = this.style('background-color').getValue();
+					ctx.fillRect(0, 0, width, height);
+				}
 			}
 		}
 		svg.Element.svg.prototype = new svg.Element.RenderedElementBase;
