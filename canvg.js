@@ -2334,6 +2334,7 @@
 				this.img.onload = function() { self.loaded = true; }
 				this.img.onerror = function() { svg.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
 				this.img.src = href;
+				self.loaded = this.img.complete; // in case it's already loaded, which happens to cached and inline images
 			}
 			else {
 				this.img = svg.ajax(href);
