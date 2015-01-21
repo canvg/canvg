@@ -2827,7 +2827,7 @@
 				};
 			}
 
-			var e = svg.CreateElement(dom.documentElement);
+			var e = svg.CreateElement(dom.documentElement || dom);
 			e.root = true;
 
 			// render loop
