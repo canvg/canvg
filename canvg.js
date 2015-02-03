@@ -827,7 +827,7 @@
 					var childNode = node.childNodes[i];
 					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
 					if (this.captureTextNodes && (childNode.nodeType == 3 || childNode.nodeType == 4)) {
-						var text = childNode.nodeValue || childNode.text || '';
+						var text = childNode.nodeValue || childNode.text || childNode.textContent || '';
 						if (svg.trim(svg.compressSpaces(text)) != '') {
 							this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
 						}
@@ -2209,7 +2209,7 @@
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			this.text = node.nodeValue || node.text || '';
+			this.text = node.nodeValue || node.text || node.textContent || '';
 			this.getText = function() {
 				return this.text;
 			}
