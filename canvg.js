@@ -762,7 +762,7 @@
 				// add attributes
 				for (var i=0; i<node.attributes.length; i++) {
 					var attribute = node.attributes[i];
-					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.nodeValue);
+					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
 				}
 										
 				// add tag styles
@@ -827,7 +827,7 @@
 					var childNode = node.childNodes[i];
 					if (childNode.nodeType == 1) this.addChild(childNode, true); //ELEMENT_NODE
 					if (this.captureTextNodes && (childNode.nodeType == 3 || childNode.nodeType == 4)) {
-						var text = childNode.nodeValue || childNode.text || childNode.textContent || '';
+						var text = childNode.value || childNode.text || childNode.textContent || '';
 						if (svg.trim(svg.compressSpaces(text)) != '') {
 							this.addChild(new svg.Element.tspan(childNode), false); // TEXT_NODE
 						}
@@ -2210,7 +2210,7 @@
 			this.base = svg.Element.TextElementBase;
 			this.base(node);
 			
-			this.text = node.nodeValue || node.text || node.textContent || '';
+			this.text = node.value || node.text || node.textContent || '';
 			this.getText = function() {
 				return this.text;
 			}
@@ -2240,7 +2240,7 @@
 			}
 			
 			// this might contain text
-			this.text = this.hasText ? node.childNodes[0].nodeValue : '';
+			this.text = this.hasText ? node.childNodes[0].value : '';
 			this.getText = function() {
 				return this.text;
 			}		
@@ -2367,7 +2367,7 @@
 			// text, or spaces then CDATA
 			var css = ''
 			for (var i=0; i<node.childNodes.length; i++) {
-			  css += node.childNodes[i].nodeValue;
+			  css += node.childNodes[i].value;
 			}
 			css = css.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, ''); // remove comments
 			css = svg.compressSpaces(css); // replace whitespace
