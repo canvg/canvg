@@ -1,0 +1,10 @@
+{
+  "name"          : "canvg",
+  "description"   : "Javascript SVG parser and renderer on Canvas",
+  "keywords"      : ["javascript", "client", "browser", "svg", "canvas"],
+  "repo"          : "gabelerner/canvg",
+  "main"          : "canvg.js",
+  "scripts"       : ["canvg.js", "StackBlur.js", "rgbcolor.js"],
+  "version"       : "1.0.0",
+  "license"       : "MIT"
+}
