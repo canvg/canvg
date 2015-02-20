@@ -2367,7 +2367,7 @@
 			// text, or spaces then CDATA
 			var css = ''
 			for (var i=0; i<node.childNodes.length; i++) {
-			  css += node.childNodes[i].value;
+			  css += node.childNodes[i].data;
 			}
 			css = css.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, ''); // remove comments
 			css = svg.compressSpaces(css); // replace whitespace
