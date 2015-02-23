@@ -816,7 +816,6 @@
 
 			this.addChild = function(childNode, create) {
 				var child = childNode;
-				childNode.canvgParent = this;
 				if (create) child = svg.CreateElement(childNode);
 				child.parent = this;
 				if (child.type != 'title') { this.children.push(child);	}
