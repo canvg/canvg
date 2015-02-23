@@ -816,18 +816,13 @@
 
 			this.addChild = function(childNode, create) {
 				var child = childNode;
+				childNode.canvgParent = this;
 				if (create) child = svg.CreateElement(childNode);
 				child.parent = this;
 				if (child.type != 'title') { this.children.push(child);	}
 			}
-
-			if (node != null && node.nodeType == 1) { //ELEMENT_NODE
-				// add attributes
-				for (var i=0; i<node.attributes.length; i++) {
-					var attribute = node.attributes[i];
-					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
-				}
-
+			
+			this.addStylesFromStyleDefinition = function () {
 				// add styles
 				for (var selector in svg.Styles) {
 					if (matchesSelector(node, selector)) {
@@ -847,6 +842,16 @@
 						}
 					}
 				}
+			};
+
+			if (node != null && node.nodeType == 1) { //ELEMENT_NODE
+				// add attributes
+				for (var i=0; i<node.attributes.length; i++) {
+					var attribute = node.attributes[i];
+					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
+				}
+				
+				this.addStylesFromStyleDefinition();
 
 				// add inline styles
 				if (this.attribute('style').hasValue()) {
@@ -2835,6 +2840,7 @@
 
 			var e = svg.CreateElement(dom.documentElement);
 			e.root = true;
+			e.addStylesFromStyleDefinition();
 
 			// render loop
 			var isFirstRender = true;
