@@ -1841,7 +1841,8 @@
 			if (this.offset < 0) this.offset = 0;
 			if (this.offset > 1) this.offset = 1;
 
-			var stopColor = this.style('stop-color');
+			var stopColor = this.style('stop-color', true);
+			if (stopColor.value === '') stopColor.value = '#000';
 			if (this.style('stop-opacity').hasValue()) stopColor = stopColor.addOpacity(this.style('stop-opacity'));
 			this.color = stopColor.value;
 		}
