@@ -952,8 +952,8 @@
 				}
 
 				// transform
-				if (this.attribute('transform').hasValue()) {
-					var transform = new svg.Transform(this.attribute('transform').value);
+				if (this.style('transform', false, true).hasValue()) {
+					var transform = new svg.Transform(this.style('transform', false, true).value);
 					transform.apply(ctx);
 				}
 
@@ -2589,8 +2589,8 @@
 					var child = this.children[i];
 					if (typeof(child.path) != 'undefined') {
 						var transform = null;
-						if (child.attribute('transform').hasValue()) {
-							transform = new svg.Transform(child.attribute('transform').value);
+						if (child.style('transform', false, true).hasValue()) {
+							transform = new svg.Transform(child.style('transform', false, true).value);
 							transform.apply(ctx);
 						}
 						child.path(ctx);
@@ -2886,7 +2886,7 @@
 
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];
-					e.attribute('transform', true).value += ' scale('+(1.0/xRatio)+','+(1.0/yRatio)+')';
+					e.style('transform', true, true).value += ' scale('+(1.0/xRatio)+','+(1.0/yRatio)+')';
 				}
 
 				// clear and render
