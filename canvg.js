@@ -22,6 +22,7 @@
 	//		 scaleHeight: int => scales vertically to height
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
+	//		 callback: function => will call the function when the element has been loaded
 	this.canvg = function (target, s, opts) {
 		// no parameters
 		if (target == null && s == null && opts == null) {
@@ -61,7 +62,7 @@
 		}
 		else {
 			// load from url
-			svg.load(ctx, s);
+			svg.load(ctx, s, svg.opts.callback);
 		}
 	}
 
@@ -180,16 +181,21 @@
 		svg.compressSpaces = function(s) { return s.replace(/[\s\r\t\n]+/gm,' '); }
 
 		// ajax
-		svg.ajax = function(url) {
+		svg.ajax = function(url, callback) {
 			var AJAX;
 			if(window.XMLHttpRequest){AJAX=new XMLHttpRequest();}
 			else{AJAX=new ActiveXObject('Microsoft.XMLHTTP');}
 			if(AJAX){
-			   AJAX.open('GET',url,false);
-			   AJAX.send(null);
-			   return AJAX.responseText;
+			   AJAX.open('GET',url);
+				if (typeof callback === 'function') {
+					AJAX.onreadystatechange = function () {
+						if (AJAX.readyState === 4 && AJAX.status === 200) {
+							callback(AJAX.responseText);
+						}
+					};
+				}
+				AJAX.send(null);
 			}
-			return null;
 		}
 
 		// parse xml
@@ -2346,8 +2352,10 @@
 				this.img.src = href;
 			}
 			else {
-				this.img = svg.ajax(href);
-				this.loaded = true;
+				svg.ajax(href, function(image) {
+					this.img = image;
+					this.loaded = true;
+				});
 			}
 
 			this.renderChildren = function(ctx) {
@@ -2453,12 +2461,14 @@
 										var urlStart = srcs[s].indexOf('url');
 										var urlEnd = srcs[s].indexOf(')', urlStart);
 										var url = srcs[s].substr(urlStart + 5, urlEnd - urlStart - 6);
-										var doc = svg.parseXml(svg.ajax(url));
-										var fonts = doc.getElementsByTagName('font');
-										for (var f=0; f<fonts.length; f++) {
-											var font = svg.CreateElement(fonts[f]);
-											svg.Definitions[fontFamily] = font;
-										}
+										svg.parseXml(svg.ajax(url), function (image) {
+											var doc = image;
+											var fonts = doc.getElementsByTagName('font');
+											for (var f=0; f<fonts.length; f++) {
+												var font = svg.CreateElement(fonts[f]);
+												svg.Definitions[fontFamily] = font;
+											}
+										});
 									}
 								}
 							}
@@ -2801,8 +2811,13 @@
 		}
 
 		// load from url
-		svg.load = function(ctx, url) {
-			svg.loadXml(ctx, svg.ajax(url));
+		svg.load = function(ctx, url, cb) {
+			svg.ajax(url, function (xml) {
+				svg.loadXml(ctx, xml);
+				if (typeof cb === 'function') {
+					cb();
+				}
+			});
 		}
 
 		// load from xml
