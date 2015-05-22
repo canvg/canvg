@@ -2653,6 +2653,10 @@
 
 				// apply filters
 				for (var i=0; i<this.children.length; i++) {
+					// https://github.com/gabelerner/canvg/issues/288
+					if(this.children[i].type === "feOffset" || this.children[i].type === "feGaussianBlur" || this.children[i].type === "feMerge") {
+						continue;
+					}
 					this.children[i].apply(tempCtx, 0, 0, width + 2*px, height + 2*py);
 				}
 
