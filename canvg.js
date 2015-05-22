@@ -820,7 +820,7 @@
 				child.parent = this;
 				if (child.type != 'title') { this.children.push(child);	}
 			}
-			
+
 			this.addStylesFromStyleDefinition = function () {
 				// add styles
 				for (var selector in svg.Styles) {
@@ -849,7 +849,7 @@
 					var attribute = node.attributes[i];
 					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
 				}
-				
+
 				this.addStylesFromStyleDefinition();
 
 				// add inline styles
