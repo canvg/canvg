@@ -2210,9 +2210,13 @@
 					return;
 				}
 
-				// for Prott, fix the position issue in Firefox
+				// for Prott, fix the y position issue in Firefox
 				if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-					this.y = this.y + 8;
+					var fontSize = ctx.font.replace(/[^0-9]/ig,"");
+					// calculate delta = 10.1354 * log(0.0936537 * x)
+					// https://www.wolframalpha.com/input/?i=logarithmic+fit+%7B%7B17%2C+5.5%7D%2C+%7B24%2C+8%7D%2C%7B48%2C+13%7D%2C%7B72%2C+21%7D%7D
+					var delta = 10.1354 * Math.log(fontSize * 0.0936537)
+					this.y = this.y + delta;
 				}
 
 				if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
