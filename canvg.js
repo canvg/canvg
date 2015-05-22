@@ -2210,6 +2210,11 @@
 					return;
 				}
 
+				// for Prott, fix the position issue in Firefox
+				if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+					this.y = this.y + 8;
+				}
+
 				if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
 				if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
 			}
