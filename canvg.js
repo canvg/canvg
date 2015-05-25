@@ -99,7 +99,7 @@
 			};
 		}
 
-		if (typeof matchesSelector !== 'undefined') {
+		if (typeof matchesSelector === 'undefined') {
 			matchesSelector = Sizzle.matchesSelector;
 		}
 	}
