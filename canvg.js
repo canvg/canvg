@@ -1643,7 +1643,8 @@
 				for (var x=-1; x<=1; x++) {
 					for (var y=-1; y<=1; y++) {
 						cctx.save();
-						cctx.translate(x * c.width, y * c.height);
+						tempSvg.attributes['x'] = new svg.Property('x', x * c.width);
+						tempSvg.attributes['y'] = new svg.Property('y', y * c.height);
 						tempSvg.render(cctx);
 						cctx.restore();
 					}
