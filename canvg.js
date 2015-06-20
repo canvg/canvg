@@ -89,8 +89,19 @@
 		};
 	} else {
 		// requires Sizzle: https://github.com/jquery/sizzle/wiki/Sizzle-Documentation
-		// without Sizzle, this is a ReferenceError
-		matchesSelector = Sizzle.matchesSelector;
+		// or jQuery: http://jquery.com/download/
+		// or Zepto: http://zeptojs.com/#
+		// without it, this is a ReferenceError
+
+		if (typeof jQuery === 'function' || typeof Zepto === 'function') {
+			matchesSelector = function (node, selector) {
+				return $(node).is(selector);
+			};
+		}
+
+		if (typeof matchesSelector === 'undefined') {
+			matchesSelector = Sizzle.matchesSelector;
+		}
 	}
 
 	// slightly modified version of https://github.com/keeganstreet/specificity/blob/master/specificity.js
