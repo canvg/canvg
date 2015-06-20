@@ -76,6 +76,38 @@ var shg_table = [
 		24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
 		24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24 ];
 
+function premultiplyAlpha(imageData)
+{
+	var pixels = imageData.data;
+	var size = imageData.width * imageData.height * 4;
+	
+	for (var i=0; i<size; i+=4)
+	{
+		var a = pixels[i+3] / 255;
+		pixels[i  ] *= a;
+		pixels[i+1] *= a;
+		pixels[i+2] *= a;
+	}
+}
+
+function unpremultiplyAlpha(imageData)
+{
+	var pixels = imageData.data;
+	var size = imageData.width * imageData.height * 4;
+	
+	for (var i=0; i<size; i+=4)
+	{
+		var a = pixels[i+3];
+		if (a != 0)
+		{
+			a = 255 / a;
+			pixels[i  ] *= a;
+			pixels[i+1] *= a;
+			pixels[i+2] *= a;
+		}
+	}
+}
+
 function stackBlurImage( imageID, canvasID, radius, blurAlphaChannel )
 {
 			
@@ -133,7 +165,9 @@ function stackBlurCanvasRGBA( id, top_x, top_y, width, height, radius )
 	  alert("Cannot access image");
 	  throw new Error("unable to access image data: " + e);
 	}
-			
+	
+	premultiplyAlpha(imageData);
+	
 	var pixels = imageData.data;
 			
 	var x, y, i, p, yp, yi, yw, r_sum, g_sum, b_sum, a_sum, 
@@ -205,21 +239,14 @@ function stackBlurCanvasRGBA( id, top_x, top_y, width, height, radius )
 			stack = stack.next;
 		}
 		
-		
 		stackIn = stackStart;
 		stackOut = stackEnd;
 		for ( x = 0; x < width; x++ )
 		{
-			pixels[yi+3] = pa = (a_sum * mul_sum) >> shg_sum;
-			if ( pa != 0 )
-			{
-				pa = 255 / pa;
-				pixels[yi]   = ((r_sum * mul_sum) >> shg_sum) * pa;
-				pixels[yi+1] = ((g_sum * mul_sum) >> shg_sum) * pa;
-				pixels[yi+2] = ((b_sum * mul_sum) >> shg_sum) * pa;
-			} else {
-				pixels[yi] = pixels[yi+1] = pixels[yi+2] = 0;
-			}
+			pixels[yi]   = (r_sum * mul_sum) >> shg_sum;
+			pixels[yi+1] = (g_sum * mul_sum) >> shg_sum;
+			pixels[yi+2] = (b_sum * mul_sum) >> shg_sum;
+			pixels[yi+3] = (a_sum * mul_sum) >> shg_sum;
 			
 			r_sum -= r_out_sum;
 			g_sum -= g_out_sum;
@@ -319,16 +346,10 @@ function stackBlurCanvasRGBA( id, top_x, top_y, width, height, radius )
 		for ( y = 0; y < height; y++ )
 		{
 			p = yi << 2;
-			pixels[p+3] = pa = (a_sum * mul_sum) >> shg_sum;
-			if ( pa > 0 )
-			{
-				pa = 255 / pa;
-				pixels[p]   = ((r_sum * mul_sum) >> shg_sum ) * pa;
-				pixels[p+1] = ((g_sum * mul_sum) >> shg_sum ) * pa;
-				pixels[p+2] = ((b_sum * mul_sum) >> shg_sum ) * pa;
-			} else {
-				pixels[p] = pixels[p+1] = pixels[p+2] = 0;
-			}
+			pixels[p]   = (r_sum * mul_sum) >> shg_sum;
+			pixels[p+1] = (g_sum * mul_sum) >> shg_sum;
+			pixels[p+2] = (b_sum * mul_sum) >> shg_sum;
+			pixels[p+3] = (a_sum * mul_sum) >> shg_sum;
 			
 			r_sum -= r_out_sum;
 			g_sum -= g_out_sum;
@@ -365,8 +386,9 @@ function stackBlurCanvasRGBA( id, top_x, top_y, width, height, radius )
 		}
 	}
 	
-	context.putImageData( imageData, top_x, top_y );
+	unpremultiplyAlpha(imageData);
 	
+	context.putImageData( imageData, top_x, top_y );
 }
 
 
