@@ -2113,6 +2113,8 @@
 			this.renderChildren = function(ctx) {
 				this.x = this.attribute('x').toPixels('x');
 				this.y = this.attribute('y').toPixels('y');
+				if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
+				if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
 				this.x += this.getAnchorDelta(ctx, this, 0);
 				for (var i=0; i<this.children.length; i++) {
 					this.renderChild(ctx, this, i);
@@ -2136,31 +2138,29 @@
 			this.renderChild = function(ctx, parent, i) {
 				var child = parent.children[i];
 				if (child.attribute('x').hasValue()) {
-					child.x = child.attribute('x').toPixels('x') + this.getAnchorDelta(ctx, parent, i);
+					child.x = child.attribute('x').toPixels('x') + parent.getAnchorDelta(ctx, parent, i);
 					if (child.attribute('dx').hasValue()) child.x += child.attribute('dx').toPixels('x');
 				}
 				else {
-					if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
-					if (child.attribute('dx').hasValue()) this.x += child.attribute('dx').toPixels('x');
-					child.x = this.x;
+					if (child.attribute('dx').hasValue()) parent.x += child.attribute('dx').toPixels('x');
+					child.x = parent.x;
 				}
-				this.x = child.x + child.measureText(ctx);
+				parent.x = child.x + child.measureText(ctx);
 
 				if (child.attribute('y').hasValue()) {
 					child.y = child.attribute('y').toPixels('y');
 					if (child.attribute('dy').hasValue()) child.y += child.attribute('dy').toPixels('y');
 				}
 				else {
-					if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
-					if (child.attribute('dy').hasValue()) this.y += child.attribute('dy').toPixels('y');
-					child.y = this.y;
+					if (child.attribute('dy').hasValue()) parent.y += child.attribute('dy').toPixels('y');
+					child.y = parent.y;
 				}
-				this.y = child.y;
+				parent.y = child.y;
 
 				child.render(ctx);
 
 				for (var i=0; i<child.children.length; i++) {
-					this.renderChild(ctx, child, i);
+					parent.renderChild(ctx, child, i);
 				}
 			}
 		}
