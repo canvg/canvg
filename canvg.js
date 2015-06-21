@@ -1703,8 +1703,6 @@
 			this.base = svg.Element.ElementBase;
 			this.base(node);
 
-			this.gradientUnits = this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
-
 			this.stops = [];
 			for (var i=0; i<this.children.length; i++) {
 				var child = this.children[i];
@@ -1714,14 +1712,27 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
+			
+			this.gradientUnits = function () {
+				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
+			}
+			
+			this.attributesToInherit = ['gradientUnits'];
+			
+			this.inheritStopContainer = function (stopsContainer) {
+				for (var i=0; i<this.attributesToInherit.length; i++) {
+					var attributeToInherit = this.attributesToInherit[i];
+					if (!this.attribute(attributeToInherit).hasValue() && stopsContainer.attribute(attributeToInherit).hasValue()) {
+						this.attribute(attributeToInherit, true).value = stopsContainer.attribute(attributeToInherit).value;
+					}
+				}
+			}
 
 			this.createGradient = function(ctx, element, parentOpacityProp) {
 				var stopsContainer = this;
 				if (this.getHrefAttribute().hasValue()) {
 					stopsContainer = this.getHrefAttribute().getDefinition();
-					if (!this.attribute('gradientUnits').hasValue() && stopsContainer.attribute('gradientUnits').hasValue()) {
-						this.gradientUnits = stopsContainer.attribute('gradientUnits').value;
-					}
+					this.inheritStopContainer(stopsContainer);
 				}
 
 				var addParentOpacity = function (color) {
@@ -1777,9 +1788,14 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
+			
+			this.attributesToInherit.push('x1');
+			this.attributesToInherit.push('y1');
+			this.attributesToInherit.push('x2');
+			this.attributesToInherit.push('y2');
 
 			this.getGradient = function(ctx, element) {
-				var bb = this.gradientUnits == 'objectBoundingBox' ? element.getBoundingBox() : null;
+				var bb = this.gradientUnits() == 'objectBoundingBox' ? element.getBoundingBox() : null;
 
 				if (!this.attribute('x1').hasValue()
 				 && !this.attribute('y1').hasValue()
@@ -1791,16 +1807,16 @@
 					this.attribute('y2', true).value = 0;
 				 }
 
-				var x1 = (this.gradientUnits == 'objectBoundingBox'
+				var x1 = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.x() + bb.width() * this.attribute('x1').numValue()
 					: this.attribute('x1').toPixels('x'));
-				var y1 = (this.gradientUnits == 'objectBoundingBox'
+				var y1 = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.y() + bb.height() * this.attribute('y1').numValue()
 					: this.attribute('y1').toPixels('y'));
-				var x2 = (this.gradientUnits == 'objectBoundingBox'
+				var x2 = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.x() + bb.width() * this.attribute('x2').numValue()
 					: this.attribute('x2').toPixels('x'));
-				var y2 = (this.gradientUnits == 'objectBoundingBox'
+				var y2 = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.y() + bb.height() * this.attribute('y2').numValue()
 					: this.attribute('y2').toPixels('y'));
 
@@ -1814,6 +1830,12 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
+			
+			this.attributesToInherit.push('cx');
+			this.attributesToInherit.push('cy');
+			this.attributesToInherit.push('r');
+			this.attributesToInherit.push('fx');
+			this.attributesToInherit.push('fy');
 
 			this.getGradient = function(ctx, element) {
 				var bb = element.getBoundingBox();
@@ -1822,27 +1844,27 @@
 				if (!this.attribute('cy').hasValue()) this.attribute('cy', true).value = '50%';
 				if (!this.attribute('r').hasValue()) this.attribute('r', true).value = '50%';
 
-				var cx = (this.gradientUnits == 'objectBoundingBox'
+				var cx = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.x() + bb.width() * this.attribute('cx').numValue()
 					: this.attribute('cx').toPixels('x'));
-				var cy = (this.gradientUnits == 'objectBoundingBox'
+				var cy = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.y() + bb.height() * this.attribute('cy').numValue()
 					: this.attribute('cy').toPixels('y'));
 
 				var fx = cx;
 				var fy = cy;
 				if (this.attribute('fx').hasValue()) {
-					fx = (this.gradientUnits == 'objectBoundingBox'
+					fx = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.x() + bb.width() * this.attribute('fx').numValue()
 					: this.attribute('fx').toPixels('x'));
 				}
 				if (this.attribute('fy').hasValue()) {
-					fy = (this.gradientUnits == 'objectBoundingBox'
+					fy = (this.gradientUnits() == 'objectBoundingBox'
 					? bb.y() + bb.height() * this.attribute('fy').numValue()
 					: this.attribute('fy').toPixels('y'));
 				}
 
-				var r = (this.gradientUnits == 'objectBoundingBox'
+				var r = (this.gradientUnits() == 'objectBoundingBox'
 					? (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue()
 					: this.attribute('r').toPixels());
 
