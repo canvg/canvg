@@ -751,7 +751,7 @@
 
 			this.getHrefAttribute = function() {
 				for (var a in this.attributes) {
-					if (a.match(/:href$/)) {
+					if (a == 'href' || a.match(/:href$/)) {
 						return this.attributes[a];
 					}
 				}
