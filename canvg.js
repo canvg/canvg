@@ -1719,6 +1719,9 @@
 				var stopsContainer = this;
 				if (this.getHrefAttribute().hasValue()) {
 					stopsContainer = this.getHrefAttribute().getDefinition();
+					if (!this.attribute('gradientUnits').hasValue() && stopsContainer.attribute('gradientUnits').hasValue()) {
+						this.gradientUnits = stopsContainer.attribute('gradientUnits').value;
+					}
 				}
 
 				var addParentOpacity = function (color) {
