@@ -6,7 +6,24 @@
  *
  * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
  */
-(function(){
+ (function ( global, factory ) {
+
+	'use strict';
+
+	// export as AMD...
+	if ( typeof define !== 'undefined' && define.amd ) {
+		define([ 'rgbcolor', 'stackblur' ], factory );
+	}
+
+	// ...or as browserify
+	else if ( typeof module !== 'undefined' && module.exports ) {
+		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
+	}
+
+	global.canvg = factory( global.RGBColor, global.stackBlur );
+
+}( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
+ 
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
@@ -22,7 +39,7 @@
 	//		 scaleHeight: int => scales vertically to height
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
-	this.canvg = function (target, s, opts) {
+	var canvg = function (target, s, opts) {
 		// no parameters
 		if (target == null && s == null && opts == null) {
 			var svgTags = document.querySelectorAll('svg');
@@ -2793,7 +2810,7 @@
 			this.extraFilterDistance = this.blurRadius;
 
 			this.apply = function(ctx, x, y, width, height) {
-				if (typeof(stackBlurCanvasRGBA) == 'undefined') {
+				if (typeof(stackBlur.canvasRGBA) == 'undefined') {
 					svg.log('ERROR: StackBlur.js must be included for blur to work');
 					return;
 				}
@@ -2802,7 +2819,7 @@
 				ctx.canvas.id = svg.UniqueId();
 				ctx.canvas.style.display = 'none';
 				document.body.appendChild(ctx.canvas);
-				stackBlurCanvasRGBA(ctx.canvas.id, x, y, width, height, this.blurRadius);
+				stackBlur.canvasRGBA(ctx.canvas.id, x, y, width, height, this.blurRadius);
 				document.body.removeChild(ctx.canvas);
 			}
 		}
@@ -3034,20 +3051,23 @@
 		});
 
 		return svg;
-	}
-})();
+	};
 
-if (typeof(CanvasRenderingContext2D) != 'undefined') {
-	CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh) {
-		canvg(this.canvas, s, {
-			ignoreMouse: true,
-			ignoreAnimation: true,
-			ignoreDimensions: true,
-			ignoreClear: true,
-			offsetX: dx,
-			offsetY: dy,
-			scaleWidth: dw,
-			scaleHeight: dh
-		});
+	if (typeof(CanvasRenderingContext2D) != 'undefined') {
+		CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh) {
+			canvg(this.canvas, s, {
+				ignoreMouse: true,
+				ignoreAnimation: true,
+				ignoreDimensions: true,
+				ignoreClear: true,
+				offsetX: dx,
+				offsetY: dy,
+				scaleWidth: dw,
+				scaleHeight: dh
+			});
+		}
 	}
-}
+
+	return canvg;
+
+}));
