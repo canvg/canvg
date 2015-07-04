@@ -37,7 +37,7 @@
 	//		 offsetY: int => draws at a y offset
 	//		 scaleWidth: int => scales horizontally to width
 	//		 scaleHeight: int => scales vertically to height
-	//		 scaleBy: int => scales horizontally and vertically by given coefficient. ignored when either scaleWidth or scaleHeight is defined. Is also ignored when SVG doesn't have a width and height defined.
+	//		 scaleBy: number => scales horizontally and vertically by given coefficient. ignored when either scaleWidth or scaleHeight is defined. Is also ignored when SVG doesn't have a width and height defined.
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 	var canvg = function (target, s, opts) {

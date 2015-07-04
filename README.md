@@ -60,6 +60,7 @@ The third parameter is options:
 * offsetY: int => draws at a y offset
 * scaleWidth: int => scales horizontally to width
 * scaleHeight: int => scales vertically to height
+* scaleBy: number => scales horizontally and vertically by given coefficient. ignored when either scaleWidth or scaleHeight is defined. Is also ignored when SVG doesn't have a width and height defined.
 * renderCallback: function => will call the function after the first render is completed
 * forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 * useCORS: true => will attempt to use CORS on images to not taint canvas
