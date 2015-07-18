@@ -18,7 +18,7 @@ Example Demonstration
 [view here](http://gabelerner.github.io/canvg/examples/index.htm)
 Tested in Chrome, Firefox, Opera, and IE (through FlashCanvas)
 
-[jsfiddle playground](http://jsfiddle.net/qDmhV/)
+[jsfiddle playground](http://jsfiddle.net/L3hondLn/)
 
 Usage
 =====
