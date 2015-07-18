@@ -2471,7 +2471,7 @@
 					for (var j=0; j<cssClasses.length; j++) {
 						var cssClass = svg.trim(cssClasses[j]);
 						if (cssClass != '') {
-							var props = {};
+							var props = svg.Styles[cssClass] || {};
 							for (var k=0; k<cssProps.length; k++) {
 								var prop = cssProps[k].indexOf(':');
 								var name = cssProps[k].substr(0, prop);
