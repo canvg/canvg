@@ -3054,8 +3054,8 @@
 	};
 
 	if (typeof(CanvasRenderingContext2D) != 'undefined') {
-		CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh) {
-			canvg(this.canvas, s, {
+		CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh, opts) {
+			var cOpts = {
 				ignoreMouse: true,
 				ignoreAnimation: true,
 				ignoreDimensions: true,
@@ -3064,7 +3064,14 @@
 				offsetY: dy,
 				scaleWidth: dw,
 				scaleHeight: dh
-			});
+			}
+			
+			for(var prop in opts) {
+				if(opts.hasOwnProperty(prop)){
+					cOpts[prop] = opts[prop];
+				}
+			}
+			canvg(this.canvas, s, cOpts);
 		}
 	}
 
