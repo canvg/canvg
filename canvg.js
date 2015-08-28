@@ -439,10 +439,18 @@
 
 		// points and paths
 		svg.ToNumberArray = function(s) {
-			var a = svg.trim(svg.compressSpaces((s || '').replace(/,/g, ' '))).split(' ');
-			for (var i=0; i<a.length; i++) {
-				a[i] = parseFloat(a[i]);
+			var a;
+			if(typeof s === "string") {
+				a = svg.trim(svg.compressSpaces((s || '').replace(/,/g, ' '))).split(' ');
+				for (var i=0; i<a.length; i++) {
+					a[i] = parseFloat(a[i]);
+				}
+			} else if(typeof s === "number") {
+				a = [s];
+			} else if(typeof s === "object" && typeof s.length === "number") {
+				a = s;
 			}
+
 			return a;
 		}
 		svg.Point = function(x, y) {
