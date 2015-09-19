@@ -23,7 +23,7 @@
 	global.canvg = factory( global.RGBColor, global.stackBlur );
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
- 
+
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
@@ -848,7 +848,7 @@
 				child.parent = this;
 				if (child.type != 'title') { this.children.push(child);	}
 			}
-			
+
 			this.addStylesFromStyleDefinition = function () {
 				// add styles
 				for (var selector in svg.Styles) {
@@ -877,7 +877,7 @@
 					var attribute = node.attributes[i];
 					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
 				}
-				
+
 				this.addStylesFromStyleDefinition();
 
 				// add inline styles
@@ -1031,7 +1031,9 @@
 					}
 					if (this.style('marker-end').isUrlDefinition()) {
 						var marker = this.style('marker-end').getDefinition();
-						marker.render(ctx, markers[markers.length-1][0], markers[markers.length-1][1]);
+						var endPoint = markers[markers.length-1][0];
+						var newPoint = {x: endPoint.x-(marker.attributes.markerWidth.value), y: endPoint.y-(marker.attributes.markerHeight.value)};
+						marker.render(ctx, newPoint, markers[markers.length-1][1]);
 					}
 				}
 			}
@@ -1729,13 +1731,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1805,7 +1807,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1847,7 +1849,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
