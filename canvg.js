@@ -1032,8 +1032,15 @@
 					if (this.style('marker-end').isUrlDefinition()) {
 						var marker = this.style('marker-end').getDefinition();
 						var endPoint = markers[markers.length-1][0];
-						var newPoint = {x: endPoint.x-(marker.attributes.markerWidth.value), y: endPoint.y-(marker.attributes.markerHeight.value)};
-						marker.render(ctx, newPoint, markers[markers.length-1][1]);
+						var pointWidth = marker.attributes.markerWidth.value;
+						var pointHeight = marker.attributes.markerHeight.value;
+						var angle = markers[markers.length-1][1];
+						var newPoint = { x: endPoint.x - (pointWidth * Math.cos(angle)) };
+						if (Math.abs(angle) <= Math.PI/2)
+							newPoint.y = endPoint.y - (pointHeight * (1 + Math.sin(angle)));
+						else
+							newPoint.y = endPoint.y + (pointHeight * (1 - Math.sin(angle)));
+						marker.render(ctx, newPoint, angle);
 					}
 				}
 			}
