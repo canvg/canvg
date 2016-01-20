@@ -2,7 +2,13 @@
   "name": "canvg",
   "description": "Javascript SVG parser and renderer on Canvas",
   "homepage": "https://github.com/gabelerner/canvg",
-  "keywords": ["javascript", "client", "browser", "svg", "canvas"],
+  "keywords": [
+    "javascript",
+    "client",
+    "browser",
+    "svg",
+    "canvas"
+  ],
   "author": "Gabe Lerner <gabelerner@gmail.com>",
   "repository": {
     "type": "git",
@@ -10,13 +16,17 @@
   },
   "main": "canvg.js",
   "version": "1.0.0",
-  "devDependencies": { },
-  "scripts": { },
+  "devDependencies": {},
+  "scripts": {},
   "license": "MIT",
   "files": [
     "canvg.js",
     "rgbcolor.js",
     "StackBlur.js",
     "MIT-LICENSE.txt"
-  ]
+  ],
+  "dependencies": {
+    "rgbcolor": "0.0.4",
+    "stackblur": "^1.0.0"
+  }
 }
