@@ -1080,27 +1080,27 @@
 
 				if (!this.attribute('width').hasValue()) this.attribute('width', true).value = '100%';
 				if (!this.attribute('height').hasValue()) this.attribute('height', true).value = '100%';
-				if (typeof(this.root) == 'undefined') {
-					width = this.attribute('width').toPixels('x');
-					height = this.attribute('height').toPixels('y');
+				
+				width = this.attribute('width').toPixels('x');
+				height = this.attribute('height').toPixels('y');
 
-					var x = 0;
-					var y = 0;
-					if (this.attribute('refX').hasValue() && this.attribute('refY').hasValue()) {
-						x = -this.attribute('refX').toPixels('x');
-						y = -this.attribute('refY').toPixels('y');
-					}
-
-					if (this.attribute('overflow').valueOrDefault('hidden') != 'visible') {
-						ctx.beginPath();
-						ctx.moveTo(x, y);
-						ctx.lineTo(width, y);
-						ctx.lineTo(width, height);
-						ctx.lineTo(x, height);
-						ctx.closePath();
-						ctx.clip();
-					}
+				var x = 0;
+				var y = 0;
+				if (this.attribute('refX').hasValue() && this.attribute('refY').hasValue()) {
+					x = -this.attribute('refX').toPixels('x');
+					y = -this.attribute('refY').toPixels('y');
 				}
+
+				if (this.attribute('overflow').valueOrDefault('hidden') != 'visible') {
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					ctx.lineTo(width, y);
+					ctx.lineTo(width, height);
+					ctx.lineTo(x, height);
+					ctx.closePath();
+					ctx.clip();
+				}
+				
 				svg.ViewPort.SetCurrent(width, height);
 
 				// viewbox
@@ -2894,7 +2894,6 @@
 			}
 
 			var e = svg.CreateElement(dom.documentElement);
-			e.root = true;
 			e.addStylesFromStyleDefinition();
 
 			// render loop
