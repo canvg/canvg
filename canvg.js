@@ -23,7 +23,7 @@
 	global.canvg = factory( global.RGBColor, global.stackBlur );
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
- 
+
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
@@ -68,7 +68,7 @@
 		if (!(target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
 
 		var ctx = target.getContext('2d');
-		if (typeof(s.documentElement) != 'undefined') {
+		if (typeof s.documentElement != 'undefined') {
 			// load from xml doc
 			svg.loadXmlDoc(ctx, s);
 		}
@@ -84,23 +84,23 @@
 
 	// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
 	var matchesSelector;
-	if (typeof(Element.prototype.matches) != 'undefined') {
+	if (typeof Element.prototype.matches != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.matches(selector);
 		};
-	} else if (typeof(Element.prototype.webkitMatchesSelector) != 'undefined') {
+	} else if (typeof Element.prototype.webkitMatchesSelector != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.webkitMatchesSelector(selector);
 		};
-	} else if (typeof(Element.prototype.mozMatchesSelector) != 'undefined') {
+	} else if (typeof Element.prototype.mozMatchesSelector != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.mozMatchesSelector(selector);
 		};
-	} else if (typeof(Element.prototype.msMatchesSelector) != 'undefined') {
+	} else if (typeof Element.prototype.msMatchesSelector != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.msMatchesSelector(selector);
 		};
-	} else if (typeof(Element.prototype.oMatchesSelector) != 'undefined') {
+	} else if (typeof Element.prototype.oMatchesSelector != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.oMatchesSelector(selector);
 		};
@@ -161,7 +161,7 @@
 		svg.MAX_VIRTUAL_PIXELS = 30000;
 
 		svg.log = function(msg) {};
-		if (svg.opts['log'] == true && typeof(console) != 'undefined') {
+		if (svg.opts['log'] == true && typeof console != 'undefined') {
 			svg.log = function(msg) { console.log(msg); };
 		};
 
@@ -184,7 +184,7 @@
 				this.width = function() { return this.Current().width; }
 				this.height = function() { return this.Current().height; }
 				this.ComputeSize = function(d) {
-					if (d != null && typeof(d) == 'number') return d;
+					if (d != null && typeof d == 'number') return d;
 					if (d == 'x') return this.width();
 					if (d == 'y') return this.height();
 					return Math.sqrt(Math.pow(this.width(), 2) + Math.pow(this.height(), 2)) / Math.sqrt(2);
@@ -222,7 +222,7 @@
 
 		// parse xml
 		svg.parseXml = function(xml) {
-			if (typeof(Windows) != 'undefined' && typeof(Windows.Data) != 'undefined' && typeof(Windows.Data.Xml) != 'undefined') {
+			if (typeof Windows != 'undefined' && typeof Windows.Data != 'undefined' && typeof Windows.Data.Xml != 'undefined') {
 				var xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
 				var settings = new Windows.Data.Xml.Dom.XmlLoadSettings();
 				settings.prohibitDtd = false;
@@ -281,7 +281,7 @@
 				// augment the current color value with the opacity
 				svg.Property.prototype.addOpacity = function(opacityProp) {
 					var newValue = this.value;
-					if (opacityProp.value != null && opacityProp.value != '' && typeof(this.value)=='string') { // can only add opacity to colors, not patterns
+					if (opacityProp.value != null && opacityProp.value != '' && typeof this.value == 'string') { // can only add opacity to colors, not patterns
 						var color = new RGBColor(this.value);
 						if (color.ok) {
 							newValue = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + opacityProp.numValue() + ')';
@@ -848,7 +848,7 @@
 				child.parent = this;
 				if (child.type != 'title') { this.children.push(child);	}
 			}
-			
+
 			this.addStylesFromStyleDefinition = function () {
 				// add styles
 				for (var selector in svg.Styles) {
@@ -858,7 +858,7 @@
 						if (styles != null) {
 							for (var name in styles) {
 								var existingSpecificity = this.stylesSpecificity[name];
-								if (typeof(existingSpecificity) == 'undefined') {
+								if (typeof existingSpecificity == 'undefined') {
 									existingSpecificity = '000';
 								}
 								if (specificity > existingSpecificity) {
@@ -877,7 +877,7 @@
 					var attribute = node.attributes[i];
 					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
 				}
-				
+
 				this.addStylesFromStyleDefinition();
 
 				// add inline styles
@@ -959,18 +959,18 @@
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
 				if (this.style('stroke-dasharray').hasValue() && this.style('stroke-dasharray').value != 'none') {
 					var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
-					if (typeof(ctx.setLineDash) != 'undefined') { ctx.setLineDash(gaps); }
-					else if (typeof(ctx.webkitLineDash) != 'undefined') { ctx.webkitLineDash = gaps; }
-					else if (typeof(ctx.mozDash) != 'undefined' && !(gaps.length==1 && gaps[0]==0)) { ctx.mozDash = gaps; }
+					if (typeof ctx.setLineDash != 'undefined') { ctx.setLineDash(gaps); }
+					else if (typeof ctx.webkitLineDash != 'undefined') { ctx.webkitLineDash = gaps; }
+					else if (typeof ctx.mozDash != 'undefined' && !(gaps.length==1 && gaps[0]==0)) { ctx.mozDash = gaps; }
 
 					var offset = this.style('stroke-dashoffset').numValueOrDefault(1);
-					if (typeof(ctx.lineDashOffset) != 'undefined') { ctx.lineDashOffset = offset; }
-					else if (typeof(ctx.webkitLineDashOffset) != 'undefined') { ctx.webkitLineDashOffset = offset; }
-					else if (typeof(ctx.mozDashOffset) != 'undefined') { ctx.mozDashOffset = offset; }
+					if (typeof ctx.lineDashOffset != 'undefined') { ctx.lineDashOffset = offset; }
+					else if (typeof ctx.webkitLineDashOffset != 'undefined') { ctx.webkitLineDashOffset = offset; }
+					else if (typeof ctx.mozDashOffset != 'undefined') { ctx.mozDashOffset = offset; }
 				}
 
 				// font
-				if (typeof(ctx.font) != 'undefined') {
+				if (typeof ctx.font != 'undefined') {
 					ctx.font = svg.Font.CreateFont(
 						this.style('font-style').value,
 						this.style('font-variant').value,
@@ -1064,7 +1064,7 @@
 				ctx.lineCap = 'butt';
 				ctx.lineJoin = 'miter';
 				ctx.miterLimit = 4;
-				if (typeof(ctx.font) != 'undefined' && typeof(window.getComputedStyle) != 'undefined') {
+				if (typeof ctx.font != 'undefined' && typeof window.getComputedStyle != 'undefined') {
 					ctx.font = window.getComputedStyle(ctx.canvas).getPropertyValue('font');
 				}
 
@@ -1080,7 +1080,7 @@
 
 				if (!this.attribute('width').hasValue()) this.attribute('width', true).value = '100%';
 				if (!this.attribute('height').hasValue()) this.attribute('height', true).value = '100%';
-				if (typeof(this.root) == 'undefined') {
+				if (typeof this.root == 'undefined') {
 					width = this.attribute('width').toPixels('x');
 					height = this.attribute('height').toPixels('y');
 
@@ -2088,7 +2088,7 @@
 					if (child.arabicForm != '') {
 						this.isRTL = true;
 						this.isArabic = true;
-						if (typeof(this.glyphs[child.unicode]) == 'undefined') this.glyphs[child.unicode] = [];
+						if (typeof this.glyphs[child.unicode] == 'undefined') this.glyphs[child.unicode] = [];
 						this.glyphs[child.unicode][child.arabicForm] = child;
 					}
 					else {
@@ -2221,7 +2221,7 @@
 					if ((i==0 || text[i-1]==' ') && i<text.length-2 && text[i+1]!=' ') arabicForm = 'terminal';
 					if (i>0 && text[i-1]!=' ' && i<text.length-2 && text[i+1]!=' ') arabicForm = 'medial';
 					if (i>0 && text[i-1]!=' ' && (i == text.length-1 || text[i+1]==' ')) arabicForm = 'initial';
-					if (typeof(font.glyphs[c]) != 'undefined') {
+					if (typeof font.glyphs[c] != 'undefined') {
 						glyph = font.glyphs[c][arabicForm];
 						if (glyph == null && font.glyphs[c].type == 'glyph') glyph = font.glyphs[c];
 					}
@@ -2257,7 +2257,7 @@
 						ctx.translate(-this.x, -this.y);
 
 						this.x += fontSize * (glyph.horizAdvX || customFont.horizAdvX) / customFont.fontFace.unitsPerEm;
-						if (typeof(dx[i]) != 'undefined' && !isNaN(dx[i])) {
+						if (typeof dx[i] != 'undefined' && !isNaN(dx[i])) {
 							this.x += dx[i];
 						}
 					}
@@ -2291,7 +2291,7 @@
 					for (var i=0; i<text.length; i++) {
 						var glyph = this.getGlyph(customFont, text, i);
 						measure += (glyph.horizAdvX || customFont.horizAdvX) * fontSize / customFont.fontFace.unitsPerEm;
-						if (typeof(dx[i]) != 'undefined' && !isNaN(dx[i])) {
+						if (typeof dx[i] != 'undefined' && !isNaN(dx[i])) {
 							measure += dx[i];
 						}
 					}
@@ -2641,7 +2641,7 @@
 				oldBeginPath.call(ctx);
 				for (var i=0; i<this.children.length; i++) {
 					var child = this.children[i];
-					if (typeof(child.path) != 'undefined') {
+					if (typeof child.path != 'undefined') {
 						var transform = null;
 						if (child.style('transform', false, true).hasValue()) {
 							transform = new svg.Transform(child.style('transform', false, true).value);
@@ -2698,7 +2698,7 @@
 
 				// apply filters
 				for (var i=0; i<this.children.length; i++) {
-					if (typeof(this.children[i].apply) === 'function') {
+					if (typeof this.children[i].apply == 'function') {
 						this.children[i].apply(tempCtx, 0, 0, width + 2*px, height + 2*py);
 					}
 				}
@@ -2810,7 +2810,7 @@
 			this.extraFilterDistance = this.blurRadius;
 
 			this.apply = function(ctx, x, y, width, height) {
-				if (typeof(stackBlur.canvasRGBA) == 'undefined') {
+				if (typeof stackBlur.canvasRGBA == 'undefined') {
 					svg.log('ERROR: StackBlur.js must be included for blur to work');
 					return;
 				}
@@ -2845,7 +2845,7 @@
 			var className = node.nodeName.replace(/^[^:]+:/,''); // remove namespace
 			className = className.replace(/\-/g,''); // remove dashes
 			var e = null;
-			if (typeof(svg.Element[className]) != 'undefined') {
+			if (typeof svg.Element[className] != 'undefined') {
 				e = new svg.Element[className](node);
 			}
 			else {
@@ -2952,7 +2952,7 @@
 				e.render(ctx);
 				if (isFirstRender) {
 					isFirstRender = false;
-					if (typeof(svg.opts['renderCallback']) == 'function') svg.opts['renderCallback'](dom);
+					if (typeof svg.opts['renderCallback'] == 'function') svg.opts['renderCallback'](dom);
 				}
 			}
 
@@ -2982,7 +2982,7 @@
 				}
 
 				// need update from redraw?
-				if (typeof(svg.opts['forceRedraw']) == 'function') {
+				if (typeof svg.opts['forceRedraw'] == 'function') {
 					if (svg.opts['forceRedraw']() == true) needUpdate = true;
 				}
 
@@ -3053,7 +3053,7 @@
 		return svg;
 	};
 
-	if (typeof(CanvasRenderingContext2D) != 'undefined') {
+	if (typeof CanvasRenderingContext2D  != 'undefined') {
 		CanvasRenderingContext2D.prototype.drawSvg = function(s, dx, dy, dw, dh, opts) {
 			var cOpts = {
 				ignoreMouse: true,
