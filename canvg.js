@@ -702,12 +702,12 @@
 			for (var i=0; i<data.length; i++) {
 				var type = svg.trim(data[i].split('(')[0]);
 				var s = data[i].split('(')[1].replace(')','');
-        var transformType = this.Type[type];
-        if (typeof transformType != 'undefined') {
-          var transform = new transformType(s);
-          transform.type = type;
-          this.transforms.push(transform);
-        }
+				var transformType = this.Type[type];
+				if (typeof transformType != 'undefined') {
+					var transform = new transformType(s);
+					transform.type = type;
+					this.transforms.push(transform);
+				}
 			}
 		}
 
