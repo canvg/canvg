@@ -2164,7 +2164,7 @@
 				if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
 				this.x += this.getAnchorDelta(ctx, this, 0);
 				for (var i=0; i<this.children.length; i++) {
-					this.renderChild(ctx, this, i);
+					this.renderChild(ctx, this, this, i);
 				}
 			}
 
@@ -2182,32 +2182,32 @@
 				return 0;
 			}
 
-			this.renderChild = function(ctx, parent, i) {
+			this.renderChild = function(ctx, textParent, parent, i) {
 				var child = parent.children[i];
 				if (child.attribute('x').hasValue()) {
-					child.x = child.attribute('x').toPixels('x') + parent.getAnchorDelta(ctx, parent, i);
+					child.x = child.attribute('x').toPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
 					if (child.attribute('dx').hasValue()) child.x += child.attribute('dx').toPixels('x');
 				}
 				else {
-					if (child.attribute('dx').hasValue()) parent.x += child.attribute('dx').toPixels('x');
-					child.x = parent.x;
+					if (child.attribute('dx').hasValue()) textParent.x += child.attribute('dx').toPixels('x');
+					child.x = textParent.x;
 				}
-				parent.x = child.x + child.measureText(ctx);
+				textParent.x = child.x + child.measureText(ctx);
 
 				if (child.attribute('y').hasValue()) {
 					child.y = child.attribute('y').toPixels('y');
 					if (child.attribute('dy').hasValue()) child.y += child.attribute('dy').toPixels('y');
 				}
 				else {
-					if (child.attribute('dy').hasValue()) parent.y += child.attribute('dy').toPixels('y');
-					child.y = parent.y;
+					if (child.attribute('dy').hasValue()) textParent.y += child.attribute('dy').toPixels('y');
+					child.y = textParent.y;
 				}
-				parent.y = child.y;
+				textParent.y = child.y;
 
 				child.render(ctx);
 
 				for (var i=0; i<child.children.length; i++) {
-					parent.renderChild(ctx, child, i);
+					textParent.renderChild(ctx, textParent, child, i);
 				}
 			}
 		}
