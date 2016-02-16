@@ -1270,7 +1270,9 @@
 				for (var i=0; i<this.points.length - 1; i++) {
 					markers.push([this.points[i], this.points[i].angleTo(this.points[i+1])]);
 				}
-				markers.push([this.points[this.points.length-1], markers[markers.length-1][1]]);
+				if (markers.length > 0) {
+					markers.push([this.points[this.points.length-1], markers[markers.length-1][1]]);
+				}
 				return markers;
 			}
 		}
