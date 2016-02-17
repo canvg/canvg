@@ -154,6 +154,73 @@
 		return typeCount.join('');
 	}
 
+	function normaliseStyleNodeName(nodeName) {
+        var styleNodeNameMap = {
+            'ALIGNMENT-BASELINE': 'alignment-baseline',
+            'BASELINE-SHIFT': 'baseline-shift',
+            'CLIP': 'clip',
+            'CLIP-PATH': 'clip-path',
+            'CLIP-RULE': 'clip-rule',
+            'COLOR': 'color',
+            'COLOR-INTERPOLATION': 'color-interpolation',
+            'COLOR-INTERPOLATION-FILTERS': 'color-interpolation-filters',
+            'COLOR-PROFILE': 'color-profile',
+            'COLOR-RENDERING': 'color-rendering',
+            'CURSOR': 'cursor',
+            'DIRECTION': 'direction',
+            'DISPLAY': 'display',
+            'DOMINANT-BASELINE': 'dominant-baseline',
+            'ENABLE-BACKGROUND': 'enable-background',
+            'FILL': 'fill',
+            'FILL-OPACITY': 'fill-opacity',
+            'FILL-RULE': 'fill-rule',
+            'FILTER': 'filter',
+            'FLOOD-COLOR': 'flood-color',
+            'FLOOD-OPACITY': 'flood-opacity',
+            'FONT': 'font',
+            'FONT-FAMILY': 'font-family',
+            'FONT-SIZE': 'font-size',
+            'FONT-SIZE-ADJUST': 'font-size-adjust',
+            'FONT-STRETCH': 'font-stretch',
+            'FONT-STYLE': 'font-style',
+            'FONT-VARIANT': 'font-variant',
+            'FONT-WEIGHT': 'font-weight',
+            'GLYPH-ORIENTATION-HORIZONTAL': 'glyph-orientation-horizontal',
+            'GLYPH-ORIENTATION-VERTICAL': 'glyph-orientation-vertical',
+            'IMAGE-RENDERING': 'image-rendering',
+            'KERNING': 'kerning',
+            'LETTER-SPACING': 'letter-spacing',
+            'LIGHTING-COLOR': 'lighting-color',
+            'MARKER': 'marker',
+            'MARKER-END': 'marker-end',
+            'MARKER-MID': 'marker-mid',
+            'MARKER-START': 'marker-start',
+            'MASK': 'mask',
+            'OPACITY': 'opacity',
+            'OVERFLOW': 'overflow',
+            'POINTER-EVENTS': 'pointer-events',
+            'SHAPE-RENDERING': 'shape-rendering',
+            'STOP-COLOR': 'stop-color',
+            'STOP-OPACITY': 'stop-opacity',
+            'STROKE': 'stroke',
+            'STROKE-DASHARRAY': 'stroke-dasharray',
+            'STROKE-DASHOFFSET': 'stroke-dashoffset',
+            'STROKE-LINECAP': 'stroke-linecap',
+            'STROKE-LINEJOIN': 'stroke-linejoin',
+            'STROKE-MITERLIMIT': 'stroke-miterlimit',
+            'STROKE-OPACITY': 'stroke-opacity',
+            'STROKE-WIDTH': 'stroke-width',
+            'TEXT-ANCHOR': 'text-anchor',
+            'TEXT-DECORATION': 'text-decoration',
+            'TEXT-RENDERING': 'text-rendering',
+            'UNICODE-BIDI': 'unicode-bidi',
+            'VISIBILITY': 'visibility',
+            'WORD-SPACING': 'word-spacing',
+            'WRITING-MODE': 'writing-mode'
+        };
+        return styleNodeNameMap[nodeName] != null ? styleNodeNameMap[nodeName] : nodeName;
+    }
+
 	function build(opts) {
 		var svg = { opts: opts };
 
@@ -878,7 +945,8 @@
 				// add attributes
 				for (var i=0; i<node.attributes.length; i++) {
 					var attribute = node.attributes[i];
-					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
+					var nodeName = normaliseStyleNodeName(attribute.nodeName);
+					this.attributes[nodeName] = new svg.Property(nodeName, attribute.value);
 				}
 
 				this.addStylesFromStyleDefinition();
