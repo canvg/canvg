@@ -873,12 +873,22 @@
 					}
 				}
 			};
+			
+			// Microsoft Edge fix
+			var allUppercase = new RegExp("^[A-Z\-]+$");
+			var normalizeAttributeName = function (name) {
+				if (allUppercase.test(name)) {
+					return name.toLowerCase();
+				}
+				return name;
+			};
 
 			if (node != null && node.nodeType == 1) { //ELEMENT_NODE
 				// add attributes
 				for (var i=0; i<node.attributes.length; i++) {
 					var attribute = node.attributes[i];
-					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
+					var nodeName = normalizeAttributeName(attribute.nodeName);
+					this.attributes[nodeName] = new svg.Property(nodeName, attribute.value);
 				}
 
 				this.addStylesFromStyleDefinition();
