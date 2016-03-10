@@ -9,7 +9,6 @@
  (function ( global, factory ) {
 
 	'use strict';
-
 	// export as AMD...
 	if ( typeof define !== 'undefined' && define.amd ) {
 		define('canvgModule', [ 'rgbcolor', 'stackblur' ], factory );
@@ -23,22 +22,28 @@
 	global.canvg = factory( global.RGBColor, global.stackBlur );
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
-
+	var nodeEnv = (typeof module !== 'undefined' && module.exports);
+	if (nodeEnv) {
+		var jsdom = require('jsdom').jsdom;
+		window = jsdom().defaultView;
+		window.DOMParser = require('xmldom').DOMParser;
+	}
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
 	// s: svg string, url to svg file, or xml document
 	// opts: optional hash of options
-	//		 ignoreMouse: true => ignore mouse events
-	//		 ignoreAnimation: true => ignore animations
-	//		 ignoreDimensions: true => does not try to resize canvas
-	//		 ignoreClear: true => does not clear canvas
-	//		 offsetX: int => draws at a x offset
-	//		 offsetY: int => draws at a y offset
-	//		 scaleWidth: int => scales horizontally to width
-	//		 scaleHeight: int => scales vertically to height
-	//		 renderCallback: function => will call the function after the first render is completed
-	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
+	//       ignoreMouse: true => ignore mouse events
+	//       ignoreAnimation: true => ignore animations
+	//       ignoreDimensions: true => does not try to resize canvas
+	//       ignoreClear: true => does not clear canvas
+	//       offsetX: int => draws at a x offset
+	//       offsetY: int => draws at a y offset
+	//       scaleWidth: int => scales horizontally to width
+	//       scaleHeight: int => scales vertically to height
+	//       renderCallback: function => will call the function after the first render is completed
+	//       enableRedraw: function => whether enable the redraw interval in node environment
+	//       forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 	var canvg = function (target, s, opts) {
 		// no parameters
 		if (target == null && s == null && opts == null) {
@@ -65,7 +70,7 @@
 		if (target.svg != null) target.svg.stop();
 		var svg = build(opts || {});
 		// on i.e. 8 for flash canvas, we can't assign the property so check for it
-		if (!(target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
+		if (!(target.childNodes && target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
 
 		var ctx = target.getContext('2d');
 		if (typeof s.documentElement != 'undefined') {
@@ -82,8 +87,25 @@
 		}
 	}
 
+
+
+	var matchesSelector = function(node, selector) {
+		var styleClasses = node.getAttribute('class');
+		if (styleClasses == null) {
+			return false;
+		}
+		styleClasses = styleClasses.split(' ');
+		for (var i = 0; i < styleClasses.length; i++) {
+			if ('.'+styleClasses[i] === selector) {
+				return true;
+			}
+		}
+		return false;
+	};
+
+	/*
 	// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
-	var matchesSelector;
+
 	if (typeof Element.prototype.matches != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.matches(selector);
@@ -119,7 +141,7 @@
 		if (typeof matchesSelector === 'undefined') {
 			matchesSelector = Sizzle.matchesSelector;
 		}
-	}
+	}*/
 
 	// slightly modified version of https://github.com/keeganstreet/specificity/blob/master/specificity.js
 	var attributeRegex = /(\[[^\]]+\])/g;
@@ -168,7 +190,7 @@
 		// globals
 		svg.init = function(ctx) {
 			var uniqueId = 0;
-			svg.UniqueId = function () { uniqueId++; return 'canvg' + uniqueId;	};
+			svg.UniqueId = function () { uniqueId++; return 'canvg' + uniqueId; };
 			svg.Definitions = {};
 			svg.Styles = {};
 			svg.StylesSpecificity = {};
@@ -231,7 +253,7 @@
 			}
 			else if (window.DOMParser)
 			{
-				var parser = new DOMParser();
+				var parser = new window.DOMParser();
 				return parser.parseFromString(xml, 'text/xml');
 			}
 			else
@@ -428,8 +450,8 @@
 				var ff = '';
 				for (var i=0; i<d.length; i++) {
 					if (!set.fontStyle && that.Styles.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontStyle = d[i]; set.fontStyle = true; }
-					else if (!set.fontVariant && that.Variants.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontVariant = d[i]; set.fontStyle = set.fontVariant = true;	}
-					else if (!set.fontWeight && that.Weights.indexOf(d[i]) != -1) {	if (d[i] != 'inherit') f.fontWeight = d[i]; set.fontStyle = set.fontVariant = set.fontWeight = true; }
+					else if (!set.fontVariant && that.Variants.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontVariant = d[i]; set.fontStyle = set.fontVariant = true;  }
+					else if (!set.fontWeight && that.Weights.indexOf(d[i]) != -1) { if (d[i] != 'inherit') f.fontWeight = d[i]; set.fontStyle = set.fontVariant = set.fontWeight = true; }
 					else if (!set.fontSize) { if (d[i] != 'inherit') f.fontSize = d[i].split('/')[0]; set.fontStyle = set.fontVariant = set.fontWeight = set.fontSize = true; }
 					else { if (d[i] != 'inherit') ff += d[i]; }
 				} if (ff != '') f.fontFamily = ff;
@@ -517,7 +539,7 @@
 				var cp1y = p0y + 2/3 * (p1y - p0y); // CP1 = QP0 + 2/3 *(QP1-QP0)
 				var cp2x = cp1x + 1/3 * (p2x - p0x); // CP2 = CP1 + 1/3 *(QP2-QP0)
 				var cp2y = cp1y + 1/3 * (p2y - p0y); // CP2 = CP1 + 1/3 *(QP2-QP0)
-				this.addBezierCurve(p0x, p0y, cp1x, cp2x, cp1y,	cp2y, p2x, p2y);
+				this.addBezierCurve(p0x, p0y, cp1x, cp2x, cp1y, cp2y, p2x, p2y);
 			}
 
 			this.addBezierCurve = function(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y) {
@@ -849,7 +871,7 @@
 				var child = childNode;
 				if (create) child = svg.CreateElement(childNode);
 				child.parent = this;
-				if (child.type != 'title') { this.children.push(child);	}
+				if (child.type != 'title') { this.children.push(child); }
 			}
 
 			this.addStylesFromStyleDefinition = function () {
@@ -873,7 +895,7 @@
 					}
 				}
 			};
-			
+
 			// Microsoft Edge fix
 			var allUppercase = new RegExp("^[A-Z\-]+$");
 			var normalizeAttributeName = function (name) {
@@ -966,7 +988,7 @@
 				if (this.style('stroke-width').hasValue()) {
 					var newLineWidth = this.style('stroke-width').toPixels();
 					ctx.lineWidth = newLineWidth == 0 ? 0.001 : newLineWidth; // browsers don't respect 0
-			    }
+				}
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
@@ -1077,7 +1099,7 @@
 				ctx.lineCap = 'butt';
 				ctx.lineJoin = 'miter';
 				ctx.miterLimit = 4;
-				if (typeof ctx.font != 'undefined' && typeof window.getComputedStyle != 'undefined') {
+				if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof window.getComputedStyle != 'undefined') {
 					ctx.font = window.getComputedStyle(ctx.canvas).getPropertyValue('font');
 				}
 
@@ -1399,7 +1421,7 @@
 
 				this.getReflectedControlPoint = function() {
 					if (this.previousCommand.toLowerCase() != 'c' &&
-					    this.previousCommand.toLowerCase() != 's' &&
+						this.previousCommand.toLowerCase() != 's' &&
 						this.previousCommand.toLowerCase() != 'q' &&
 						this.previousCommand.toLowerCase() != 't' ){
 						return this.current;
@@ -1550,7 +1572,7 @@
 					case 'A':
 					case 'a':
 						while (!pp.isCommandOrEnd()) {
-						    var curr = pp.current;
+							var curr = pp.current;
 							var rx = pp.getScalar();
 							var ry = pp.getScalar();
 							var xAxisRotation = pp.getScalar() * (Math.PI / 180.0);
@@ -1744,13 +1766,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1820,7 +1842,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1862,7 +1884,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
@@ -2606,7 +2628,7 @@
 					var x = Math.floor(bb.x1);
 					var y = Math.floor(bb.y1);
 					var width = Math.floor(bb.width());
-					var	height = Math.floor(bb.height());
+					var height = Math.floor(bb.height());
 				}
 
 				// temporarily remove mask to avoid recursion
@@ -2691,7 +2713,7 @@
 				var x = Math.floor(bb.x1);
 				var y = Math.floor(bb.y1);
 				var width = Math.floor(bb.width());
-				var	height = Math.floor(bb.height());
+				var height = Math.floor(bb.height());
 
 				// temporarily remove filter to avoid recursion
 				var filter = element.style('filter').value;
@@ -2922,11 +2944,11 @@
 					// set canvas size
 					if (e.style('width').hasValue()) {
 						ctx.canvas.width = e.style('width').toPixels('x');
-						ctx.canvas.style.width = ctx.canvas.width + 'px';
+						if (ctx.canvas.style) {ctx.canvas.style.width = ctx.canvas.width + 'px';}
 					}
 					if (e.style('height').hasValue()) {
 						ctx.canvas.height = e.style('height').toPixels('y');
-						ctx.canvas.style.height = ctx.canvas.height + 'px';
+						if (ctx.canvas.style) {ctx.canvas.style.height = ctx.canvas.height + 'px';}
 					}
 				}
 				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
@@ -2976,37 +2998,39 @@
 				waitingForImages = false;
 				draw();
 			}
-			svg.intervalID = setInterval(function() {
-				var needUpdate = false;
+			if (nodeEnv && opts['enableRedraw']) {
+				svg.intervalID = setInterval(function() {
+					var needUpdate = false;
 
-				if (waitingForImages && svg.ImagesLoaded()) {
-					waitingForImages = false;
-					needUpdate = true;
-				}
-
-				// need update from mouse events?
-				if (svg.opts['ignoreMouse'] != true) {
-					needUpdate = needUpdate | svg.Mouse.hasEvents();
-				}
-
-				// need update from animations?
-				if (svg.opts['ignoreAnimation'] != true) {
-					for (var i=0; i<svg.Animations.length; i++) {
-						needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+					if (waitingForImages && svg.ImagesLoaded()) {
+						waitingForImages = false;
+						needUpdate = true;
 					}
-				}
 
-				// need update from redraw?
-				if (typeof svg.opts['forceRedraw'] == 'function') {
-					if (svg.opts['forceRedraw']() == true) needUpdate = true;
-				}
+					// need update from mouse events?
+					if (svg.opts['ignoreMouse'] != true) {
+						needUpdate = needUpdate | svg.Mouse.hasEvents();
+					}
 
-				// render if needed
-				if (needUpdate) {
-					draw();
-					svg.Mouse.runEvents(); // run and clear our events
-				}
-			}, 1000 / svg.FRAMERATE);
+					// need update from animations?
+					if (svg.opts['ignoreAnimation'] != true) {
+						for (var i=0; i<svg.Animations.length; i++) {
+							needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+						}
+					}
+
+					// need update from redraw?
+					if (typeof svg.opts['forceRedraw'] == 'function') {
+						if (svg.opts['forceRedraw']() == true) needUpdate = true;
+					}
+
+					// render if needed
+					if (needUpdate) {
+						draw();
+						svg.Mouse.runEvents(); // run and clear our events
+					}
+				}, 1000 / svg.FRAMERATE);
+			}
 		}
 
 		svg.stop = function() {
@@ -3080,7 +3104,7 @@
 				scaleWidth: dw,
 				scaleHeight: dh
 			}
-			
+
 			for(var prop in opts) {
 				if(opts.hasOwnProperty(prop)){
 					cOpts[prop] = opts[prop];
