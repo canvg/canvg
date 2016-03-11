@@ -23,9 +23,11 @@
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
 	var nodeEnv = (typeof module !== 'undefined' && module.exports);
-	if (nodeEnv) {
+	if (nodeEnv && (typeof window === 'undefined')) {
 		var jsdom = require('jsdom').jsdom;
 		window = jsdom().defaultView;
+	}
+	if (!window.DOMParser) {
 		window.DOMParser = require('xmldom').DOMParser;
 	}
 	// canvg(target, s)
@@ -62,13 +64,20 @@
 			return;
 		}
 
+		var svg = build(opts || {});
+		if (nodeEnv) {
+			//only support svg string in node env.
+			svg.loadXml(target.getContext('2d'), s);
+			return;
+		}
+
 		if (typeof target == 'string') {
 			target = document.getElementById(target);
 		}
 
 		// store class on canvas
 		if (target.svg != null) target.svg.stop();
-		var svg = build(opts || {});
+
 		// on i.e. 8 for flash canvas, we can't assign the property so check for it
 		if (!(target.childNodes && target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
 
@@ -87,8 +96,8 @@
 		}
 	}
 
-
-
+	//Now only used to decide whether the node has the class names specified by selector,
+	//Add this implementation to avoid compatibility issues in node env.
 	var matchesSelector = function(node, selector) {
 		var styleClasses = node.getAttribute('class');
 		if (!styleClasses || styleClasses === '') {
