@@ -91,7 +91,7 @@
 
 	var matchesSelector = function(node, selector) {
 		var styleClasses = node.getAttribute('class');
-		if (styleClasses == null) {
+		if (!styleClasses || styleClasses === '') {
 			return false;
 		}
 		styleClasses = styleClasses.split(' ');
@@ -2998,7 +2998,8 @@
 				waitingForImages = false;
 				draw();
 			}
-			if (nodeEnv && opts['enableRedraw']) {
+			if (!nodeEnv || opts['enableRedraw']) {
+				//In node, in the most cases, we don't need the animation listener.
 				svg.intervalID = setInterval(function() {
 					var needUpdate = false;
 
