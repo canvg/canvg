@@ -2610,7 +2610,7 @@
 				}
 
 				// temporarily remove mask to avoid recursion
-				var mask = element.style('mask').getDefinition() || element.attribute('mask').getDefinition() || null;
+				var mask = element.style('mask').value || element.attribute('mask').value || null;
 				element.style('mask').value = '';
 				element.attribute('mask').value = '';
 
