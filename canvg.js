@@ -2610,7 +2610,8 @@
 				}
 
 				// temporarily remove mask to avoid recursion
-				var mask = element.attribute('mask').value;
+				var mask = element.style('mask').getDefinition() || element.attribute('mask').getDefinition() || null;
+				element.style('mask').value = '';
 				element.attribute('mask').value = '';
 
 					var cMask = document.createElement('canvas');
@@ -2632,7 +2633,7 @@
 					ctx.fillRect(0, 0, x + width, y + height);
 
 				// reassign mask
-				element.attribute('mask').value = mask;
+				element.style('mask').value = mask;
 			}
 
 			this.render = function(ctx) {
