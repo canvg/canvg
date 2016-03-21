@@ -82,6 +82,7 @@
 		if (!(target.childNodes && target.childNodes.length == 1 && target.childNodes[0].nodeName == 'OBJECT')) target.svg = svg;
 
 		var ctx = target.getContext('2d');
+
 		if (typeof s.documentElement != 'undefined') {
 			// load from xml doc
 			svg.loadXmlDoc(ctx, s);
@@ -2678,11 +2679,13 @@
 			this.base(node);
 
 			this.apply = function(ctx) {
-				var oldBeginPath = CanvasRenderingContext2D.prototype.beginPath;
-				CanvasRenderingContext2D.prototype.beginPath = function () { };
-
-				var oldClosePath = CanvasRenderingContext2D.prototype.closePath;
-				CanvasRenderingContext2D.prototype.closePath = function () { };
+				var hasContext2D = (typeof CanvasRenderingContext2D !== 'undefined');
+				var oldBeginPath = ctx.beginPath;
+				var oldClosePath = ctx.closePath;
+				if (hasContext2D) {
+					CanvasRenderingContext2D.prototype.beginPath = function () { };
+					CanvasRenderingContext2D.prototype.closePath = function () { };
+				}
 
 				oldBeginPath.call(ctx);
 				for (var i=0; i<this.children.length; i++) {
@@ -2694,15 +2697,18 @@
 							transform.apply(ctx);
 						}
 						child.path(ctx);
-						CanvasRenderingContext2D.prototype.closePath = oldClosePath;
+						if (hasContext2D) {
+							CanvasRenderingContext2D.prototype.closePath = oldClosePath;
+						}
 						if (transform) { transform.unapply(ctx); }
 					}
 				}
 				oldClosePath.call(ctx);
 				ctx.clip();
-
-				CanvasRenderingContext2D.prototype.beginPath = oldBeginPath;
-				CanvasRenderingContext2D.prototype.closePath = oldClosePath;
+				if (hasContext2D) {
+					CanvasRenderingContext2D.prototype.beginPath = oldBeginPath;
+					CanvasRenderingContext2D.prototype.closePath = oldClosePath;
+				}
 			}
 
 			this.render = function(ctx) {
