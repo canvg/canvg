@@ -1626,7 +1626,12 @@
 						break;
 					case 'Z':
 					case 'z':
-						if (ctx != null) ctx.closePath();
+						if (ctx != null) {
+							//only close path if it is not a straight line
+							if(bb.x1 != bb.x2 && bb.y1 != bb.y2) {
+								ctx.closePath();
+							}
+						}
 						pp.current = pp.start;
 					}
 				}
