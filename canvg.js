@@ -1655,22 +1655,38 @@
 			this.createPattern = function(ctx, element) {
 				var width = this.attribute('width').toPixels('x', true);
 				var height = this.attribute('height').toPixels('y', true);
-
+				
 				// render me using a temporary svg element
 				var tempSvg = new svg.Element.svg();
 				tempSvg.attributes['viewBox'] = new svg.Property('viewBox', this.attribute('viewBox').value);
 				tempSvg.attributes['width'] = new svg.Property('width', width + 'px');
 				tempSvg.attributes['height'] = new svg.Property('height', height + 'px');
-				tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
 				tempSvg.children = this.children;
+				var patternTransform = new svg.Transform(this.attribute('patternTransform').value);
 
 				var c = document.createElement('canvas');
 				c.width = width;
 				c.height = height;
-				var cctx = c.getContext('2d');
-				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
-					cctx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
-				}
+				var cctx = c.getContext('2d'),
+					scalePoint;
+
+				//scale needs to happen at the unit level to ensure crisp edges
+				patternTransform.transforms.forEach(function(transform){
+					if(transform.type === 'scale'){
+						scalePoint = transform.p;
+						c.width *= transform.p.x;
+						if(transform.p.y !== undefined){
+							c.height *= transform.p.y;
+						}
+						else{
+							c.height *= transform.p.x;
+						}
+						tempSvg.attributes['width'] = new svg.Property('width', c.width + 'px');
+						tempSvg.attributes['height'] = new svg.Property('height', c.height + 'px');
+						tempSvg.attributes['transform'] = new svg.Property('transform', 'scale('+transform.p.x+' '+(transform.p.y || transform.p.x)+')');
+					}
+				});
+
 				// render 3x3 grid so when we transform there's no white space on edges
 				for (var x=-1; x<=1; x++) {
 					for (var y=-1; y<=1; y++) {
@@ -1681,7 +1697,44 @@
 						cctx.restore();
 					}
 				}
-				var pattern = ctx.createPattern(c, 'repeat');
+
+				//create a second canvas sized to the parent context
+				//this will be used for patternTransforms
+				var bigC = document.createElement('canvas');
+				bigC.width = ctx.canvas.width;
+				bigC.height = ctx.canvas.height;
+				var bigCtx = bigC.getContext('2d');
+				var patternUnit = bigCtx.createPattern(c, 'repeat');
+
+				bigCtx.save();
+				patternTransform.transforms.forEach(function(transform){
+					//ignore scale since we did it at the unit level
+					if(transform.type === 'rotate'){
+						bigCtx.translate(transform.cx, transform.cy)
+						bigCtx.rotate(transform.angle.value * Math.PI / 180);
+					}
+					else if(transform.type === 'translate'){
+						bigCtx.translate(transform.p.x, transform.p.y);
+					}
+				});
+
+				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
+					//bigCtx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
+					//this gives inordinately large numbers, not sure why
+					bigCtx.translate(this.attribute('x').value * scalePoint.x, this.attribute('y').value * (scalePoint.y || scalePoint.x));
+				}
+
+				//much like the unit tiling repetition a few lines up, we can assume for now that pattern rotations will occur inside the context of the SVG
+				//therefore a circle centered in the big canvas with r = 1.5*hypotenuse of the SVG filled with the pattern should ensure seamless rotations
+				bigCtx.fillStyle = patternUnit;
+				bigCtx.beginPath();
+				var bigCHypotenuse = Math.sqrt(Math.pow(bigC.width,2) + Math.pow(bigC.height,2));
+				bigCtx.arc(bigC.width/2, bigC.height/2, 1.5 * bigCHypotenuse, 0, 2 * Math.PI, false);
+				bigCtx.closePath();
+				bigCtx.fill();
+				bigCtx.restore();
+				
+				var pattern = ctx.createPattern(bigC, 'repeat');
 				return pattern;
 			}
 		}
