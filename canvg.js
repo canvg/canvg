@@ -1668,18 +1668,20 @@
 				c.width = width;
 				c.height = height;
 				var cctx = c.getContext('2d'),
-					scalePoint;
+					scalePoint = {x: 1, y: 1};
 
 				//scale needs to happen at the unit level to ensure crisp edges
 				patternTransform.transforms.forEach(function(transform){
 					if(transform.type === 'scale'){
-						scalePoint = transform.p;
 						c.width *= transform.p.x;
+						scalePoint.x = transform.p.x;
 						if(transform.p.y !== undefined){
 							c.height *= transform.p.y;
+							scalePoint.y = transform.p.y;
 						}
 						else{
 							c.height *= transform.p.x;
+							scalePoint.y = transform.p.x;
 						}
 						tempSvg.attributes['width'] = new svg.Property('width', c.width + 'px');
 						tempSvg.attributes['height'] = new svg.Property('height', c.height + 'px');
