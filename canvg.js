@@ -1706,34 +1706,61 @@
 				bigC.width = ctx.canvas.width;
 				bigC.height = ctx.canvas.height;
 				var bigCtx = bigC.getContext('2d');
-				var patternUnit = bigCtx.createPattern(c, 'repeat');
+				var tempRealSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+				var patternUnit = bigCtx.createPattern(c, 'repeat'),
+					fillQuad = [
+						tempRealSvg.createSVGPoint(),
+						tempRealSvg.createSVGPoint(),
+						tempRealSvg.createSVGPoint(),
+						tempRealSvg.createSVGPoint()
+					],
+					svgMatrix = tempRealSvg.createSVGMatrix();
+
+				fillQuad[1].x = bigC.width;
+				fillQuad[2].x = bigC.width;
+				fillQuad[2].y = bigC.height;
+				fillQuad[3].y = bigC.height;
 
 				bigCtx.save();
 				patternTransform.transforms.forEach(function(transform){
 					//ignore scale since we did it at the unit level
 					if(transform.type === 'rotate'){
-						bigCtx.translate(transform.cx, transform.cy)
-						bigCtx.rotate(transform.angle.value * Math.PI / 180);
+						var radianValue = transform.angle.value * Math.PI / 180;
+
+						bigCtx.translate(transform.cx, transform.cy);
+						bigCtx.rotate(radianValue);
+						bigCtx.translate(-transform.cx, -transform.cy);
+
+						svgMatrix = svgMatrix.translate(transform.cx, transform.cy);
+						svgMatrix = svgMatrix.rotate(transform.angle.value);
+						svgMatrix = svgMatrix.translate(-transform.cx, -transform.cy);
 					}
 					else if(transform.type === 'translate'){
 						bigCtx.translate(transform.p.x, transform.p.y);
+						svgMatrix = svgMatrix.translate(transform.p.x, transform.p.y);
 					}
 				});
 
 				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
-					//bigCtx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
-					//this gives inordinately large numbers, not sure why
 					bigCtx.translate(this.attribute('x').value * scalePoint.x, this.attribute('y').value * (scalePoint.y || scalePoint.x));
+					svgMatrix = svgMatrix.translate(this.attribute('x').value * scalePoint.x, this.attribute('y').value * (scalePoint.y || scalePoint.x));
 				}
 
-				//much like the unit tiling repetition a few lines up, we can assume for now that pattern rotations will occur inside the context of the SVG
-				//therefore a circle centered in the big canvas with r = 1.5*hypotenuse of the SVG filled with the pattern should ensure seamless rotations
+				svgMatrix = svgMatrix.inverse();
 				bigCtx.fillStyle = patternUnit;
 				bigCtx.beginPath();
-				var bigCHypotenuse = Math.sqrt(Math.pow(bigC.width,2) + Math.pow(bigC.height,2));
-				bigCtx.arc(bigC.width/2, bigC.height/2, 1.5 * bigCHypotenuse, 0, 2 * Math.PI, false);
+				for(var i=0; i<fillQuad.length; i++){
+					fillQuad[i] = fillQuad[i].matrixTransform(svgMatrix);
+					if(i==0){
+						bigCtx.moveTo(fillQuad[i].x, fillQuad[i].y);
+					}
+					else{
+						bigCtx.lineTo(fillQuad[i].x, fillQuad[i].y);
+					}
+				}
 				bigCtx.closePath();
 				bigCtx.fill();
+
 				bigCtx.restore();
 				
 				var pattern = ctx.createPattern(bigC, 'repeat');
