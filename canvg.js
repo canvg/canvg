@@ -1662,7 +1662,10 @@
 				tempSvg.attributes['width'] = new svg.Property('width', width + 'px');
 				tempSvg.attributes['height'] = new svg.Property('height', height + 'px');
 				tempSvg.children = this.children;
-				var patternTransform = new svg.Transform(this.attribute('patternTransform').value);
+				var patternTransform;
+				if(this.attribute('patternTransform').value.length){
+					patternTransform = new svg.Transform(this.attribute('patternTransform').value);
+				}
 
 				var c = document.createElement('canvas');
 				c.width = width;
@@ -1670,24 +1673,26 @@
 				var cctx = c.getContext('2d'),
 					scalePoint = {x: 1, y: 1};
 
-				//scale needs to happen at the unit level to ensure crisp edges
-				patternTransform.transforms.forEach(function(transform){
-					if(transform.type === 'scale'){
-						c.width *= transform.p.x;
-						scalePoint.x = transform.p.x;
-						if(transform.p.y !== undefined){
-							c.height *= transform.p.y;
-							scalePoint.y = transform.p.y;
+				if(patternTransform){
+					//scale needs to happen at the unit level to ensure crisp edges
+					patternTransform.transforms.forEach(function(transform){
+						if(transform.type === 'scale'){
+							c.width *= transform.p.x;
+							scalePoint.x = transform.p.x;
+							if(transform.p.y !== undefined){
+								c.height *= transform.p.y;
+								scalePoint.y = transform.p.y;
+							}
+							else{
+								c.height *= transform.p.x;
+								scalePoint.y = transform.p.x;
+							}
+							tempSvg.attributes['width'] = new svg.Property('width', c.width + 'px');
+							tempSvg.attributes['height'] = new svg.Property('height', c.height + 'px');
+							tempSvg.attributes['transform'] = new svg.Property('transform', 'scale('+transform.p.x+' '+(transform.p.y || transform.p.x)+')');
 						}
-						else{
-							c.height *= transform.p.x;
-							scalePoint.y = transform.p.x;
-						}
-						tempSvg.attributes['width'] = new svg.Property('width', c.width + 'px');
-						tempSvg.attributes['height'] = new svg.Property('height', c.height + 'px');
-						tempSvg.attributes['transform'] = new svg.Property('transform', 'scale('+transform.p.x+' '+(transform.p.y || transform.p.x)+')');
-					}
-				});
+					});
+				}
 
 				// render 3x3 grid so when we transform there's no white space on edges
 				for (var x=-1; x<=1; x++) {
@@ -1722,24 +1727,26 @@
 				fillQuad[3].y = bigC.height;
 
 				bigCtx.save();
-				patternTransform.transforms.forEach(function(transform){
-					//ignore scale since we did it at the unit level
-					if(transform.type === 'rotate'){
-						var radianValue = transform.angle.value * Math.PI / 180;
+				if(patternTransform){
+					patternTransform.transforms.forEach(function(transform){
+						//ignore scale since we did it at the unit level
+						if(transform.type === 'rotate'){
+							var radianValue = transform.angle.value * Math.PI / 180;
 
-						bigCtx.translate(transform.cx, transform.cy);
-						bigCtx.rotate(radianValue);
-						bigCtx.translate(-transform.cx, -transform.cy);
+							bigCtx.translate(transform.cx, transform.cy);
+							bigCtx.rotate(radianValue);
+							bigCtx.translate(-transform.cx, -transform.cy);
 
-						svgMatrix = svgMatrix.translate(transform.cx, transform.cy);
-						svgMatrix = svgMatrix.rotate(transform.angle.value);
-						svgMatrix = svgMatrix.translate(-transform.cx, -transform.cy);
-					}
-					else if(transform.type === 'translate'){
-						bigCtx.translate(transform.p.x, transform.p.y);
-						svgMatrix = svgMatrix.translate(transform.p.x, transform.p.y);
-					}
-				});
+							svgMatrix = svgMatrix.translate(transform.cx, transform.cy);
+							svgMatrix = svgMatrix.rotate(transform.angle.value);
+							svgMatrix = svgMatrix.translate(-transform.cx, -transform.cy);
+						}
+						else if(transform.type === 'translate'){
+							bigCtx.translate(transform.p.x, transform.p.y);
+							svgMatrix = svgMatrix.translate(transform.p.x, transform.p.y);
+						}
+					});
+				}
 
 				if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
 					bigCtx.translate(this.attribute('x').value * scalePoint.x, this.attribute('y').value * (scalePoint.y || scalePoint.x));
