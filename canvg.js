@@ -2915,8 +2915,16 @@
 			// render loop
 			var isFirstRender = true;
 			var draw = function() {
+				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
+				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
+				
 				svg.ViewPort.Clear();
-				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				if (ctx.canvas.parentNode) {
+					svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				}
+				else {
+					svg.ViewPort.SetCurrent(cWidth, cHeight);
+				}
 
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
@@ -2929,14 +2937,13 @@
 						ctx.canvas.style.height = ctx.canvas.height + 'px';
 					}
 				}
-				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
-				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
+				
 				if (svg.opts['ignoreDimensions'] == true && e.style('width').hasValue() && e.style('height').hasValue()) {
 					cWidth = e.style('width').toPixels('x');
 					cHeight = e.style('height').toPixels('y');
+					svg.ViewPort.SetCurrent(cWidth, cHeight);
 				}
-				svg.ViewPort.SetCurrent(cWidth, cHeight);
-
+				
 				if (svg.opts['offsetX'] != null) e.attribute('x', true).value = svg.opts['offsetX'];
 				if (svg.opts['offsetY'] != null) e.attribute('y', true).value = svg.opts['offsetY'];
 				if (svg.opts['scaleWidth'] != null || svg.opts['scaleHeight'] != null) {
