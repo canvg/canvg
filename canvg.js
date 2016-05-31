@@ -526,7 +526,7 @@
 				this.addPoint(p0[0], p0[1]);
 				this.addPoint(p3[0], p3[1]);
 
-				for (i=0; i<=1; i++) {
+				for (var i=0; i<=1; i++) {
 					var f = function(t) {
 						return Math.pow(1-t, 3) * p0[i]
 						+ 3 * Math.pow(1-t, 2) * t * p1[i]
