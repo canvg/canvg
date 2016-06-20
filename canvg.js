@@ -18,18 +18,34 @@
 	else if ( typeof module !== 'undefined' && module.exports ) {
 		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
 	}
-
-	global.canvg = factory( global.RGBColor, global.stackBlur );
+    else {
+	   global.canvg = factory( global.RGBColor, global.stackBlur );
+    }
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
 	var nodeEnv = (typeof module !== 'undefined' && module.exports);
+    var windowEnv, ImageClass, CanvasClass,
+		defaultClientWidth = 800, defaultClientHeight = 600;
 	if (nodeEnv && (typeof window === 'undefined')) {
 		var jsdom = require('jsdom').jsdom;
-		window = jsdom().defaultView;
+		windowEnv = jsdom().defaultView;
+	} else {
+        windowEnv = window;
+    }
+	if (!windowEnv.DOMParser) {
+		windowEnv.DOMParser = require('xmldom').DOMParser;
 	}
-	if (!window.DOMParser) {
-		window.DOMParser = require('xmldom').DOMParser;
+
+	function createCanvas() {
+		var c;
+		if (nodeEnv) {
+			c = new CanvasClass();
+		} else {
+			c = document.createElement('canvas');	
+		}
+		return c;
 	}
+
 	// canvg(target, s)
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
@@ -66,6 +82,11 @@
 
 		var svg = build(opts || {});
 		if (nodeEnv) {
+			if (!s || s === '') {
+				return;
+			}
+			ImageClass = opts['ImageClass'];
+			CanvasClass = target.constructor;
 			//only support svg string in node env.
 			svg.loadXml(target.getContext('2d'), s);
 			return;
@@ -97,61 +118,65 @@
 		}
 	}
 
-	//Now only used to decide whether the node has the class names specified by selector,
-	//Add this implementation to avoid compatibility issues in node env.
-	var matchesSelector = function(node, selector) {
-		var styleClasses = node.getAttribute('class');
-		if (!styleClasses || styleClasses === '') {
+	var matchesSelector;
+	if (nodeEnv) {
+		//Now only used to decide whether the node has the class names specified by selector,
+		//Add this implementation to avoid compatibility issues in node env.
+		matchesSelector = function(node, selector) {
+			var styleClasses = node.getAttribute('class');
+			if (!styleClasses || styleClasses === '') {
+				return false;
+			}
+			styleClasses = styleClasses.split(' ');
+			for (var i = 0; i < styleClasses.length; i++) {
+				if ('.'+styleClasses[i] === selector) {
+					return true;
+				}
+			}
 			return false;
-		}
-		styleClasses = styleClasses.split(' ');
-		for (var i = 0; i < styleClasses.length; i++) {
-			if ('.'+styleClasses[i] === selector) {
-				return true;
+		};
+	} else {		
+		// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
+
+		if (typeof Element.prototype.matches != 'undefined') {
+			matchesSelector = function(node, selector) {
+				return node.matches(selector);
+			};
+		} else if (typeof Element.prototype.webkitMatchesSelector != 'undefined') {
+			matchesSelector = function(node, selector) {
+				return node.webkitMatchesSelector(selector);
+			};
+		} else if (typeof Element.prototype.mozMatchesSelector != 'undefined') {
+			matchesSelector = function(node, selector) {
+				return node.mozMatchesSelector(selector);
+			};
+		} else if (typeof Element.prototype.msMatchesSelector != 'undefined') {
+			matchesSelector = function(node, selector) {
+				return node.msMatchesSelector(selector);
+			};
+		} else if (typeof Element.prototype.oMatchesSelector != 'undefined') {
+			matchesSelector = function(node, selector) {
+				return node.oMatchesSelector(selector);
+			};
+		} else {
+			// requires Sizzle: https://github.com/jquery/sizzle/wiki/Sizzle-Documentation
+			// or jQuery: http://jquery.com/download/
+			// or Zepto: http://zeptojs.com/#
+			// without it, this is a ReferenceError
+
+			if (typeof jQuery === 'function' || typeof Zepto === 'function') {
+				matchesSelector = function (node, selector) {
+					return $(node).is(selector);
+				};
+			}
+
+			if (typeof matchesSelector === 'undefined') {
+				matchesSelector = Sizzle.matchesSelector;
 			}
 		}
-		return false;
-	};
+	}
 
-	/*
-	// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
-
-	if (typeof Element.prototype.matches != 'undefined') {
-		matchesSelector = function(node, selector) {
-			return node.matches(selector);
-		};
-	} else if (typeof Element.prototype.webkitMatchesSelector != 'undefined') {
-		matchesSelector = function(node, selector) {
-			return node.webkitMatchesSelector(selector);
-		};
-	} else if (typeof Element.prototype.mozMatchesSelector != 'undefined') {
-		matchesSelector = function(node, selector) {
-			return node.mozMatchesSelector(selector);
-		};
-	} else if (typeof Element.prototype.msMatchesSelector != 'undefined') {
-		matchesSelector = function(node, selector) {
-			return node.msMatchesSelector(selector);
-		};
-	} else if (typeof Element.prototype.oMatchesSelector != 'undefined') {
-		matchesSelector = function(node, selector) {
-			return node.oMatchesSelector(selector);
-		};
-	} else {
-		// requires Sizzle: https://github.com/jquery/sizzle/wiki/Sizzle-Documentation
-		// or jQuery: http://jquery.com/download/
-		// or Zepto: http://zeptojs.com/#
-		// without it, this is a ReferenceError
-
-		if (typeof jQuery === 'function' || typeof Zepto === 'function') {
-			matchesSelector = function (node, selector) {
-				return $(node).is(selector);
-			};
-		}
-
-		if (typeof matchesSelector === 'undefined') {
-			matchesSelector = Sizzle.matchesSelector;
-		}
-	}*/
+	
 
 	// slightly modified version of https://github.com/keeganstreet/specificity/blob/master/specificity.js
 	var attributeRegex = /(\[[^\]]+\])/g;
@@ -208,6 +233,7 @@
 			svg.Images = [];
 			svg.ctx = ctx;
 			svg.ViewPort = new (function () {
+				
 				this.viewPorts = [];
 				this.Clear = function() { this.viewPorts = []; }
 				this.SetCurrent = function(width, height) { this.viewPorts.push({ width: width, height: height }); }
@@ -241,10 +267,11 @@
 
 		// ajax
 		svg.ajax = function(url) {
+			if (nodeEnv) {return null;}
 			var AJAX;
-			if(window.XMLHttpRequest){AJAX=new XMLHttpRequest();}
+			if(windowEnv.XMLHttpRequest){AJAX=new windowEnv.XMLHttpRequest();}
 			else{AJAX=new ActiveXObject('Microsoft.XMLHTTP');}
-			if(AJAX){
+			if(AJAX){				
 			   AJAX.open('GET',url,false);
 			   AJAX.send(null);
 			   return AJAX.responseText;
@@ -261,9 +288,9 @@
 				xmlDoc.loadXml(xml, settings);
 				return xmlDoc;
 			}
-			else if (window.DOMParser)
+			else if (windowEnv.DOMParser)
 			{
-				var parser = new window.DOMParser();
+				var parser = new windowEnv.DOMParser();
 				return parser.parseFromString(xml, 'text/xml');
 			}
 			else
@@ -1109,8 +1136,8 @@
 				ctx.lineCap = 'butt';
 				ctx.lineJoin = 'miter';
 				ctx.miterLimit = 4;
-				if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof window.getComputedStyle != 'undefined') {
-					ctx.font = window.getComputedStyle(ctx.canvas).getPropertyValue('font');
+				if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
+					ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
 				}
 
 				this.baseSetContext(ctx);
@@ -1145,7 +1172,7 @@
 						ctx.closePath();
 						ctx.clip();
 					}
-				}
+				}				
 				svg.ViewPort.SetCurrent(width, height);
 
 				// viewbox
@@ -1696,7 +1723,7 @@
 				tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
 				tempSvg.children = this.children;
 
-				var c = document.createElement('canvas');
+				var c = createCanvas();
 				c.width = width;
 				c.height = height;
 				var cctx = c.getContext('2d');
@@ -1833,8 +1860,7 @@
 					tempSvg.attributes['width'] = new svg.Property('width', rootView.width);
 					tempSvg.attributes['height'] = new svg.Property('height', rootView.height);
 					tempSvg.children = [ group ];
-
-					var c = document.createElement('canvas');
+					var c = createCanvas();					
 					c.width = rootView.width;
 					c.height = rootView.height;
 					var tempCtx = c.getContext('2d');
@@ -2395,7 +2421,7 @@
 			}
 
 			// this might contain text
-			this.text = this.hasText ? node.childNodes[0].value : '';
+			this.text = this.hasText ? node.childNodes[0].value || node.childNodes[0].data : '';
 			this.getText = function() {
 				return this.text;
 			}
@@ -2418,7 +2444,7 @@
 			}
 
 			this.onclick = function() {
-				window.open(this.getHrefAttribute().value);
+				windowEnv.open(this.getHrefAttribute().value);
 			}
 
 			this.onmousemove = function() {
@@ -2439,14 +2465,14 @@
 			svg.Images.push(this);
 			this.loaded = false;
 			if (!isSvg) {
-				this.img = document.createElement('img');
+				this.img = nodeEnv ? new ImageClass() : document.createElement('img');
 				if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
 				var self = this;
 				this.img.onload = function() { self.loaded = true; }
 				this.img.onerror = function() { svg.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
 				this.img.src = href;
 			}
-			else {
+			else {				
 				this.img = svg.ajax(href);
 				this.loaded = true;
 			}
@@ -2473,7 +2499,11 @@
 									this.img.height,
 									0,
 									0);
-					ctx.drawImage(this.img, 0, 0);
+					if (self.loaded) {
+						if (this.img.complete === undefined || this.img.complete) {
+							ctx.drawImage(this.img, 0, 0);
+						}
+					}
 				}
 				ctx.restore();
 			}
@@ -2546,7 +2576,7 @@
 							}
 							svg.Styles[cssClass] = props;
 							svg.StylesSpecificity[cssClass] = getSelectorSpecificity(cssClass);
-							if (cssClass == '@font-face') {
+							if (cssClass == '@font-face' && !nodeEnv) {
 								var fontFamily = props['font-family'].value.replace(/"/g,'');
 								var srcs = props['src'].value.split(',');
 								for (var s=0; s<srcs.length; s++) {
@@ -2645,13 +2675,13 @@
 				var mask = element.attribute('mask').value;
 				element.attribute('mask').value = '';
 
-					var cMask = document.createElement('canvas');
+					var cMask = createCanvas();
 					cMask.width = x + width;
 					cMask.height = y + height;
 					var maskCtx = cMask.getContext('2d');
 					this.renderChildren(maskCtx);
 
-					var c = document.createElement('canvas');
+					var c = createCanvas();
 					c.width = x + width;
 					c.height = y + height;
 					var tempCtx = c.getContext('2d');
@@ -2741,7 +2771,7 @@
 					py = Math.max(py, efd);
 				}
 
-				var c = document.createElement('canvas');
+				var c = createCanvas();
 				c.width = width + 2*px;
 				c.height = height + 2*py;
 				var tempCtx = c.getContext('2d');
@@ -2914,7 +2944,7 @@
 		}
 
 		// load from xml
-		svg.loadXml = function(ctx, xml) {
+		svg.loadXml = function(ctx, xml) {			
 			svg.loadXmlDoc(ctx, svg.parseXml(xml));
 		}
 
@@ -2928,8 +2958,8 @@
 					p.y -= e.offsetTop;
 					e = e.offsetParent;
 				}
-				if (window.scrollX) p.x += window.scrollX;
-				if (window.scrollY) p.y += window.scrollY;
+				if (windowEnv.scrollX) p.x += windowEnv.scrollX;
+				if (windowEnv.scrollY) p.y += windowEnv.scrollY;
 				return p;
 			}
 
@@ -2953,7 +2983,11 @@
 			var isFirstRender = true;
 			var draw = function() {
 				svg.ViewPort.Clear();
-				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				if (ctx.canvas.parentNode) {
+					svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				} else {
+					svg.ViewPort.SetCurrent(defaultClientWidth, defaultClientHeight);
+				}
 
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
