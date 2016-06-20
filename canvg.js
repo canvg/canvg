@@ -173,7 +173,7 @@
 		};
 
 		selector = selector.replace(/:not\(([^\)]*)\)/g, '     $1 ');
-		selector = selector.replace(/{[^]*/gm, ' ');
+		selector = selector.replace(/{[\s\S]*/gm, ' ');
 		findMatch(attributeRegex, 1);
 		findMatch(idRegex, 0);
 		findMatch(classRegex, 1);
