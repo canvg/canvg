@@ -1100,8 +1100,9 @@
 					var x = 0;
 					var y = 0;
 					if (this.attribute('refX').hasValue() && this.attribute('refY').hasValue()) {
-						x = -this.attribute('refX').toPixels('x');
-						y = -this.attribute('refY').toPixels('y');
+						var _x = -this.attribute('refX').toPixels('x');
+						var _y = -this.attribute('refY').toPixels('y');
+						ctx.translate(_x, _y);
 					}
 
 					if (this.attribute('overflow').valueOrDefault('hidden') != 'visible') {
