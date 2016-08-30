@@ -22,8 +22,6 @@
   "license": "MIT",
   "files": [
     "canvg.js",
-    "rgbcolor.js",
-    "StackBlur.js",
     "MIT-LICENSE.txt"
   ],
   "dependencies": {
