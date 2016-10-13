@@ -976,7 +976,7 @@
 					else if (typeof ctx.webkitLineDash != 'undefined') { ctx.webkitLineDash = gaps; }
 					else if (typeof ctx.mozDash != 'undefined' && !(gaps.length==1 && gaps[0]==0)) { ctx.mozDash = gaps; }
 
-					var offset = this.style('stroke-dashoffset').numValueOrDefault(0);
+					var offset = this.style('stroke-dashoffset').toPixels(null);
 					if (typeof ctx.lineDashOffset != 'undefined') { ctx.lineDashOffset = offset; }
 					else if (typeof ctx.webkitLineDashOffset != 'undefined') { ctx.webkitLineDashOffset = offset; }
 					else if (typeof ctx.mozDashOffset != 'undefined') { ctx.mozDashOffset = offset; }
