@@ -1189,7 +1189,7 @@
 
 				if (ctx != null) {
 					ctx.beginPath();
-					ctx.arc(cx, cy, r, 0, Math.PI * 2, true);
+					ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
 					ctx.closePath();
 				}
 
@@ -1209,14 +1209,13 @@
 				var ry = this.attribute('ry').toPixels('y');
 				var cx = this.attribute('cx').toPixels('x');
 				var cy = this.attribute('cy').toPixels('y');
-
 				if (ctx != null) {
 					ctx.beginPath();
-					ctx.moveTo(cx, cy - ry);
-					ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry,  cx + rx, cy - (KAPPA * ry), cx + rx, cy);
+					ctx.moveTo(cx + rx, cy);
 					ctx.bezierCurveTo(cx + rx, cy + (KAPPA * ry), cx + (KAPPA * rx), cy + ry, cx, cy + ry);
 					ctx.bezierCurveTo(cx - (KAPPA * rx), cy + ry, cx - rx, cy + (KAPPA * ry), cx - rx, cy);
 					ctx.bezierCurveTo(cx - rx, cy - (KAPPA * ry), cx - (KAPPA * rx), cy - ry, cx, cy - ry);
+					ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry,  cx + rx, cy - (KAPPA * ry), cx + rx, cy);
 					ctx.closePath();
 				}
 
