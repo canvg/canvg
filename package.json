@@ -16,7 +16,6 @@
   },
   "main": "canvg.js",
   "version": "1.0.0",
-  "devDependencies": {},
   "scripts": {},
   "license": "MIT",
   "files": [
@@ -28,5 +27,11 @@
   "dependencies": {
     "rgbcolor": "0.0.4",
     "stackblur": "^1.0.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "=2.5.2",
+    "karma": "=1.3.0",
+    "karma-jasmine": "=1.0.2",
+    "karma-phantomjs-launcher": "=1.0.2"
   }
 }

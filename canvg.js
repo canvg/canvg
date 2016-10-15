@@ -82,6 +82,10 @@
 		}
 	}
 
+	// test-code-start
+	canvg._build = build;
+	// test-code-end
+
 	// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
 	var matchesSelector;
 	if (typeof Element.prototype.matches != 'undefined') {
@@ -437,7 +441,12 @@
 			}
 		});
 
-		// points and paths
+		/**
+		 * Parses list of real numbers, as defined by
+		 * https://www.w3.org/TR/SVG/types.html#BasicDataTypes.
+		 * @param {string} s <list-of-numbers>
+		 * @returns {number[]} Parsed numbers
+		 */
 		svg.ToNumberArray = function(s) {
 			var a = (s || '').match(/-?(\d+(\.\d+)?|\.\d+)(?=\D|$)/gm) || [];
 			for (var i=0; i<a.length; i++) {
@@ -445,6 +454,7 @@
 			}
 			return a;
 		}
+
 		svg.Point = function(x, y) {
 			this.x = x;
 			this.y = y;
