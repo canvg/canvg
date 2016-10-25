@@ -213,7 +213,7 @@
 			if(window.XMLHttpRequest){AJAX=new XMLHttpRequest();}
 			else{AJAX=new ActiveXObject('Microsoft.XMLHTTP');}
 			if(AJAX){
-			   AJAX.open('GET',url,false);
+			   AJAX.open('GET',url,true);
 			   AJAX.send(null);
 			   return AJAX.responseText;
 			}
@@ -855,7 +855,14 @@
 			this.addStylesFromStyleDefinition = function () {
 				// add styles
 				for (var selector in svg.Styles) {
-					if (selector[0] != '@' && matchesSelector(node, selector)) {
+					var selectorMatch
+					try {
+						selectorMatch = matchesSelector(node, selector);
+					}
+					catch (e) {
+						selectorMatch = false;
+					}
+					if (selectorMatch) {
 						var styles = svg.Styles[selector];
 						var specificity = svg.StylesSpecificity[selector];
 						if (styles != null) {
