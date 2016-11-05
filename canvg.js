@@ -2522,14 +2522,14 @@
 								var srcs = props['src'].value.split(',');
 								for (var s=0; s<srcs.length; s++) {
 									if (srcs[s].indexOf('format("svg")') > 0) {
-										var urlStart = srcs[s].indexOf('url');
-										var urlEnd = srcs[s].indexOf(')', urlStart);
-										var url = srcs[s].substr(urlStart + 5, urlEnd - urlStart - 6);
-										var doc = svg.parseXml(svg.ajax(url));
-										var fonts = doc.getElementsByTagName('font');
-										for (var f=0; f<fonts.length; f++) {
-											var font = svg.CreateElement(fonts[f]);
-											svg.Definitions[fontFamily] = font;
+										var url = (srcs[s].match(/url\(['"]?([^)]*)['"?]\)/) || [])[1];
+										if(url) {
+											var doc = svg.parseXml(svg.ajax(url));
+											var fonts = doc.getElementsByTagName('font');
+											for (var f=0; f<fonts.length; f++) {
+												var font = svg.CreateElement(fonts[f]);
+												svg.Definitions[fontFamily] = font;
+											}
 										}
 									}
 								}
