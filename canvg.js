@@ -41,7 +41,7 @@
 		if (nodeEnv) {
 			c = new CanvasClass();
 		} else {
-			c = document.createElement('canvas');	
+			c = document.createElement('canvas');
 		}
 		return c;
 	}
@@ -135,7 +135,7 @@
 			}
 			return false;
 		};
-	} else {		
+	} else {
 		// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
 
 		if (typeof Element.prototype.matches != 'undefined') {
@@ -176,7 +176,7 @@
 		}
 	}
 
-	
+
 
 	// slightly modified version of https://github.com/keeganstreet/specificity/blob/master/specificity.js
 	var attributeRegex = /(\[[^\]]+\])/g;
@@ -233,7 +233,7 @@
 			svg.Images = [];
 			svg.ctx = ctx;
 			svg.ViewPort = new (function () {
-				
+
 				this.viewPorts = [];
 				this.Clear = function() { this.viewPorts = []; }
 				this.SetCurrent = function(width, height) { this.viewPorts.push({ width: width, height: height }); }
@@ -271,7 +271,7 @@
 			var AJAX;
 			if(windowEnv.XMLHttpRequest){AJAX=new windowEnv.XMLHttpRequest();}
 			else{AJAX=new ActiveXObject('Microsoft.XMLHTTP');}
-			if(AJAX){				
+			if(AJAX){
 			   AJAX.open('GET',url,false);
 			   AJAX.send(null);
 			   return AJAX.responseText;
@@ -469,8 +469,15 @@
 
 			this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) {
 				var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
+				var fontFamily = fontFamily || f.fontFamily;
+				if (fontFamily) {
+					var trimed = fontFamily.trim();
+					if (trimed[0] !== '"' && trimed.indexOf(' ') > 0) {
+						fontFamily = '"' + trimed + '"';
+					}
+				}
 				return {
-					fontFamily: fontFamily || f.fontFamily,
+					fontFamily: fontFamily,
 					fontSize: fontSize || f.fontSize,
 					fontStyle: fontStyle || f.fontStyle,
 					fontWeight: fontWeight || f.fontWeight,
@@ -1172,7 +1179,7 @@
 						ctx.closePath();
 						ctx.clip();
 					}
-				}				
+				}
 				svg.ViewPort.SetCurrent(width, height);
 
 				// viewbox
@@ -1860,7 +1867,7 @@
 					tempSvg.attributes['width'] = new svg.Property('width', rootView.width);
 					tempSvg.attributes['height'] = new svg.Property('height', rootView.height);
 					tempSvg.children = [ group ];
-					var c = createCanvas();					
+					var c = createCanvas();
 					c.width = rootView.width;
 					c.height = rootView.height;
 					var tempCtx = c.getContext('2d');
@@ -2472,7 +2479,7 @@
 				this.img.onerror = function() { svg.log('ERROR: image "' + href + '" not found'); self.loaded = true; }
 				this.img.src = href;
 			}
-			else {				
+			else {
 				this.img = svg.ajax(href);
 				this.loaded = true;
 			}
@@ -2944,7 +2951,7 @@
 		}
 
 		// load from xml
-		svg.loadXml = function(ctx, xml) {			
+		svg.loadXml = function(ctx, xml) {
 			svg.loadXmlDoc(ctx, svg.parseXml(xml));
 		}
 
