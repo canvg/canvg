@@ -46,8 +46,8 @@
 			for (var i=0; i<svgTags.length; i++) {
 				var svgTag = svgTags[i];
 				var c = document.createElement('canvas');
-				c.width = svgTag.clientWidth;
-				c.height = svgTag.clientHeight;
+				c.width = svgTag.clientWidth || svgTag.getBoundingClientRect()['width'];
+				c.height = svgTag.clientHeight || svgTag.getBoundingClientRect()['height'];
 				svgTag.parentNode.insertBefore(c, svgTag);
 				svgTag.parentNode.removeChild(svgTag);
 				var div = document.createElement('div');
@@ -2915,8 +2915,10 @@
 			// render loop
 			var isFirstRender = true;
 			var draw = function() {
-				svg.ViewPort.Clear();
-				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				if (isFirstRender) {
+					svg.ViewPort.Clear();
+					if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				}
 
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
