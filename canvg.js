@@ -177,7 +177,9 @@
 		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); }
 
 		// compress spaces
-		svg.compressSpaces = function(s) { return s.replace(/[\s\r\t\n]+/gm,' '); }
+		// Ideographic space is not replaced
+		// behavior: http://jsfiddle.net/L3hondLn/730/
+		svg.compressSpaces = function(s) { return s.replace(/(?!\u3000)\s+/gm, ' '); }
 
 		// ajax
 		svg.ajax = function(url) {
