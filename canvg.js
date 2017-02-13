@@ -205,7 +205,8 @@
 		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); }
 
 		// compress spaces
-		svg.compressSpaces = function(s) { return s.replace(/[\s\r\t\n]+/gm,' '); }
+		// Ideographic space is not replaced
+		svg.compressSpaces = function(s) { return s.replace(/(?!\u3000)\s+/gm, ' '); }
 
 		// ajax
 		svg.ajax = function(url) {
