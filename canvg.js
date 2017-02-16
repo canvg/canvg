@@ -2504,8 +2504,8 @@
 			for (var i=0; i<cssDefs.length; i++) {
 				if (svg.trim(cssDefs[i]) != '') {
 					var cssDef = cssDefs[i].split('{');
-					var cssClasses = cssDef[0].split(',');
-					var cssProps = cssDef[1].split(';');
+					var cssClasses = (cssDef[0] ? cssDef[0] : []).split(',');
+					var cssProps = (cssDef[1] ? cssDef[1] : []).split(';');
 					for (var j=0; j<cssClasses.length; j++) {
 						var cssClass = svg.trim(cssClasses[j]);
 						if (cssClass != '') {
