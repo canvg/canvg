@@ -20,7 +20,10 @@
 		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
 	}
 
-	global.canvg = factory( global.RGBColor, global.stackBlur );
+	// ...or globally
+	else {
+		global.canvg = factory( global.RGBColor, global.stackBlur );
+	}
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
 
