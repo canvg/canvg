@@ -231,8 +231,14 @@
 			}
 			else if (window.DOMParser)
 			{
-				var parser = new DOMParser();
-				return parser.parseFromString(xml, 'text/xml');
+				try {
+					var parser = new DOMParser();
+					return parser.parseFromString(xml, 'image/svg+xml');
+				}
+				catch(e){
+					parser = new DOMParser();
+					return parser.parseFromString(xml, 'text/xml');
+				}
 			}
 			else
 			{
