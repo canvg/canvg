@@ -1050,7 +1050,16 @@
 					}
 					if (this.style('marker-end').isUrlDefinition()) {
 						var marker = this.style('marker-end').getDefinition();
-						marker.render(ctx, markers[markers.length-1][0], markers[markers.length-1][1]);
+						var endPoint = markers[markers.length-1][0];
+						var pointWidth = marker.attributes.markerWidth.value;
+						var pointHeight = marker.attributes.markerHeight.value;
+						var angle = markers[markers.length-1][1];
+						var newPoint = { x: endPoint.x - (pointWidth * Math.cos(angle)) };
+						if (Math.abs(angle) <= Math.PI/2)
+							newPoint.y = endPoint.y - (pointHeight * (1 + Math.sin(angle)));
+						else
+							newPoint.y = endPoint.y + (pointHeight * (1 - Math.sin(angle)));
+						marker.render(ctx, newPoint, angle);
 					}
 				}
 			}
@@ -1750,13 +1759,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1826,7 +1835,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1868,7 +1877,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
