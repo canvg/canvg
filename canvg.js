@@ -37,6 +37,7 @@
 	//		 offsetY: int => draws at a y offset
 	//		 scaleWidth: int => scales horizontally to width
 	//		 scaleHeight: int => scales vertically to height
+	//		 scaleBy: number => scales horizontally and vertically by given coefficient. ignored when either scaleWidth or scaleHeight is defined. Is also ignored when SVG doesn't have a width and height defined.
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
 	var canvg = function (target, s, opts) {
@@ -1750,13 +1751,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1826,7 +1827,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1868,7 +1869,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
@@ -2924,6 +2925,13 @@
 				svg.ViewPort.Clear();
 				if (ctx.canvas.parentNode) svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
 
+				if(svg.opts['scaleBy'] != null){
+					if(e.style('width').hasValue())
+						e.style('width').value = e.style('width').toPixels('x') * svg.opts['scaleBy'];
+					if(e.style('height').hasValue())
+						e.style('height').value = e.style('height').toPixels('y') * svg.opts['scaleBy'];
+				}
+
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
 					if (e.style('width').hasValue()) {
@@ -2964,6 +2972,15 @@
 					e.attribute('width', true).value = svg.opts['scaleWidth'];
 					e.attribute('height', true).value = svg.opts['scaleHeight'];
 					e.style('transform', true, true).value += ' scale('+(1.0/xRatio)+','+(1.0/yRatio)+')';
+				}
+				else if(svg.opts['scaleBy'] != null){
+					var scaleBy = svg.opts['scaleBy'];
+
+					if (e.attribute('width').hasValue())
+						e.attribute('width', true).value = e.attribute('width').toPixels('x') / svg.opts['scaleBy'];
+
+					if (e.attribute('height').hasValue())
+						e.attribute('height', true).value = e.attribute('height').toPixels('y') / svg.opts['scaleBy'];
 				}
 
 				// clear and render
