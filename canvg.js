@@ -28,6 +28,10 @@
 	// empty parameters: replace all 'svg' elements on page with 'canvas' elements
 	// target: canvas element or the id of a canvas element
 	// s: svg string, url to svg file, or xml document
+	// scWidth: scrollWidth property of the SVG element. We need to get this in the 
+	// 		case where an SVG's element size is a percentage, as ComputeSize will fail.
+	// scHeight: scrollHeight property of the SVG element. We need to get this in the 
+	// 		case where an SVG's element size is a percentage, as ComputeSize will fail.
 	// opts: optional hash of options
 	//		 ignoreMouse: true => ignore mouse events
 	//		 ignoreAnimation: true => ignore animations
@@ -39,7 +43,7 @@
 	//		 scaleHeight: int => scales vertically to height
 	//		 renderCallback: function => will call the function after the first render is completed
 	//		 forceRedraw: function => will call the function on every frame, if it returns true, will redraw
-	var canvg = function (target, s, opts) {
+	var canvg = function (target, s, opts, scWidth, scHeight) {
 		// no parameters
 		if (target == null && s == null && opts == null) {
 			var svgTags = document.querySelectorAll('svg');
@@ -70,15 +74,15 @@
 		var ctx = target.getContext('2d');
 		if (typeof s.documentElement != 'undefined') {
 			// load from xml doc
-			svg.loadXmlDoc(ctx, s);
+			svg.loadXmlDoc(ctx, s, scWidth, scHeight);
 		}
 		else if (s.substr(0,1) == '<') {
 			// load from xml string
-			svg.loadXml(ctx, s);
+			svg.loadXml(ctx, s, scWidth, scHeight);
 		}
 		else {
 			// load from url
-			svg.load(ctx, s);
+			svg.load(ctx, s, scWidth, scHeight);
 		}
 	}
 
@@ -2878,16 +2882,16 @@
 		}
 
 		// load from url
-		svg.load = function(ctx, url) {
-			svg.loadXml(ctx, svg.ajax(url));
+		svg.load = function(ctx, url, scWidth, scHeight) {
+			svg.loadXml(ctx, svg.ajax(url), scWidth, scHeight);
 		}
 
 		// load from xml
-		svg.loadXml = function(ctx, xml) {
-			svg.loadXmlDoc(ctx, svg.parseXml(xml));
+		svg.loadXml = function(ctx, xml, scWidth, scHeight) {
+			svg.loadXmlDoc(ctx, svg.parseXml(xml), scWidth, scHeight);
 		}
 
-		svg.loadXmlDoc = function(ctx, dom) {
+		svg.loadXmlDoc = function(ctx, dom, scWidth, scHeight) {
 			svg.init(ctx);
 
 			var mapXY = function(p) {
@@ -2926,17 +2930,23 @@
 
 				if (svg.opts['ignoreDimensions'] != true) {
 					// set canvas size
-					if (e.style('width').hasValue()) {
+					if (e.style('width').hasValue() && !e.style('width').getValue().match(/%$/)) {
 						ctx.canvas.width = e.style('width').toPixels('x');
-						ctx.canvas.style.width = ctx.canvas.width + 'px';
+						ctx.canvas.style.width = e.style('width').getValue();	//ctx.canvas.width + 'px';
+					} else {
+						ctx.canvas.width = scWidth;
+						ctx.canvas.style.width = scWidth + 'px';
 					}
-					if (e.style('height').hasValue()) {
+					if (e.style('height').hasValue() && !e.style('height').getValue().match(/%$/)) {
 						ctx.canvas.height = e.style('height').toPixels('y');
-						ctx.canvas.style.height = ctx.canvas.height + 'px';
+						ctx.canvas.style.height = e.style('').getValue();	//ctx.canvas.height + 'px';
+					} else {
+						ctx.canvas.height = scHeight;
+						ctx.canvas.style.height = scHeight + 'px';
 					}
 				}
-				var cWidth = ctx.canvas.clientWidth || ctx.canvas.width;
-				var cHeight = ctx.canvas.clientHeight || ctx.canvas.height;
+				var cWidth = ctx.canvas.width || scWidth;
+				var cHeight =  ctx.canvas.height || scHeight;
 				if (svg.opts['ignoreDimensions'] == true && e.style('width').hasValue() && e.style('height').hasValue()) {
 					cWidth = e.style('width').toPixels('x');
 					cHeight = e.style('height').toPixels('y');
