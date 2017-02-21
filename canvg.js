@@ -2401,7 +2401,745 @@
 		}
 		svg.Element.a.prototype = new svg.Element.TextElementBase;
 
-		// image element
+        // textPath
+        svg.Element.textPath = function (node) {
+            this.base = svg.Element.TextElementBase;
+            this.base(node);
+
+            var pathElement = this.getHrefAttribute().getDefinition();
+
+            this.text = svg.compressSpaces(node.value || node.text || node.textContent || '');
+
+            this.renderChildren = function (ctx) {
+                this.setTextData(ctx);
+
+                ctx.save();
+                var textDecoration = this.parent.style('text-decoration').value;
+                var fontSize = this.fontSize();
+                var glyphInfo = this.glyphInfo;
+                var fill = ctx.fillStyle;
+                if (textDecoration === 'underline') {
+                    ctx.beginPath();
+                }
+                for (var i = 0; i < glyphInfo.length; i++) {
+                    var p0 = glyphInfo[i].p0;
+                    var p1 = glyphInfo[i].p1;
+                    var partialText = glyphInfo[i].text;
+
+                    ctx.save();
+                    ctx.translate(p0.x, p0.y);
+                    ctx.rotate(glyphInfo[i].rotation);
+                    if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(partialText), 0, 0);
+                    if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(partialText), 0, 0);
+                    ctx.restore();
+                    if (textDecoration === 'underline') {
+                        if (i === 0) {
+                            ctx.moveTo(p0.x, p0.y + fontSize / 8);
+                        }
+                        ctx.lineTo(p1.x, p1.y + fontSize / 5);
+                    }
+
+                    //// To assist with debugging visually, uncomment following
+                    //
+                    // ctx.beginPath();
+                    // if (i % 2)
+                    // 	ctx.strokeStyle = 'red';
+                    // else
+                    // 	ctx.strokeStyle = 'green';
+                    // ctx.moveTo(p0.x, p0.y);
+                    // ctx.lineTo(p1.x, p1.y);
+                    // ctx.stroke();
+                    // ctx.closePath();
+                }
+
+                if (textDecoration === 'underline') {
+                    ctx.lineWidth = fontSize / 20;
+                    ctx.strokeStyle = fill;
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+                ctx.restore();
+            }
+
+            this.path = function (ctx) {
+                var ca = this.dataArray;
+                if (ctx != null) {
+                	ctx.beginPath();
+                }
+                for (var n = 0; n < ca.length; n++) {
+                    var c = ca[n].command;
+                    var p = ca[n].points;
+                    switch (c) {
+                        case 'L':
+                            if (ctx != null) ctx.lineTo(p[0], p[1]);
+                            break;
+                        case 'M':
+                            if (ctx != null) ctx.moveTo(p[0], p[1]);
+                            break;
+                        case 'C':
+                            if (ctx != null) ctx.bezierCurveTo(p[0], p[1], p[2], p[3], p[4], p[5]);
+                            break;
+                        case 'Q':
+                            if (ctx != null) ctx.quadraticCurveTo(p[0], p[1], p[2], p[3]);
+                            break;
+                        case 'A':
+                            var cx = p[0], cy = p[1], rx = p[2], ry = p[3],
+                                theta = p[4], dTheta = p[5], psi = p[6], fs = p[7];
+
+                            var r = (rx > ry) ? rx : ry;
+                            var scaleX = (rx > ry) ? 1 : rx / ry;
+                            var scaleY = (rx > ry) ? ry / rx : 1;
+
+                            if (ctx != null) {
+                                ctx.translate(cx, cy);
+                                ctx.rotate(psi);
+                                ctx.scale(scaleX, scaleY);
+                                ctx.arc(0, 0, r, theta, theta + dTheta, 1 - fs);
+                                ctx.scale(1 / scaleX, 1 / scaleY);
+                                ctx.rotate(-psi);
+                                ctx.translate(-cx, -cy);
+                            }
+                            break;
+                        case 'z':
+                            if (ctx != null) ctx.closePath();
+                            break;
+                    }
+                }
+            }
+
+            this.getText = function () {
+                return this.text;
+            }
+
+            this.fontSize = function () {
+                return this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
+            }
+
+            this.measureText = function (ctx, text) {
+                var customFont = this.parent.style('font-family').getDefinition();
+                text = text || this.getText();
+                if (customFont != null) {
+                    var fontSize = this.fontSize();
+                    var measure = 0;
+                    if (customFont.isRTL) text = text.split("").reverse().join("");
+                    var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
+                    for (var i = 0; i < text.length; i++) {
+                        var glyph = this.getGlyph(customFont, text, i);
+                        measure += (glyph.horizAdvX || customFont.horizAdvX) * fontSize / customFont.fontFace.unitsPerEm;
+                        if (typeof dx[i] != 'undefined' && !isNaN(dx[i])) {
+                            measure += dx[i];
+                        }
+                    }
+                    return measure;
+                }
+
+                var textToMeasure = svg.compressSpaces(text);
+                if (!ctx.measureText) return textToMeasure.length * 10;
+
+                ctx.save();
+                this.setContext(ctx);
+                var width = ctx.measureText(textToMeasure).width;
+                ctx.restore();
+                return width;
+            }
+
+            // This method supposes what all custom fonts already loaded.
+            // If some font will be loaded after this method call, <textPath> will not be rendered correctly.
+            // You need to call this method manually to update glyphs cache.
+            this.setTextData = function (ctx) {
+                if (this.hasOwnProperty('glyphInfo')) return;
+
+                var that = this;
+                var charArr = this.getText().split('');
+                var spacesNumber = this.getText().split(' ').length - 1;
+                var dx = svg.ToNumberArray(this.parent.attribute('dx').valueOrDefault('0'));
+                var letterSpacing = this.parent.style('letter-spacing').numValueOrDefault(0);
+                var anchor = this.parent.style('text-anchor').valueOrDefault('start');
+
+                // fill letter-spacing cache
+                this.letterSpacingCache = [];
+                for (var i = 0; i < this.getText().length; i++) {
+                    this.letterSpacingCache.push(dx[i] !== undefined ? dx[i] : letterSpacing);
+                }
+
+                var dxSum = this.letterSpacingCache.reduce(function (acc, cur) { return acc + cur || 0 }, 0);
+
+                this.textWidth = this.measureText(ctx);
+                this.textHeight = this.fontSize();
+
+                var textFullWidth = Math.max(this.textWidth + dxSum, 0);
+
+                this.glyphInfo = [];
+
+                var fullPathWidth = this.getPathLength();
+
+                var startOffset = this.style('startOffset').numValueOrDefault(0) * fullPathWidth;
+                var offset = 0;
+                if (anchor === 'middle' || anchor === 'center') {
+                    offset = -textFullWidth / 2;
+                }
+                if (anchor === 'end' || anchor === 'right') {
+                    offset = -textFullWidth;
+                }
+                offset += startOffset;
+
+                var getGetterSpacingAt = function (idx) {
+                    idx = idx || 0;
+                    return that.letterSpacingCache[idx] || 0;
+                };
+
+                var findSegmentToFitChar = function (c, charI) {
+                    var glyphWidth = that.measureText(ctx, c);
+
+                    if (c === ' ' && anchor === 'justify' && textFullWidth < fullPathWidth) {
+                        glyphWidth += (fullPathWidth - textFullWidth) / spacesNumber;
+                    }
+
+                    if (charI > -1) {
+                        offset += getGetterSpacingAt(charI);
+                    }
+
+                    var splineStep = that.textHeight / 20;
+                    var segment = {
+                    	p0: that.getEquidistantPointOnPath(offset, splineStep),
+						p1: that.getEquidistantPointOnPath(offset + glyphWidth, splineStep)
+					};
+
+                    offset += glyphWidth;
+
+                    return segment;
+                };
+
+                for (var i = 0; i < charArr.length; i++) {
+
+                    // Find such segment what distance between p0 and p1 is approx. width of glyph
+					var segment = findSegmentToFitChar(charArr[i], i);
+
+                    if (segment.p0 === undefined || segment.p1 === undefined) {
+                        continue;
+                    }
+
+                    var width = that.getLineLength(segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+
+                    // Note: Since glyphs are rendered one at a time, any kerning pair data built into the font will not be used.
+                    // Can foresee having a rough pair table built in that the developer can override as needed.
+                    // Or use "dx" attribute of the <text> node as a naive replacement
+
+                    var kern = 0;
+                    // placeholder for future implementation
+
+                    var midpoint = that.getPointOnLine(kern + width / 2.0, segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
+
+                    var rotation = Math.atan2((segment.p1.y - segment.p0.y), (segment.p1.x - segment.p0.x));
+                    this.glyphInfo.push({
+                        transposeX: midpoint.x,
+                        transposeY: midpoint.y,
+                        text: charArr[i],
+                        rotation: rotation,
+                        p0: segment.p0,
+                        p1: segment.p1
+                    });
+                }
+            }
+
+            this.parsePathData = function (path) {
+                this.pathLength = undefined; // reset path length
+
+                if (!path) {
+                    return [];
+                }
+
+                var ca = [];
+                var pp = path.PathParser;
+                pp.reset();
+
+                // convert l, H, h, V, and v to L
+                while (!pp.isEnd()) {
+                    var points = [];
+                    var cmd = null;
+                    var startX = pp.current ? pp.current.x : 0;
+                    var startY = pp.current ? pp.current.y : 0;
+
+                    pp.nextCommand();
+                    var C = pp.command.toUpperCase();
+                    switch (pp.command) {
+                        case 'M':
+                        case 'm':
+                            var p = pp.getAsCurrentPoint();
+                            // pp.addMarker(p);
+                            points.push(p.x, p.y);
+
+                            pp.start = pp.current;
+                            while (!pp.isCommandOrEnd()) {
+                                var p = pp.getAsCurrentPoint();
+                                points.push(p.x, p.y);
+                                cmd = 'L';
+                            }
+                            break;
+                        case 'L':
+                        case 'l':
+                            while (!pp.isCommandOrEnd()) {
+                                var p = pp.getAsCurrentPoint();
+                                points.push(p.x, p.y);
+                            }
+                            cmd = 'L';
+                            break;
+                        case 'H':
+                        case 'h':
+                            while (!pp.isCommandOrEnd()) {
+                                var newP = new svg.Point((pp.isRelativeCommand() ? pp.current.x : 0) + pp.getScalar(),
+                                    pp.current.y);
+                                points.push(newP.x, newP.y);
+                                pp.current = newP;
+                            }
+                            cmd = 'L';
+                            break;
+                        case 'V':
+                        case 'v':
+                            while (!pp.isCommandOrEnd()) {
+                                var newP = new svg.Point(pp.current.x,
+                                    (pp.isRelativeCommand() ? pp.current.y : 0) + pp.getScalar());
+                                points.push(newP.x, newP.y);
+                                pp.current = newP;
+                            }
+                            cmd = 'L';
+                            break;
+                        case 'C':
+                        case 'c':
+                            while (!pp.isCommandOrEnd()) {
+                                var p1 = pp.getPoint();
+                                var cntrl = pp.getAsControlPoint();
+                                var cp = pp.getAsCurrentPoint();
+                                points.push(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+                            }
+                            break;
+                        case 'S':
+                        case 's':
+                            while (!pp.isCommandOrEnd()) {
+                                var p1 = pp.getReflectedControlPoint();
+                                var cntrl = pp.getAsControlPoint();
+                                var cp = pp.getAsCurrentPoint();
+                                points.push(p1.x, p1.y, cntrl.x, cntrl.y, cp.x, cp.y);
+                            }
+                            cmd = 'C';
+                            break;
+                        case 'Q':
+                        case 'q':
+                            while (!pp.isCommandOrEnd()) {
+                                var cntrl = pp.getAsControlPoint();
+                                var cp = pp.getAsCurrentPoint();
+                                points.push(cntrl.x, cntrl.y, cp.x, cp.y);
+                            }
+                            break;
+                        case 'T':
+                        case 't':
+                            while (!pp.isCommandOrEnd()) {
+                                var cntrl = pp.getReflectedControlPoint();
+                                pp.control = cntrl;
+                                var cp = pp.getAsCurrentPoint();
+                                points.push(cntrl.x, cntrl.y, cp.x, cp.y);
+                            }
+                            cmd = 'Q';
+                            break;
+                        case 'A':
+                        case 'a':
+                            while (!pp.isCommandOrEnd()) {
+                                var curr = pp.current; // x1, y1
+                                var rx = pp.getScalar();
+                                var ry = pp.getScalar();
+                                var xAxisRotation = pp.getScalar() * (Math.PI / 180.0); // φ
+                                var largeArcFlag = pp.getScalar(); //  fA
+                                var sweepFlag = pp.getScalar(); //  fS
+                                var cp = pp.getAsCurrentPoint(); // x2, y2
+
+                                // Conversion from endpoint to center parameterization
+                                // http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
+                                // x1', y1'
+                                var currp = new svg.Point(
+                                    Math.cos(xAxisRotation) * (curr.x - cp.x) / 2.0 + Math.sin(xAxisRotation) * (curr.y - cp.y) / 2.0,
+                                    -Math.sin(xAxisRotation) * (curr.x - cp.x) / 2.0 + Math.cos(xAxisRotation) * (curr.y - cp.y) / 2.0
+                                );
+                                // adjust radii
+                                var l = Math.pow(currp.x, 2) / Math.pow(rx, 2) + Math.pow(currp.y, 2) / Math.pow(ry, 2);
+                                if (l > 1) {
+                                    rx *= Math.sqrt(l);
+                                    ry *= Math.sqrt(l);
+                                }
+                                // cx', cy'
+                                var s = (largeArcFlag == sweepFlag ? -1 : 1) * Math.sqrt(
+                                        ((Math.pow(rx, 2) * Math.pow(ry, 2)) - (Math.pow(rx, 2) * Math.pow(currp.y, 2)) - (Math.pow(ry, 2) * Math.pow(currp.x, 2))) /
+                                        (Math.pow(rx, 2) * Math.pow(currp.y, 2) + Math.pow(ry, 2) * Math.pow(currp.x, 2))
+                                    );
+                                if (isNaN(s)) s = 0;
+                                var cpp = new svg.Point(s * rx * currp.y / ry, s * -ry * currp.x / rx);
+                                // cx, cy
+                                var centp = new svg.Point(
+                                    (curr.x + cp.x) / 2.0 + Math.cos(xAxisRotation) * cpp.x - Math.sin(xAxisRotation) * cpp.y,
+                                    (curr.y + cp.y) / 2.0 + Math.sin(xAxisRotation) * cpp.x + Math.cos(xAxisRotation) * cpp.y
+                                );
+                                // vector magnitude
+                                var m = function (v) {
+                                    return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2));
+                                }
+                                // ratio between two vectors
+                                var r = function (u, v) {
+                                    return (u[0] * v[0] + u[1] * v[1]) / (m(u) * m(v))
+                                }
+                                // angle between two vectors
+                                var a = function (u, v) {
+                                    return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(r(u, v));
+                                }
+                                // initial angle
+                                var a1 = a([1, 0], [(currp.x - cpp.x) / rx, (currp.y - cpp.y) / ry]); // θ1
+                                // angle delta
+                                var u = [(currp.x - cpp.x) / rx, (currp.y - cpp.y) / ry];
+                                var v = [(-currp.x - cpp.x) / rx, (-currp.y - cpp.y) / ry];
+                                var ad = a(u, v); // Δθ
+                                if (r(u, v) <= -1) ad = Math.PI;
+                                if (r(u, v) >= 1) ad = 0;
+                                if (sweepFlag === 0 && ad > 0) ad = ad - 2 * Math.PI;
+                                if (sweepFlag === 1 && ad < 0) ad = ad + 2 * Math.PI;
+
+                                points = [centp.x, centp.y, rx, ry, a1, ad, xAxisRotation, sweepFlag];
+                            }
+                            break;
+                        case 'Z':
+                        case 'z':
+                            pp.current = pp.start;
+                    }
+
+                    if (C !== 'Z') {
+                        ca.push({
+                            command: cmd || C,
+                            points: points,
+                            start: {
+                                x: startX,
+                                y: startY
+                            },
+                            pathLength: this.calcLength(startX, startY, cmd || C, points)
+                        });
+                    } else {
+                        ca.push({
+                            command: 'z',
+                            points: [],
+                            start: undefined,
+                            pathLength: 0
+                        });
+                    }
+                }
+                return ca;
+            }
+
+            this.getPathLength = function() {
+                if (this.pathLength === undefined || this.pathLength === null || isNaN(this.pathLength)) {
+                    this.pathLength = 0;
+                    for (var l = 0; l < this.dataArray.length; l++) {
+                        if (this.dataArray[l].pathLength > 0) {
+                            this.pathLength += this.dataArray[l].pathLength;
+                        }
+                    }
+                }
+                return this.pathLength;
+            }
+
+            this.getPointOnPath = function(distance) {
+                var cumulativePathLength = 0;
+                var fullLen = this.getPathLength();
+                var p = undefined;
+
+                if (distance < -0.00005 || distance - 0.00005 > fullLen) return undefined;
+
+                for(var i = 0; i < this.dataArray.length; i++) {
+                	var pathCmd = this.dataArray[i];
+
+                    if (pathCmd
+                        && (
+                            pathCmd.pathLength < 0.00005
+                            || cumulativePathLength + pathCmd.pathLength + 0.00005 < distance
+                        )
+                    ) {
+                        cumulativePathLength += pathCmd.pathLength;
+                        continue;
+                    }
+
+                    var delta = distance - cumulativePathLength;
+                    var currentT = undefined;
+                    switch (pathCmd.command) {
+                        case 'L':
+							p = this.getPointOnLine(delta, pathCmd.start.x, pathCmd.start.y, pathCmd.points[0], pathCmd.points[1], pathCmd.start.x, pathCmd.start.y);
+                            break;
+                        case 'A':
+                            var start = pathCmd.points[4];
+                            // 4 = theta
+                            var dTheta = pathCmd.points[5];
+                            // 5 = dTheta
+                            var end = pathCmd.points[4] + dTheta;
+
+                            currentT = start + delta / pathCmd.pathLength * dTheta;
+                            if(dTheta < 0 && currentT < end || dTheta >= 0 && currentT > end) {
+                                break;
+                            }
+                            p = this.getPointOnEllipticalArc(pathCmd.points[0], pathCmd.points[1], pathCmd.points[2], pathCmd.points[3], currentT, pathCmd.points[6]);
+                            break;
+                        case 'C':
+							currentT = delta / pathCmd.pathLength;
+                            if (currentT > 1) {
+                                currentT = 1;
+                            }
+                            p = this.getPointOnCubicBezier(currentT, pathCmd.start.x, pathCmd.start.y, pathCmd.points[0], pathCmd.points[1], pathCmd.points[2], pathCmd.points[3], pathCmd.points[4], pathCmd.points[5]);
+                            break;
+                        case 'Q':
+							currentT = delta / pathCmd.pathLength;
+                            if (currentT > 1) {
+                                currentT = 1;
+                            }
+                            p = this.getPointOnQuadraticBezier(currentT, pathCmd.start.x, pathCmd.start.y, pathCmd.points[0], pathCmd.points[1], pathCmd.points[2], pathCmd.points[3]);
+                            break;
+                    }
+
+                    if (p !== undefined && p !== {}) {
+                        return p;
+                    }
+
+                    break;
+                }
+            }
+
+            // TODO do some optimisations. maybe build cache only for curved segments?
+            this.buildEquidistantCache = function(step, precision) {
+                var fullLen = this.getPathLength();
+                precision = precision || 0.25; // accuracy vs performance
+                step = step || fullLen / 100;
+                this.equidistantCache = this.equidistantCache || {};
+                if (
+                    !this.equidistantCache.hasOwnProperty('points')
+                    || this.equidistantCache.step != step
+                    || this.equidistantCache.precision != precision
+                ) {
+                    // Prepare cache
+                    this.equidistantCache = {
+                        step: step,
+                        precision: precision,
+                        points: []
+                    };
+                    // Calculate points
+                    var s = 0;
+                    for (var l = 0; l <= fullLen; l += precision) {
+                        var p0 = this.getPointOnPath(l),
+                            p1 = this.getPointOnPath(l + precision);
+
+                        if (p0 === undefined || p1 === undefined) continue;
+
+                        s += this.getLineLength(p0.x, p0.y, p1.x, p1.y);
+                        if (s >= step) {
+                            this.equidistantCache.points.push({
+                                x: p0.x,
+                                y: p0.y,
+                                distance: l
+                            });
+                            s -= step;
+                        }
+                    }
+                }
+            }
+
+            this.getEquidistantPointOnPath = function (targetDistance, step, precision) {
+                this.buildEquidistantCache(step, precision);
+
+                if (targetDistance < 0 || targetDistance - this.getPathLength() > 0.00005) return undefined;
+
+                var idx = Math.round(targetDistance / this.getPathLength() * (this.equidistantCache.points.length - 1));
+                return this.equidistantCache.points[idx] || undefined;
+            }
+
+            this.getLineLength = function (x1, y1, x2, y2) {
+                return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            }
+
+            this.getPointOnLine = function (dist, P1x, P1y, P2x, P2y, fromX, fromY) {
+                if (fromX === undefined) {
+                    fromX = P1x;
+                }
+                if (fromY === undefined) {
+                    fromY = P1y;
+                }
+
+                var m = (P2y - P1y) / ((P2x - P1x) + 0.00000001);
+                var run = Math.sqrt(dist * dist / (1 + m * m));
+                if (P2x < P1x) {
+                    run *= -1;
+                }
+                var rise = m * run;
+                var pt;
+
+                if (P2x === P1x) { // vertical line
+                    pt = {
+                        x: fromX,
+                        y: fromY + rise
+                    };
+                } else if ((fromY - P1y) / ((fromX - P1x) + 0.00000001) === m) {
+                    pt = {
+                        x: fromX + run,
+                        y: fromY + rise
+                    };
+                }
+                else {
+                    var ix, iy;
+
+                    var len = this.getLineLength(P1x, P1y, P2x, P2y);
+                    if (len < 0.00000001) {
+                        return undefined;
+                    }
+                    var u = (((fromX - P1x) * (P2x - P1x)) + ((fromY - P1y) * (P2y - P1y)));
+                    u = u / (len * len);
+                    ix = P1x + u * (P2x - P1x);
+                    iy = P1y + u * (P2y - P1y);
+
+                    var pRise = this.getLineLength(fromX, fromY, ix, iy);
+                    var pRun = Math.sqrt(dist * dist - pRise * pRise);
+                    run = Math.sqrt(pRun * pRun / (1 + m * m));
+                    if (P2x < P1x) {
+                        run *= -1;
+                    }
+                    rise = m * run;
+                    pt = {
+                        x: ix + run,
+                        y: iy + rise
+                    };
+                }
+
+                return pt;
+            }
+
+            this.getPointOnCubicBezier = function (pct, P1x, P1y, P2x, P2y, P3x, P3y, P4x, P4y) {
+                function CB1(t) {
+                    return t * t * t;
+                }
+
+                function CB2(t) {
+                    return 3 * t * t * (1 - t);
+                }
+
+                function CB3(t) {
+                    return 3 * t * (1 - t) * (1 - t);
+                }
+
+                function CB4(t) {
+                    return (1 - t) * (1 - t) * (1 - t);
+                }
+
+                var x = P4x * CB1(pct) + P3x * CB2(pct) + P2x * CB3(pct) + P1x * CB4(pct);
+                var y = P4y * CB1(pct) + P3y * CB2(pct) + P2y * CB3(pct) + P1y * CB4(pct);
+
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+
+            this.getPointOnQuadraticBezier = function (pct, P1x, P1y, P2x, P2y, P3x, P3y) {
+                function QB1(t) {
+                    return t * t;
+                }
+
+                function QB2(t) {
+                    return 2 * t * (1 - t);
+                }
+
+                function QB3(t) {
+                    return (1 - t) * (1 - t);
+                }
+
+                var x = P3x * QB1(pct) + P2x * QB2(pct) + P1x * QB3(pct);
+                var y = P3y * QB1(pct) + P2y * QB2(pct) + P1y * QB3(pct);
+
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+
+            this.getPointOnEllipticalArc = function (cx, cy, rx, ry, theta, psi) {
+                var cosPsi = Math.cos(psi), sinPsi = Math.sin(psi);
+                var pt = {
+                    x: rx * Math.cos(theta),
+                    y: ry * Math.sin(theta)
+                };
+                return {
+                    x: cx + (pt.x * cosPsi - pt.y * sinPsi),
+                    y: cy + (pt.x * sinPsi + pt.y * cosPsi)
+                };
+            }
+
+            this.calcLength = function (x, y, cmd, points) {
+                var len, p1, p2, t;
+
+                switch (cmd) {
+                    case 'L':
+                        return this.getLineLength(x, y, points[0], points[1]);
+                    case 'C':
+                        // Approximates by breaking curve into 100 line segments
+                        len = 0.0;
+                        p1 = this.getPointOnCubicBezier(0, x, y, points[0], points[1], points[2], points[3], points[4], points[5]);
+                        for (t = 0.01; t <= 1; t += 0.01) {
+                            p2 = this.getPointOnCubicBezier(t, x, y, points[0], points[1], points[2], points[3], points[4], points[5]);
+                            len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
+                            p1 = p2;
+                        }
+                        return len;
+                    case 'Q':
+                        // Approximates by breaking curve into 100 line segments
+                        len = 0.0;
+                        p1 = this.getPointOnQuadraticBezier(0, x, y, points[0], points[1], points[2], points[3]);
+                        for (t = 0.01; t <= 1; t += 0.01) {
+                            p2 = this.getPointOnQuadraticBezier(t, x, y, points[0], points[1], points[2], points[3]);
+                            len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
+                            p1 = p2;
+                        }
+                        return len;
+                    case 'A':
+                        // Approximates by breaking curve into line segments
+                        len = 0.0;
+                        var start = points[4];
+                        // 4 = theta
+                        var dTheta = points[5];
+                        // 5 = dTheta
+                        var end = points[4] + dTheta;
+                        var inc = Math.PI / 180.0;
+                        // 1 degree resolution
+                        if (Math.abs(start - end) < inc) {
+                            inc = Math.abs(start - end);
+                        }
+                        // Note: for purpose of calculating arc length, not going to worry about rotating X-axis by angle psi
+                        p1 = this.getPointOnEllipticalArc(points[0], points[1], points[2], points[3], start, 0);
+                        if (dTheta < 0) {// clockwise
+                            for (t = start - inc; t > end; t -= inc) {
+                                p2 = this.getPointOnEllipticalArc(points[0], points[1], points[2], points[3], t, 0);
+                                len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
+                                p1 = p2;
+                            }
+                        }
+                        else {// counter-clockwise
+                            for (t = start + inc; t < end; t += inc) {
+                                p2 = this.getPointOnEllipticalArc(points[0], points[1], points[2], points[3], t, 0);
+                                len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
+                                p1 = p2;
+                            }
+                        }
+                        p2 = this.getPointOnEllipticalArc(points[0], points[1], points[2], points[3], end, 0);
+                        len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
+
+                        return len;
+                }
+
+                return 0;
+            }
+
+            this.dataArray = this.parsePathData(pathElement);
+        }
+        svg.Element.textPath.prototype = new svg.Element.TextElementBase;
+
+        // image element
 		svg.Element.image = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);
