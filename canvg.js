@@ -2553,8 +2553,18 @@
                 var charArr = this.getText().split('');
                 var spacesNumber = this.getText().split(' ').length - 1;
                 var dx = svg.ToNumberArray(this.parent.attribute('dx').valueOrDefault('0'));
-                var letterSpacing = this.parent.style('letter-spacing').numValueOrDefault(0);
+                var letterSpacing = 0;
                 var anchor = this.parent.style('text-anchor').valueOrDefault('start');
+
+                var thisSpacing = this.style('letter-spacing');
+                var parentSpacing = this.parent.style('letter-spacing');
+                if (!thisSpacing.hasValue() || thisSpacing.getValue() === 'inherit') {
+                	letterSpacing = parentSpacing.toPixels();
+				} else if (thisSpacing.hasValue()) {
+                	if (thisSpacing.getValue() !== 'initial' && thisSpacing.getValue() !== 'unset') {
+                		letterSpacing = thisSpacing.toPixels();
+					}
+				}
 
                 // fill letter-spacing cache
                 this.letterSpacingCache = [];
