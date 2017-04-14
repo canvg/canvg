@@ -2973,6 +2973,7 @@
 				e.render(ctx);
 				if (isFirstRender) {
 					isFirstRender = false;
+					svg.stop();
 					if (typeof svg.opts['renderCallback'] == 'function') svg.opts['renderCallback'](dom);
 				}
 			}
