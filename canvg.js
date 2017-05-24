@@ -858,7 +858,8 @@
 				// add attributes
 				for (var i=0; i<node.attributes.length; i++) {
 					var attribute = node.attributes[i];
-					this.attributes[attribute.nodeName] = new svg.Property(attribute.nodeName, attribute.value);
+					var attributeName = (attribute.nodeName || '').toLowerCase()
+					this.attributes[attributeName] = new svg.Property(attributeName, attribute.value);
 				}
 				
 				this.addStylesFromStyleDefinition();
