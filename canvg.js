@@ -879,7 +879,7 @@
 					}
 				}
 			};
-			
+
 			// Microsoft Edge fix
 			var allUppercase = new RegExp("^[A-Z\-]+$");
 			var normalizeAttributeName = function (name) {
@@ -1750,13 +1750,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1826,7 +1826,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1868,7 +1868,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
@@ -3086,7 +3086,7 @@
 				scaleWidth: dw,
 				scaleHeight: dh
 			}
-			
+
 			for(var prop in opts) {
 				if(opts.hasOwnProperty(prop)){
 					cOpts[prop] = opts[prop];
@@ -3095,6 +3095,8 @@
 			canvg(this.canvas, s, cOpts);
 		}
 	}
+
+  canvg.build = build;
 
 	return canvg;
 
