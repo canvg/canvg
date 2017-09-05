@@ -2737,6 +2737,18 @@
 		}
 		svg.Element.filter.prototype = new svg.Element.ElementBase;
 
+    svg.Element.feDropShadow = function(node) {
+      this.base = svg.Element.ElementBase;
+			this.base(node);
+      this.addStylesFromStyleDefinition();
+
+			this.apply = function(ctx, x, y, width, height) {
+				// TODO: implement
+			}
+    }
+
+    svg.Element.feDropShadow.prototype = new svg.Element.ElementBase;
+
 		svg.Element.feMorphology = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
