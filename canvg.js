@@ -2749,6 +2749,28 @@
 
     svg.Element.feDropShadow.prototype = new svg.Element.ElementBase;
 
+    svg.Element.feOffset = function(node) {
+      this.base = svg.Element.ElementBase;
+      this.base(node);
+      this.addStylesFromStyleDefinition();
+      this.apply = function(ctx, x, y, width, height) {
+        // TODO: implement
+      }
+    }
+
+    svg.Element.feOffset.prototype = new svg.Element.ElementBase;
+
+    svg.Element.feFlood = function(node) {
+      this.base = svg.Element.ElementBase;
+      this.base(node);
+      this.addStylesFromStyleDefinition();
+      this.apply = function(ctx, x, y, width, height) {
+        // TODO: implement
+      }
+    }
+
+    svg.Element.feFlood.prototype = new svg.Element.ElementBase;
+
 		svg.Element.feMorphology = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
