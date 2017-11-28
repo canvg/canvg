@@ -10,18 +10,17 @@
 
 	'use strict';
 
-	// export as AMD...
+	// ...export as browserify
+	if ( typeof module !== 'undefined' && module.exports ) {
+		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
+	} else 
+	// or as AMD...
 	if ( typeof define !== 'undefined' && define.amd ) {
 		define('canvgModule', [ 'rgbcolor', 'stackblur' ], factory );
+	} // or as global 
+	else {
+		global.canvg = factory( global.RGBColor, global.stackBlur );
 	}
-
-	// ...or as browserify
-	else if ( typeof module !== 'undefined' && module.exports ) {
-		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
-	}
-
-	global.canvg = factory( global.RGBColor, global.stackBlur );
-
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
 
 	// canvg(target, s)
