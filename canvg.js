@@ -1166,15 +1166,20 @@
 				ry = Math.min(ry, height / 2.0);
 				if (ctx != null) {
 					ctx.beginPath();
-					ctx.moveTo(x + rx, y);
-					ctx.lineTo(x + width - rx, y);
-					ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
-					ctx.lineTo(x + width, y + height - ry);
-					ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height)
-					ctx.lineTo(x + rx, y + height);
-					ctx.quadraticCurveTo(x, y + height, x, y + height - ry)
-					ctx.lineTo(x, y + ry);
-					ctx.quadraticCurveTo(x, y, x + rx, y)
+					if( rx != width / 2.0 || ry != height / 2.0 ) {
+						ctx.moveTo(x + rx, y);
+						ctx.lineTo(x + width - rx, y);
+						ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
+						ctx.lineTo(x + width, y + height - ry);
+						ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height)
+						ctx.lineTo(x + rx, y + height);
+						ctx.quadraticCurveTo(x, y + height, x, y + height - ry)
+						ctx.lineTo(x, y + ry);
+						ctx.quadraticCurveTo(x, y, x + rx, y);
+					} else {
+						// the rect is a circle -> draw a circle
+						ctx.arc(x + rx, y + ry, rx, 0, Math.PI * 2, true);
+					}
 					ctx.closePath();
 				}
 
