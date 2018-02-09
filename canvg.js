@@ -879,7 +879,7 @@
 					}
 				}
 			};
-			
+
 			// Microsoft Edge fix
 			var allUppercase = new RegExp("^[A-Z\-]+$");
 			var normalizeAttributeName = function (name) {
@@ -976,6 +976,7 @@
 				if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
 				if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
 				if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
+				if (this.style('paint-order').hasValue()) ctx.paintOrder = this.style('paint-order').value;
 				if (this.style('stroke-dasharray').hasValue() && this.style('stroke-dasharray').value != 'none') {
 					var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
 					if (typeof ctx.setLineDash != 'undefined') { ctx.setLineDash(gaps); }
@@ -1750,13 +1751,13 @@
 			this.getGradient = function() {
 				// OVERRIDE ME!
 			}
-			
+
 			this.gradientUnits = function () {
 				return this.attribute('gradientUnits').valueOrDefault('objectBoundingBox');
 			}
-			
+
 			this.attributesToInherit = ['gradientUnits'];
-			
+
 			this.inheritStopContainer = function (stopsContainer) {
 				for (var i=0; i<this.attributesToInherit.length; i++) {
 					var attributeToInherit = this.attributesToInherit[i];
@@ -1826,7 +1827,7 @@
 		svg.Element.linearGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('x1');
 			this.attributesToInherit.push('y1');
 			this.attributesToInherit.push('x2');
@@ -1868,7 +1869,7 @@
 		svg.Element.radialGradient = function(node) {
 			this.base = svg.Element.GradientBase;
 			this.base(node);
-			
+
 			this.attributesToInherit.push('cx');
 			this.attributesToInherit.push('cy');
 			this.attributesToInherit.push('r');
@@ -2284,9 +2285,13 @@
 					}
 					return;
 				}
-
-				if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
-				if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
+				if(ctx.paintOrder == "stroke") {
+					if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
+					if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
+				} else {
+					if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
+					if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
+				}
 			}
 
 			this.getText = function() {
@@ -3086,7 +3091,7 @@
 				scaleWidth: dw,
 				scaleHeight: dh
 			}
-			
+
 			for(var prop in opts) {
 				if(opts.hasOwnProperty(prop)){
 					cOpts[prop] = opts[prop];
