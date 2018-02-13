@@ -12,7 +12,7 @@
 
 	// export as AMD...
 	if ( typeof define !== 'undefined' && define.amd ) {
-		define('canvgModule', [ 'rgbcolor', 'stackblur' ], factory );
+		define('canvgModule', [ './rgbcolor', './StackBlur' ], factory );
 	}
 
 	// ...or as browserify
