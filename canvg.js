@@ -84,7 +84,10 @@
 
 	// see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
 	var matchesSelector;
-	if (typeof Element.prototype.matches != 'undefined') {
+	if (typeof Element == 'undefined') {
+		// We include this test, as otherwise IE7 will throw an error simply by
+		// including this file, as it does not support the Element object.
+	} else if (typeof Element.prototype.matches != 'undefined') {
 		matchesSelector = function(node, selector) {
 			return node.matches(selector);
 		};
