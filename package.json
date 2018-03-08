@@ -16,8 +16,9 @@
   },
   "main": "canvg.js",
   "version": "1.0.0",
-  "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "test" : "node test/testNode.js"
+  },
   "license": "MIT",
   "files": [
     "canvg.js",
@@ -27,6 +28,11 @@
   ],
   "dependencies": {
     "rgbcolor": "^1.0.1",
-    "stackblur": "^1.0.0"
+    "stackblur": "^1.0.0",
+    "jsdom": "^8.1.0",
+    "xmldom": "^0.1.22"
+  },
+  "devDependencies": {
+    "canvas": "^1.4.0"
   }
 }
