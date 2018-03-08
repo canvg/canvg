@@ -17,7 +17,7 @@
   "main": "canvg.js",
   "version": "1.0.0",
   "scripts": {
-    "test" : "node test/testNode.js"
+    "test" : "cd test; node testNode.js"
   },
   "license": "MIT",
   "files": [
