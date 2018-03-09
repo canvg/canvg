@@ -1005,6 +1005,20 @@
 			this.base = svg.Element.ElementBase;
 			this.base(node);
 
+			this.calculateOpacity = function() {
+				var opacity = 1;
+
+				var el = this;
+				while (el != null) {
+					if (el.style('opacity').hasValue()) {
+						opacity = opacity * el.style('opacity').numValue();
+					}
+					el = el.parent;
+				}
+
+				return opacity;
+			}
+
 			this.setContext = function(ctx) {
 				// fill
 				if (this.style('fill').isUrlDefinition()) {
@@ -1081,7 +1095,7 @@
 
 				// opacity
 				if (this.style('opacity').hasValue()) {
-					ctx.globalAlpha = this.style('opacity').numValue();
+					ctx.globalAlpha = this.calculateOpacity();
 				}
 			}
 		}
