@@ -11,12 +11,12 @@
 	'use strict';
 	// export as AMD...
 	if ( typeof define !== 'undefined' && define.amd ) {
-		define('canvgModule', [ 'rgbcolor', 'stackblur' ], factory );
+		define('canvgModule', [ './rgbcolor', './stackblur' ], factory );
 	}
 
 	// ...or as browserify
 	else if ( typeof module !== 'undefined' && module.exports ) {
-		module.exports = factory( require( 'rgbcolor' ), require( 'stackblur' ) );
+		module.exports = factory( require( './rgbcolor' ), require( './stackblur' ) );
 	}
     else {
 	   global.canvg = factory( global.RGBColor, global.stackBlur );
@@ -2818,6 +2818,40 @@
 		}
 		svg.Element.filter.prototype = new svg.Element.ElementBase;
 
+    svg.Element.feDropShadow = function(node) {
+      this.base = svg.Element.ElementBase;
+			this.base(node);
+      this.addStylesFromStyleDefinition();
+
+			this.apply = function(ctx, x, y, width, height) {
+				// TODO: implement
+			}
+    }
+
+    svg.Element.feDropShadow.prototype = new svg.Element.ElementBase;
+
+    svg.Element.feOffset = function(node) {
+      this.base = svg.Element.ElementBase;
+      this.base(node);
+      this.addStylesFromStyleDefinition();
+      this.apply = function(ctx, x, y, width, height) {
+        // TODO: implement
+      }
+    }
+
+    svg.Element.feOffset.prototype = new svg.Element.ElementBase;
+
+    svg.Element.feFlood = function(node) {
+      this.base = svg.Element.ElementBase;
+      this.base(node);
+      this.addStylesFromStyleDefinition();
+      this.apply = function(ctx, x, y, width, height) {
+        // TODO: implement
+      }
+    }
+
+    svg.Element.feFlood.prototype = new svg.Element.ElementBase;
+
 		svg.Element.feMorphology = function(node) {
 			this.base = svg.Element.ElementBase;
 			this.base(node);
@@ -3183,6 +3217,8 @@
 			canvg(this.canvas, s, cOpts);
 		}
 	}
+
+  canvg.build = build;
 
 	return canvg;
 
