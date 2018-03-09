@@ -20,6 +20,11 @@ Tested in Chrome, Firefox, Opera, and IE (through FlashCanvas)
 
 [jsfiddle playground](http://jsfiddle.net/6r2jug6o/)
 
+Locally, can use `local-web-server`
+Install with `yarn global add local-web-server`
+In the root directory, run `ws`
+Navigate to `http://localhost:8000/examples/index.htm`
+
 Usage
 =====
 Include the following files in your page:
