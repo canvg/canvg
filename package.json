@@ -16,17 +16,21 @@
   },
   "main": "canvg.js",
   "version": "1.0.0",
-  "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "test" : "cd test; node testNode.js"
+  },
   "license": "MIT",
   "files": [
     "canvg.js",
-    "rgbcolor.js",
-    "StackBlur.js",
     "MIT-LICENSE.txt"
   ],
   "dependencies": {
-    "rgbcolor": "0.0.4",
-    "stackblur": "^1.0.0"
+    "rgbcolor": "^1.0.1",
+    "stackblur": "^1.0.0",
+    "jsdom": "^8.1.0",
+    "xmldom": "^0.1.22"
+  },
+  "devDependencies": {
+    "canvas": "^1.4.0"
   }
 }
