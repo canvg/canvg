@@ -170,7 +170,7 @@
 				};
 			}
 
-			if (typeof matchesSelector === 'undefined') {
+			if (typeof matchesSelector === 'undefined' && typeof Sizzle !== 'undefined') {
 				matchesSelector = Sizzle.matchesSelector;
 			}
 		}
