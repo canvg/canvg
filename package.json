@@ -17,7 +17,8 @@
   "main": "canvg.js",
   "version": "1.0.0",
   "scripts": {
-    "test" : "cd test; node testNode.js"
+    "test" : "cd test; node testNode.js",
+    "minify": "uglifyjs --mangle --compress if_return=true -o canvg.min.js canvg.js"
   },
   "license": "MIT",
   "files": [
@@ -31,6 +32,7 @@
     "xmldom": "^0.1.22"
   },
   "devDependencies": {
-    "canvas": "^1.4.0"
+    "canvas": "^1.4.0",
+    "uglify-js": "^3.3.16"
   }
 }
