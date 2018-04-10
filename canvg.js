@@ -2777,8 +2777,8 @@
 				var bb = element.getBoundingBox();
 				var x = Math.floor(bb.x1);
 				var y = Math.floor(bb.y1);
-				var width = Math.floor(bb.width());
-				var height = Math.floor(bb.height());
+				var width = isNaN(bb.width()) ? 0 : Math.floor(bb.width());
+				var	height = isNaN(bb.height()) ? 0 : Math.floor(bb.height());
 
 				// temporarily remove filter to avoid recursion
 				var filter = element.style('filter').value;
