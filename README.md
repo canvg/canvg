@@ -1,3 +1,7 @@
+Looking for Contributors
+============
+In an attempt to keep this repo more active and merge PRs and do releases, if you would like to be a contributor, please start a conversation with me at gabelerner at gmail. The prerequisite is to have a few PRs open to prove out an understanding of the code.  Thanks!
+
 Introduction
 ============
 canvg is a SVG parser and renderer. It takes a URL to a SVG file or the text of an SVG file, parses it in JavaScript, and renders the result on a [Canvas](http://dev.w3.org/html5/2dcontext/) element.  The rendering speed of the examples is about as fast as native SVG.
@@ -19,6 +23,11 @@ Example Demonstration
 Tested in Chrome, Firefox, Opera, and IE (through FlashCanvas)
 
 [jsfiddle playground](http://jsfiddle.net/6r2jug6o/)
+
+Locally, can use `local-web-server`
+Install with `yarn global add local-web-server`
+In the root directory, run `ws`
+Navigate to `http://localhost:8000/examples/index.htm`
 
 Usage
 =====
