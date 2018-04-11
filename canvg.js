@@ -69,13 +69,13 @@
 			for (var i=0; i<svgTags.length; i++) {
 				var svgTag = svgTags[i];
 				var c = document.createElement('canvas');
-        c.width = svgTag.clientWidth;
-        c.height = svgTag.clientHeight;
-        if (!c.width && !c.height) {
-          var rect = svgTag.getBoundingClientRect();
-          c.width = rect.width;
-          c.height = rect.height;
-        }
+				c.width = svgTag.clientWidth;
+				c.height = svgTag.clientHeight;
+				if (!c.width && !c.height) {
+					var rect = svgTag.getBoundingClientRect();
+					c.width = rect.width;
+					c.height = rect.height;
+				}
 				svgTag.parentNode.insertBefore(c, svgTag);
 				svgTag.parentNode.removeChild(svgTag);
 				var div = document.createElement('div');
