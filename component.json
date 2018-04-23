@@ -5,6 +5,6 @@
   "repo"          : "gabelerner/canvg",
   "main"          : "canvg.js",
   "scripts"       : ["canvg.js", "StackBlur.js", "rgbcolor.js"],
-  "version"       : "1.0.0",
+  "version"       : "1.5.0",
   "license"       : "MIT"
 }
