@@ -15,7 +15,7 @@
     "url": "git://github.com/gabelerner/canvg.git"
   },
   "main": "canvg.js",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "scripts": {
     "test" : "cd test; node testNode.js",
     "minify": "uglifyjs --mangle --compress if_return=true -o canvg.min.js canvg.js"
