@@ -1076,7 +1076,7 @@
 				// clip
 				if (this.style('clip-path', false, true).hasValue()) {
 					var clip = this.style('clip-path', false, true).getDefinition();
-					if (clip != null) clip.apply(ctx);
+					if (clip != null && clip.type == "clipPath") clip.apply(ctx); // added check for definition type
 				}
 
 				// opacity
