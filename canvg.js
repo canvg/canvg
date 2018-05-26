@@ -1769,8 +1769,12 @@
 
 			this.baseRender = this.render;
 			this.render = function(ctx, point, angle) {
-				ctx.translate(point.x, point.y);
-				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(angle);
+				if (point != undefined) {
+					ctx.translate(point.x, point.y);
+				}
+			 	if (angle != undefined) {
+					if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(angle);
+				}
 				if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(ctx.lineWidth, ctx.lineWidth);
 				ctx.save();
 
@@ -1789,7 +1793,9 @@
 				ctx.restore();
 				if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(1/ctx.lineWidth, 1/ctx.lineWidth);
 				if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(-angle);
-				ctx.translate(-point.x, -point.y);
+				 if (point != undefined) {
+					 ctx.translate(-point.x, -point.y);
+				 }
 			}
 		}
 		svg.Element.marker.prototype = new svg.Element.ElementBase;
