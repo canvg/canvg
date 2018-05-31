@@ -265,7 +265,9 @@
 		svg.trim = function(s) { return s.replace(/^\s+|\s+$/g, ''); }
 
 		// compress spaces
-		svg.compressSpaces = function(s) { return s.replace(/[\s\r\t\n]+/gm,' '); }
+		// Ideographic space is not replaced
+		// behavior: http://jsfiddle.net/L3hondLn/730/
+		svg.compressSpaces = function(s) { return s.replace(/(?!\u3000)\s+/gm, ' '); }
 
 		// ajax
 		svg.ajax = function(url) {
@@ -2352,6 +2354,16 @@
 					}
 					return;
 				}
+
+				// for Prott, fix the y position issue in Firefox
+				if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+					var fontSize = ctx.font.replace(/[^0-9]/ig,"");
+					// calculate delta = 10.1354 * log(0.0936537 * x)
+					// https://www.wolframalpha.com/input/?i=logarithmic+fit+%7B%7B17%2C+5.5%7D%2C+%7B24%2C+8%7D%2C%7B48%2C+13%7D%2C%7B72%2C+21%7D%7D
+					var delta = 10.1354 * Math.log(fontSize * 0.0936537)
+					this.y = this.y + delta;
+				}
+
 				if(ctx.paintOrder == "stroke") {
 					if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
 					if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
@@ -2800,6 +2812,11 @@
 
 				// apply filters
 				for (var i=0; i<this.children.length; i++) {
+					// https://github.com/gabelerner/canvg/issues/288
+					if(this.children[i].type === "feOffset" || this.children[i].type === "feGaussianBlur" || this.children[i].type === "feMerge") {
+						continue;
+					}
+
 					if (typeof this.children[i].apply == 'function') {
 						this.children[i].apply(tempCtx, 0, 0, width + 2*px, height + 2*py);
 					}
