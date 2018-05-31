@@ -5,10 +5,9 @@
 		<!--[if lt IE 9]>
 		<script type="text/javascript" src="flashcanvas.js"></script>
 		<![endif]-->		
-		<script type="text/javascript" src="../rgbcolor.js"></script>
-    <script type="text/javascript" src="../StackBlur.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 		<script type="text/javascript" src="../canvg.js"></script>
-		<script type="text/javascript" src="../StackBlur.js"></script>
 		<script type="text/javascript">
 		function q(k) {
 			var qs = window.location.search.substring(1);
@@ -95,7 +94,7 @@
 		</script>		
 	</head>
 	<body onload="bodyonload();">
-		<h1 id="title"><a href="http://canvg.googlecode.com/">canvg</a> examples</h1>
+		<h1 id="title"><a href="https://github.com/canvg/canvg">canvg</a> examples</h1>
 		<div id="message"><a href="http://code.google.com/p/canvg/issues/list" target="_blank">need a feature? have a bug or issue? svg not rendering? log it here!</a></div>
 
 		<table><tr><td>
@@ -146,7 +145,7 @@
 			</select><br />
 			<a href="callback.htm">callback example</a><br />
 			<a href="convert.htm">convert example</a><br />
-			<a href="http://jsfiddle.net/qDmhV/" target="_blank">jsfiddle playground</a><br />
+			<a href="http://jsfiddle.net/qmyfezo4/" target="_blank">jsfiddle playground</a><br />
 			<br />
 			<select id="issues"><!-- image/svg+xml -->
 				<option value="">Select an Issue:</option>
@@ -255,6 +254,12 @@
 				<option value="issue282.svg">Issue #282: treat clip path as attribute</option>
 				<option value="issue289.svg">Issue #289: multiple clip</option>
 				<option value="issue322.svg">Issue #322: path parsing</option>
+				<option value="issue352.svg">Issue #352: transform as style</option>
+				<option value="issue358.svg">Issue #358: patternTransform rotate offset</option>
+				<option value="issue362.svg">Issue #362: text tspan dx dy offset fixes</option>
+				<option value="issue366.svg">Issue #366: referenced gradients</option>
+				<option value="issue372.svg">Issue #372: referenced gradients</option>
+				<option value="issue376.svg">Issue #376: recurring css class definitions</option>
 			</select>
 		</td><td>
 			<h2>or use your own</h2>

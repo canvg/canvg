@@ -3,7 +3,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="450px" height="450px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
 viewBox="0 0 443.703 443.7"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs><style type="text/css">@font-face { font-family: "LydianCsvBTRegular"; src: url("svg/lydianv-webfont.ttf") format("truetype"), url("http://canvg.googlecode.com/svn/trunk/svgs/lydianv-webfont.svg") format("svg"); font-weight: normal; font-style: normal;}@font-face { font-family: "Swis721BTBold"; src: url("swz721b-webfont.ttf") format("truetype"), url("http://canvg.googlecode.com/svn/trunk/svgs/swz721b-webfont.svg") format("svg"); font-weight: normal; font-style: normal;}<![CDATA[.str0 {stroke:none;stroke-width:1;}.fil0 {fill:none;}.fil1 {fill:#1F1A17;}.fil2 {fill:#FFF500;}.fil3 {fill:#EF9BA0;}.fil4 {fill:#974578;}]]></style></defs>
+ <defs><style type="text/css">@font-face { font-family: "LydianCsvBTRegular"; src: url("svg/lydianv-webfont.ttf") format("truetype"), url("../svgs/lydianv-webfont.svg") format("svg"); font-weight: normal; font-style: normal;}@font-face { font-family: "Swis721BTBold"; src: url("swz721b-webfont.ttf") format("truetype"), url("../svgs/swz721b-webfont.svg") format("svg"); font-weight: normal; font-style: normal;}<![CDATA[.str0 {stroke:none;stroke-width:1;}.fil0 {fill:none;}.fil1 {fill:#1F1A17;}.fil2 {fill:#FFF500;}.fil3 {fill:#EF9BA0;}.fil4 {fill:#974578;}]]></style></defs>
  <g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
   <rect class="fil0" x="1.91919e-005" width="443.703" height="443.7"/>
