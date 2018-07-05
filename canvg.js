@@ -23,7 +23,7 @@
     }
 
 }( typeof window !== 'undefined' ? window : this, function ( RGBColor, stackBlur ) {
-	var nodeEnv = (typeof module !== 'undefined' && module.exports);
+	var nodeEnv = Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]';
     var windowEnv, ImageClass, CanvasClass,
 		defaultClientWidth = 800, defaultClientHeight = 600;
 	if (nodeEnv && (typeof window === 'undefined')) {
