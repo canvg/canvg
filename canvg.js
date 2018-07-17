@@ -3005,6 +3005,8 @@
 				svg.ViewPort.Clear();
 				if (ctx.canvas.parentNode) {
 					svg.ViewPort.SetCurrent(ctx.canvas.parentNode.clientWidth, ctx.canvas.parentNode.clientHeight);
+				} else if (ctx.canvas.width && ctx.canvas.height) {
+					svg.ViewPort.SetCurrent(ctx.canvas.width, ctx.canvas.height);
 				} else {
 					svg.ViewPort.SetCurrent(defaultClientWidth, defaultClientHeight);
 				}
