@@ -2415,6 +2415,12 @@
 				if (this.children.length > 0) { return ''; }
 				return this.text;
 			}
+			this.getBoundingBox = function () {
+				var x = this.attribute('x').toPixels('x');
+				var y = this.attribute('y').toPixels('y');
+				var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
+				return new svg.BoundingBox(x, y - fontSize, x + Math.floor(fontSize * 2.0 / 3.0) * this.getText().length, y);
+			}
 		}
 		svg.Element.tspan.prototype = new svg.Element.TextElementBase;
 
