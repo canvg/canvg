@@ -17,8 +17,9 @@
   "main": "canvg.js",
   "version": "1.0.0",
   "scripts": {
-    "test": "ava test/node.test.js && ava test/browser.test.js",
-    "minify": "uglifyjs --mangle --compress if_return=true -o canvg.min.js canvg.js"
+    "build": "rollup -c && IS_NODE=1 rollup -c",
+    "test": "ava --tap | tap-diff",
+    "minify": "uglifyjs --mangle --compress if_return=true -o canvg.min.js canvg.js && uglifyjs --mangle --compress if_return=true -o canvg.node.min.js canvg.node.js"
   },
   "license": "MIT",
   "files": [
@@ -33,16 +34,22 @@
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.6",
+    "ava-is-running": "^1.0.3",
     "blink-diff": "^1.0.13",
     "bluebird": "^3.5.1",
     "canvas": "^1.4.0",
     "data-uri-to-buffer": "^2.0.0",
+    "debug": "^2.6.9",
     "mkdirp": "^0.5.1",
     "pngjs-image": "^0.11.7",
     "puppeteer": "^1.6.1",
+    "rollup": "^0.63.5",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
     "serve-handler": "^3.6.1",
     "tap-diff": "^0.1.1",
-    "tap-spec": "^5.0.0",
     "uglify-js": "^3.3.16"
   }
 }

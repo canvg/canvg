@@ -1,14 +1,16 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur')) :
-    typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur'], factory) :
-    (global.canvg = factory(global.RGBColor,global.stackBlur));
-}(this, (function (rgbcolor,stackblur) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur'), require('jsdom'), require('xmldom')) :
+    typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur', 'jsdom', 'xmldom'], factory) :
+    (global.canvg = factory(global.RGBColor,global.stackBlur,global.jsdom,global.xmldom));
+}(this, (function (rgbcolor,stackblur,jsdom,xmldom) { 'use strict';
 
     rgbcolor = rgbcolor && rgbcolor.hasOwnProperty('default') ? rgbcolor['default'] : rgbcolor;
     stackblur = stackblur && stackblur.hasOwnProperty('default') ? stackblur['default'] : stackblur;
+    jsdom = jsdom && jsdom.hasOwnProperty('default') ? jsdom['default'] : jsdom;
+    xmldom = xmldom && xmldom.hasOwnProperty('default') ? xmldom['default'] : xmldom;
 
-    var nodeEnv = false,
-        windowEnv = window;
+    var nodeEnv = true,
+        windowEnv = jsdom.jsdom().defaultView;
 
 
 
@@ -21,16 +23,17 @@
      *
      * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
      */
-    var defaultClientWidth = 800,
+    var ImageClass, CanvasClass,
+        defaultClientWidth = 800,
         defaultClientHeight = 600;
 
-    windowEnv.DOMParser = window.DOMParser;
+    windowEnv.DOMParser = xmldom.DOMParser;
 
 
     function createCanvas() {
         var c;
         {
-            c = document.createElement('canvas');
+            c = new CanvasClass();
         }
         return c;
     }
@@ -70,6 +73,16 @@
         }
 
         var svg = build(opts || {});
+        {
+            if (!s || s === '') {
+                return;
+            }
+            ImageClass = opts['ImageClass'];
+            CanvasClass = target.constructor;
+            //only support svg string in node env.
+            svg.loadXml(target.getContext('2d'), s);
+            return;
+        }
 
         if (typeof target == 'string') {
             target = document.getElementById(target);
@@ -97,43 +110,21 @@
 
     var matchesSelector;
     {
-        // see https://developer.mozilla.org/en-US/docs/Web/API/Element.matches
-        if (typeof Element == 'undefined') ; else if (typeof Element.prototype.matches != 'undefined') {
-            matchesSelector = function(node, selector) {
-                return node.matches(selector);
-            };
-        } else if (typeof Element.prototype.webkitMatchesSelector != 'undefined') {
-            matchesSelector = function(node, selector) {
-                return node.webkitMatchesSelector(selector);
-            };
-        } else if (typeof Element.prototype.mozMatchesSelector != 'undefined') {
-            matchesSelector = function(node, selector) {
-                return node.mozMatchesSelector(selector);
-            };
-        } else if (typeof Element.prototype.msMatchesSelector != 'undefined') {
-            matchesSelector = function(node, selector) {
-                return node.msMatchesSelector(selector);
-            };
-        } else if (typeof Element.prototype.oMatchesSelector != 'undefined') {
-            matchesSelector = function(node, selector) {
-                return node.oMatchesSelector(selector);
-            };
-        } else {
-            // requires Sizzle: https://github.com/jquery/sizzle/wiki/Sizzle-Documentation
-            // or jQuery: http://jquery.com/download/
-            // or Zepto: http://zeptojs.com/#
-            // without it, this is a ReferenceError
-
-            if (typeof jQuery === 'function' || typeof Zepto === 'function') {
-                matchesSelector = function(node, selector) {
-                    return $(node).is(selector);
-                };
+        //Now only used to decide whether the node has the class names specified by selector,
+        //Add this implementation to avoid compatibility issues in node env.
+        matchesSelector = function(node, selector) {
+            var styleClasses = node.getAttribute('class');
+            if (!styleClasses || styleClasses === '') {
+                return false;
             }
-
-            if (typeof matchesSelector === 'undefined' && typeof Sizzle !== 'undefined') {
-                matchesSelector = Sizzle.matchesSelector;
+            styleClasses = styleClasses.split(' ');
+            for (var i = 0; i < styleClasses.length; i++) {
+                if ('.' + styleClasses[i] === selector) {
+                    return true;
+                }
             }
-        }
+            return false;
+        };
     }
 
 
@@ -227,6 +218,7 @@
 
         // ajax
         svg.ajax = function(url) {
+            { return null; }
             var AJAX;
             if (windowEnv.XMLHttpRequest) { AJAX = new windowEnv.XMLHttpRequest(); } else { AJAX = new ActiveXObject('Microsoft.XMLHTTP'); }
             if (AJAX) {
@@ -2444,7 +2436,7 @@
             svg.Images.push(this);
             this.loaded = false;
             if (!isSvg) {
-                this.img = document.createElement('img');
+                this.img = new ImageClass();
                 if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
                 var self = this;
                 this.img.onload = function() { self.loaded = true; };
@@ -3030,7 +3022,7 @@
                 waitingForImages = false;
                 draw();
             }
-            {
+            if (opts['enableRedraw']) {
                 //In node, in the most cases, we don't need the animation listener.
                 svg.intervalID = setInterval(function() {
                     var needUpdate = false;

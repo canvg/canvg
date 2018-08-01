@@ -1,5 +1,7 @@
 node_modules
 test/actual
-test/diff
+test/actual_node
+test/actual_browser
+test/diff_node
 test/diff_browser
 .vscode

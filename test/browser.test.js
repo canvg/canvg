@@ -2,18 +2,24 @@ const handler = require('serve-handler'),
     fs = require('fs'),
     path = require('path'),
     http = require('http'),
-    bluebird = require('bluebird'),
     puppeteer = require('puppeteer'),
-    mkdirp = require('mkdirp'),
-    mkdirAsync = bluebird.promisify(mkdirp),
     server = http.createServer((request, response) => {
         // You pass two more arguments for config and middleware
         // More details here: https://github.com/zeit/serve-handler#options
         return handler(request, response);
     }),
-    dataUriToBuffer = require('data-uri-to-buffer'),
-    BlinkDiff = require('blink-diff'),
+    openPage = require(path.resolve(`${__dirname}/_openpage.js`)),
+    createDirs = require(path.resolve(`${__dirname}/_create_dirs.js`)),
+    runDiff = require(path.resolve(`${__dirname}/_run_diff.js`)),
+    getBuffersBrowser = require(path.resolve(`${__dirname}/_get_buffers_browser.js`)),
+    svgs = require(path.resolve(`${__dirname}/_svgs.js`)),
+    avaIsRunning = require('ava-is-running');
+
+
+let test;
+if (avaIsRunning()) {
     test = require('ava');
+}
 
 
 
@@ -94,7 +100,7 @@ server.on('close', function() {
 });
 
 
-server.listen(3123, () => {
+server.listen(port, () => {
     console.log(`Running at http://localhost:${port}`);
 });
 
@@ -104,161 +110,101 @@ function launchBrowser() {
     });
 }
 
-async function openPage(browser, testcase, t) {
 
 
-    let address = `http://localhost:3123/test?test=${testcase}`;
 
-    const page = await browser.newPage();
-    const handleClose = async(err) => {
-        t.log('handleClose', err.message);
+if (avaIsRunning()) {
 
-        await page.evaluate(() => {
-            let final_result = document.createElement('div');
-            final_result.id = 'final_result';
-            document.body.appendChild(final_result);
-            return Promise.resolve(document);
+    let browser,
+        diff_folder = path.resolve(`${__dirname}/diff_browser`),
+        actual_folder = path.resolve(`${__dirname}/actual_browser`);
+
+    test.before(async t => {
+        await createDirs(actual_folder, diff_folder);
+        browser = await launchBrowser();
+    });
+
+
+    for (let file in svgs.files) {
+        let description = svgs.files[file];
+
+        test.serial(`comparing results for ${file} (${description})`, async t => {
+
+            try {
+                let canvas_dataurl = await openPage(browser, file, t);
+
+                try {
+
+                    let { canvasBuffer, expectedImg } = await getBuffersBrowser(file, canvas_dataurl);
+
+                    let { res, differences } = await runDiff(canvasBuffer, expectedImg, `${diff_folder}/${file}.png`);
+
+                    if (!res) {
+                        t.fail(`${file}.png has ${differences} differences with compared file`);
+                    } else {
+                        t.truthy(res);
+                    }
+                } catch (err) {
+                    t.log(err);
+
+                    t.fail(err.message);
+                }
+
+
+            } catch (err2) {
+                t.log(err2);
+
+                t.fail(err2.message);
+            }
         });
 
-        throw err;
+    }
 
-    };
-    page.on('console', msg => {
+    for (let issue in svgs.issues) {
+        let description = svgs.issues[issue];
 
-        if (String(msg.type) === 'error') {
+        test.serial(`comparing results for ${issue} (${description})`, async t => {
 
-            return handleClose(new Error(msg.text));
-        }
+            try {
+                let canvas_dataurl = await openPage(browser, issue, t);
 
-        for (let i = 0; i < msg.args.length; ++i) {
-            t.log(`console msg ${i}: ${msg.args[i]}`);
-        }
-    });
+                try {
 
-
-    page.on('error', (err) => {
-        return handleClose(err);
-
-    });
-
-    page.on('pageerror', (err) => {
-        return handleClose(err);
-    });
-
-    t.log('Will navigate to ', address);
-
-    await page.goto(address);
-
-    try {
-        await page.waitForSelector('#final_result');
-
-        await page.waitFor(100);
+                    let { canvasBuffer, expectedImg } = await getBuffersBrowser(issue, canvas_dataurl);
 
 
+                    let { res, differences } = await runDiff(canvasBuffer, expectedImg, `${diff_folder}/${issue}.png`);
 
-        let { result, canvas_dataurl, svg_dataurl } = await page.evaluate(() => {
-            let result = document.getElementById('final_result');
-            let canvas_dataurl = document.getElementById('canvasimg').src;
-            let svg_dataurl = document.getElementById('img').src;
-            return Promise.resolve({ result, canvas_dataurl, svg_dataurl });
+                    if (!res) {
+                        t.fail(`${issue}.png has ${differences} differences with compared file`);
+                    } else {
+                        t.truthy(res);
+                    }
+                } catch (err) {
+                    t.log(err);
+
+                    t.fail(err.message);
+                }
+
+
+            } catch (err2) {
+                t.log(err2);
+
+                t.fail(err2.message);
+            }
         });
-
-        await page.close();
-
-        return { result, canvas_dataurl, svg_dataurl };
-
-    } catch (err) {
-        t.log(err.message);
-        await page.close();
-
-        return { result: false, canvas_dataurl: null, svg_dataurl: null };
 
     }
 
 
-}
+    test.after(async t => {
+        await browser.close();
+        console.log('closed puppeteer');
 
-var files = fs.readdirSync(path.resolve(`${__dirname}/../svgs`));
-
-let browser;
-
-async function runDiff(diffInstance) {
-    return new Promise((resolve, reject) => {
-        diffInstance.run(function(error, result) {
-            if (error) {
-                reject(error);
-            } else {
-                let res = diffInstance.hasPassed(result.code) ? true : false;
-                //console.log('Found ' + result.differences + ' differences.');
-                resolve({ res, differences: result.differences });
-            }
-        });
-    });
-}
-
-let diff_folder = path.resolve(`${__dirname}/diff_browser`);
-async function createDirs() {
-
-    let oldUmask = process.umask(0);
-    await mkdirAsync(diff_folder);
-    process.umask(oldUmask);
-
-}
-
-
-test.before(async t => {
-    await createDirs();
-    browser = await launchBrowser();
-});
-
-
-while (files.length) {
-    let testcase = files.pop();
-
-    test.serial(`comparing results for ${testcase}`, async t => {
-
-        try {
-            let { result, canvas_dataurl, svg_dataurl } = await openPage(browser, testcase, t);
-
-            let canvasBuffer = dataUriToBuffer(canvas_dataurl),
-                svgBuffer = dataUriToBuffer(svg_dataurl);
-
-            var diff = new BlinkDiff({
-                imageA: canvasBuffer, // Use file-path
-                imageB: svgBuffer,
-
-                thresholdType: BlinkDiff.THRESHOLD_PERCENT,
-                threshold: 0.03, // 1% threshold
-                delta: 50, // Make comparison more tolerant
-
-                outputMaskRed: 0,
-                outputMaskBlue: 255, // Use blue for highlighting differences
-
-                imageOutputPath: `${diff_folder}/${testcase}.png`,
-                imageOutputLimit: BlinkDiff.OUTPUT_DIFFERENT
-            });
-            let { res, differences } = await runDiff(diff);
-            if (!res) {
-                t.fail(`${testcase}.png has ${differences} differences with compared file`);
-            } else {
-                t.truthy(res);
-            }
-        } catch (err) {
-            t.fail(err.message);
-        }
+        setTimeout(() => {
+            server.close();
+        }, 5000);
+        return;
     });
 
 }
-
-
-
-
-test.after(async t => {
-    await browser.close();
-    console.log('closed puppeteer');
-
-    setTimeout(() => {
-        server.close();
-    }, 5000);
-    return;
-});
