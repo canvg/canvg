@@ -14,8 +14,9 @@
     "type": "git",
     "url": "git://github.com/gabelerner/canvg.git"
   },
-  "main": "canvg.js",
-  "version": "1.0.0",
+  "main": "canvg.node.js",
+  "browser": "canvg.min.js",
+  "version": "1.5.1",
   "scripts": {
     "start": "node test/browser.test.js",
     "build": "npm run build:browser && npm run build:node",
@@ -29,8 +30,14 @@
   "license": "MIT",
   "files": [
     "canvg.js",
-    "MIT-LICENSE.txt"
+    "canvg.min.js",
+    "canvg.node.js",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
+  "license": "MIT",
+  "readmeFilename": "README.md",
   "dependencies": {
     "jsdom": "^8.1.0",
     "rgbcolor": "^1.0.1",
@@ -56,5 +63,8 @@
     "serve-handler": "^3.6.1",
     "tap-diff": "^0.1.1",
     "uglify-js": "^3.3.16"
+  },
+  "jspm": {
+    "registry": "npm"
   }
 }
