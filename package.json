@@ -12,28 +12,60 @@
   "author": "Gabe Lerner <gabelerner@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/gabelerner/canvg.git"
+    "url": "git://github.com/canvg/canvg.git"
   },
-  "main": "canvg.js",
-  "types": "canvg.d.ts",
-  "version": "1.0.0",
+  "main": "dist/node/canvg.js",
+  "types": "dist/node/canvg.d.ts",
+  "browser": "dist/browser/canvg.min.js",
+  "version": "1.5.1",
   "scripts": {
-    "test" : "cd test; node testNode.js",
-    "minify": "uglifyjs --mangle --compress if_return=true -o canvg.min.js canvg.js"
+    "start": "node test/browser.test.js",
+    "build": "npm run build:browser && npm run build:node",
+    "build:browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
+    "build:node": "IS_NODE=1 rollup -c",
+    "test": "ava",
+    "test:browser": "ava test/browser.test.js --tap | tap-diff",
+    "test:node": "ava test/node.test.js --tap | tap-diff",
+    "minify": "npm run minify:browser && npm run minify:node",
+    "minify:browser": "uglifyjs --mangle --compress if_return=true -o dist/browser/canvg.min.js dist/browser/canvg.js",
+    "minify:node": "uglifyjs --mangle --compress if_return=true -o dist/node/canvg.min.js dist/node/canvg.js"
   },
   "license": "MIT",
   "files": [
-    "canvg.js",
-    "MIT-LICENSE.txt"
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
+  "readmeFilename": "README.md",
   "dependencies": {
+    "jsdom": "^8.1.0",
     "rgbcolor": "^1.0.1",
     "stackblur": "^1.0.0",
-    "jsdom": "^8.1.0",
     "xmldom": "^0.1.22"
   },
   "devDependencies": {
+    "ava": "^1.0.0-beta.6",
+    "ava-is-running": "^1.0.3",
+    "blink-diff": "^1.0.13",
+    "bluebird": "^3.5.1",
     "canvas": "^1.4.0",
+    "data-uri-to-buffer": "^2.0.0",
+    "debug": "^2.6.9",
+    "mkdirp": "^0.5.1",
+    "pngjs-image": "^0.11.7",
+    "puppeteer": "^1.6.2",
+    "rollup": "^0.63.5",
+    "rollup-plugin-alias": "^1.4.0",
+    "rollup-plugin-commonjs": "^9.1.4",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "serve-handler": "^3.6.1",
+    "tap-diff": "^0.1.1",
     "uglify-js": "^3.3.16"
+  },
+  "jspm": {
+    "registry": "npm"
   }
 }
