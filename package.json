@@ -25,6 +25,10 @@
     "canvg.js",
     "MIT-LICENSE.txt"
   ],
+  "browser": {
+    "jsdom": false,
+    "xmldom": false
+  },
   "dependencies": {
     "rgbcolor": "^1.0.1",
     "stackblur": "^1.0.0",
