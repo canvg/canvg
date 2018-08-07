@@ -1,25 +1,28 @@
 var RGBColor = require('rgbcolor'),
-    stackBlur = require('stackblur'),
-    nodeEnv = __NODE_ENV__,
-    jsdom = __JSDOM__,
-    windowEnv = __WINDOWENV__;
+    stackBlur = require('stackblur');
 
 
+var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
+    nodeEnv = isNode;
+
+var jsdom, windowEnv;
+
+if (nodeEnv) {
+    jsdom = require('jsdom');
+    windowEnv = jsdom.jsdom().defaultView;
+    windowEnv.DOMParser = require('xmldom').DOMParser;
+} else {
+    jsdom = null;
+    windowEnv = window;
+    windowEnv.DOMParser = window.DOMParser;
+}
 
 
-/*
- * canvg.js - Javascript SVG parser and renderer on Canvas
- * MIT Licensed
- * Gabe Lerner (gabelerner@gmail.com)
- * http://code.google.com/p/canvg/
- *
- * Requires: rgbcolor.js - http://www.phpied.com/rgb-color-parser-in-javascript/
- */
 var ImageClass, CanvasClass,
     defaultClientWidth = 800,
     defaultClientHeight = 600;
 
-windowEnv.DOMParser = __DOMPARSER__;
+
 
 
 function createCanvas() {
@@ -275,10 +278,10 @@ function build(opts) {
             return xmlDoc;
         } else if (windowEnv.DOMParser) {
             try {
-                var parser = new windowEnv.DOMParser();
+                var parser = new windowEnv.DOMParser(opts.xmldom || {});
                 return parser.parseFromString(xml, 'image/svg+xml');
             } catch (e) {
-                parser = new windowEnv.DOMParser();
+                parser = new windowEnv.DOMParser(opts.xmldom || {});
                 return parser.parseFromString(xml, 'text/xml');
             }
         } else {

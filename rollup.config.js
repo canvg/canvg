@@ -2,6 +2,10 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import replace from 'rollup-plugin-replace';
+import alias from 'rollup-plugin-alias';
+
+
+import pkgConfig from './package.json';
 
 
 
@@ -9,33 +13,47 @@ let is_node = process.env.IS_NODE === '1';
 
 let globals = { stackblur: 'stackBlur', rgbcolor: 'RGBColor' };
 let external = ['stackblur', 'rgbcolor'];
+
+let plugins = [
+    replace({
+        "nodeEnv = isNode": is_node ? 'nodeEnv = true;' : 'nodeEnv = false;',
+    }),
+    commonjs(),
+    resolve(),
+    json()
+];
+
 if (is_node) {
     external = external.concat(['xmldom', 'jsdom']);
     globals.xmldom = 'xmldom';
     globals.jsdom = 'jsdom';
+
+} else {
+    plugins = [alias({
+        'jsdom': './dummy.js',
+        'xmldom': './dummy.js',
+    })].concat(plugins);
 }
 
-let input = "./canvg.src.js",
-    plugins = [
-        replace({
-            '__NODE_ENV__': is_node,
-            '__JSDOM__': is_node ? "require('jsdom')" : null,
-            '__DOMPARSER__': is_node ? "require('xmldom').DOMParser" : 'window.DOMParser',
-            '__WINDOWENV__': is_node ? "jsdom.jsdom().defaultView" : 'window'
 
-        }),
-        commonjs(),
-        resolve(),
-        json()
-    ],
-
+let input = "./src/canvg.js",
     output = {
-        file: is_node ? "canvg.node.js" : "canvg.js",
+        file: is_node ? "./dist/node/canvg.js" : "./dist/browser/canvg.js",
         format: "umd",
         exports: 'default',
         name: 'canvg',
 
         globals: globals,
+        banner: `
+/*
+ * canvg.js - Javascript SVG parser and renderer on Canvas
+ * version ${pkgConfig.version}
+ * MIT Licensed
+ * Gabe Lerner (gabelerner@gmail.com)
+ * https://github.com/canvg/canvg
+ *
+ */
+ `,
         extend: false
     };
 

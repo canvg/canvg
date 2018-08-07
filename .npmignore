@@ -1,7 +1,5 @@
 ./*
-!./canvg.js
-!./canvg.min.js
-!./canvg.node.js
+!./dist
 !./package.json
 !./LICENSE
 !./README.md

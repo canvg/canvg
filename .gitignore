@@ -1,3 +1,4 @@
+.nyc_output
 node_modules
 test/actual
 test/actual_node
