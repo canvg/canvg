@@ -460,11 +460,14 @@ function build(opts) {
         this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) {
             var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
             var fontFamily = fontFamily || f.fontFamily;
-            if (fontFamily) {
-                var trimed = fontFamily.trim();
-                if (trimed[0] !== '"' && trimed.indexOf(' ') > 0) {
-                    fontFamily = '"' + trimed + '"';
+            if (nodeEnv && fontFamily) {
+                var trimmedFontParts = fontFamily.trim().split(',');
+                for (var i=0; i < trimmedFontParts.length; i++) {
+                  if (!trimmedFontParts[i].startsWith('"')) {
+                    trimmedFontParts[i] = '"'+trimmedFontParts[i].trim()+'"';
+                  }
                 }
+                fontFamily = trimmedFontParts.join(',')
             }
             return {
                 fontFamily: fontFamily,
