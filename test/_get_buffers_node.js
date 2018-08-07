@@ -1,4 +1,4 @@
-const canvg = require('../dist/node/canvg.js'),
+const canvg = require('../src/canvg.js'),
     Canvas = require('canvas'),
     path = require('path'),
     Promise = require('bluebird'),
