@@ -15,6 +15,7 @@
     "url": "git://github.com/gabelerner/canvg.git"
   },
   "main": "canvg.js",
+  "types": "canvg.d.ts",
   "version": "1.0.0",
   "scripts": {
     "test" : "cd test; node testNode.js",
