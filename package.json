@@ -15,6 +15,7 @@
     "url": "git://github.com/canvg/canvg.git"
   },
   "main": "dist/node/canvg.js",
+  "types": "dist/node/canvg.d.ts",
   "browser": "dist/browser/canvg.min.js",
   "version": "1.5.1",
   "scripts": {
