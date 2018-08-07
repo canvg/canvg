@@ -440,12 +440,6 @@
 	        this.CreateFont = function(fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) {
 	            var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
 	            var fontFamily = fontFamily || f.fontFamily;
-	            if (fontFamily) {
-	                var trimed = fontFamily.trim();
-	                if (trimed[0] !== '"' && trimed.indexOf(' ') > 0) {
-	                    fontFamily = '"' + trimed + '"';
-	                }
-	            }
 	            return {
 	                fontFamily: fontFamily,
 	                fontSize: fontSize || f.fontSize,

@@ -121,7 +121,13 @@ if (avaIsRunning()) {
 
     test.before(async t => {
         await createDirs(actual_folder, diff_folder);
-        browser = await launchBrowser();
+        try {
+          browser = await launchBrowser();
+        } catch (err) {
+          t.log(err);
+
+          t.fail(err.message);
+        }
     });
 
 
