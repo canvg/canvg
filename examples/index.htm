@@ -11,91 +11,91 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
     <script type="text/javascript" src="../dist/browser/canvg.js"></script>
     <script type="text/javascript">
-    function q(k) {
-        var qs = window.location.search.substring(1);
-        var t = qs.split("&");
-        for (i = 0; i < t.length; i++) {
-            kv = t[i].split("=");
-            if (kv[0] == k) return unescape(kv[1]).replace('+', ' ');
+        function q(k) {
+            var qs = window.location.search.substring(1);
+            var t = qs.split("&");
+            for (i = 0; i < t.length; i++) {
+                kv = t[i].split("=");
+                if (kv[0] == k) return unescape(kv[1]).replace('+', ' ');
+            }
+            return null;
         }
-        return null;
-    }
-    var overrideTextBox = false;
-    var context;
+        var overrideTextBox = false;
+        var context;
 
-    function bodyonload() {
-        var qUrl = q('url');
-        if (qUrl != null && qUrl != '') {
-            overrideTextBox = true;
-            render(qUrl);
+        function bodyonload() {
+            var qUrl = q('url');
+            if (qUrl != null && qUrl != '') {
+                overrideTextBox = true;
+                render(qUrl);
+            }
+            var qSvg = q('svg');
+            if (qSvg != null && qSvg != '') {
+                overrideTextBox = true;
+                render(qSvg);
+            }
+
+            var examples = document.getElementById('examples');
+            examples.onchange = function () {
+                if (!examples.value) return;
+                overrideTextBox = true;
+                render('../svgs/' + examples.value);
+            };
+
+            var issues = document.getElementById('issues');
+            issues.onchange = function () {
+                if (!issues.value) return;
+                overrideTextBox = true;
+                render('../svgs/' + issues.value);
+            };
         }
-        var qSvg = q('svg');
-        if (qSvg != null && qSvg != '') {
-            overrideTextBox = true;
-            render(qSvg);
-        }
 
-        var examples = document.getElementById('examples');
-        examples.onchange = function() {
-            if (!examples.value) return;
-            overrideTextBox = true;
-            render('../svgs/' + examples.value);
-        };
-
-        var issues = document.getElementById('issues');
-        issues.onchange = function() {
-            if (!issues.value) return;
-            overrideTextBox = true;
-            render('../svgs/' + issues.value);
-        };
-    }
-
-    function render(svg, width, height) {
-        document.createElement('canvas')
-        var c = document.createElement('canvas');
-        c.width = width || 500;
-        c.height = height || 500;
-        document.getElementById('canvas').innerHTML = '';
-        document.getElementById('canvas').appendChild(c);
-        if (typeof FlashCanvas != "undefined") {
-            FlashCanvas.initElement(c);
-        }
-        canvg(c, svg, {
-            log: true,
-            renderCallback: function(dom) {
-                if (typeof FlashCanvas != "undefined") {
-                    document.getElementById('svg').innerHTML = 'svg not supported';
-                } else {
-                    var svg = (new XMLSerializer()).serializeToString(dom);
-                    document.getElementById('svg').innerHTML = svg;
-                    if (overrideTextBox) {
-                        document.getElementById('input').value = svg;
-                        overrideTextBox = false;
+        function render(svg, width, height) {
+            document.createElement('canvas')
+            var c = document.createElement('canvas');
+            c.width = width || 500;
+            c.height = height || 500;
+            document.getElementById('canvas').innerHTML = '';
+            document.getElementById('canvas').appendChild(c);
+            if (typeof FlashCanvas != "undefined") {
+                FlashCanvas.initElement(c);
+            }
+            canvg(c, svg, {
+                log: true,
+                renderCallback: function (dom) {
+                    if (typeof FlashCanvas != "undefined") {
+                        document.getElementById('svg').innerHTML = 'svg not supported';
+                    } else {
+                        var svg = (new XMLSerializer()).serializeToString(dom);
+                        document.getElementById('svg').innerHTML = svg;
+                        if (overrideTextBox) {
+                            document.getElementById('input').value = svg;
+                            overrideTextBox = false;
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    function renderCustom() {
-        render(document.getElementById('input').value,
-            document.getElementById('width').value,
-            document.getElementById('height').value);
-    }
+        function renderCustom() {
+            render(document.getElementById('input').value,
+                document.getElementById('width').value,
+                document.getElementById('height').value);
+        }
     </script>
     <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-15494947-1']);
-    _gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-15494947-1']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
     </script>
 </head>
 
@@ -277,6 +277,7 @@
                     <option value="issue366.svg">Issue #366: referenced gradients</option>
                     <option value="issue372.svg">Issue #372: referenced gradients</option>
                     <option value="issue376.svg">Issue #376: recurring css class definitions</option>
+                    <option value="issue510.svg">Issue #510: nested opacity</option>
                 </select>
             </td>
             <td>

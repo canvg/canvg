@@ -139,7 +139,8 @@ const svgs = {
     "issue362.svg": "Issue #362: text tspan dx dy offset fixes",
     "issue366.svg": "Issue #366: referenced gradients",
     "issue372.svg": "Issue #372: referenced gradients",
-    "issue376.svg": "Issue #376: recurring css class definitions"
+    "issue376.svg": "Issue #376: recurring css class definitions",
+    "issue510.svg": "Issue #510: nested opacity"
   }
 };
 

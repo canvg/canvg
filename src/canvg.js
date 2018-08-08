@@ -1004,6 +1004,21 @@ function build(opts) {
     this.base = svg.Element.ElementBase;
     this.base(node);
 
+    this.calculateOpacity = function() {
+      var opacity = 1.0;
+
+      var el = this;
+      while (el != null) {
+        var opacityStyle = el.style('opacity', false, true); // no ancestors on style call
+        if (opacityStyle.hasValue()) {
+          opacity = opacity * opacityStyle.numValue();
+        }
+        el = el.parent;
+      }
+
+      return opacity;
+    }
+
     this.setContext = function (ctx) {
       // fill
       if (this.style('fill').isUrlDefinition()) {
@@ -1073,9 +1088,7 @@ function build(opts) {
       }
 
       // opacity
-      if (this.style('opacity').hasValue()) {
-        ctx.globalAlpha = this.style('opacity').numValue();
-      }
+      ctx.globalAlpha = this.calculateOpacity();
     }
   }
   svg.Element.RenderedElementBase.prototype = new svg.Element.ElementBase;
