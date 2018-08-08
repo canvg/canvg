@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.com/canvg/canvg.svg?branch=master)](https://travis-ci.com/canvg/canvg)
+[![npm](https://img.shields.io/npm/dm/canvg.svg)](https://www.npmjs.com/package/canvg)
+[![](https://data.jsdelivr.com/v1/package/npm/canvg/badge?style=rounded)](https://www.jsdelivr.com/package/npm/canvg)
+
 
 Looking for Contributors
 ============

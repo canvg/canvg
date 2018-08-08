@@ -1,5 +1,5 @@
-async function openPage(browser, testcase, t) {
-  let address = `http://localhost:3123/test?test=${testcase}`;
+async function openPage(browser, testcase, t, port) {
+    let address = `http://localhost:${port}/test?test=${testcase}`;
 
   const page = await browser.newPage();
 
