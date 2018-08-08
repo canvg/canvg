@@ -245,8 +245,8 @@ function build(opts) {
   // trim
   svg.trim = function (s) { return s.replace(/^\s+|\s+$/g, ''); }
 
-  // compress spaces
-  svg.compressSpaces = function (s) { return s.replace(/[\s\r\t\n]+/gm, ' '); }
+  // compress non-ideographic spaces
+  svg.compressSpaces = function (s) { return s.replace(/(?!\u3000)\s+/gm, ' '); }
 
   // ajax
   svg.ajax = function (url) {
@@ -1004,6 +1004,21 @@ function build(opts) {
     this.base = svg.Element.ElementBase;
     this.base(node);
 
+    this.calculateOpacity = function() {
+      var opacity = 1.0;
+
+      var el = this;
+      while (el != null) {
+        var opacityStyle = el.style('opacity', false, true); // no ancestors on style call
+        if (opacityStyle.hasValue()) {
+          opacity = opacity * opacityStyle.numValue();
+        }
+        el = el.parent;
+      }
+
+      return opacity;
+    }
+
     this.setContext = function (ctx) {
       // fill
       if (this.style('fill').isUrlDefinition()) {
@@ -1073,9 +1088,7 @@ function build(opts) {
       }
 
       // opacity
-      if (this.style('opacity').hasValue()) {
-        ctx.globalAlpha = this.style('opacity').numValue();
-      }
+      ctx.globalAlpha = this.calculateOpacity();
     }
   }
   svg.Element.RenderedElementBase.prototype = new svg.Element.ElementBase;
