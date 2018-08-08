@@ -245,8 +245,8 @@ function build(opts) {
   // trim
   svg.trim = function (s) { return s.replace(/^\s+|\s+$/g, ''); }
 
-  // compress spaces
-  svg.compressSpaces = function (s) { return s.replace(/[\s\r\t\n]+/gm, ' '); }
+  // compress non-ideographic spaces
+  svg.compressSpaces = function (s) { return s.replace(/(?!\u3000)\s+/gm, ' '); }
 
   // ajax
   svg.ajax = function (url) {
