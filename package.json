@@ -20,7 +20,7 @@
   "version": "1.5.1",
   "scripts": {
     "start": "node test/browser.test.js",
-    "build": "npm run build:browser && npm run build:node",
+    "build": "npm run build-browser && npm run build-node && npm run minify",
     "build-browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
     "build-node": "IS_NODE=1 rollup -c",
     "test": "ava",
