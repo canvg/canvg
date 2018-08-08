@@ -1,5 +1,5 @@
 var RGBColor = require('rgbcolor'),
-  stackBlur = require('stackblur');
+  StackBlur = require('stackblur-canvas');
 
 var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
   nodeEnv = isNode;
@@ -2903,7 +2903,7 @@ function build(opts) {
     this.extraFilterDistance = this.blurRadius;
 
     this.apply = function (ctx, x, y, width, height) {
-      if (typeof stackBlur.canvasRGBA == 'undefined') {
+      if (!StackBlur || typeof StackBlur.canvasRGBA === 'undefined') {
         svg.log('ERROR: StackBlur.js must be included for blur to work');
         return;
       }
@@ -2912,7 +2912,7 @@ function build(opts) {
       ctx.canvas.id = svg.UniqueId();
       ctx.canvas.style.display = 'none';
       document.body.appendChild(ctx.canvas);
-      stackBlur.canvasRGBA(ctx.canvas.id, x, y, width, height, this.blurRadius);
+      StackBlur.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
       document.body.removeChild(ctx.canvas);
     }
   }
