@@ -17,7 +17,7 @@
   "main": "dist/node/canvg.js",
   "types": "dist/node/canvg.d.ts",
   "browser": "dist/browser/canvg.min.js",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "scripts": {
     "start": "node test/browser.test.js",
     "build": "npm run build-browser && npm run build-node && npm run minify",
@@ -40,7 +40,7 @@
   "dependencies": {
     "jsdom": "^8.1.0",
     "rgbcolor": "^1.0.1",
-    "stackblur": "^1.0.0",
+    "stackblur-canvas": "^1.4.1",
     "xmldom": "^0.1.22"
   },
   "devDependencies": {

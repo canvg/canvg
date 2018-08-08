@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 1.5.1
+ * version 1.5.2
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg
@@ -9,13 +9,13 @@
  */
  
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur')) :
-	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur'], factory) :
-	(global.canvg = factory(global.RGBColor,global.stackBlur));
-}(this, (function (rgbcolor,stackblur) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas')) :
+	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas'], factory) :
+	(global.canvg = factory(global.RGBColor,global.StackBlur));
+}(this, (function (rgbcolor,stackblurCanvas) { 'use strict';
 
 	rgbcolor = rgbcolor && rgbcolor.hasOwnProperty('default') ? rgbcolor['default'] : rgbcolor;
-	stackblur = stackblur && stackblur.hasOwnProperty('default') ? stackblur['default'] : stackblur;
+	stackblurCanvas = stackblurCanvas && stackblurCanvas.hasOwnProperty('default') ? stackblurCanvas['default'] : stackblurCanvas;
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -2875,7 +2875,7 @@
 	    this.extraFilterDistance = this.blurRadius;
 
 	    this.apply = function (ctx, x, y, width, height) {
-	      if (typeof stackblur.canvasRGBA == 'undefined') {
+	      if (!stackblurCanvas || typeof stackblurCanvas.canvasRGBA === 'undefined') {
 	        svg.log('ERROR: StackBlur.js must be included for blur to work');
 	        return;
 	      }
@@ -2884,7 +2884,7 @@
 	      ctx.canvas.id = svg.UniqueId();
 	      ctx.canvas.style.display = 'none';
 	      document.body.appendChild(ctx.canvas);
-	      stackblur.canvasRGBA(ctx.canvas.id, x, y, width, height, this.blurRadius);
+	      stackblurCanvas.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
 	      document.body.removeChild(ctx.canvas);
 	    };
 	  };
