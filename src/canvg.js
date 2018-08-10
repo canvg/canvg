@@ -972,9 +972,11 @@ function build(opts) {
         for (var i = 0; i < styles.length; i++) {
           if (svg.trim(styles[i]) != '') {
             var style = styles[i].split(':');
-            var name = svg.trim(style[0]);
-            var value = svg.trim(style[1]);
-            this.styles[name] = new svg.Property(name, value);
+            if(style.length > 1) {
+              var name = svg.trim(style[0]);
+              var value = svg.trim(style[1]);
+              this.styles[name] = new svg.Property(name, value);
+            }
           }
         }
       }
