@@ -21,6 +21,7 @@ Potential uses
 
 Example Demonstration
 =====================
+[hosted](http://canvg.github.io/canvg/examples/index.htm)
 [jsfiddle playground](http://jsfiddle.net/6r2jug6o/2590/)
 
 Locally, you can run `npm start` and view the examples at [http://localhost:3123/examples/index.htm](http://localhost:3123/examples/index.htm)
@@ -77,7 +78,7 @@ The third parameter is options:
 * useCORS: true => will attempt to use CORS on images to not taint canvas
 
 You can call canvg without parameters to replace all svg images on a page. See the
-example by running `npm start` and going to [http://localhost:3123/examples/convert.htm](http://localhost:3123/examples/convert.htm).
+example by [here](http://canvg.github.io/canvg/examples/convert.htm).
 
 There is also a built in extension method to the canvas context to draw svgs similar to the way [drawImage](http://www.w3.org/TR/2dcontext/#dom-context-2d-drawimage) works:
 ```javascript
