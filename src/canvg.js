@@ -1776,6 +1776,7 @@ function build(opts) {
 
     this.baseRender = this.render;
     this.render = function (ctx, point, angle) {
+      if (!point) { return; }
       ctx.translate(point.x, point.y);
       if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(angle);
       if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(ctx.lineWidth, ctx.lineWidth);
