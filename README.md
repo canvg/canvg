@@ -79,7 +79,7 @@ The third parameter is options:
 * useCORS: true => will attempt to use CORS on images to not taint canvas
 
 You can call canvg without parameters to replace all svg images on a page. See the
-example by [here](http://canvg.github.io/canvg/examples/convert.htm).
+[example](http://canvg.github.io/canvg/examples/convert.htm).
 
 There is also a built in extension method to the canvas context to draw svgs similar to the way [drawImage](http://www.w3.org/TR/2dcontext/#dom-context-2d-drawimage) works:
 ```javascript
