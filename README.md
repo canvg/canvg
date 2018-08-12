@@ -22,6 +22,7 @@ Potential uses
 Example Demonstration
 =====================
 [hosted](http://canvg.github.io/canvg/examples/index.htm)
+
 [jsfiddle playground](http://jsfiddle.net/6r2jug6o/2590/)
 
 Locally, you can run `npm start` and view the examples at [http://localhost:3123/examples/index.htm](http://localhost:3123/examples/index.htm)
