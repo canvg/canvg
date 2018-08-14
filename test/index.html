@@ -3,57 +3,6 @@
 
 <head>
   <title>canvg.js test</title>
-  <style>
-  body {
-    font-family: verdana;
-  }
-
-  h1,
-  h2 {
-    margin: 0;
-  }
-
-  #title {
-    padding: 0 0 5px 5px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  #message {
-    background-color: orangered;
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-
-  #message a {
-    color: white;
-  }
-
-  td {
-    vertical-align: top;
-    padding-right: 10px;
-  }
-
-  a image {
-    border: 0;
-  }
-
-  textarea {
-    width: 100%;
-  }
-
-  .output {
-    border: 1px solid gray;
-    min-width: 500px;
-    min-height: 500px;
-    overflow: auto;
-    float: left;
-  }
-
-  </style>
-  <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Gugi' type='text/css'>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
   <script type="text/javascript" src="../dist/browser/canvg.js"></script>
@@ -73,7 +22,6 @@
   function bodyonload() {
     var testcase = q('test');
     if (testcase != null && testcase != '') {
-      document.getElementById('svgimg').src = '../svgs/' + testcase;
       render('../svgs/' + testcase);
     }
   }
@@ -88,12 +36,9 @@
 
     canvg(c, svg, {
       ignoreMouse: true,
-      //ignoreAnimation: true,
+      ignoreAnimation: true,
       renderCallback: function(dom) {
         window.canvas_dataurl = c.toDataURL();
-        var svg = (new XMLSerializer()).serializeToString(dom);
-        document.getElementById('svg').innerHTML = svg;
-        document.getElementById('input').value = svg;
         var result = document.createElement('input');
         result.id = 'final_result';
         result.type = 'hidden';
@@ -106,12 +51,7 @@
 </head>
 
 <body onload="bodyonload();">
-  <textarea id="input" rows="10" cols="50">&lt;svg&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;</textarea>
-  <div>
-    <div class="output" id="canvas"></div>
-    <div class="output" id="svg"></div>
-    <div class="output"><img id="svgimg"></div>
-  </div>
+  <div class="output" id="canvas"></div>
 </body>
 
 </html>

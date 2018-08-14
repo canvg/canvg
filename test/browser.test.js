@@ -33,39 +33,46 @@ test.before(async t => {
   browser = await launchBrowser();
 });
 
-for (let group in svgs) {
-  for (let file in svgs[group]) {
-    let description = svgs[group][file];
+const testFile = (file, group) => {
+  let description = svgs[group][file],
+    actual_path = path.resolve(`${actual_folder}/${group}_${file}.png`),
+    actual_file;
 
-    test.serial(`comparing results for ${file} (${description})`, async t => {
-      try {
-        let canvas_dataurl = await openPage(browser, file, t, port);
+  test.serial(`comparing results for ${file} (${description})`, async t => {
 
-        let { canvasBuffer, expectedImg } = await getBuffersBrowser(file, canvas_dataurl);
-        let actual_path = path.resolve(`${actual_folder}/${group}_${file}.png`);
-        try {
-
-          let { res, differences } = await runDiff(canvasBuffer, expectedImg, `${diff_folder}/${group}_${file}.png`, 0.03);
-
-          if (!res) {
-            await fs.writeFileAsync(actual_path, canvasBuffer);
-            t.fail.skip(`${file}.png has ${differences} differences with compared file`);
-          } else {
-            t.truthy(res);
-          }
-        } catch (err) {
-          await fs.writeFileAsync(actual_path, canvasBuffer);
-          t.log(err);
-          t.fail.skip(err.message);
+    return openPage(browser, file, t, port)
+      .then(canvas_dataurl => {
+        return getBuffersBrowser(file, canvas_dataurl);
+      })
+      .then(({ canvasBuffer, expectedImg }) => {
+        actual_file = canvasBuffer;
+        return runDiff(canvasBuffer, expectedImg, `${diff_folder}/${group}_${file}.png`, 0.03);
+      })
+      .then(async({ res, differences }) => {
+        if (!res) {
+          await fs.writeFileAsync(actual_path, actual_file);
+          t.fail.skip(`${file}.png has ${differences} differences with compared file`);
+        } else {
+          t.truthy(res);
         }
+      }).catch(async err => {
+        await fs.writeFileAsync(actual_path, actual_file);
+        t.log(err);
+        t.fail.skip(err.message);
+      });
 
-      } catch (err2) {
-        t.log(err2);
-        t.fail.skip(err2.message);
-      }
-    });
-  }
+  });
+};
+
+for (let file in svgs['broken']) {
+  testFile(file, 'broken');
 }
+
+
+for (let file in svgs['passing']) {
+  testFile(file, 'passing');
+}
+
 
 test.after(async t => {
   server.close();

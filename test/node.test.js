@@ -23,62 +23,40 @@ test.before(async t => {
 });
 
 
-for (let file in svgs['broken']) {
-  let description = svgs['broken'][file];
 
+const testFile = (file, group) => {
+  let description = svgs[group][file],
+    actual_path = path.resolve(`${actual_folder}/${group}_${file}.png`),
+    actual_file;
   test(`comparing results for ${file} (${description})`, async t => {
-    try {
-      let { canvasBuffer, expectedImg } = await getBuffersNode(file);
-      let actual_path = path.resolve(`${actual_folder}/broken_${file}.png`);
 
-      try {
-        let { res, differences } = await runDiff(canvasBuffer, expectedImg, `${diff_folder}/broken__${file}.png`, 0.02);
+    return getBuffersNode(file)
+      .then(({ canvasBuffer, expectedImg }) => {
+        actual_file = canvasBuffer;
+        return runDiff(canvasBuffer, expectedImg, `${diff_folder}/${group}_${file}.png`, (group === 'broken' ? 0.02 : 0.03));
+      }).then(async({ res, differences }) => {
         if (!res) {
-
-          await fs.writeFileAsync(actual_path, canvasBuffer);
+          await fs.writeFileAsync(actual_path, actual_file);
           t.log(`${file}.png has ${differences} differences with compared file`);
-          t.truthy.skip(`skip broken ${file}`);
+          if (group === 'broken') { t.truthy.skip(`skip broken ${file}`); } else { t.fail(); }
         } else {
           t.truthy(res);
         }
-      } catch (err) {
+
+      }).catch(async err => {
+        await fs.writeFileAsync(actual_path, actual_file);
         t.log(err.message);
-        t.truthy.skip(`skip broken ${file}`);
-      }
-    } catch (err2) {
-      t.log(err2.message);
-      t.truthy.skip(`skip broken ${file}`);
-    }
+        if (group === 'broken') { t.truthy.skip(`skip broken ${file}`); } else { t.fail(); }
+      });
 
   });
+};
+
+for (let file in svgs['broken']) {
+  testFile(file, 'broken');
 }
 
 
 for (let file in svgs['passing']) {
-  let description = svgs['passing'][file];
-
-  test(`comparing results for ${file} (${description})`, async t => {
-
-    let { canvasBuffer, expectedImg } = await getBuffersNode(file);
-
-    let actual_path = path.resolve(`${actual_folder}/passing_${file}.png`);
-
-    try {
-      let { res, differences } = await runDiff(canvasBuffer, expectedImg, `${diff_folder}/passing_${file}.png`, 0.03);
-      if (!res) {
-
-        await fs.writeFileAsync(actual_path, canvasBuffer);
-        t.log(`${file}.png has ${differences} differences with compared file`);
-        t.fail();
-      } else {
-        t.truthy(res);
-      }
-    } catch (err) {
-      await fs.writeFileAsync(actual_path, canvasBuffer);
-      t.log(err.message);
-      t.fail();
-    }
-
-
-  });
+  testFile(file, 'passing');
 }
