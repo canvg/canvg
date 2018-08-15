@@ -48,8 +48,7 @@ const svgs = {
     "issue145.svg": "Issue #145: css id selector",
     "issue161.svg": "Issue #161: google chart gradient (svg error)",
     "issue166.svg": "Issue #166: custom glyphs",
-    "issue172.svg":
-      "Issue #172: cylinder gradient (broken - radial gradient off)",
+    "issue172.svg": "Issue #172: cylinder gradient (broken - radial gradient off)",
     "issue175.svg": "Issue #175: stroke width",
     "issue176.svg": "Issue #176: rounded rectangles",
     "issue178.svg": "Issue #178: pattern offset",
