@@ -4,7 +4,16 @@ const path = require('path'),
   mkdirp = require('mkdirp'),
   mkdirAsync = Promise.promisify(mkdirp);
 
-async function createDirs(folder_actual, folder_diff) {
+
+/**
+ * Create folders for actual generates files and diff between
+ * then and expected result
+ *
+ * @param  {string}   folder_actual  The folder for actual generated images
+ * @param  {string}   folder_diff    The folder for differences
+ * @return {Promise}  { description_of_the_return_value }
+ */
+async function createDirs(folder_actual, folder_diff, group) {
 
   let oldUmask = process.umask(0);
 
@@ -16,10 +25,16 @@ async function createDirs(folder_actual, folder_diff) {
   let diff_files = await fs.readdirAsync(folder_diff);
 
   let removal_actual_files = actual_files.map(file => {
-    return fs.unlinkAsync(path.resolve(`${folder_actual}/${file}`)).catch(err => { });
+    if (!group || file.indexOf(group) === 0) {
+      return fs.unlinkAsync(path.resolve(`${folder_actual}/${file}`)).catch(err => {});
+    }
+    return;
   });
   let removal_diff_files = diff_files.map(file => {
-    return fs.unlinkAsync(path.resolve(`${folder_diff}/${file}`)).catch(err => { });
+    if (!group || file.indexOf(group) === 0) {
+      return fs.unlinkAsync(path.resolve(`${folder_diff}/${file}`)).catch(err => {});
+    }
+    return;
   });
 
   await Promise.all(removal_actual_files);

@@ -19,7 +19,7 @@
   "browser": "dist/browser/canvg.min.js",
   "version": "1.5.2",
   "scripts": {
-    "start": "node test/browser.test.js",
+    "start": "node test/_server.js",
     "build": "npm run build-browser && npm run build-node && npm run minify",
     "build-browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
     "build-node": "IS_NODE=1 rollup -c",
