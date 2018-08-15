@@ -30,6 +30,14 @@ Example Demonstration
 
 Locally, you can run `npm start` and view the examples at [http://localhost:3123/examples/index.htm](http://localhost:3123/examples/index.htm)
 
+Building
+========
+`npm run build` then look in the `dist` folder
+
+Testing
+=======
+`npm run test`
+
 Usage on the server
 ===================
 `npm install canvg`

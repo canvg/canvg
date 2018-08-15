@@ -1,9 +1,8 @@
-const path = require('path'),
-  Promise = require('bluebird'),
+const path = require("path"),
+  Promise = require("bluebird"),
   fs = Promise.promisifyAll(require("fs")),
-  mkdirp = require('mkdirp'),
+  mkdirp = require("mkdirp"),
   mkdirAsync = Promise.promisify(mkdirp);
-
 
 /**
  * Create folders for actual generates files and diff between
@@ -14,7 +13,6 @@ const path = require('path'),
  * @return {Promise}  { description_of_the_return_value }
  */
 async function createDirs(folder_actual, folder_diff, group) {
-
   let oldUmask = process.umask(0);
 
   await mkdirAsync(folder_actual);
@@ -26,13 +24,17 @@ async function createDirs(folder_actual, folder_diff, group) {
 
   let removal_actual_files = actual_files.map(file => {
     if (!group || file.indexOf(group) === 0) {
-      return fs.unlinkAsync(path.resolve(`${folder_actual}/${file}`)).catch(err => {});
+      return fs
+        .unlinkAsync(path.resolve(`${folder_actual}/${file}`))
+        .catch(err => {});
     }
     return;
   });
   let removal_diff_files = diff_files.map(file => {
     if (!group || file.indexOf(group) === 0) {
-      return fs.unlinkAsync(path.resolve(`${folder_diff}/${file}`)).catch(err => {});
+      return fs
+        .unlinkAsync(path.resolve(`${folder_diff}/${file}`))
+        .catch(err => {});
     }
     return;
   });

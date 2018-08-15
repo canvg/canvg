@@ -48,7 +48,8 @@ const svgs = {
     "issue145.svg": "Issue #145: css id selector",
     "issue161.svg": "Issue #161: google chart gradient (svg error)",
     "issue166.svg": "Issue #166: custom glyphs",
-    "issue172.svg": "Issue #172: cylinder gradient (broken - radial gradient off)",
+    "issue172.svg":
+      "Issue #172: cylinder gradient (broken - radial gradient off)",
     "issue175.svg": "Issue #175: stroke width",
     "issue176.svg": "Issue #176: rounded rectangles",
     "issue178.svg": "Issue #178: pattern offset",
@@ -128,7 +129,7 @@ const svgs = {
     "issue91.svg": "Issue #91: opacity masks",
     "issue94.svg": "Issue #94: visibility attribute",
     "issue98.svg": "Issue #98: path error",
-    "issue99.svg": "Issue #99: tspan offset",
+    "issue99.svg": "Issue #99: tspan offset"
   },
 
   broken: {
@@ -142,7 +143,8 @@ const svgs = {
     "issue104.svg": "Issue #104: linear gradient",
     "issue45.svg": "Issue #45: gradient transform (broken)",
     "issue181.svg": "Issue #181: linear gradient (broken - not appearing)",
-    "issue158.svg": "Issue #158: complex w/ data images (broken - missing images in circles)",
+    "issue158.svg":
+      "Issue #158: complex w/ data images (broken - missing images in circles)"
   }
 };
 
