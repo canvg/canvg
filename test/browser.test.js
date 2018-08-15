@@ -1,25 +1,21 @@
-const
-  fs = require('fs'),
-  path = require('path'),
-  puppeteer = require('puppeteer'),
+const fs = require("fs"),
+  path = require("path"),
+  puppeteer = require("puppeteer"),
   initServer = require(path.resolve(`${__dirname}/_server.js`)),
   openPage = require(path.resolve(`${__dirname}/_openpage.js`)),
   createDirs = require(path.resolve(`${__dirname}/_create_dirs.js`)),
   runDiff = require(path.resolve(`${__dirname}/_run_diff.js`)),
-  getBuffersBrowser = require(path.resolve(`${__dirname}/_get_buffers_browser.js`)),
+  getBuffersBrowser = require(path.resolve(
+    `${__dirname}/_get_buffers_browser.js`
+  )),
   svgs = require(path.resolve(`${__dirname}/_svgs.js`)),
-  test = require('ava');
-
-
-
-
+  test = require("ava");
 
 function launchBrowser() {
   return puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
 }
-
 
 let port = 3126,
   server = initServer(port),
@@ -39,43 +35,47 @@ const testFile = (file, group) => {
     actual_file;
 
   test.serial(`comparing results for ${file} (${description})`, async t => {
-
     return openPage(browser, file, t, port)
       .then(canvas_dataurl => {
         return getBuffersBrowser(file, canvas_dataurl);
       })
       .then(({ canvasBuffer, expectedImg }) => {
         actual_file = canvasBuffer;
-        return runDiff(canvasBuffer, expectedImg, `${diff_folder}/${group}_${file}.png`, 0.03);
+        return runDiff(
+          canvasBuffer,
+          expectedImg,
+          `${diff_folder}/${group}_${file}.png`,
+          0.03
+        );
       })
-      .then(async({ res, differences }) => {
+      .then(async ({ res, differences }) => {
         if (!res) {
           await fs.writeFileAsync(actual_path, actual_file);
-          t.fail.skip(`${file}.png has ${differences} differences with compared file`);
+          t.fail.skip(
+            `${file}.png has ${differences} differences with compared file`
+          );
         } else {
           t.truthy(res);
         }
-      }).catch(async err => {
+      })
+      .catch(async err => {
         await fs.writeFileAsync(actual_path, actual_file);
         t.log(err);
         t.fail.skip(err.message);
       });
-
   });
 };
 
-for (let file in svgs['broken']) {
-  testFile(file, 'broken');
+for (let file in svgs["broken"]) {
+  testFile(file, "broken");
 }
 
-
-for (let file in svgs['passing']) {
-  testFile(file, 'passing');
+for (let file in svgs["passing"]) {
+  testFile(file, "passing");
 }
-
 
 test.after(async t => {
   server.close();
   await browser.close();
-  t.log('closed puppeteer');
+  t.log("closed puppeteer");
 });

@@ -1,18 +1,18 @@
 import resolve from "rollup-plugin-node-resolve";
-import commonjs from 'rollup-plugin-commonjs';
-import json from 'rollup-plugin-json';
-import replace from 'rollup-plugin-replace';
-import alias from 'rollup-plugin-alias';
-import pkgConfig from './package.json';
+import commonjs from "rollup-plugin-commonjs";
+import json from "rollup-plugin-json";
+import replace from "rollup-plugin-replace";
+import alias from "rollup-plugin-alias";
+import pkgConfig from "./package.json";
 
-let is_node = process.env.IS_NODE === '1';
+let is_node = process.env.IS_NODE === "1";
 
-let globals = { 'stackblur-canvas': 'StackBlur', rgbcolor: 'RGBColor' };
-let external = ['stackblur-canvas', 'rgbcolor'];
+let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor" };
+let external = ["stackblur-canvas", "rgbcolor"];
 
 let plugins = [
   replace({
-    "nodeEnv = isNode": is_node ? 'nodeEnv = true;' : 'nodeEnv = false;',
+    "nodeEnv = isNode": is_node ? "nodeEnv = true;" : "nodeEnv = false;"
   }),
   commonjs(),
   resolve(),
@@ -20,23 +20,24 @@ let plugins = [
 ];
 
 if (is_node) {
-  external = external.concat(['xmldom', 'jsdom']);
-  globals.xmldom = 'xmldom';
-  globals.jsdom = 'jsdom';
-
+  external = external.concat(["xmldom", "jsdom"]);
+  globals.xmldom = "xmldom";
+  globals.jsdom = "jsdom";
 } else {
-  plugins = [alias({
-    'jsdom': './dummy.js',
-    'xmldom': './dummy.js',
-  })].concat(plugins);
+  plugins = [
+    alias({
+      jsdom: "./dummy.js",
+      xmldom: "./dummy.js"
+    })
+  ].concat(plugins);
 }
 
 let input = "./src/canvg.js",
   output = {
     file: is_node ? "./dist/node/canvg.js" : "./dist/browser/canvg.js",
     format: "umd",
-    exports: 'default',
-    name: 'canvg',
+    exports: "default",
+    name: "canvg",
 
     globals: globals,
     banner: `

@@ -1,6 +1,5 @@
-const Promise = require('bluebird'),
-  BlinkDiff = require('blink-diff');
-
+const Promise = require("bluebird"),
+  BlinkDiff = require("blink-diff");
 
 /**
  * Compares two images with a given threshold
@@ -18,7 +17,7 @@ async function runDiff(canvasBuffer, expectedImg, imageOutputPath, threshold) {
     imageB: expectedImg,
 
     thresholdType: BlinkDiff.THRESHOLD_PERCENT,
-        threshold: threshold || 0.01, // threshold. 0.01 means 1%
+    threshold: threshold || 0.01, // threshold. 0.01 means 1%
     delta: 50, // Make comparison more tolerant
 
     outputMaskRed: 0,
@@ -29,7 +28,7 @@ async function runDiff(canvasBuffer, expectedImg, imageOutputPath, threshold) {
   });
 
   return new Promise((resolve, reject) => {
-    diff.run(function (error, result) {
+    diff.run(function(error, result) {
       if (error) {
         reject(error);
       } else {

@@ -129,12 +129,12 @@ const svgs = {
     "issue94.svg": "Issue #94: visibility attribute",
     "issue98.svg": "Issue #98: path error",
     "issue99.svg": "Issue #99: tspan offset",
-  },
-
-  broken: {
     "issue206.svg": "Issue #206: blur",
     "issue182.svg": "Issue #182: blur (broken - a bit off on intensity)",
     "issue66.svg": "Issue #66: gaussian blur",
+  },
+
+  broken: {
     "issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
     "issue71.svg": "Issue #71: glyph",
     "issue82.svg": "Issue #82: external font",
@@ -142,7 +142,7 @@ const svgs = {
     "issue104.svg": "Issue #104: linear gradient",
     "issue45.svg": "Issue #45: gradient transform (broken)",
     "issue181.svg": "Issue #181: linear gradient (broken - not appearing)",
-    "issue158.svg": "Issue #158: complex w/ data images (broken - missing images in circles)",
+    "issue158.svg": "Issue #158: complex w/ data images (broken - missing images in circles)"
   }
 };
 

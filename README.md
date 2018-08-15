@@ -30,6 +30,16 @@ Example Demonstration
 
 Locally, you can run `npm start` and view the examples at [http://localhost:3123/examples/index.htm](http://localhost:3123/examples/index.htm)
 
+Building
+========
+`npm run build` then look in the `dist` folder
+
+Testing
+=======
+`npm run test`
+
+`npm run generate-expected foo.svg` to create the expected png for a given svg in the `svgs` folder
+
 Usage on the server
 ===================
 `npm install canvg`
