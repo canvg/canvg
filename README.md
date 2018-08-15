@@ -38,6 +38,8 @@ Testing
 =======
 `npm run test`
 
+`npm run generate-expeted foo.svg` to create the expected png for a given svg in the `svgs` folder
+
 Usage on the server
 ===================
 `npm install canvg`

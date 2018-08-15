@@ -2924,10 +2924,14 @@ function build(opts) {
 
       // StackBlur requires canvas be on document
       ctx.canvas.id = svg.UniqueId();
-      ctx.canvas.style.display = 'none';
-      document.body.appendChild(ctx.canvas);
+      if (!isNode) {
+        ctx.canvas.style.display = 'none';
+        document.body.appendChild(ctx.canvas);
+      }
       StackBlur.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
-      document.body.removeChild(ctx.canvas);
+      if (!isNode) {
+        document.body.removeChild(ctx.canvas);
+      }
     }
   }
   svg.Element.feGaussianBlur.prototype = new svg.Element.ElementBase;

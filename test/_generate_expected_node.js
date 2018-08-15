@@ -5,7 +5,6 @@ const canvg = require("../src/canvg.js"),
   fs = Promise.promisifyAll(require("fs")),
   PNGImage = Promise.promisifyAll(require("pngjs-image"));
 
-/*
 const file = process.argv[2];
 const fileName = path.resolve(`${__dirname}/../svgs/${file}`);
 if (!fs.existsSync(fileName)) {
@@ -28,8 +27,5 @@ if (!fs.existsSync(fileName)) {
 
   const canvasBuffer = canvas.toBuffer();
   const image = await PNGImage.loadImageAsync(canvasBuffer);
-  await image.writeImageAsync(fileName);
-
-  console.log(`Wrote to ${fileName}!`);
+  image.writeImage(path.resolve(`${__dirname}/expected/${file}.png`));
 })();
-*/
