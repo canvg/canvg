@@ -2924,12 +2924,12 @@ function build(opts) {
 
       // StackBlur requires canvas be on document
       ctx.canvas.id = svg.UniqueId();
-      if (!isNode) {
+      if (!nodeEnv) {
         ctx.canvas.style.display = 'none';
         document.body.appendChild(ctx.canvas);
       }
       StackBlur.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
-      if (!isNode) {
+      if (!nodeEnv) {
         document.body.removeChild(ctx.canvas);
       }
     }
