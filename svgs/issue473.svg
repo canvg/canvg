@@ -1,0 +1,6 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="120" cy="75" r="60" stroke-width="20" stroke="red" stroke-dasharray="140 1000" fill="none"/>
+  <circle cx="120" cy="75" r="30" stroke-width="20" stroke="orange" stroke-dasharray="140 1000" fill="none"/>
+  <line x1="20" y1="0" x2="20" y2="200" stroke="green" stroke-width="20" stroke-dasharray="100 100" stroke-dashoffset="50%"/>
+  <line x1="40" y1="0" x2="40" y2="200" stroke="blue" stroke-width="20" stroke-dasharray="100 100" stroke-dashoffset="100"/>
+</svg>

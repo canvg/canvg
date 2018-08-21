@@ -132,7 +132,10 @@ const svgs = {
     "issue206.svg": "Issue #206: blur",
     "issue182.svg": "Issue #182: blur (broken - a bit off on intensity)",
     "issue66.svg": "Issue #66: gaussian blur",
-    "issue610.svg": "Issue #610: rounded rectangle corners as bezier"
+    "issue610.svg": "Issue #610: rounded rectangle corners as bezier",
+    "issue454.svg": "Issue #454: stroke dash offset on a line",
+    "issue454b.svg": "Issue #454b: stroke dash offset on a line",
+    "issue473.svg": "Issue #473: stroke dash on arc",
   },
 
   broken: {
