@@ -1239,16 +1239,17 @@ function build(opts) {
       rx = Math.min(rx, width / 2.0);
       ry = Math.min(ry, height / 2.0);
       if (ctx != null) {
+        var KAPPA = 4 * ((Math.sqrt(2) - 1) / 3);
         ctx.beginPath();
         ctx.moveTo(x + rx, y);
         ctx.lineTo(x + width - rx, y);
-        ctx.quadraticCurveTo(x + width, y, x + width, y + ry)
+        ctx.bezierCurveTo(x + width - rx + (KAPPA * rx), y, x + width, y + ry - (KAPPA * ry), x + width, y + ry);
         ctx.lineTo(x + width, y + height - ry);
-        ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height)
+        ctx.bezierCurveTo(x + width, y + height - ry + (KAPPA * ry), x + width - rx + (KAPPA * rx), y + height, x + width - rx, y + height);
         ctx.lineTo(x + rx, y + height);
-        ctx.quadraticCurveTo(x, y + height, x, y + height - ry)
+        ctx.bezierCurveTo(x + rx - (KAPPA * rx), y + height, x, y + height - ry + (KAPPA * ry), x, y + height - ry);
         ctx.lineTo(x, y + ry);
-        ctx.quadraticCurveTo(x, y, x + rx, y)
+        ctx.bezierCurveTo(x, y + ry - (KAPPA * ry), x + rx - (KAPPA * rx), y, x + rx, y);
         ctx.closePath();
       }
 
