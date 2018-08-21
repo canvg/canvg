@@ -227,8 +227,8 @@
 	  // trim
 	  svg.trim = function (s) { return s.replace(/^\s+|\s+$/g, ''); };
 
-	  // compress spaces
-	  svg.compressSpaces = function (s) { return s.replace(/[\s\r\t\n]+/gm, ' '); };
+	  // compress non-ideographic spaces
+	  svg.compressSpaces = function (s) { return s.replace(/(?!\u3000)\s+/gm, ' '); };
 
 	  // ajax
 	  svg.ajax = function (url) {
@@ -976,6 +976,21 @@
 	    this.base = svg.Element.ElementBase;
 	    this.base(node);
 
+	    this.calculateOpacity = function() {
+	      var opacity = 1.0;
+
+	      var el = this;
+	      while (el != null) {
+	        var opacityStyle = el.style('opacity', false, true); // no ancestors on style call
+	        if (opacityStyle.hasValue()) {
+	          opacity = opacity * opacityStyle.numValue();
+	        }
+	        el = el.parent;
+	      }
+
+	      return opacity;
+	    };
+
 	    this.setContext = function (ctx) {
 	      // fill
 	      if (this.style('fill').isUrlDefinition()) {
@@ -1045,9 +1060,7 @@
 	      }
 
 	      // opacity
-	      if (this.style('opacity').hasValue()) {
-	        ctx.globalAlpha = this.style('opacity').numValue();
-	      }
+	      ctx.globalAlpha = this.calculateOpacity();
 	    };
 	  };
 	  svg.Element.RenderedElementBase.prototype = new svg.Element.ElementBase;
@@ -1198,16 +1211,17 @@
 	      rx = Math.min(rx, width / 2.0);
 	      ry = Math.min(ry, height / 2.0);
 	      if (ctx != null) {
+	        var KAPPA = 4 * ((Math.sqrt(2) - 1) / 3);
 	        ctx.beginPath();
 	        ctx.moveTo(x + rx, y);
 	        ctx.lineTo(x + width - rx, y);
-	        ctx.quadraticCurveTo(x + width, y, x + width, y + ry);
+	        ctx.bezierCurveTo(x + width - rx + (KAPPA * rx), y, x + width, y + ry - (KAPPA * ry), x + width, y + ry);
 	        ctx.lineTo(x + width, y + height - ry);
-	        ctx.quadraticCurveTo(x + width, y + height, x + width - rx, y + height);
+	        ctx.bezierCurveTo(x + width, y + height - ry + (KAPPA * ry), x + width - rx + (KAPPA * rx), y + height, x + width - rx, y + height);
 	        ctx.lineTo(x + rx, y + height);
-	        ctx.quadraticCurveTo(x, y + height, x, y + height - ry);
+	        ctx.bezierCurveTo(x + rx - (KAPPA * rx), y + height, x, y + height - ry + (KAPPA * ry), x, y + height - ry);
 	        ctx.lineTo(x, y + ry);
-	        ctx.quadraticCurveTo(x, y, x + rx, y);
+	        ctx.bezierCurveTo(x, y + ry - (KAPPA * ry), x + rx - (KAPPA * rx), y, x + rx, y);
 	        ctx.closePath();
 	      }
 
@@ -1735,6 +1749,7 @@
 
 	    this.baseRender = this.render;
 	    this.render = function (ctx, point, angle) {
+	      if (!point) { return; }
 	      ctx.translate(point.x, point.y);
 	      if (this.attribute('orient').valueOrDefault('auto') == 'auto') ctx.rotate(angle);
 	      if (this.attribute('markerUnits').valueOrDefault('strokeWidth') == 'strokeWidth') ctx.scale(ctx.lineWidth, ctx.lineWidth);
@@ -2882,10 +2897,14 @@
 
 	      // StackBlur requires canvas be on document
 	      ctx.canvas.id = svg.UniqueId();
-	      ctx.canvas.style.display = 'none';
-	      document.body.appendChild(ctx.canvas);
+	      {
+	        ctx.canvas.style.display = 'none';
+	        document.body.appendChild(ctx.canvas);
+	      }
 	      stackblurCanvas.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
-	      document.body.removeChild(ctx.canvas);
+	      {
+	        document.body.removeChild(ctx.canvas);
+	      }
 	    };
 	  };
 	  svg.Element.feGaussianBlur.prototype = new svg.Element.ElementBase;
