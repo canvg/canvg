@@ -2645,6 +2645,12 @@ function build(opts) {
       if (element != null) element.path(ctx);
     }
 
+    this.elementTransform = function () {
+      if (element != null && element.style('transform', false, true).hasValue()) {
+        return new svg.Transform(element.style('transform', false, true).value);
+      }
+    }
+
     this.getBoundingBox = function () {
       if (element != null) return element.getBoundingBox();
     }
@@ -2748,9 +2754,11 @@ function build(opts) {
       for (var i = 0; i < this.children.length; i++) {
         var child = this.children[i];
         if (typeof child.path != 'undefined') {
-          var transform = null;
-          if (child.style('transform', false, true).hasValue()) {
+          var transform = typeof child.elementTransform != 'undefined' && child.elementTransform(); // handle <use />
+          if (!transform && child.style('transform', false, true).hasValue()) {
             transform = new svg.Transform(child.style('transform', false, true).value);
+          }
+          if (transform) {
             transform.apply(ctx);
           }
           child.path(ctx);

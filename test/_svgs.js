@@ -136,6 +136,7 @@ const svgs = {
     "issue454.svg": "Issue #454: stroke dash offset on a line",
     "issue454b.svg": "Issue #454b: stroke dash offset on a line",
     "issue473.svg": "Issue #473: stroke dash on arc",
+    "issue615.svg": "Issue #615: transform on clip",
   },
 
   broken: {
