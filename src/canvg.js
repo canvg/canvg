@@ -271,10 +271,10 @@ function build(opts) {
       return xmlDoc;
     } else if (windowEnv.DOMParser) {
       try {
-        var parser = new windowEnv.DOMParser(opts.xmldom || {});
+        var parser = opts.xmldom ? new windowEnv.DOMParser(opts.xmldom) : new windowEnv.DOMParser();
         return parser.parseFromString(xml, 'image/svg+xml');
       } catch (e) {
-        parser = new windowEnv.DOMParser(opts.xmldom || {});
+        parser = opts.xmldom ? new windowEnv.DOMParser(opts.xmldom) : new windowEnv.DOMParser();
         return parser.parseFromString(xml, 'text/xml');
       }
     } else {
