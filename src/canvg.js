@@ -762,15 +762,12 @@ function build(opts) {
       }
     }
 
-    var data = svg
-      .trim(svg.compressSpaces(v))
-      .replace(/\)([a-zA-Z])/g, ') $1')
-      .replace(/\)(\s?,\s?)/g, ') ')
-      .split(/\s(?=[a-z])/)
-      .filter(function (d) {
-        return d !== 'none';
-      });
+    var data = svg.trim(svg.compressSpaces(v)).replace(/\)([a-zA-Z])/g, ') $1').replace(/\)(\s?,\s?)/g, ') ').split(/\s(?=[a-z])/);
     for (var i = 0; i < data.length; i++) {
+      if (data[i] === 'none') {
+        continue;
+      }
+
       var type = svg.trim(data[i].split('(')[0]);
       var s = data[i].split('(')[1].replace(')', '');
       var transformType = this.Type[type];
