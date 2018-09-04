@@ -6,3 +6,4 @@ test/actual_browser
 test/diff_node
 test/diff_browser
 .vscode
+.idea
