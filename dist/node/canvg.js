@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 1.5.2
+ * version 1.5.3
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg
@@ -738,6 +738,10 @@
 
 	    var data = svg.trim(svg.compressSpaces(v)).replace(/\)([a-zA-Z])/g, ') $1').replace(/\)(\s?,\s?)/g, ') ').split(/\s(?=[a-z])/);
 	    for (var i = 0; i < data.length; i++) {
+	      if (data[i] === 'none') {
+	        continue;
+	      }
+
 	      var type = svg.trim(data[i].split('(')[0]);
 	      var s = data[i].split('(')[1].replace(')', '');
 	      var transformType = this.Type[type];
@@ -1035,7 +1039,7 @@
 	        var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
 	        if (typeof ctx.setLineDash != 'undefined') { ctx.setLineDash(gaps); } else if (typeof ctx.webkitLineDash != 'undefined') { ctx.webkitLineDash = gaps; } else if (typeof ctx.mozDash != 'undefined' && !(gaps.length == 1 && gaps[0] == 0)) { ctx.mozDash = gaps; }
 
-	        var offset = this.style('stroke-dashoffset').numValueOrDefault(1);
+	        var offset = this.style('stroke-dashoffset').toPixels();
 	        if (typeof ctx.lineDashOffset != 'undefined') { ctx.lineDashOffset = offset; } else if (typeof ctx.webkitLineDashOffset != 'undefined') { ctx.webkitLineDashOffset = offset; } else if (typeof ctx.mozDashOffset != 'undefined') { ctx.mozDashOffset = offset; }
 	      }
 
@@ -1244,7 +1248,7 @@
 
 	      if (ctx != null) {
 	        ctx.beginPath();
-	        ctx.arc(cx, cy, r, 0, Math.PI * 2, true);
+	        ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
 	        ctx.closePath();
 	      }
 
@@ -1267,11 +1271,11 @@
 
 	      if (ctx != null) {
 	        ctx.beginPath();
-	        ctx.moveTo(cx, cy - ry);
-	        ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry, cx + rx, cy - (KAPPA * ry), cx + rx, cy);
+	        ctx.moveTo(cx + rx, cy);
 	        ctx.bezierCurveTo(cx + rx, cy + (KAPPA * ry), cx + (KAPPA * rx), cy + ry, cx, cy + ry);
 	        ctx.bezierCurveTo(cx - (KAPPA * rx), cy + ry, cx - rx, cy + (KAPPA * ry), cx - rx, cy);
 	        ctx.bezierCurveTo(cx - rx, cy - (KAPPA * ry), cx - (KAPPA * rx), cy - ry, cx, cy - ry);
+	        ctx.bezierCurveTo(cx + (KAPPA * rx), cy - ry, cx + rx, cy - (KAPPA * ry), cx + rx, cy);
 	        ctx.closePath();
 	      }
 
@@ -1683,7 +1687,12 @@
 	            break;
 	          case 'Z':
 	          case 'z':
-	            if (ctx != null) ctx.closePath();
+	            if (ctx != null) {
+	              // only close path if it is not a straight line
+					      if (bb.x1 !== bb.x2 && bb.y1 !== bb.y2) {
+	                ctx.closePath();
+	              }
+	            }
 	            pp.current = pp.start;
 	        }
 	      }
@@ -2614,6 +2623,12 @@
 	      if (element != null) element.path(ctx);
 	    };
 
+	    this.elementTransform = function () {
+	      if (element != null && element.style('transform', false, true).hasValue()) {
+	        return new svg.Transform(element.style('transform', false, true).value);
+	      }
+	    };
+
 	    this.getBoundingBox = function () {
 	      if (element != null) return element.getBoundingBox();
 	    };
@@ -2717,9 +2732,11 @@
 	      for (var i = 0; i < this.children.length; i++) {
 	        var child = this.children[i];
 	        if (typeof child.path != 'undefined') {
-	          var transform = null;
-	          if (child.style('transform', false, true).hasValue()) {
+	          var transform = typeof child.elementTransform != 'undefined' && child.elementTransform(); // handle <use />
+	          if (!transform && child.style('transform', false, true).hasValue()) {
 	            transform = new svg.Transform(child.style('transform', false, true).value);
+	          }
+	          if (transform) {
 	            transform.apply(ctx);
 	          }
 	          child.path(ctx);

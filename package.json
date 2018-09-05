@@ -17,7 +17,7 @@
   "main": "dist/node/canvg.js",
   "types": "dist/node/canvg.d.ts",
   "browser": "dist/browser/canvg.min.js",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "scripts": {
     "start": "node test/_server.js",
     "build": "npm run build-browser && npm run build-node && npm run minify",
