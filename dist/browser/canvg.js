@@ -32,7 +32,9 @@
 	}
 
 	var defaultClientWidth = 800,
-	  defaultClientHeight = 600;
+	  defaultClientHeight = 600,
+	  rootEmSize = 12,
+	  emSize = 12;
 
 	function createCanvas() {
 	  var c;
@@ -352,13 +354,12 @@
 	    return 96.0; // TODO: compute?
 	  };
 
+	  svg.Property.prototype.getREM = function (viewPort) {
+	    return rootEmSize;
+	  };
+
 	  svg.Property.prototype.getEM = function (viewPort) {
-	    var em = 12;
-
-	    var fontSize = new svg.Property('fontSize', svg.Font.Parse(svg.ctx.font).fontSize);
-	    if (fontSize.hasValue()) em = fontSize.toPixels(viewPort);
-
-	    return em;
+	    return emSize;
 	  };
 
 	  svg.Property.prototype.getUnits = function () {
@@ -366,10 +367,19 @@
 	    return s.replace(/[0-9\.\-]/g, '');
 	  };
 
+	  svg.Property.prototype.isPixels = function () {
+	    if (!this.hasValue()) return false;
+	    var s = this.value + '';
+	    if (s.match(/px$/)) return true;
+	    if (s.match(/^[0-9]+$/)) return true;
+	    return false;
+	  };
+
 	  // get the length as pixels
 	  svg.Property.prototype.toPixels = function (viewPort, processPercent) {
 	    if (!this.hasValue()) return 0;
 	    var s = this.value + '';
+	    if (s.match(/rem$/)) return this.numValue() * this.getREM(viewPort);
 	    if (s.match(/em$/)) return this.numValue() * this.getEM(viewPort);
 	    if (s.match(/ex$/)) return this.numValue() * this.getEM(viewPort) / 2.0;
 	    if (s.match(/px$/)) return this.numValue();
@@ -1049,6 +1059,12 @@
 	          this.style('font-weight').value,
 	          this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
 	          this.style('font-family').value).toString();
+
+	        // update em size if needed
+	        var currentFontSize = this.style('font-size', false, false);
+	        if (currentFontSize.isPixels()) {
+	          emSize = currentFontSize.toPixels();
+	        }
 	      }
 
 	      // transform
@@ -1135,6 +1151,9 @@
 	      ctx.miterLimit = 4;
 	      if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
 	        ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
+	        
+	        var fontSize = new svg.Property('fontSize', svg.Font.Parse(ctx.font).fontSize);
+	        if (fontSize.hasValue()) rootEmSize = emSize = fontSize.toPixels('y');
 	      }
 
 	      this.baseSetContext(ctx);
