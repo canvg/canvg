@@ -36,9 +36,7 @@
 
 	var ImageClass, CanvasClass,
 	  defaultClientWidth = 800,
-	  defaultClientHeight = 600,
-	  rootEmSize = 12,
-	  emSize = 12;
+	  defaultClientHeight = 600;
 
 	function createCanvas() {
 	  var c;
@@ -176,6 +174,9 @@
 
 	  svg.FRAMERATE = 30;
 	  svg.MAX_VIRTUAL_PIXELS = 30000;
+
+	  svg.rootEmSize = 12;
+	  svg.emSize = 12;
 
 	  svg.log = function (msg) { };
 	  if (svg.opts['log'] == true && typeof console != 'undefined') {
@@ -348,11 +349,11 @@
 	  };
 
 	  svg.Property.prototype.getREM = function (viewPort) {
-	    return rootEmSize;
+	    return svg.rootEmSize;
 	  };
 
 	  svg.Property.prototype.getEM = function (viewPort) {
-	    return emSize;
+	    return svg.emSize;
 	  };
 
 	  svg.Property.prototype.getUnits = function () {
@@ -1065,7 +1066,7 @@
 	        // update em size if needed
 	        var currentFontSize = this.style('font-size', false, false);
 	        if (currentFontSize.isPixels()) {
-	          emSize = currentFontSize.toPixels();
+	          svg.emSize = currentFontSize.toPixels();
 	        }
 	      }
 
@@ -1155,7 +1156,7 @@
 	        ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
 	        
 	        var fontSize = new svg.Property('fontSize', svg.Font.Parse(ctx.font).fontSize);
-	        if (fontSize.hasValue()) rootEmSize = emSize = fontSize.toPixels('y');
+	        if (fontSize.hasValue()) svg.rootEmSize = svg.emSize = fontSize.toPixels('y');
 	      }
 
 	      this.baseSetContext(ctx);
