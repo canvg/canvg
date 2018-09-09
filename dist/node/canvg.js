@@ -997,50 +997,52 @@
 	      return opacity;
 	    };
 
-	    this.setContext = function (ctx) {
-	      // fill
-	      if (this.style('fill').isUrlDefinition()) {
-	        var fs = this.style('fill').getFillStyleDefinition(this, this.style('fill-opacity'));
-	        if (fs != null) ctx.fillStyle = fs;
-	      } else if (this.style('fill').hasValue()) {
-	        var fillStyle = this.style('fill');
-	        if (fillStyle.value == 'currentColor') fillStyle.value = this.style('color').value;
-	        if (fillStyle.value != 'inherit') ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
-	      }
-	      if (this.style('fill-opacity').hasValue()) {
-	        var fillStyle = new svg.Property('fill', ctx.fillStyle);
-	        fillStyle = fillStyle.addOpacity(this.style('fill-opacity'));
-	        ctx.fillStyle = fillStyle.value;
-	      }
+	    this.setContext = function (ctx, fromMeasure) {
+	      if (!fromMeasure) { // causes stack overflow when measuring text with gradients
+	        // fill
+	        if (this.style('fill').isUrlDefinition()) {
+	          var fs = this.style('fill').getFillStyleDefinition(this, this.style('fill-opacity'));
+	          if (fs != null) ctx.fillStyle = fs;
+	        } else if (this.style('fill').hasValue()) {
+	          var fillStyle = this.style('fill');
+	          if (fillStyle.value == 'currentColor') fillStyle.value = this.style('color').value;
+	          if (fillStyle.value != 'inherit') ctx.fillStyle = (fillStyle.value == 'none' ? 'rgba(0,0,0,0)' : fillStyle.value);
+	        }
+	        if (this.style('fill-opacity').hasValue()) {
+	          var fillStyle = new svg.Property('fill', ctx.fillStyle);
+	          fillStyle = fillStyle.addOpacity(this.style('fill-opacity'));
+	          ctx.fillStyle = fillStyle.value;
+	        }
 
-	      // stroke
-	      if (this.style('stroke').isUrlDefinition()) {
-	        var fs = this.style('stroke').getFillStyleDefinition(this, this.style('stroke-opacity'));
-	        if (fs != null) ctx.strokeStyle = fs;
-	      } else if (this.style('stroke').hasValue()) {
-	        var strokeStyle = this.style('stroke');
-	        if (strokeStyle.value == 'currentColor') strokeStyle.value = this.style('color').value;
-	        if (strokeStyle.value != 'inherit') ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
-	      }
-	      if (this.style('stroke-opacity').hasValue()) {
-	        var strokeStyle = new svg.Property('stroke', ctx.strokeStyle);
-	        strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity'));
-	        ctx.strokeStyle = strokeStyle.value;
-	      }
-	      if (this.style('stroke-width').hasValue()) {
-	        var newLineWidth = this.style('stroke-width').toPixels();
-	        ctx.lineWidth = newLineWidth == 0 ? 0.001 : newLineWidth; // browsers don't respect 0
-	      }
-	      if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
-	      if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
-	      if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
-	      if (this.style('paint-order').hasValue()) ctx.paintOrder = this.style('paint-order').value;
-	      if (this.style('stroke-dasharray').hasValue() && this.style('stroke-dasharray').value != 'none') {
-	        var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
-	        if (typeof ctx.setLineDash != 'undefined') { ctx.setLineDash(gaps); } else if (typeof ctx.webkitLineDash != 'undefined') { ctx.webkitLineDash = gaps; } else if (typeof ctx.mozDash != 'undefined' && !(gaps.length == 1 && gaps[0] == 0)) { ctx.mozDash = gaps; }
+	        // stroke
+	        if (this.style('stroke').isUrlDefinition()) {
+	          var fs = this.style('stroke').getFillStyleDefinition(this, this.style('stroke-opacity'));
+	          if (fs != null) ctx.strokeStyle = fs;
+	        } else if (this.style('stroke').hasValue()) {
+	          var strokeStyle = this.style('stroke');
+	          if (strokeStyle.value == 'currentColor') strokeStyle.value = this.style('color').value;
+	          if (strokeStyle.value != 'inherit') ctx.strokeStyle = (strokeStyle.value == 'none' ? 'rgba(0,0,0,0)' : strokeStyle.value);
+	        }
+	        if (this.style('stroke-opacity').hasValue()) {
+	          var strokeStyle = new svg.Property('stroke', ctx.strokeStyle);
+	          strokeStyle = strokeStyle.addOpacity(this.style('stroke-opacity'));
+	          ctx.strokeStyle = strokeStyle.value;
+	        }
+	        if (this.style('stroke-width').hasValue()) {
+	          var newLineWidth = this.style('stroke-width').toPixels();
+	          ctx.lineWidth = newLineWidth == 0 ? 0.001 : newLineWidth; // browsers don't respect 0
+	        }
+	        if (this.style('stroke-linecap').hasValue()) ctx.lineCap = this.style('stroke-linecap').value;
+	        if (this.style('stroke-linejoin').hasValue()) ctx.lineJoin = this.style('stroke-linejoin').value;
+	        if (this.style('stroke-miterlimit').hasValue()) ctx.miterLimit = this.style('stroke-miterlimit').value;
+	        if (this.style('paint-order').hasValue()) ctx.paintOrder = this.style('paint-order').value;
+	        if (this.style('stroke-dasharray').hasValue() && this.style('stroke-dasharray').value != 'none') {
+	          var gaps = svg.ToNumberArray(this.style('stroke-dasharray').value);
+	          if (typeof ctx.setLineDash != 'undefined') { ctx.setLineDash(gaps); } else if (typeof ctx.webkitLineDash != 'undefined') { ctx.webkitLineDash = gaps; } else if (typeof ctx.mozDash != 'undefined' && !(gaps.length == 1 && gaps[0] == 0)) { ctx.mozDash = gaps; }
 
-	        var offset = this.style('stroke-dashoffset').toPixels();
-	        if (typeof ctx.lineDashOffset != 'undefined') { ctx.lineDashOffset = offset; } else if (typeof ctx.webkitLineDashOffset != 'undefined') { ctx.webkitLineDashOffset = offset; } else if (typeof ctx.mozDashOffset != 'undefined') { ctx.mozDashOffset = offset; }
+	          var offset = this.style('stroke-dashoffset').toPixels();
+	          if (typeof ctx.lineDashOffset != 'undefined') { ctx.lineDashOffset = offset; } else if (typeof ctx.webkitLineDashOffset != 'undefined') { ctx.webkitLineDashOffset = offset; } else if (typeof ctx.mozDashOffset != 'undefined') { ctx.mozDashOffset = offset; }
+	        }
 	      }
 
 	      // font
@@ -1893,7 +1895,7 @@
 	    this.attributesToInherit.push('y2');
 
 	    this.getGradient = function (ctx, element) {
-	      var bb = this.gradientUnits() == 'objectBoundingBox' ? element.getBoundingBox() : null;
+	      var bb = this.gradientUnits() == 'objectBoundingBox' ? element.getBoundingBox(ctx) : null;
 
 	      if (!this.attribute('x1').hasValue() &&
 	        !this.attribute('y1').hasValue() &&
@@ -1936,7 +1938,7 @@
 	    this.attributesToInherit.push('fy');
 
 	    this.getGradient = function (ctx, element) {
-	      var bb = element.getBoundingBox();
+	      var bb = element.getBoundingBox(ctx);
 
 	      if (!this.attribute('cx').hasValue()) this.attribute('cx', true).value = '50%';
 	      if (!this.attribute('cy').hasValue()) this.attribute('cy', true).value = '50%';
@@ -2222,11 +2224,14 @@
 	      if (textBaseline != null) ctx.textBaseline = textBaseline;
 	    };
 
-	    this.getBoundingBox = function () {
-	      var x = this.attribute('x').toPixels('x');
-	      var y = this.attribute('y').toPixels('y');
-	      var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
-	      return new svg.BoundingBox(x, y - fontSize, x + Math.floor(fontSize * 2.0 / 3.0) * this.children[0].getText().length, y);
+	    this.getBoundingBox = function (ctx) {
+	      var bb = null;
+	      for (var i = 0; i < this.children.length; i++) {
+	        var childBB = this.children[i].getBoundingBox(ctx);
+	        if (bb == null) bb = childBB;
+	        else bb.addBoundingBox(childBB);
+	      }
+	      return bb;
 	    };
 
 	    this.renderChildren = function (ctx) {
@@ -2380,10 +2385,22 @@
 	      if (!ctx.measureText) return textToMeasure.length * 10;
 
 	      ctx.save();
-	      this.setContext(ctx);
+	      this.setContext(ctx, true);
 	      var width = ctx.measureText(textToMeasure).width;
 	      ctx.restore();
 	      return width;
+	    };
+
+	    this.getBoundingBox = function (ctx) {
+	      var x = this.attribute('x').toPixels('x');
+	      var y = this.attribute('y').toPixels('y');
+	      var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
+	      var bb = new svg.BoundingBox(x, y - fontSize, x + this.measureTextRecursive(ctx), y);
+	      for (var i = 0; i < this.children.length; i++) {
+	        var childBB = this.children[i].getBoundingBox(ctx);
+	        bb.addBoundingBox(childBB);
+	      }
+	      return bb;
 	    };
 	  };
 	  svg.Element.TextElementBase.prototype = new svg.Element.RenderedElementBase;
@@ -2528,10 +2545,10 @@
 	    this.base = svg.Element.RenderedElementBase;
 	    this.base(node);
 
-	    this.getBoundingBox = function () {
+	    this.getBoundingBox = function (ctx) {
 	      var bb = new svg.BoundingBox();
 	      for (var i = 0; i < this.children.length; i++) {
-	        bb.addBoundingBox(this.children[i].getBoundingBox());
+	        bb.addBoundingBox(this.children[i].getBoundingBox(ctx));
 	      }
 	      return bb;
 	    };
@@ -2629,8 +2646,8 @@
 	      }
 	    };
 
-	    this.getBoundingBox = function () {
-	      if (element != null) return element.getBoundingBox();
+	    this.getBoundingBox = function (ctx) {
+	      if (element != null) return element.getBoundingBox(ctx);
 	    };
 
 	    this.renderChildren = function (ctx) {
@@ -2674,7 +2691,7 @@
 	      if (width == 0 && height == 0) {
 	        var bb = new svg.BoundingBox();
 	        for (var i = 0; i < this.children.length; i++) {
-	          bb.addBoundingBox(this.children[i].getBoundingBox());
+	          bb.addBoundingBox(this.children[i].getBoundingBox(ctx));
 	        }
 	        var x = Math.floor(bb.x1);
 	        var y = Math.floor(bb.y1);
@@ -2767,7 +2784,7 @@
 
 	    this.apply = function (ctx, element) {
 	      // render as temp svg
-	      var bb = element.getBoundingBox();
+	      var bb = element.getBoundingBox(ctx);
 	      var x = Math.floor(bb.x1);
 	      var y = Math.floor(bb.y1);
 	      var width = Math.floor(bb.width());

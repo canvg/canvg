@@ -1,0 +1,20 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="MyGradient">
+            <stop offset="5%"  stop-color="red"/>
+            <stop offset="95%" stop-color="blue"/>
+        </linearGradient>
+    </defs>
+    <text fill="url(#MyGradient)"
+          x="10" y="100" style="font-size: 80">hello world</text>
+    <text fill="url(#MyGradient)"
+          x="10" y="200" style="font-size: 80">hello world</text>
+    <text fill="url(#MyGradient)"
+          x="10" y="300" style="font-size: 80">hello world</text>
+<text fill="url(#MyGradient)"
+          x="10" y="400" style="font-size: 80">hello world</text>
+    <text fill="url(#MyGradient)"
+          x="10" y="500" style="font-size: 80">hello world</text>
+<text fill="url(#MyGradient)"
+          x="10" y="600" style="font-size: 80">hello world</text>
+</svg>
