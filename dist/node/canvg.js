@@ -2201,6 +2201,10 @@
 	        }
 	      }
 	    }
+
+	    this.render = function(ctx) {
+	      // NO RENDER
+	    };
 	  };
 	  svg.Element.font.prototype = new svg.Element.ElementBase;
 
