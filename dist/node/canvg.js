@@ -69,8 +69,14 @@
 	    for (var i = 0; i < svgTags.length; i++) {
 	      var svgTag = svgTags[i];
 	      var c = document.createElement('canvas');
-	      c.width = svgTag.clientWidth;
-	      c.height = svgTag.clientHeight;
+	      if (typeof(svgTag.clientWidth) !== 'undefined' && typeof(svgTag.clientHeight) !== 'undefined') {
+	        c.width = svgTag.clientWidth;
+	        c.height = svgTag.clientHeight;
+	      } else {
+	        var rect = svgTag.getBoundingClientRect();
+	        c.width = rect.width;
+	        c.height = rect.height;
+	      }
 	      svgTag.parentNode.insertBefore(c, svgTag);
 	      svgTag.parentNode.removeChild(svgTag);
 	      var div = document.createElement('div');
@@ -2736,8 +2742,8 @@
 	      }
 
 	      // temporarily remove mask to avoid recursion
-	      var mask = element.attribute('mask').value;
-	      element.attribute('mask').value = '';
+	      var mask = element.style('mask').value;
+	      element.style('mask').value = '';
 
 	      var cMask = createCanvas();
 	      cMask.width = x + width;
@@ -2758,7 +2764,7 @@
 	      ctx.fillRect(0, 0, x + width, y + height);
 
 	      // reassign mask
-	      element.attribute('mask').value = mask;
+	      element.style('mask').value = mask;
 	    };
 
 	    this.render = function (ctx) {
