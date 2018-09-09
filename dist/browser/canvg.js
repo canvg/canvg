@@ -2222,10 +2222,19 @@
 	      if (textBaseline != null) ctx.textBaseline = textBaseline;
 	    };
 
+	    this.initializeCoordinates = function (ctx) {
+	      this.x = this.attribute('x').toPixels('x');
+	      this.y = this.attribute('y').toPixels('y');
+	      if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
+	      if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
+	      this.x += this.getAnchorDelta(ctx, this, 0);
+	    };
+
 	    this.getBoundingBox = function (ctx) {
+	      this.initializeCoordinates(ctx);
 	      var bb = null;
 	      for (var i = 0; i < this.children.length; i++) {
-	        var childBB = this.children[i].getBoundingBox(ctx);
+	        var childBB = this.getChildBoundingBox(ctx, this, this, i);
 	        if (bb == null) bb = childBB;
 	        else bb.addBoundingBox(childBB);
 	      }
@@ -2233,11 +2242,7 @@
 	    };
 
 	    this.renderChildren = function (ctx) {
-	      this.x = this.attribute('x').toPixels('x');
-	      this.y = this.attribute('y').toPixels('y');
-	      if (this.attribute('dx').hasValue()) this.x += this.attribute('dx').toPixels('x');
-	      if (this.attribute('dy').hasValue()) this.y += this.attribute('dy').toPixels('y');
-	      this.x += this.getAnchorDelta(ctx, this, 0);
+	      this.initializeCoordinates(ctx);
 	      for (var i = 0; i < this.children.length; i++) {
 	        this.renderChild(ctx, this, this, i);
 	      }
@@ -2257,8 +2262,9 @@
 	      return 0;
 	    };
 
-	    this.renderChild = function (ctx, textParent, parent, i) {
+	    this.adjustChildCoordinates = function(ctx, textParent, parent, i) {
 	      var child = parent.children[i];
+
 	      if (child.attribute('x').hasValue()) {
 	        child.x = child.attribute('x').toPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
 	        if (child.attribute('dx').hasValue()) child.x += child.attribute('dx').toPixels('x');
@@ -2277,6 +2283,23 @@
 	      }
 	      textParent.y = child.y;
 
+	      return child;
+	    };
+
+	    this.getChildBoundingBox = function (ctx, textParent, parent, i) {
+	      var child = this.adjustChildCoordinates(ctx, textParent, parent, i);
+	      var bb = child.getBoundingBox(ctx);
+
+	      for (var i = 0; i < child.children.length; i++) {
+	        var childBB = textParent.getChildBoundingBox(ctx, textParent, child, i);
+	        bb.addBoundingBox(childBB);
+	      }
+
+	      return bb;
+	    };
+
+	    this.renderChild = function (ctx, textParent, parent, i) {
+	      var child = this.adjustChildCoordinates(ctx, textParent, parent, i);
 	      child.render(ctx);
 
 	      for (var i = 0; i < child.children.length; i++) {
@@ -2390,15 +2413,8 @@
 	    };
 
 	    this.getBoundingBox = function (ctx) {
-	      var x = this.attribute('x').toPixels('x');
-	      var y = this.attribute('y').toPixels('y');
 	      var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
-	      var bb = new svg.BoundingBox(x, y - fontSize, x + this.measureTextRecursive(ctx), y);
-	      for (var i = 0; i < this.children.length; i++) {
-	        var childBB = this.children[i].getBoundingBox(ctx);
-	        bb.addBoundingBox(childBB);
-	      }
-	      return bb;
+	      return new svg.BoundingBox(this.x, this.y - fontSize, this.x + this.measureText(ctx), this.y);
 	    };
 	  };
 	  svg.Element.TextElementBase.prototype = new svg.Element.RenderedElementBase;
