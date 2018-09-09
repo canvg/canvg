@@ -53,8 +53,14 @@ var canvg = function (target, s, opts) {
     for (var i = 0; i < svgTags.length; i++) {
       var svgTag = svgTags[i];
       var c = document.createElement('canvas');
-      c.width = svgTag.clientWidth;
-      c.height = svgTag.clientHeight;
+      if (typeof(svgTag.clientWidth) !== 'undefined' && typeof(svgTag.clientHeight) !== 'undefined') {
+        c.width = svgTag.clientWidth;
+        c.height = svgTag.clientHeight;
+      } else {
+        var rect = svgTag.getBoundingClientRect();
+        c.width = rect.width;
+        c.height = rect.height;
+      }
       svgTag.parentNode.insertBefore(c, svgTag);
       svgTag.parentNode.removeChild(svgTag);
       var div = document.createElement('div');
