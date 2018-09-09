@@ -4,3 +4,6 @@ node_js:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y libgif-dev
+after_failure:
+  - zip -r ./canvg-expected.zip ./test/diff_node
+  - curl --upload-file ./canvg-expected.zip https://transfer.sh/canvg-expected.zip
