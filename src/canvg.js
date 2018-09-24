@@ -1,5 +1,6 @@
 var RGBColor = require('rgbcolor'),
-  StackBlur = require('stackblur-canvas');
+  StackBlur = require('stackblur-canvas'),
+  Canvas = require("canvas");
 
 var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
   nodeEnv = isNode;
@@ -16,7 +17,7 @@ if (nodeEnv) {
   windowEnv.DOMParser = window.DOMParser;
 }
 
-var ImageClass, CanvasClass,
+var CanvasClass,
   defaultClientWidth = 800,
   defaultClientHeight = 600;
 
@@ -75,7 +76,6 @@ var canvg = function (target, s, opts) {
     if (!s || s === '') {
       return;
     }
-    ImageClass = opts['ImageClass'];
     CanvasClass = target.constructor;
     //only support svg string in node env.
     svg.loadXml(target.getContext('2d'), s);
@@ -1188,7 +1188,7 @@ function build(opts) {
       ctx.miterLimit = 4;
       if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
         ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
-        
+
         var fontSize = new svg.Property('fontSize', svg.Font.Parse(ctx.font).fontSize);
         if (fontSize.hasValue()) svg.rootEmSize = svg.emSize = fontSize.toPixels('y');
       }
@@ -2558,7 +2558,7 @@ function build(opts) {
     svg.Images.push(this);
     this.loaded = false;
     if (!isSvg) {
-      this.img = nodeEnv ? new ImageClass() : document.createElement('img');
+      this.img = nodeEnv ? new Canvas.Image() : document.createElement('img');
       if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
       var self = this;
       this.img.onload = function () { self.loaded = true; }

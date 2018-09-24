@@ -9,13 +9,14 @@
  */
  
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas'), require('jsdom'), require('xmldom')) :
-	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas', 'jsdom', 'xmldom'], factory) :
-	(global.canvg = factory(global.RGBColor,global.StackBlur,global.jsdom,global.xmldom));
-}(this, (function (rgbcolor,stackblurCanvas,jsdom,xmldom) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas'), require('canvas'), require('jsdom'), require('xmldom')) :
+	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas', 'canvas', 'jsdom', 'xmldom'], factory) :
+	(global.canvg = factory(global.RGBColor,global.StackBlur,global.Canvas,global.jsdom,global.xmldom));
+}(this, (function (rgbcolor,stackblurCanvas,canvas,jsdom,xmldom) { 'use strict';
 
 	rgbcolor = rgbcolor && rgbcolor.hasOwnProperty('default') ? rgbcolor['default'] : rgbcolor;
 	stackblurCanvas = stackblurCanvas && stackblurCanvas.hasOwnProperty('default') ? stackblurCanvas['default'] : stackblurCanvas;
+	canvas = canvas && canvas.hasOwnProperty('default') ? canvas['default'] : canvas;
 	jsdom = jsdom && jsdom.hasOwnProperty('default') ? jsdom['default'] : jsdom;
 	xmldom = xmldom && xmldom.hasOwnProperty('default') ? xmldom['default'] : xmldom;
 
@@ -34,7 +35,7 @@
 	  windowEnv.DOMParser = xmldom.DOMParser;
 	}
 
-	var ImageClass, CanvasClass,
+	var CanvasClass,
 	  defaultClientWidth = 800,
 	  defaultClientHeight = 600;
 
@@ -91,7 +92,6 @@
 	    if (!s || s === '') {
 	      return;
 	    }
-	    ImageClass = opts['ImageClass'];
 	    CanvasClass = target.constructor;
 	    //only support svg string in node env.
 	    svg.loadXml(target.getContext('2d'), s);
@@ -1162,7 +1162,7 @@
 	      ctx.miterLimit = 4;
 	      if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
 	        ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
-	        
+
 	        var fontSize = new svg.Property('fontSize', svg.Font.Parse(ctx.font).fontSize);
 	        if (fontSize.hasValue()) svg.rootEmSize = svg.emSize = fontSize.toPixels('y');
 	      }
@@ -2532,7 +2532,7 @@
 	    svg.Images.push(this);
 	    this.loaded = false;
 	    if (!isSvg) {
-	      this.img = new ImageClass();
+	      this.img = new canvas.Image();
 	      if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
 	      var self = this;
 	      this.img.onload = function () { self.loaded = true; };

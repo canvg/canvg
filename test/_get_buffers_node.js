@@ -15,7 +15,6 @@ async function getBuffersNode(file) {
   canvg(canvas, svg, {
     ignoreMouse: true,
     ignoreAnimation: true,
-    ImageClass: Canvas.Image,
     xmldom: {
       errorHandler: function(level, msg) {} // supress xmldom warnings
     }
