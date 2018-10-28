@@ -1,4 +1,5 @@
-export interface Options {
+declare namespace canvg {
+  export interface Options {
     log?: boolean;
     useCORS?: boolean;
     ignoreMouse?: boolean;
@@ -14,8 +15,9 @@ export interface Options {
 
     renderCallback?: (dom: Document) => void;
     forceRedraw?: () => boolean;
+  }
 }
 
-declare function canvg(target?: string | HTMLCanvasElement, s?: string | Document, opts?: Options): void;
+declare function canvg(target?: string | HTMLCanvasElement, s?: string | Document, opts?: canvg.Options): void;
 
-export default canvg;
+export = canvg;
