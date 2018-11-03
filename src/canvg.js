@@ -958,7 +958,7 @@ function build(opts) {
               if (typeof existingSpecificity == 'undefined') {
                 existingSpecificity = '000';
               }
-              if (specificity > existingSpecificity) {
+              if (specificity >= existingSpecificity) {
                 this.styles[name] = styles[name];
                 this.stylesSpecificity[name] = specificity;
               }
