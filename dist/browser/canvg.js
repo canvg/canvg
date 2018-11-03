@@ -35,10 +35,12 @@
 	var defaultClientWidth = 800,
 	  defaultClientHeight = 600;
 
-	function createCanvas() {
+	function createCanvas(width, height) {
 	  var c;
 	  {
 	    c = document.createElement('canvas');
+	    c.width = width;
+	    c.height = height;
 	  }
 	  return c;
 	}
@@ -1757,9 +1759,7 @@
 	      tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
 	      tempSvg.children = this.children;
 
-	      var c = createCanvas();
-	      c.width = width;
-	      c.height = height;
+	      var c = createCanvas(width, height);
 	      var cctx = c.getContext('2d');
 	      if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
 	        cctx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
@@ -1895,9 +1895,7 @@
 	        tempSvg.attributes['width'] = new svg.Property('width', rootView.width);
 	        tempSvg.attributes['height'] = new svg.Property('height', rootView.height);
 	        tempSvg.children = [group];
-	        var c = createCanvas();
-	        c.width = rootView.width;
-	        c.height = rootView.height;
+	        var c = createCanvas(rootView.width, rootView.height);
 	        var tempCtx = c.getContext('2d');
 	        tempCtx.fillStyle = g;
 	        tempSvg.render(tempCtx);
@@ -2748,15 +2746,11 @@
 	      var mask = element.style('mask').value;
 	      element.style('mask').value = '';
 
-	      var cMask = createCanvas();
-	      cMask.width = x + width;
-	      cMask.height = y + height;
+	      var cMask = createCanvas(x + width, y + height);
 	      var maskCtx = cMask.getContext('2d');
 	      this.renderChildren(maskCtx);
 
-	      var c = createCanvas();
-	      c.width = x + width;
-	      c.height = y + height;
+	      var c = createCanvas(x + width, y + height);
 	      var tempCtx = c.getContext('2d');
 	      element.render(tempCtx);
 	      tempCtx.globalCompositeOperation = 'destination-in';
@@ -2847,9 +2841,7 @@
 	        py = Math.max(py, efd);
 	      }
 
-	      var c = createCanvas();
-	      c.width = width + 2 * px;
-	      c.height = height + 2 * py;
+	      var c = createCanvas(width + 2 * px, height + 2 * py);
 	      var tempCtx = c.getContext('2d');
 	      tempCtx.translate(-x + px, -y + py);
 	      element.render(tempCtx);
