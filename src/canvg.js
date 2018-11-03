@@ -1,5 +1,6 @@
 var RGBColor = require('rgbcolor'),
-  StackBlur = require('stackblur-canvas');
+  StackBlur = require('stackblur-canvas'),
+  Canvas = require("canvas");
 
 var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
   nodeEnv = isNode;
@@ -16,16 +17,17 @@ if (nodeEnv) {
   windowEnv.DOMParser = window.DOMParser;
 }
 
-var ImageClass, CanvasClass,
-  defaultClientWidth = 800,
+var defaultClientWidth = 800,
   defaultClientHeight = 600;
 
-function createCanvas() {
+function createCanvas(width, height) {
   var c;
   if (nodeEnv) {
-    c = new CanvasClass();
+    c = new Canvas(width, height);
   } else {
     c = document.createElement('canvas');
+    c.width = width;
+    c.height = height;
   }
   return c;
 }
@@ -75,8 +77,6 @@ var canvg = function (target, s, opts) {
     if (!s || s === '') {
       return;
     }
-    ImageClass = opts['ImageClass'];
-    CanvasClass = target.constructor;
     //only support svg string in node env.
     svg.loadXml(target.getContext('2d'), s);
     return;
@@ -1784,9 +1784,7 @@ function build(opts) {
       tempSvg.attributes['transform'] = new svg.Property('transform', this.attribute('patternTransform').value);
       tempSvg.children = this.children;
 
-      var c = createCanvas();
-      c.width = width;
-      c.height = height;
+      var c = createCanvas(width, height);
       var cctx = c.getContext('2d');
       if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
         cctx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
@@ -1922,9 +1920,7 @@ function build(opts) {
         tempSvg.attributes['width'] = new svg.Property('width', rootView.width);
         tempSvg.attributes['height'] = new svg.Property('height', rootView.height);
         tempSvg.children = [group];
-        var c = createCanvas();
-        c.width = rootView.width;
-        c.height = rootView.height;
+        var c = createCanvas(rootView.width, rootView.height);
         var tempCtx = c.getContext('2d');
         tempCtx.fillStyle = g;
         tempSvg.render(tempCtx);
@@ -2558,7 +2554,7 @@ function build(opts) {
     svg.Images.push(this);
     this.loaded = false;
     if (!isSvg) {
-      this.img = nodeEnv ? new ImageClass() : document.createElement('img');
+      this.img = nodeEnv ? new Canvas.Image() : document.createElement('img');
       if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
       var self = this;
       this.img.onload = function () { self.loaded = true; }
@@ -2775,15 +2771,11 @@ function build(opts) {
       var mask = element.style('mask').value;
       element.style('mask').value = '';
 
-      var cMask = createCanvas();
-      cMask.width = x + width;
-      cMask.height = y + height;
+      var cMask = createCanvas(x + width, y + height);
       var maskCtx = cMask.getContext('2d');
       this.renderChildren(maskCtx);
 
-      var c = createCanvas();
-      c.width = x + width;
-      c.height = y + height;
+      var c = createCanvas(x + width, y + height);
       var tempCtx = c.getContext('2d');
       element.render(tempCtx);
       tempCtx.globalCompositeOperation = 'destination-in';
@@ -2874,9 +2866,7 @@ function build(opts) {
         py = Math.max(py, efd);
       }
 
-      var c = createCanvas();
-      c.width = width + 2 * px;
-      c.height = height + 2 * py;
+      var c = createCanvas(width + 2 * px, height + 2 * py);
       var tempCtx = c.getContext('2d');
       tempCtx.translate(-x + px, -y + py);
       element.render(tempCtx);

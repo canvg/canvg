@@ -7,8 +7,8 @@ import pkgConfig from "./package.json";
 
 let is_node = process.env.IS_NODE === "1";
 
-let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor" };
-let external = ["stackblur-canvas", "rgbcolor"];
+let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor", canvas: "Canvas" };
+let external = ["stackblur-canvas", "rgbcolor", "canvas"];
 
 let plugins = [
   replace({

@@ -19,7 +19,6 @@ if (!fs.existsSync(fileName)) {
   canvg(canvas, svg, {
     ignoreMouse: true,
     ignoreAnimation: true,
-    ImageClass: Canvas.Image,
     xmldom: {
       errorHandler: function(level, msg) {} // supress xmldom warnings
     }
