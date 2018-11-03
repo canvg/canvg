@@ -42,6 +42,7 @@
   ],
   "readmeFilename": "README.md",
   "dependencies": {
+    "canvas": "^1.6.13",
     "jsdom": "^8.1.0",
     "rgbcolor": "^1.0.1",
     "stackblur-canvas": "^1.4.1",
@@ -52,7 +53,6 @@
     "ava-is-running": "^1.0.3",
     "blink-diff": "^1.0.13",
     "bluebird": "^3.5.1",
-    "canvas": "^1.6.11",
     "data-uri-to-buffer": "^2.0.0",
     "debug": "^2.6.9",
     "mkdirp": "^0.5.1",

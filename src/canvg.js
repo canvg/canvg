@@ -23,7 +23,7 @@ var defaultClientWidth = 800,
 function createCanvas(width, height) {
   var c;
   if (nodeEnv) {
-    c = Canvas.createCanvas(width, height);
+    c = new Canvas(width, height);
   } else {
     c = document.createElement('canvas');
     c.width = width;

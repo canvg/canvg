@@ -36,6 +36,7 @@ const testFile = (file, group) => {
             `${file}.png has ${differences} differences with compared file`
           );
           if (group === "broken") {
+            t.log(`skip broken ${file}`);
             t.truthy.skip(`skip broken ${file}`);
           } else {
             t.fail();
