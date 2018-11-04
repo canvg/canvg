@@ -20,7 +20,7 @@ if (!fs.existsSync(fileName)) {
     ignoreMouse: true,
     ignoreAnimation: true,
     xmldom: {
-      errorHandler: function(level, msg) {} // supress xmldom warnings
+      errorHandler: function(/* level, msg */) {} // supress xmldom warnings
     }
   });
 

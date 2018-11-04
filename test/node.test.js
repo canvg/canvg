@@ -10,7 +10,7 @@ var path = require("path"),
 const actual_folder = path.resolve(`${__dirname}/actual_node`),
   diff_folder = path.resolve(`${__dirname}/diff_node`);
 
-test.before(async t => {
+test.before(async (/* t */) => {
   await createDirs(actual_folder, diff_folder);
 });
 

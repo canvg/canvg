@@ -26,7 +26,7 @@ async function createDirs(folder_actual, folder_diff, group) {
     if (!group || file.indexOf(group) === 0) {
       return fs
         .unlinkAsync(path.resolve(`${folder_actual}/${file}`))
-        .catch(err => {});
+        .catch((/* err */) => {});
     }
     return;
   });
@@ -34,7 +34,7 @@ async function createDirs(folder_actual, folder_diff, group) {
     if (!group || file.indexOf(group) === 0) {
       return fs
         .unlinkAsync(path.resolve(`${folder_diff}/${file}`))
-        .catch(err => {});
+        .catch((/* err */) => {});
     }
     return;
   });
