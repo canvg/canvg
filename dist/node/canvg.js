@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 1.5.3
+ * version 1.5.4
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg
@@ -41,7 +41,7 @@
 	function createCanvas(width, height) {
 	  var c;
 	  {
-	    c = canvas.createCanvas(width, height);
+	    c = new canvas(width, height);
 	  }
 	  return c;
 	}
@@ -930,7 +930,7 @@
 	              if (typeof existingSpecificity == 'undefined') {
 	                existingSpecificity = '000';
 	              }
-	              if (specificity > existingSpecificity) {
+	              if (specificity >= existingSpecificity) {
 	                this.styles[name] = styles[name];
 	                this.stylesSpecificity[name] = specificity;
 	              }
@@ -2862,6 +2862,17 @@
 	    };
 	  };
 	  svg.Element.filter.prototype = new svg.Element.ElementBase;
+
+	  svg.Element.feDropShadow = function (node) {
+	    this.base = svg.Element.ElementBase;
+	    this.base(node);
+	    this.addStylesFromStyleDefinition();
+
+	    this.apply = function (ctx, x, y, width, height) {
+	      // TODO: implement
+	    };
+	  };
+	  svg.Element.feDropShadow.prototype = new svg.Element.ElementBase;
 
 	  svg.Element.feMorphology = function (node) {
 	    this.base = svg.Element.ElementBase;
