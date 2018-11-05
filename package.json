@@ -26,20 +26,20 @@
   "browser": "dist/browser/canvg.min.js",
   "version": "1.5.4",
   "scripts": {
-    "eslint": "eslint .",
-    "start": "node test/_server.js",
-    "build": "npm run build-browser && npm run build-node && npm run minify",
+    "test-browser": "ava test/browser.test.js --tap | tap-diff",
+    "test-node": "ava test/node.test.js --tap | tap-diff",
+    "test": "ava",
+    "minify-browser": "uglifyjs --mangle --compress if_return=true -o dist/browser/canvg.min.js dist/browser/canvg.js",
+    "minify": "npm run minify-browser",
+    "eslint": "eslint --report-unused-disable-directives .",
     "build-browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
     "build-node": "IS_NODE=1 rollup -c",
     "build-win": "npm run build-browser-win && npm run build-node-win && npm run minify && del src\\dummy.js",
     "build-browser-win": "type nul > src\\dummy.js && rollup -c",
     "build-node-win": "cmd /C \"set IS_NODE=1 && rollup -c\"",
-    "test": "ava",
-    "test-browser": "ava test/browser.test.js --tap | tap-diff",
-    "test-node": "ava test/node.test.js --tap | tap-diff",
+    "build": "npm run eslint && npm run build-browser && npm run build-node && npm run minify",
     "generate-expected": "node test/_generate_expected_node.js",
-    "minify": "npm run minify-browser",
-    "minify-browser": "uglifyjs --mangle --compress if_return=true -o dist/browser/canvg.min.js dist/browser/canvg.js"
+    "start": "node test/_server.js"
   },
   "license": "MIT",
   "files": [
@@ -50,10 +50,10 @@
   ],
   "readmeFilename": "README.md",
   "dependencies": {
-    "jsdom": "^8.1.0",
+    "jsdom": "^13.0.0",
     "rgbcolor": "^1.0.1",
-    "stackblur-canvas": "^1.4.1",
-    "xmldom": "^0.1.22"
+    "stackblur-canvas": "^2.0.0",
+    "xmldom": "^0.1.27"
   },
   "peerDependencies": {
     "canvas": "^1.6.13"
@@ -62,23 +62,23 @@
     "ava": "^1.0.0-beta.6",
     "ava-is-running": "^1.0.3",
     "blink-diff": "^1.0.13",
-    "bluebird": "^3.5.1",
+    "bluebird": "^3.5.2",
     "canvas": "^1.6.13",
     "data-uri-to-buffer": "^2.0.0",
-    "debug": "^2.6.9",
+    "debug": "^4.1.0",
     "eslint": "^5.8.0",
     "mkdirp": "^0.5.1",
     "pngjs-image": "^0.11.7",
-    "puppeteer": "^1.6.2",
-    "rollup": "^0.63.5",
+    "puppeteer": "^1.10.0",
+    "rollup": "^0.67.0",
     "rollup-plugin-alias": "^1.4.0",
-    "rollup-plugin-commonjs": "^9.1.4",
-    "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "serve-handler": "^3.6.1",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.1.0",
+    "serve-handler": "^5.0.5",
     "tap-diff": "^0.1.1",
-    "uglify-js": "^3.3.16"
+    "uglify-js": "^3.4.9"
   },
   "jspm": {
     "registry": "npm"

@@ -32,15 +32,16 @@
 
 	var isNode = (module.exports && typeof window === 'undefined'),
 	  nodeEnv = true;
-	var jsdom$$1, windowEnv;
+	var JSDOM, windowEnv;
 
 	{
-	  jsdom$$1 = jsdom;
-	  windowEnv = jsdom$$1.jsdom().defaultView;
+	  JSDOM = jsdom.JSDOM;
+	  windowEnv = new JSDOM().window;
 	  windowEnv.DOMParser = xmldom.DOMParser;
 	}
 
-	var defaultClientWidth = 800,
+	var doc = windowEnv.document,
+	  defaultClientWidth = 800,
 	  defaultClientHeight = 600;
 
 	function createCanvas(width, height) {
@@ -70,10 +71,10 @@
 	var canvg = function (target, s, opts) {
 	  // no parameters
 	  if (target == null && s == null && opts == null) {
-	    var svgTags = document.querySelectorAll('svg');
+	    var svgTags = doc.querySelectorAll('svg');
 	    for (var i = 0; i < svgTags.length; i++) {
 	      var svgTag = svgTags[i];
-	      var c = document.createElement('canvas');
+	      var c = doc.createElement('canvas');
 	      if (typeof(svgTag.clientWidth) !== 'undefined' && typeof(svgTag.clientHeight) !== 'undefined') {
 	        c.width = svgTag.clientWidth;
 	        c.height = svgTag.clientHeight;
@@ -84,7 +85,7 @@
 	      }
 	      svgTag.parentNode.insertBefore(c, svgTag);
 	      svgTag.parentNode.removeChild(svgTag);
-	      var div = document.createElement('div');
+	      var div = doc.createElement('div');
 	      div.appendChild(svgTag);
 	      canvg(c, div.innerHTML);
 	    }
@@ -102,7 +103,7 @@
 	  }
 
 	  if (typeof target == 'string') {
-	    target = document.getElementById(target);
+	    target = doc.getElementById(target);
 	  }
 
 	  // store class on canvas
@@ -947,7 +948,7 @@
 	    };
 
 	    // Microsoft Edge fix
-	    var allUppercase = new RegExp("^[A-Z\-]+$");
+	    var allUppercase = new RegExp('^[A-Z\-]+$');
 	    var normalizeAttributeName = function (name) {
 	      if (allUppercase.test(name)) {
 	        return name.toLowerCase();
@@ -2370,7 +2371,7 @@
 	        var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 	        var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
 	        var text = this.getText();
-	        if (customFont.isRTL) text = text.split("").reverse().join("");
+	        if (customFont.isRTL) text = text.split('').reverse().join('');
 
 	        var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 	        for (var i = 0; i < text.length; i++) {
@@ -2394,7 +2395,7 @@
 	        }
 	        return;
 	      }
-	      if (ctx.paintOrder == "stroke") {
+	      if (ctx.paintOrder == 'stroke') {
 	        if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
 	        if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
 	      } else {
@@ -2421,7 +2422,7 @@
 	        var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
 	        var measure = 0;
 	        var text = this.getText();
-	        if (customFont.isRTL) text = text.split("").reverse().join("");
+	        if (customFont.isRTL) text = text.split('').reverse().join('');
 	        var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
 	        for (var i = 0; i < text.length; i++) {
 	          var glyph = this.getGlyph(customFont, text, i);
@@ -2873,7 +2874,7 @@
 	    this.base(node);
 	    this.addStylesFromStyleDefinition();
 
-	    this.apply = function (ctx, x, y, width, height) {
+	    this.apply = function (/* ctx, x, y, width, height */) {
 	      // TODO: implement
 	    };
 	  };
@@ -3139,13 +3140,14 @@
 
 	        // need update from mouse events?
 	        if (svg.opts['ignoreMouse'] != true) {
-	          needUpdate = needUpdate | svg.Mouse.hasEvents();
+	          needUpdate = needUpdate || svg.Mouse.hasEvents();
 	        }
 
 	        // need update from animations?
 	        if (svg.opts['ignoreAnimation'] != true) {
 	          for (var i = 0; i < svg.Animations.length; i++) {
-	            needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            var needAnimationUpdate = svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            needUpdate = needUpdate || needAnimationUpdate;
 	          }
 	        }
 
