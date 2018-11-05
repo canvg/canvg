@@ -2,6 +2,10 @@
   "name": "canvg",
   "description": "Javascript SVG parser and renderer on Canvas",
   "homepage": "https://github.com/canvg/canvg",
+  "bugs": "https://github.com/canvg/canvg/issues",
+  "engines": {
+    "node": "*"
+  },
   "keywords": [
     "javascript",
     "client",
@@ -10,6 +14,9 @@
     "canvas"
   ],
   "author": "Gabe Lerner <gabelerner@gmail.com>",
+  "contributors": [
+    "Brett Zamir"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/canvg/canvg.git"
@@ -19,6 +26,7 @@
   "browser": "dist/browser/canvg.min.js",
   "version": "1.5.4",
   "scripts": {
+    "eslint": "eslint .",
     "start": "node test/_server.js",
     "build": "npm run build-browser && npm run build-node && npm run minify",
     "build-browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
@@ -55,6 +63,7 @@
     "bluebird": "^3.5.1",
     "data-uri-to-buffer": "^2.0.0",
     "debug": "^2.6.9",
+    "eslint": "^5.8.0",
     "mkdirp": "^0.5.1",
     "pngjs-image": "^0.11.7",
     "puppeteer": "^1.6.2",

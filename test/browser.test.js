@@ -23,7 +23,7 @@ let port = 3126,
   diff_folder = path.resolve(`${__dirname}/diff_browser`),
   actual_folder = path.resolve(`${__dirname}/actual_browser`);
 
-test.before(async t => {
+test.before(async (/* t */) => {
   await createDirs(actual_folder, diff_folder);
   await server.ready.promise();
   browser = await launchBrowser();

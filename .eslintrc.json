@@ -1,0 +1,16 @@
+{
+  "extends": ["eslint:recommended"],
+  "env": {
+    "es6": true
+  },
+  "overrides": {
+    "files": ["rollup.config.js", "ava.config.js"],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 8
+    }
+  },
+  "rules": {
+    "no-useless-escape": 0
+  }
+}

@@ -65,16 +65,17 @@ const initServer = function(port) {
         : "Port " + normalizedPort;
 
     // handle specific listen errors with friendly messages
+    let errmsg;
     switch (error.code) {
       case "EACCES":
         errmsg = `${bind} requires elevated privileges`;
         console.error(errmsg);
-        closeMe();
+        // closeMe();
         break;
       case "EADDRINUSE":
         errmsg = `${bind} is already in use`;
         console.error();
-        closeMe();
+        // closeMe();
         break;
       default:
         throw error;

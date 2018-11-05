@@ -1,3 +1,4 @@
+/* eslint-env browser */
 async function openPage(browser, testcase, t, port) {
   let address = `http://localhost:${port}/test?test=${testcase}`;
 

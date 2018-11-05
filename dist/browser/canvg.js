@@ -23,6 +23,11 @@
 	}
 
 	var canvg_1 = createCommonjsModule(function (module) {
+	/* eslint-env browser, node */
+	/* globals $, Sizzle, Windows, ActiveXObject */
+	/* eslint-disable no-redeclare */
+
+
 	var isNode = (module.exports && typeof window === 'undefined'),
 	  nodeEnv = false;
 	var windowEnv;
@@ -195,10 +200,11 @@
 	  svg.rootEmSize = 12;
 	  svg.emSize = 12;
 
-	  svg.log = function (msg) { };
+	  svg.log = function (/* msg */) { };
 	  if (svg.opts['log'] == true && typeof console != 'undefined') {
-	    svg.log = function (msg) { console.log(msg); };
+	    svg.log = function (msg) { console.log(msg); }; // eslint-disable-line no-console
 	  }
+
 	  // globals
 	  svg.init = function (ctx) {
 	    var uniqueId = 0;
@@ -360,15 +366,15 @@
 	  };
 
 	  // length extensions
-	  svg.Property.prototype.getDPI = function (viewPort) {
+	  svg.Property.prototype.getDPI = function (/* viewPort */) {
 	    return 96.0; // TODO: compute?
 	  };
 
-	  svg.Property.prototype.getREM = function (viewPort) {
+	  svg.Property.prototype.getREM = function (/* viewPort */) {
 	    return svg.rootEmSize;
 	  };
 
-	  svg.Property.prototype.getEM = function (viewPort) {
+	  svg.Property.prototype.getEM = function (/* viewPort */) {
 	    return svg.emSize;
 	  };
 
@@ -453,7 +459,7 @@
 
 	    this.CreateFont = function (fontStyle, fontVariant, fontWeight, fontSize, fontFamily, inherit) {
 	      var f = inherit != null ? this.Parse(inherit) : this.CreateFont('', '', '', '', '', svg.ctx.font);
-	      var fontFamily = fontFamily || f.fontFamily;
+	      fontFamily = fontFamily || f.fontFamily;
 	      return {
 	        fontFamily: fontFamily,
 	        fontSize: fontSize || f.fontSize,
@@ -898,12 +904,12 @@
 	    };
 
 	    // base set context
-	    this.setContext = function (ctx) {
+	    this.setContext = function (/* ctx */) {
 	      // OVERRIDE ME!
 	    };
 
 	    // base clear context
-	    this.clearContext = function (ctx) {
+	    this.clearContext = function (/* ctx */) {
 	      // OVERRIDE ME!
 	    };
 
@@ -1452,7 +1458,6 @@
 	          case 'a':
 	          case 'z':
 	            return true;
-	            break;
 	        }
 	        return false;
 	      };
@@ -1718,7 +1723,7 @@
 	          case 'z':
 	            if (ctx != null) {
 	              // only close path if it is not a straight line
-					      if (bb.x1 !== bb.x2 && bb.y1 !== bb.y2) {
+	              if (bb.x1 !== bb.x2 && bb.y1 !== bb.y2) {
 	                ctx.closePath();
 	              }
 	            }
@@ -1747,7 +1752,7 @@
 	    this.base = svg.Element.ElementBase;
 	    this.base(node);
 
-	    this.createPattern = function (ctx, element) {
+	    this.createPattern = function (ctx /* , element */) {
 	      var width = this.attribute('width').toPixels('x', true);
 	      var height = this.attribute('height').toPixels('y', true);
 
@@ -1818,7 +1823,7 @@
 	    this.base = svg.Element.ElementBase;
 	    this.base(node);
 
-	    this.render = function (ctx) {
+	    this.render = function (/* ctx */) {
 	      // NOOP
 	    };
 	  };
@@ -2199,7 +2204,7 @@
 	      }
 	    }
 
-	    this.render = function(ctx) {
+	    this.render = function(/* ctx */) {
 	      // NO RENDER
 	    };
 	  };
@@ -2603,7 +2608,7 @@
 	    this.base = svg.Element.RenderedElementBase;
 	    this.base(node);
 
-	    this.render = function (ctx) {
+	    this.render = function (/* ctx */) {
 	      // NO RENDER
 	    };
 	  };
@@ -2764,7 +2769,7 @@
 	      element.style('mask').value = mask;
 	    };
 
-	    this.render = function (ctx) {
+	    this.render = function (/* ctx */) {
 	      // NO RENDER
 	    };
 	  };
@@ -2810,7 +2815,7 @@
 	      }
 	    };
 
-	    this.render = function (ctx) {
+	    this.render = function (/* ctx */) {
 	      // NO RENDER
 	    };
 	  };
@@ -2860,7 +2865,7 @@
 	      element.style('filter', true).value = filter;
 	    };
 
-	    this.render = function (ctx) {
+	    this.render = function (/* ctx */) {
 	      // NO RENDER
 	    };
 	  };
@@ -2881,7 +2886,7 @@
 	    this.base = svg.Element.ElementBase;
 	    this.base(node);
 
-	    this.apply = function (ctx, x, y, width, height) {
+	    this.apply = function (/* ctx, x, y, width, height */) {
 	      // TODO: implement
 	    };
 	  };
@@ -2891,7 +2896,7 @@
 	    this.base = svg.Element.ElementBase;
 	    this.base(node);
 
-	    this.apply = function (ctx, x, y, width, height) {
+	    this.apply = function (/* ctx, x, y, width, height */) {
 	      // TODO: implement
 	    };
 	  };
@@ -2994,11 +2999,11 @@
 	  svg.Element.feGaussianBlur.prototype = new svg.Element.ElementBase;
 
 	  // title element, do nothing
-	  svg.Element.title = function (node) { };
+	  svg.Element.title = function (/* node */) { };
 	  svg.Element.title.prototype = new svg.Element.ElementBase;
 
 	  // desc element, do nothing
-	  svg.Element.desc = function (node) { };
+	  svg.Element.desc = function (/* node */) { };
 	  svg.Element.desc.prototype = new svg.Element.ElementBase;
 
 	  svg.Element.MISSING = function (node) {
@@ -3232,6 +3237,7 @@
 
 	  return svg;
 	}
+
 	if (typeof CanvasRenderingContext2D != 'undefined') {
 	  CanvasRenderingContext2D.prototype.drawSvg = function (s, dx, dy, dw, dh, opts) {
 	    var cOpts = {

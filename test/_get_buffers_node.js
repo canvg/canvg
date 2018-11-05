@@ -16,7 +16,7 @@ async function getBuffersNode(file) {
     ignoreMouse: true,
     ignoreAnimation: true,
     xmldom: {
-      errorHandler: function(level, msg) {} // supress xmldom warnings
+      errorHandler: function(/* level, msg */) {} // supress xmldom warnings
     }
   });
   const canvasBuffer = canvas.toBuffer();
