@@ -3171,13 +3171,14 @@ function build(opts) {
 
         // need update from mouse events?
         if (svg.opts['ignoreMouse'] != true) {
-          needUpdate = needUpdate | svg.Mouse.hasEvents();
+          needUpdate = needUpdate || svg.Mouse.hasEvents();
         }
 
         // need update from animations?
         if (svg.opts['ignoreAnimation'] != true) {
           for (var i = 0; i < svg.Animations.length; i++) {
-            needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+            var needAnimationUpdate = svg.Animations[i].update(1000 / svg.FRAMERATE);
+            needUpdate = needUpdate || needAnimationUpdate;
           }
         }
 
