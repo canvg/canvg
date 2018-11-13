@@ -63,7 +63,7 @@ const fileNames = files.slice(start, end || files.length).map((file) => {
     }
     console.log('Begin writing...');
     images.filter(i => i).forEach(([fileName, image]) => {
-      const expectedPath = `${__dirname}/expected/${fileName}.png`;
+      const expectedPath = `${__dirname}/expected/${path.basename(fileName)}.png`;
       console.log(`Writing: ${expectedPath}...`);
       image.writeImage(path.resolve(expectedPath));
     });
