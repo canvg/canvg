@@ -32,11 +32,11 @@
 
 	var isNode = (module.exports && typeof window === 'undefined'),
 	  nodeEnv = true;
-	var jsdom$$1, windowEnv;
+	var JSDOM, windowEnv;
 
 	{
-	  jsdom$$1 = jsdom;
-	  windowEnv = jsdom$$1.jsdom().defaultView;
+	  JSDOM = jsdom.JSDOM;
+	  windowEnv = new JSDOM().window;
 	  windowEnv.DOMParser = xmldom.DOMParser;
 	}
 
@@ -46,7 +46,7 @@
 	function createCanvas(width, height) {
 	  var c;
 	  {
-	    c = new canvas(width, height);
+	    c = canvas.createCanvas(width, height);
 	  }
 	  return c;
 	}
@@ -3139,13 +3139,14 @@
 
 	        // need update from mouse events?
 	        if (svg.opts['ignoreMouse'] != true) {
-	          needUpdate = needUpdate | svg.Mouse.hasEvents();
+	          needUpdate = needUpdate || svg.Mouse.hasEvents();
 	        }
 
 	        // need update from animations?
 	        if (svg.opts['ignoreAnimation'] != true) {
 	          for (var i = 0; i < svg.Animations.length; i++) {
-	            needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            var needAnimationUpdate = svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            needUpdate = needUpdate || needAnimationUpdate;
 	          }
 	        }
 

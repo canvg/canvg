@@ -5,10 +5,6 @@ const canvg = require('../src/canvg.js'),
   fs = Promise.promisifyAll(require('fs')),
   PNGImage = Promise.promisifyAll(require('pngjs-image'));
 
-function createCanvas (width, height) { // 2.0 API
-  return new Canvas(width, height);
-}
-
 const file = process.argv[2];
 const start = process.argv[3] || 0;
 const end = process.argv[4];
@@ -30,7 +26,7 @@ const fileNames = files.slice(start, end || files.length).map((file) => {
 
         let canvas;
         try {
-          canvas = createCanvas(800, 600);
+          canvas = Canvas.createCanvas(800, 600);
         } catch (err) {
           console.error(`Error creating canvas for ${fileName}`, err);
           return;

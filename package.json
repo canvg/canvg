@@ -34,7 +34,7 @@
     "build-win": "npm run build-browser-win && npm run build-node-win && npm run minify && del src\\dummy.js",
     "build-browser-win": "type nul > src\\dummy.js && rollup -c",
     "build-node-win": "cmd /C \"set IS_NODE=1 && rollup -c\"",
-    "test": "ava",
+    "test": "npm run test-node",
     "test-browser": "ava test/browser.test.js --tap | tap-diff",
     "test-node": "ava test/node.test.js --tap | tap-diff",
     "generate-expected": "node test/_generate_expected_node.js",
@@ -50,20 +50,20 @@
   ],
   "readmeFilename": "README.md",
   "dependencies": {
-    "jsdom": "^8.1.0",
+    "jsdom": "^13.0.0",
     "rgbcolor": "^1.0.1",
-    "stackblur-canvas": "^1.4.1",
-    "xmldom": "^0.1.22"
+    "stackblur-canvas": "^2.0.0",
+    "xmldom": "^0.1.27"
   },
   "peerDependencies": {
-    "canvas": "^1.6.13"
+    "canvas": "^2.1.0"
   },
   "devDependencies": {
     "ava": "^1.0.0-beta.6",
     "ava-is-running": "^1.0.3",
     "blink-diff": "^1.0.13",
     "bluebird": "^3.5.1",
-    "canvas": "^1.6.13",
+    "canvas": "^2.1.0",
     "data-uri-to-buffer": "^2.0.0",
     "debug": "^2.6.9",
     "eslint": "^5.8.0",
