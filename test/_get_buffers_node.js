@@ -10,7 +10,7 @@ async function getBuffersNode(file) {
       path.resolve(`${__dirname}/../svgs/${file}`)
     ),
     svg = svgbuffer.toString("utf-8"),
-    canvas = new Canvas(800, 600);
+    canvas = Canvas.createCanvas(800, 600);
 
   canvg(canvas, svg, {
     ignoreMouse: true,

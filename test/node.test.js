@@ -26,20 +26,19 @@ const testFile = (file, group) => {
           canvasBuffer,
           expectedImg,
           `${diff_folder}/${group}_${file}.png`,
-          group === "broken" ? 0.02 : 0.03
+          0.03
         );
       })
       .then(async ({ res, differences }) => {
         if (!res) {
           await fs.writeFileAsync(actual_path, actual_file);
-          t.log(
-            `${file}.png has ${differences} differences with compared file`
-          );
           if (group === "broken") {
             t.log(`skip broken ${file}`);
             t.truthy.skip(`skip broken ${file}`);
           } else {
-            t.fail();
+            t.fail(
+              `${file}.png has ${differences} differences with compared file`
+            );
           }
         } else {
           t.truthy(res);
@@ -47,12 +46,8 @@ const testFile = (file, group) => {
       })
       .catch(async err => {
         await fs.writeFileAsync(actual_path, actual_file);
-        t.log(err.message);
-        if (group === "broken") {
-          t.truthy.skip(`skip broken ${file}`);
-        } else {
-          t.fail();
-        }
+        t.log(err);
+        t.fail(err.message);
       });
   });
 };

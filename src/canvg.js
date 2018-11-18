@@ -3,19 +3,19 @@
 /* eslint-disable no-redeclare */
 var RGBColor = require('rgbcolor'),
   StackBlur = require('stackblur-canvas'),
-  Canvas = require("canvas");
+  Canvas = require('canvas');
 
 var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
   nodeEnv = isNode;
 
-var jsdom, windowEnv;
+var JSDOM, windowEnv;
 
 if (nodeEnv) {
-  jsdom = require('jsdom');
-  windowEnv = jsdom.jsdom().defaultView;
+  JSDOM = require('jsdom').JSDOM;
+  windowEnv = new JSDOM().window;
   windowEnv.DOMParser = require('xmldom').DOMParser;
 } else {
-  jsdom = null;
+  JSDOM = null;
   windowEnv = window;
   windowEnv.DOMParser = window.DOMParser;
 }
@@ -26,7 +26,7 @@ var defaultClientWidth = 800,
 function createCanvas(width, height) {
   var c;
   if (nodeEnv) {
-    c = new Canvas(width, height);
+    c = Canvas.createCanvas(width, height);
   } else {
     c = document.createElement('canvas');
     c.width = width;
@@ -1726,7 +1726,7 @@ function build(opts) {
               pp.addMarkerAngle(cp, ah - dir * Math.PI);
 
               bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
-              if (ctx != null) {
+              if (ctx != null && !isNaN(a1) && !isNaN(ad)) {
                 var r = rx > ry ? rx : ry;
                 var sx = rx > ry ? 1 : rx / ry;
                 var sy = rx > ry ? ry / rx : 1;

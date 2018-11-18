@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 1.5.4
+ * version 2.0.0
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg
@@ -1704,7 +1704,7 @@
 	              pp.addMarkerAngle(cp, ah - dir * Math.PI);
 
 	              bb.addPoint(cp.x, cp.y); // TODO: this is too naive, make it better
-	              if (ctx != null) {
+	              if (ctx != null && !isNaN(a1) && !isNaN(ad)) {
 	                var r = rx > ry ? rx : ry;
 	                var sx = rx > ry ? 1 : rx / ry;
 	                var sy = rx > ry ? ry / rx : 1;
@@ -3149,13 +3149,14 @@
 
 	        // need update from mouse events?
 	        if (svg.opts['ignoreMouse'] != true) {
-	          needUpdate = needUpdate | svg.Mouse.hasEvents();
+	          needUpdate = needUpdate || svg.Mouse.hasEvents();
 	        }
 
 	        // need update from animations?
 	        if (svg.opts['ignoreAnimation'] != true) {
 	          for (var i = 0; i < svg.Animations.length; i++) {
-	            needUpdate = needUpdate | svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            var needAnimationUpdate = svg.Animations[i].update(1000 / svg.FRAMERATE);
+	            needUpdate = needUpdate || needAnimationUpdate;
 	          }
 	        }
 

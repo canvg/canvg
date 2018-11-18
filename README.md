@@ -36,9 +36,9 @@ Building
 
 Testing
 =======
-`npm run test`
-
-`npm run generate-expected foo.svg` to create the expected png for a given svg in the `svgs` folder
+- `npm run test-node` runs tests on `node`
+- `npm run test-browser` runs tests on `browser`
+- `npm run generate-expected foo.svg` to create the expected png for a given svg in the `svgs` folder
 
 Usage on the server
 ===================
