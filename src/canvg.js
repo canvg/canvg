@@ -20,7 +20,8 @@ if (nodeEnv) {
   windowEnv.DOMParser = window.DOMParser;
 }
 
-var defaultClientWidth = 800,
+var doc = windowEnv.document,
+  defaultClientWidth = 800,
   defaultClientHeight = 600;
 
 function createCanvas(width, height) {
@@ -28,7 +29,7 @@ function createCanvas(width, height) {
   if (nodeEnv) {
     c = Canvas.createCanvas(width, height);
   } else {
-    c = document.createElement('canvas');
+    c = doc.createElement('canvas');
     c.width = width;
     c.height = height;
   }
@@ -54,10 +55,10 @@ function createCanvas(width, height) {
 var canvg = function (target, s, opts) {
   // no parameters
   if (target == null && s == null && opts == null) {
-    var svgTags = document.querySelectorAll('svg');
+    var svgTags = doc.querySelectorAll('svg');
     for (var i = 0; i < svgTags.length; i++) {
       var svgTag = svgTags[i];
-      var c = document.createElement('canvas');
+      var c = doc.createElement('canvas');
       if (typeof(svgTag.clientWidth) !== 'undefined' && typeof(svgTag.clientHeight) !== 'undefined') {
         c.width = svgTag.clientWidth;
         c.height = svgTag.clientHeight;
@@ -68,7 +69,7 @@ var canvg = function (target, s, opts) {
       }
       svgTag.parentNode.insertBefore(c, svgTag);
       svgTag.parentNode.removeChild(svgTag);
-      var div = document.createElement('div');
+      var div = doc.createElement('div');
       div.appendChild(svgTag);
       canvg(c, div.innerHTML);
     }
@@ -86,7 +87,7 @@ var canvg = function (target, s, opts) {
   }
 
   if (typeof target == 'string') {
-    target = document.getElementById(target);
+    target = doc.getElementById(target);
   }
 
   // store class on canvas
@@ -972,7 +973,7 @@ function build(opts) {
     };
 
     // Microsoft Edge fix
-    var allUppercase = new RegExp("^[A-Z\-]+$");
+    var allUppercase = new RegExp('^[A-Z\-]+$');
     var normalizeAttributeName = function (name) {
       if (allUppercase.test(name)) {
         return name.toLowerCase();
@@ -2395,7 +2396,7 @@ function build(opts) {
         var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
         var fontStyle = this.parent.style('font-style').valueOrDefault(svg.Font.Parse(svg.ctx.font).fontStyle);
         var text = this.getText();
-        if (customFont.isRTL) text = text.split("").reverse().join("");
+        if (customFont.isRTL) text = text.split('').reverse().join('');
 
         var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
         for (var i = 0; i < text.length; i++) {
@@ -2419,7 +2420,7 @@ function build(opts) {
         }
         return;
       }
-      if (ctx.paintOrder == "stroke") {
+      if (ctx.paintOrder == 'stroke') {
         if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
         if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
       } else {
@@ -2446,7 +2447,7 @@ function build(opts) {
         var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
         var measure = 0;
         var text = this.getText();
-        if (customFont.isRTL) text = text.split("").reverse().join("");
+        if (customFont.isRTL) text = text.split('').reverse().join('');
         var dx = svg.ToNumberArray(this.parent.attribute('dx').value);
         for (var i = 0; i < text.length; i++) {
           var glyph = this.getGlyph(customFont, text, i);
@@ -2556,7 +2557,7 @@ function build(opts) {
     svg.Images.push(this);
     this.loaded = false;
     if (!isSvg) {
-      this.img = nodeEnv ? new Canvas.Image() : document.createElement('img');
+      this.img = nodeEnv ? new Canvas.Image() : doc.createElement('img');
       if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
       var self = this;
       this.img.onload = function () { self.loaded = true; }
@@ -2898,7 +2899,7 @@ function build(opts) {
     this.base(node);
     this.addStylesFromStyleDefinition();
 
-    this.apply = function (ctx, x, y, width, height) {
+    this.apply = function (/* ctx, x, y, width, height */) {
       // TODO: implement
     }
   }
@@ -3010,11 +3011,11 @@ function build(opts) {
       ctx.canvas.id = svg.UniqueId();
       if (!nodeEnv) {
         ctx.canvas.style.display = 'none';
-        document.body.appendChild(ctx.canvas);
+        doc.body.appendChild(ctx.canvas);
       }
       StackBlur.canvasRGBA(ctx.canvas, x, y, width, height, this.blurRadius);
       if (!nodeEnv) {
-        document.body.removeChild(ctx.canvas);
+        doc.body.removeChild(ctx.canvas);
       }
     }
   }
