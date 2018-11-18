@@ -24,7 +24,7 @@
   "main": "dist/node/canvg.js",
   "types": "dist/node/canvg.d.ts",
   "browser": "dist/browser/canvg.min.js",
-  "version": "1.5.4",
+  "version": "2.0.0",
   "scripts": {
     "eslint": "eslint .",
     "start": "node test/_server.js",
