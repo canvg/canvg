@@ -51,9 +51,14 @@ const testFile = (file, group) => {
       .then(async ({ res, differences }) => {
         if (!res) {
           await fs.writeFileAsync(actual_path, actual_file);
-          t.fail.skip(
-            `${file}.png has ${differences} differences with compared file`
-          );
+          if (group === "broken") {
+            t.log(`skip broken ${file}`);
+            t.truthy.skip(`skip broken ${file}`);
+          } else {
+            t.fail(
+              `${file}.png has ${differences} differences with compared file`
+            );
+          }
         } else {
           t.truthy(res);
         }
@@ -61,7 +66,7 @@ const testFile = (file, group) => {
       .catch(async err => {
         await fs.writeFileAsync(actual_path, actual_file);
         t.log(err);
-        t.fail.skip(err.message);
+        t.fail(err.message);
       });
   });
 };
