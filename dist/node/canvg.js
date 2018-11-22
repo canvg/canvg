@@ -401,12 +401,12 @@
 
 	  // time extensions
 	  // get the time as milliseconds
+	  // https://svgwg.org/specs/animations/#ClockValueSyntax
 	  svg.Property.prototype.toMilliseconds = function () {
 	    if (!this.hasValue()) return 0;
 	    var s = this.value + '';
-	    if (s.match(/s$/)) return this.numValue() * 1000;
 	    if (s.match(/ms$/)) return this.numValue();
-	    return this.numValue();
+	    return this.numValue() * 1000;
 	  };
 
 	  // angle extensions
