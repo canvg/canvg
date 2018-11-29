@@ -2126,6 +2126,9 @@
 
 	      // tween value linearly
 	      var newValue = p.from.numValue() + (p.to.numValue() - p.from.numValue()) * p.progress;
+	      if (this.initialUnits === '%') {
+	        newValue *= 100.0; // numValue() returns 0-1 whereas properties are 0-100
+	      }
 	      return newValue + this.initialUnits;
 	    };
 	  };
@@ -2299,6 +2302,9 @@
 
 	    this.adjustChildCoordinates = function(ctx, textParent, parent, i) {
 	      var child = parent.children[i];
+	      if (typeof(child.measureText) !== 'function') {
+	        return child;
+	      }
 
 	      if (child.attribute('x').hasValue()) {
 	        child.x = child.attribute('x').toPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
