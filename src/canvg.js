@@ -2324,7 +2324,7 @@ function build(opts) {
 
     this.adjustChildCoordinates = function(ctx, textParent, parent, i) {
       var child = parent.children[i];
-      if (!(child instanceof svg.Element.TextElementBase)) {
+      if (typeof(child.measureText) !== 'function') {
         return child;
       }
 
