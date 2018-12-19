@@ -2315,7 +2315,7 @@ function build(opts) {
       for (var i = startI; i < parent.children.length; i++) {
         var child = parent.children[i];
         if (child.type == 'tspan' && child.attribute(anchName) != '' && child.attribute(anchName) != undefined) {
-          textAnchor = child.attribute(anchName);
+          textAnchor = child.attribute(anchName); 
         }
         if (i > startI && child.attribute('x').hasValue()) break; // new group
         width += child.measureTextRecursive(ctx);
