@@ -2309,17 +2309,21 @@ function build(opts) {
     }
 
     this.getAnchorDelta = function (ctx, parent, startI) {
-      var textAnchor = this.style('text-anchor').valueOrDefault('start');
-      if (textAnchor != 'start') {
-        var width = 0;
-        for (var i = startI; i < parent.children.length; i++) {
-          var child = parent.children[i];
-          if (i > startI && child.attribute('x').hasValue()) break; // new group
-          width += child.measureTextRecursive(ctx);
+      var anchName = 'text-anchor';
+      var textAnchor = this.style(anchName).valueOrDefault('start');
+      var width = 0;
+      for (var i = startI; i < parent.children.length; i++) {
+        var child = parent.children[i];
+        if (child.type == 'tspan' && child.attribute(anchName) != '' && child.attribute(anchName) != undefined) {
+          textAnchor = child.attribute(anchName);
         }
-        return -1 * (textAnchor == 'end' ? width : width / 2.0);
+        if (i > startI && child.attribute('x').hasValue()) break; // new group
+        width += child.measureTextRecursive(ctx);
       }
-      return 0;
+      if (textAnchor == 'start') {
+        return 0;
+      }
+      return -1 * (textAnchor == 'end' ? width : width / 2.0);
     }
 
     this.adjustChildCoordinates = function(ctx, textParent, parent, i) {
