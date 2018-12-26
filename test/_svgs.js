@@ -140,6 +140,7 @@ const svgs = {
     "issue342.svg": "Issue #342: text gradient",
     "issue620.svg": "Issue #620: em font size",
     "issue320.svg": "Issue #320: rem font size",
+    "issue564.svg": "Issue #564: tspan text-anchor",
   },
 
   broken: {

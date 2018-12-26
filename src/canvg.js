@@ -2330,11 +2330,11 @@ function build(opts) {
 
       if (child.attribute('x').hasValue()) {
         child.x = child.attribute('x').toPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
-        
+
         // local text-anchor
-        const textAnchor = child.attribute('text-anchor').valueOrDefault('start');
+        var textAnchor = child.attribute('text-anchor').valueOrDefault('start');
         if (textAnchor !== 'start') {
-          const width = child.measureTextRecursive(ctx);
+          var width = child.measureTextRecursive(ctx);
           child.x += -1 * (textAnchor == 'end' ? width : width / 2.0);
         }
 
