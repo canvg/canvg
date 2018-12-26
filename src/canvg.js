@@ -2330,6 +2330,14 @@ function build(opts) {
 
       if (child.attribute('x').hasValue()) {
         child.x = child.attribute('x').toPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
+
+        // local text-anchor
+        var textAnchor = child.attribute('text-anchor').valueOrDefault('start');
+        if (textAnchor !== 'start') {
+          var width = child.measureTextRecursive(ctx);
+          child.x += -1 * (textAnchor == 'end' ? width : width / 2.0);
+        }
+
         if (child.attribute('dx').hasValue()) child.x += child.attribute('dx').toPixels('x');
       } else {
         if (child.attribute('dx').hasValue()) textParent.x += child.attribute('dx').toPixels('x');
