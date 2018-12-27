@@ -3114,7 +3114,7 @@ function build(opts) {
         svg.ViewPort.SetCurrent(defaultClientWidth, defaultClientHeight);
       }
 
-      if (svg.opts['ignoreDimensions'] != true) {
+      if (svg.opts['ignoreDimensions'] != true && (isFirstRender || (svg.opts['scaleWidth'] == null && svg.opts['scaleHeight'] == null))) {
         // set canvas size
         if (e.style('width').hasValue()) {
           ctx.canvas.width = e.style('width').toPixels('x');
