@@ -499,7 +499,7 @@
 
 	  // points and paths
 	  svg.ToNumberArray = function (s) {
-	    var a = svg.trim(svg.compressSpaces((s || '').replace(/,/g, ' '))).split(' ');
+	    var a = svg.trim(svg.compressSpaces((s || '').replace(/\-/g, ' -').replace(/,/g, ' '))).split(' ');
 	    for (var i = 0; i < a.length; i++) {
 	      a[i] = parseFloat(a[i]);
 	    }
