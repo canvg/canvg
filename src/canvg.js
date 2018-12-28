@@ -521,7 +521,7 @@ function build(opts) {
 
   // points and paths
   svg.ToNumberArray = function (s) {
-    var a = svg.trim(svg.compressSpaces((s || '').replace(/\-/g, ' -').replace(/,/g, ' '))).split(' ');
+    var a = (s || '').match(/-?(\d+(\.\d+)?|\.\d+)(?=\D|$)/gm) || [];
     for (var i = 0; i < a.length; i++) {
       a[i] = parseFloat(a[i]);
     }
@@ -3297,5 +3297,8 @@ if (typeof CanvasRenderingContext2D != 'undefined') {
     canvg(this.canvas, s, cOpts);
   }
 }
+
+// for tests
+canvg._build = build;
 
 module.exports = canvg;
