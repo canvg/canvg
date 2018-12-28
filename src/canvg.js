@@ -373,7 +373,7 @@ function build(opts) {
         def = def.getHrefAttribute().getDefinition();
         if (pt.hasValue()) { def.attribute('patternTransform', true).value = pt.value; }
       }
-      return def.createPattern(svg.ctx, e);
+      return def.createPattern(svg.ctx, e, opacityProp);
     }
 
     return null;
@@ -1775,7 +1775,7 @@ function build(opts) {
     this.base = svg.Element.ElementBase;
     this.base(node);
 
-    this.createPattern = function (ctx /* , element */) {
+    this.createPattern = function (ctx, element, parentOpacityProp) {
       var width = this.attribute('width').toPixels('x', true);
       var height = this.attribute('height').toPixels('y', true);
 
@@ -1792,6 +1792,13 @@ function build(opts) {
       if (this.attribute('x').hasValue() && this.attribute('y').hasValue()) {
         cctx.translate(this.attribute('x').toPixels('x', true), this.attribute('y').toPixels('y', true));
       }
+
+      if (parentOpacityProp.hasValue()) {
+        this.styles['fill-opacity'] = parentOpacityProp;
+      } else {
+        delete this.styles['fill-opacity'];
+      }
+
       // render 3x3 grid so when we transform there's no white space on edges
       for (var x = -1; x <= 1; x++) {
         for (var y = -1; y <= 1; y++) {

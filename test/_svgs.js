@@ -82,6 +82,7 @@ const svgs = {
     "issue268.svg": "Issue #268: tspan dx dy not affecting x y",
     "issue269.svg": "Issue #269: opacity in e-notation",
     "issue273.svg": "Issue #273: fill freeze animation",
+    "issue277.svg": "Issue #277: pattern parent opacity",
     "issue282.svg": "Issue #282: treat clip path as attribute",
     "issue289.svg": "Issue #289: multiple clip",
     "issue3.svg": "Issue #3: radial gradient (broken)",
