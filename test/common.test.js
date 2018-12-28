@@ -19,3 +19,20 @@ test('ToNumberArray', (t) => {
   t.deepEqual(ToNumberArray("1-2-3"), [1, -2, -3]);
   t.deepEqual(ToNumberArray("1-.4"), [1, -0.4]);
 });
+
+test('ParseExternalUrl', (t) => {
+  const ParseExternalUrl = t.context.svg.ParseExternalUrl;
+
+  // not urls
+  t.falsy(ParseExternalUrl(''));
+  t.falsy(ParseExternalUrl('foo'));
+  t.falsy(ParseExternalUrl('url()'));
+  t.falsy(ParseExternalUrl('url("")'));
+  t.falsy(ParseExternalUrl('url("asf)'));
+  t.falsy(ParseExternalUrl('url(\'asf)'));
+
+  // urls
+  t.is(ParseExternalUrl('url(foo)'), 'foo');
+  t.is(ParseExternalUrl('url("foo")'), 'foo');
+  t.is(ParseExternalUrl('url(\'foo\')'), 'foo');
+});
