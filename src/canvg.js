@@ -521,7 +521,7 @@ function build(opts) {
 
   // points and paths
   svg.ToNumberArray = function (s) {
-    var a = svg.trim(svg.compressSpaces((s || '').replace(/\-/g, ' -').replace(/,/g, ' '))).split(' ');
+    var a = (s || '').match(/-?(\d+(\.\d+)?|\.\d+)(?=\D|$)/gm) || [];
     for (var i = 0; i < a.length; i++) {
       a[i] = parseFloat(a[i]);
     }
@@ -2651,6 +2651,15 @@ function build(opts) {
   }
   svg.Element.symbol.prototype = new svg.Element.RenderedElementBase;
 
+  svg.ParseExternalUrl = function(url) {
+    //                                 single quotes [2]
+    //                                 v           double quotes [3]
+    //                                 v           v        no quotes [4]
+    //                                 v           v        v
+    var urlMatch = url.match(/url\(('([^']+)'|"([^"]+)"|([^'"\)]+))\)/) || [];
+    return urlMatch[2] || urlMatch[3] || urlMatch[4];
+  };
+
   // style element
   svg.Element.style = function (node) {
     this.base = svg.Element.ElementBase;
@@ -2688,12 +2697,7 @@ function build(opts) {
               var srcs = props['src'].value.split(',');
               for (var s = 0; s < srcs.length; s++) {
                 if (srcs[s].indexOf('format("svg")') > 0) {
-                  //                                 single quotes [2]
-                  //                                 v           double quotes [3]
-                  //                                 v           v        no quotes [4]
-                  //                                 v           v        v
-                  var urlMatch = srcs[s].match(/url\(('([^']+)'|"([^"]+)"|([^'"\)]+))\)/) || [];
-                  var url = urlMatch[2] || urlMatch[3] || urlMatch[4];
+                  var url = svg.ParseExternalUrl(srcs[s]);
                   if (url) {
                     var doc = svg.parseXml(svg.ajax(url));
                     var fonts = doc.getElementsByTagName('font');
@@ -3302,5 +3306,8 @@ if (typeof CanvasRenderingContext2D != 'undefined') {
     canvg(this.canvas, s, cOpts);
   }
 }
+
+// for tests
+canvg._build = build;
 
 module.exports = canvg;
