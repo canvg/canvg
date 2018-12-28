@@ -2688,14 +2688,19 @@ function build(opts) {
               var srcs = props['src'].value.split(',');
               for (var s = 0; s < srcs.length; s++) {
                 if (srcs[s].indexOf('format("svg")') > 0) {
-                  var urlStart = srcs[s].indexOf('url');
-                  var urlEnd = srcs[s].indexOf(')', urlStart);
-                  var url = srcs[s].substr(urlStart + 5, urlEnd - urlStart - 6);
-                  var doc = svg.parseXml(svg.ajax(url));
-                  var fonts = doc.getElementsByTagName('font');
-                  for (var f = 0; f < fonts.length; f++) {
-                    var font = svg.CreateElement(fonts[f]);
-                    svg.Definitions[fontFamily] = font;
+                  //                                 single quotes [2]
+                  //                                 v           double quotes [3]
+                  //                                 v           v        no quotes [4]
+                  //                                 v           v        v
+                  var urlMatch = srcs[s].match(/url\(('([^']+)'|"([^"]+)"|([^'"\)]+))\)/) || [];
+                  var url = urlMatch[2] || urlMatch[3] || urlMatch[4];
+                  if (url) {
+                    var doc = svg.parseXml(svg.ajax(url));
+                    var fonts = doc.getElementsByTagName('font');
+                    for (var f = 0; f < fonts.length; f++) {
+                      var font = svg.CreateElement(fonts[f]);
+                      svg.Definitions[fontFamily] = font;
+                    }
                   }
                 }
               }
