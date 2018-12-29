@@ -316,7 +316,7 @@
 
 	  svg.Property.prototype.numValueOrDefault = function (def) {
 	    if (this.hasValue()) return this.numValue();
-	    return def;
+	    return parseFloat(def);
 	  };
 
 	  // color extensions
@@ -1150,6 +1150,14 @@
 	  };
 	  svg.Element.PathElementBase.prototype = new svg.Element.RenderedElementBase;
 
+	  svg.SetDefaults = function (ctx) {
+	    // initial values and defaults
+	    ctx.strokeStyle = 'rgba(0,0,0,0)';
+	    ctx.lineCap = 'butt';
+	    ctx.lineJoin = 'miter';
+	    ctx.miterLimit = 4;
+	  };
+
 	  // svg element
 	  svg.Element.svg = function (node) {
 	    this.base = svg.Element.RenderedElementBase;
@@ -1163,11 +1171,7 @@
 
 	    this.baseSetContext = this.setContext;
 	    this.setContext = function (ctx) {
-	      // initial values and defaults
-	      ctx.strokeStyle = 'rgba(0,0,0,0)';
-	      ctx.lineCap = 'butt';
-	      ctx.lineJoin = 'miter';
-	      ctx.miterLimit = 4;
+	      svg.SetDefaults(ctx);
 	      if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
 	        ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
 
@@ -1282,7 +1286,7 @@
 	      var cy = this.attribute('cy').toPixels('y');
 	      var r = this.attribute('r').toPixels();
 
-	      if (ctx != null) {
+	      if (ctx != null && r > 0) {
 	        ctx.beginPath();
 	        ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
 	        ctx.closePath();
@@ -2291,6 +2295,7 @@
 	      for (var i = 0; i < this.children.length; i++) {
 	        this.renderChild(ctx, this, this, i);
 	      }
+	      svg.Mouse.checkBoundingBox(this, this.getBoundingBox(ctx));
 	    };
 
 	    this.getAnchorDelta = function (ctx, parent, startI) {
@@ -2784,10 +2789,12 @@
 
 	      var cMask = createCanvas(x + width, y + height);
 	      var maskCtx = cMask.getContext('2d');
+	      svg.SetDefaults(maskCtx);
 	      this.renderChildren(maskCtx);
 
 	      var c = createCanvas(x + width, y + height);
 	      var tempCtx = c.getContext('2d');
+	      svg.SetDefaults(tempCtx);
 	      element.render(tempCtx);
 	      tempCtx.globalCompositeOperation = 'destination-in';
 	      tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
@@ -2879,6 +2886,7 @@
 
 	      var c = createCanvas(width + 2 * px, height + 2 * py);
 	      var tempCtx = c.getContext('2d');
+	      svg.SetDefaults(tempCtx);
 	      tempCtx.translate(-x + px, -y + py);
 	      element.render(tempCtx);
 
