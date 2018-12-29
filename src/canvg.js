@@ -1304,7 +1304,7 @@ function build(opts) {
       var cy = this.attribute('cy').toPixels('y');
       var r = this.attribute('r').toPixels();
 
-      if (ctx != null) {
+      if (ctx != null && r > 0) {
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2, false);
         ctx.closePath();
