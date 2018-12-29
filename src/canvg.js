@@ -1172,6 +1172,14 @@ function build(opts) {
   }
   svg.Element.PathElementBase.prototype = new svg.Element.RenderedElementBase;
 
+  svg.SetDefaults = function (ctx) {
+    // initial values and defaults
+    ctx.strokeStyle = 'rgba(0,0,0,0)';
+    ctx.lineCap = 'butt';
+    ctx.lineJoin = 'miter';
+    ctx.miterLimit = 4;
+  }
+
   // svg element
   svg.Element.svg = function (node) {
     this.base = svg.Element.RenderedElementBase;
@@ -1185,11 +1193,7 @@ function build(opts) {
 
     this.baseSetContext = this.setContext;
     this.setContext = function (ctx) {
-      // initial values and defaults
-      ctx.strokeStyle = 'rgba(0,0,0,0)';
-      ctx.lineCap = 'butt';
-      ctx.lineJoin = 'miter';
-      ctx.miterLimit = 4;
+      svg.SetDefaults(ctx);
       if (ctx.canvas.style && typeof ctx.font != 'undefined' && typeof windowEnv.getComputedStyle != 'undefined') {
         ctx.font = windowEnv.getComputedStyle(ctx.canvas).getPropertyValue('font');
 
@@ -2806,10 +2810,12 @@ function build(opts) {
 
       var cMask = createCanvas(x + width, y + height);
       var maskCtx = cMask.getContext('2d');
+      svg.SetDefaults(maskCtx);
       this.renderChildren(maskCtx);
 
       var c = createCanvas(x + width, y + height);
       var tempCtx = c.getContext('2d');
+      svg.SetDefaults(tempCtx);
       element.render(tempCtx);
       tempCtx.globalCompositeOperation = 'destination-in';
       tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
@@ -2901,6 +2907,7 @@ function build(opts) {
 
       var c = createCanvas(width + 2 * px, height + 2 * py);
       var tempCtx = c.getContext('2d');
+      svg.SetDefaults(tempCtx);
       tempCtx.translate(-x + px, -y + py);
       element.render(tempCtx);
 
