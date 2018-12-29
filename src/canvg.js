@@ -329,7 +329,7 @@ function build(opts) {
 
   svg.Property.prototype.numValueOrDefault = function (def) {
     if (this.hasValue()) return this.numValue();
-    return def;
+    return parseFloat(def);
   }
 
   // color extensions
@@ -2317,6 +2317,7 @@ function build(opts) {
       for (var i = 0; i < this.children.length; i++) {
         this.renderChild(ctx, this, this, i);
       }
+      svg.Mouse.checkBoundingBox(this, this.getBoundingBox(ctx));
     }
 
     this.getAnchorDelta = function (ctx, parent, startI) {
