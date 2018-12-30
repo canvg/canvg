@@ -752,6 +752,7 @@
 	      }
 	    };
 
+	    // TODO: applyToPoint unused ... remove?
 	    this.applyToPoint = function (p) {
 	      for (var i = 0; i < this.transforms.length; i++) {
 	        this.transforms[i].applyToPoint(p);
@@ -2789,6 +2790,17 @@
 	      svg.SetDefaults(maskCtx);
 	      this.renderChildren(maskCtx);
 
+	      // convert mask to alpha with a fake node
+	      var cm = new svg.Element.feColorMatrix({
+	        nodeType: 1,
+	        childNodes: [],
+	        attributes: [
+	          { nodeName: 'type', value: 'luminanceToAlpha' },
+	          { nodeName: 'includeOpacity', value: 'true' },
+	        ]
+	      });
+	      cm.apply(maskCtx, 0, 0, x + width, y + height);
+
 	      var c = createCanvas(x + width, y + height);
 	      var tempCtx = c.getContext('2d');
 	      svg.SetDefaults(tempCtx);
@@ -2986,6 +2998,7 @@
 	      return mi * (mi < 0 ? v - 255 : v);
 	    }
 
+	    var includeOpacity = this.attribute('includeOpacity').hasValue();
 	    this.apply = function (ctx, x, y, width, height) {
 	      // assuming x==0 && y==0 for now
 	      var srcData = ctx.getImageData(0, 0, width, height);
@@ -2995,10 +3008,18 @@
 	          var g = imGet(srcData.data, x, y, width, height, 1);
 	          var b = imGet(srcData.data, x, y, width, height, 2);
 	          var a = imGet(srcData.data, x, y, width, height, 3);
-	          imSet(srcData.data, x, y, width, height, 0, m(0, r) + m(1, g) + m(2, b) + m(3, a) + m(4, 1));
-	          imSet(srcData.data, x, y, width, height, 1, m(5, r) + m(6, g) + m(7, b) + m(8, a) + m(9, 1));
-	          imSet(srcData.data, x, y, width, height, 2, m(10, r) + m(11, g) + m(12, b) + m(13, a) + m(14, 1));
-	          imSet(srcData.data, x, y, width, height, 3, m(15, r) + m(16, g) + m(17, b) + m(18, a) + m(19, 1));
+	          var nr = m(0, r) + m(1, g) + m(2, b) + m(3, a) + m(4, 1);
+	          var ng = m(5, r) + m(6, g) + m(7, b) + m(8, a) + m(9, 1);
+	          var nb = m(10, r) + m(11, g) + m(12, b) + m(13, a) + m(14, 1);
+	          var na = m(15, r) + m(16, g) + m(17, b) + m(18, a) + m(19, 1);
+	          if (includeOpacity) {
+	            nr = ng = nb = 0;
+	            na *= a / 255;
+	          }
+	          imSet(srcData.data, x, y, width, height, 0, nr);
+	          imSet(srcData.data, x, y, width, height, 1, ng);
+	          imSet(srcData.data, x, y, width, height, 2, nb);
+	          imSet(srcData.data, x, y, width, height, 3, na);
 	        }
 	      }
 	      ctx.clearRect(0, 0, width, height);
