@@ -1977,6 +1977,7 @@
 	    this.attributesToInherit.push('r');
 	    this.attributesToInherit.push('fx');
 	    this.attributesToInherit.push('fy');
+	    this.attributesToInherit.push('fr');
 
 	    this.getGradient = function (ctx, element) {
 	      var bb = element.getBoundingBox(ctx);
@@ -2009,7 +2010,8 @@
 	        (bb.width() + bb.height()) / 2.0 * this.attribute('r').numValue() :
 	        this.attribute('r').toPixels());
 
-	      return ctx.createRadialGradient(fx, fy, 0, cx, cy, r);
+	      var fr = this.attribute('fr').toPixels();
+	      return ctx.createRadialGradient(fx, fy, fr, cx, cy, r);
 	    };
 	  };
 	  svg.Element.radialGradient.prototype = new svg.Element.GradientBase;
