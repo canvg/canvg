@@ -54,7 +54,7 @@ const svgs = {
     "issue178.svg": "Issue #178: pattern offset",
     "issue179.svg": "Issue #179: animate rotate transform center",
     "issue180.svg": "Issue #180: pattern x offset width (open)",
-    "issue183.svg": "Issue #183: mask error (broken)",
+    "issue183.svg": "Issue #183: mask error",
     "issue184.svg": "Issue #184: transformed pattern",
     "issue187.svg": "Issue #187: nested tspans",
     "issue195.svg": "Issue #195: gray filter",
@@ -142,6 +142,7 @@ const svgs = {
     "issue620.svg": "Issue #620: em font size",
     "issue320.svg": "Issue #320: rem font size",
     "issue564.svg": "Issue #564: tspan text-anchor",
+    "issue556.svg": "Issue #556: mask using alpha",
   },
 
   broken: {
