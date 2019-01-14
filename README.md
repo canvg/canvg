@@ -45,6 +45,9 @@ Locally, you can run `npm start` and view the examples at [http://localhost:3123
 
 `npm install canvg`
 
+**2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md))
+`npm install canvg@2.0.0-beta.0`
+
 ## Usage on the Browser
 
 Include the following files in your page:
@@ -55,6 +58,16 @@ Include the following files in your page:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 <!-- Main canvg code -->
 <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+```
+
+**2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md))
+```html
+<!-- Required to convert named colors to RGB -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+<!-- Optional if you want blur -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+<!-- Main canvg code -->
+<script src="https://cdn.jsdelivr.net/npm/canvg@2.0.0-beta.0/dist/browser/canvg.min.js"></script>
 ```
 
 Put a canvas on your page

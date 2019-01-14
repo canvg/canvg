@@ -1,7 +1,7 @@
 # Change Log
 
 ## v2.0.0 (beta)
-- *Breaking change*: now dependent on [canvas 2.x](https://github.com/Automattic/node-canvas)
+- **Breaking change**: now dependent on [canvas 2.x](https://github.com/Automattic/node-canvas)
 - Implement focal gradient radius ([#675](https://github.com/canvg/canvg/pull/675))
 - Fixes 0 height rects ([#674](https://github.com/canvg/canvg/pull/674))
 - Fixes masks with alpha ([#672](https://github.com/canvg/canvg/pull/672))
