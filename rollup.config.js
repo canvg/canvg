@@ -8,8 +8,8 @@ import pkgConfig from "./package.json";
 
 let is_node = process.env.IS_NODE === "1";
 
-let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor", canvas: "Canvas" };
-let external = ["stackblur-canvas", "rgbcolor", "canvas"];
+let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor" };
+let external = ["stackblur-canvas", "rgbcolor"];
 
 let plugins = [
   replace({
@@ -21,12 +21,14 @@ let plugins = [
 ];
 
 if (is_node) {
-  external = external.concat(["xmldom", "jsdom"]);
+  external = external.concat(["canvas", "xmldom", "jsdom"]);
+  globals.canvas = "canvas";
   globals.xmldom = "xmldom";
   globals.jsdom = "jsdom";
 } else {
   plugins = [
     alias({
+      canvas: "./dummy.js",
       jsdom: "./dummy.js",
       xmldom: "./dummy.js"
     })
