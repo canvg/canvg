@@ -1,0 +1,10 @@
+.nyc_output
+node_modules
+test/actual
+test/actual_node
+test/actual_browser
+test/diff_node
+test/diff_browser
+.vscode
+.idea
+yarn-error.log

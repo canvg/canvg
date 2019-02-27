@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>canvg.js test</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+  <script src="../dist/browser/canvg.js"></script>
+  <script>
+  function q(k) {
+    var qs = window.location.search.substring(1);
+    var t = qs.split("&");
+    for (i = 0; i < t.length; i++) {
+      kv = t[i].split("=");
+      if (kv[0] == k) return unescape(kv[1]).replace('+', ' ');
+    }
+    return null;
+  }
+  var overrideTextBox = false;
+  var context;
+
+  function bodyonload() {
+    var testcase = q('test');
+    if (testcase != null && testcase != '') {
+      render('../svgs/' + testcase);
+    }
+  }
+
+  function render(svg, width, height) {
+    var c = document.createElement('canvas');
+    c.width = width || 500;
+    c.height = height || 500;
+
+    document.getElementById('canvas').innerHTML = '';
+    document.getElementById('canvas').appendChild(c);
+
+    canvg(c, svg, {
+      ignoreMouse: true,
+      ignoreAnimation: true,
+      renderCallback: function(dom) {
+        window.canvas_dataurl = c.toDataURL();
+        var result = document.createElement('input');
+        result.id = 'final_result';
+        result.type = 'hidden';
+        document.body.appendChild(result);
+      }
+    });
+  }
+
+  </script>
+</head>
+
+<body onload="bodyonload();">
+  <div class="output" id="canvas"></div>
+</body>
+
+</html>

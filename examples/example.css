@@ -1,0 +1,46 @@
+ body {
+     font-family: verdana;
+ }
+
+ h1,
+ h2 {
+     margin: 0;
+ }
+
+ #title {
+     padding: 0 0 5px 5px;
+ }
+
+ h2 {
+     font-size: 18px;
+ }
+
+ #message {
+     background-color: orangered;
+     padding: 5px;
+     margin-bottom: 10px;
+ }
+
+ #message a {
+     color: white;
+ }
+
+ td {
+     vertical-align: top;
+     padding-right: 10px;
+ }
+
+ a image {
+     border: 0;
+ }
+
+ textarea {
+     width: 100%;
+ }
+
+ .output {
+     border: 1px solid gray;
+     width: 500px;
+     height: 500px;
+     overflow: scroll;
+ }

@@ -1,44 +1,56 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>canvg.js callback test</title>
-		<!--[if IE]>
-		<script type="text/javascript" src="flashcanvas.js"></script>
-		<![endif]-->		
-		<script type="text/javascript" src="../rgbcolor.js"></script>
-		<script type="text/javascript" src="../canvg.js"></script>
-		<script type="text/javascript">
-		var context;
-		var redraw = false;
-		function resize() {
-			var c = document.getElementById('container');
-			c.style.width = (window.innerWidth || document.body.clientWidth)+'px';
-			c.style.height = (window.innerHeight || document.body.clientHeight)+'px';
-			redraw = true;		
-		}
-		function bodyonload() { 
-			if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext; 
-			var svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="none" viewBox="0 0 100 100" style="width:100%; height:100%;">'
-					 +'<linearGradient id="background_gradient_black" x1="0%" y1="10" x2="0%" y2="90" gradientUnits="userSpaceOnUse">'
-					 +'<stop offset="0%"   stop-color="#000" stop-opacity="1" />'
-					 +'<stop offset="35%"  stop-color="#200" stop-opacity="1" />'
-					 +'<stop offset="65%"  stop-color="#600" stop-opacity="1" />'
-					 +'<stop offset="100%" stop-color="#ff0" stop-opacity="1" />'
-					 +'</linearGradient>'
-					 +'<rect x="0" y="0" width="100" height="100" fill="url(#background_gradient_black)" />'
-					 +'</svg>';
-			resize();
-			canvg('canvas', svg, {
-				ignoreMouse: true,
-				ignoreAnimation: true,
-				renderCallback: function() { alert('done rendering!'); },
-				forceRedraw: function() { var update = redraw; redraw = false; return update; }
-			});
-		}
-		window.onresize = resize;
-		</script>
-	</head>
-	<body onload="bodyonload();">
-		<div id="container"><canvas id="canvas"></canvas></div>
-	</body>
+
+<head>
+    <meta charset="utf-8" />
+    <title>canvg.js callback test</title>
+    <!--[if IE]>
+		<script src="flashcanvas.js"></script>
+		<![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+    <script src="../dist/browser/canvg.js"></script>
+    <script>
+    var context;
+    var redraw = false;
+
+    function resize() {
+        var c = document.getElementById('container');
+        c.style.width = (window.innerWidth || document.body.clientWidth) + 'px';
+        c.style.height = (window.innerHeight || document.body.clientHeight) + 'px';
+        redraw = true;
+    }
+
+    function bodyonload() {
+        if (typeof(FlashCanvas) != 'undefined') context = document.getElementById('canvas').getContext;
+        var svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveAspectRatio="none" viewBox="0 0 100 100" style="width:100%; height:100%;">' +
+            '<linearGradient id="background_gradient_black" x1="0%" y1="10" x2="0%" y2="90" gradientUnits="userSpaceOnUse">' +
+            '<stop offset="0%"   stop-color="#000" stop-opacity="1" />' +
+            '<stop offset="35%"  stop-color="#200" stop-opacity="1" />' +
+            '<stop offset="65%"  stop-color="#600" stop-opacity="1" />' +
+            '<stop offset="100%" stop-color="#ff0" stop-opacity="1" />' +
+            '</linearGradient>' +
+            '<rect x="0" y="0" width="100" height="100" fill="url(#background_gradient_black)" />' +
+            '</svg>';
+        resize();
+        canvg('canvas', svg, {
+            ignoreMouse: true,
+            ignoreAnimation: true,
+            renderCallback: function() { alert('done rendering!'); },
+            forceRedraw: function() {
+                var update = redraw;
+                redraw = false;
+                return update;
+            }
+        });
+    }
+    window.onresize = resize;
+    </script>
+</head>
+
+<body onload="bodyonload();">
+    <div id="container">
+        <canvas id="canvas"></canvas>
+    </div>
+</body>
+
 </html>
