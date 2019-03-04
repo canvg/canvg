@@ -43,20 +43,25 @@ Locally, you can run `npm start` and view the examples at [http://localhost:3123
 
 ## Usage on the server
 
-`npm install canvg`
+`npm install canvg@^1.5`
 
 **2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md))
 
-`npm install canvg@2.0.0-beta.0`
+`npm install canvg@2.0.0-beta.0 canvas@^2 jsdom@^13 xmldom@^0`
 
-## Usage on the Browser
+The dependencies required on the server only are peers so must be installed
+alongside the canvg package.
 
-Include the following files in your page:
+## Usage on the browser
+
+For browser applications with a build process, canvg can be installed using `npm` similar to use on the server. Note in this case the peer dependencies are not required so do not need to be installed.
+
+Alternatively, canvg can be included directly into a webpage:
 ```html
 <!-- Required to convert named colors to RGB -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script>
 <!-- Optional if you want blur -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
 <!-- Main canvg code -->
 <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 ```
@@ -64,9 +69,9 @@ Include the following files in your page:
 For the **2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md)), use this:
 ```html
 <!-- Required to convert named colors to RGB -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script>
 <!-- Optional if you want blur -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
 <!-- Main canvg code -->
 <script src="https://cdn.jsdelivr.net/npm/canvg@2.0.0-beta.0/dist/browser/canvg.min.js"></script>
 ```
