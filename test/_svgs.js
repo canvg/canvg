@@ -27,6 +27,7 @@ const svgs = {
     "28.svg": "viewport",
     "31.svg": "links",
     "32.svg": "images",
+    "37.svg": "textPath",
     "issue106.svg": "Issue #106: gradient transform",
     "issue112.svg": "Issue #112: marker orientation",
     "issue114.svg": "Issue #114: text anchor",
