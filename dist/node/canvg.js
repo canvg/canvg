@@ -11,7 +11,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas'), require('canvas'), require('jsdom'), require('xmldom')) :
 	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas', 'canvas', 'jsdom', 'xmldom'], factory) :
-	(global.canvg = factory(global.RGBColor,global.StackBlur,global.Canvas,global.jsdom,global.xmldom));
+	(global.canvg = factory(global.RGBColor,global.StackBlur,global.canvas,global.jsdom,global.xmldom));
 }(this, (function (rgbcolor,stackblurCanvas,canvas,jsdom,xmldom) { 'use strict';
 
 	rgbcolor = rgbcolor && rgbcolor.hasOwnProperty('default') ? rgbcolor['default'] : rgbcolor;
@@ -32,9 +32,10 @@
 
 	var isNode = (module.exports && typeof window === 'undefined'),
 	  nodeEnv = true;
-	var JSDOM, windowEnv;
+	var Canvas, JSDOM, windowEnv;
 
 	{
+	  Canvas = canvas;
 	  JSDOM = jsdom.JSDOM;
 	  windowEnv = new JSDOM().window;
 	  windowEnv.DOMParser = xmldom.DOMParser;
@@ -47,7 +48,7 @@
 	function createCanvas(width, height) {
 	  var c;
 	  {
-	    c = canvas.createCanvas(width, height);
+	    c = Canvas.createCanvas(width, height);
 	  }
 	  return c;
 	}
@@ -3312,7 +3313,7 @@
 	    svg.Images.push(this);
 	    this.loaded = false;
 	    if (!isSvg) {
-	      this.img = new canvas.Image();
+	      this.img = new Canvas.Image();
 	      if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
 	      var self = this;
 	      this.img.onload = function () { self.loaded = true; };

@@ -2,19 +2,20 @@
 /* globals $, Sizzle, Windows, ActiveXObject */
 /* eslint-disable no-redeclare */
 var RGBColor = require('rgbcolor'),
-  StackBlur = require('stackblur-canvas'),
-  Canvas = require('canvas');
+  StackBlur = require('stackblur-canvas');
 
 var isNode = (typeof module !== 'undefined' && module.exports && typeof window === 'undefined'),
   nodeEnv = isNode;
 
-var JSDOM, windowEnv;
+var Canvas, JSDOM, windowEnv;
 
 if (nodeEnv) {
+  Canvas = require('canvas');
   JSDOM = require('jsdom').JSDOM;
   windowEnv = new JSDOM().window;
   windowEnv.DOMParser = require('xmldom').DOMParser;
 } else {
+  Canvas = null;
   JSDOM = null;
   windowEnv = window;
   windowEnv.DOMParser = window.DOMParser;

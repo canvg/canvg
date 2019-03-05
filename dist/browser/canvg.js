@@ -9,14 +9,13 @@
  */
  
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas'), require('canvas')) :
-	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas', 'canvas'], factory) :
-	(global.canvg = factory(global.RGBColor,global.StackBlur,global.Canvas));
-}(this, (function (rgbcolor,stackblurCanvas,canvas) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas')) :
+	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas'], factory) :
+	(global.canvg = factory(global.RGBColor,global.StackBlur));
+}(this, (function (rgbcolor,stackblurCanvas) { 'use strict';
 
 	rgbcolor = rgbcolor && rgbcolor.hasOwnProperty('default') ? rgbcolor['default'] : rgbcolor;
 	stackblurCanvas = stackblurCanvas && stackblurCanvas.hasOwnProperty('default') ? stackblurCanvas['default'] : stackblurCanvas;
-	canvas = canvas && canvas.hasOwnProperty('default') ? canvas['default'] : canvas;
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
