@@ -47,7 +47,7 @@ Locally, you can run `npm start` and view the examples at [http://localhost:3123
 
 **2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md))
 
-`npm install canvg@2.0.0-beta.0 canvas@^2 jsdom@^13 xmldom@^0`
+`npm install canvg@2.0.0-beta.1 canvas@^2 jsdom@^13 xmldom@^0`
 
 The dependencies required on the server only are peers so must be installed
 alongside the canvg package.
@@ -73,7 +73,7 @@ For the **2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/mast
 <!-- Optional if you want blur -->
 <script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
 <!-- Main canvg code -->
-<script src="https://cdn.jsdelivr.net/npm/canvg@2.0.0-beta.0/dist/browser/canvg.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvg@2.0.0-beta.1/dist/browser/canvg.min.js"></script>
 ```
 
 Put a canvas on your page
