@@ -2,6 +2,7 @@
 
 ## v2.0.0 (beta)
 - **Breaking change**: for use on server, peer dependencies [canvas 2.x](https://github.com/Automattic/node-canvas), [jsdom 13.x](https://github.com/jsdom/jsdom) and [xmldom 0.x](https://github.com/jindw/xmldom) must be installed.
+- Implement `textPath` ([#687](https://github.com/canvg/canvg/pull/687))
 - Implement focal gradient radius ([#675](https://github.com/canvg/canvg/pull/675))
 - Fixes 0 height rects ([#674](https://github.com/canvg/canvg/pull/674))
 - Fixes masks with alpha ([#672](https://github.com/canvg/canvg/pull/672))

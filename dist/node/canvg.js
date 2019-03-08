@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 2.0.0-beta.0
+ * version 2.0.0-beta.1
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg

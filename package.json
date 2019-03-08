@@ -24,7 +24,7 @@
   "main": "dist/node/canvg.js",
   "types": "dist/node/canvg.d.ts",
   "browser": "dist/browser/canvg.min.js",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "scripts": {
     "test-browser": "ava test/browser.test.js --tap | tap-diff",
     "test-node": "ava test/node.test.js --tap | tap-diff",
