@@ -418,7 +418,11 @@ function build(opts) {
     if (s.match(/pc$/)) return this.numValue() * 15;
     if (s.match(/cm$/)) return this.numValue() * this.getDPI(viewPort) / 2.54;
     if (s.match(/mm$/)) return this.numValue() * this.getDPI(viewPort) / 25.4;
+    if (s.match(/vmin$/)) return this.numValue() / 100.0 * Math.min(svg.ViewPort.ComputeSize('x'), svg.ViewPort.ComputeSize('y'));
+    if (s.match(/vmax$/)) return this.numValue() / 100.0 * Math.max(svg.ViewPort.ComputeSize('x'), svg.ViewPort.ComputeSize('y'));
     if (s.match(/in$/)) return this.numValue() * this.getDPI(viewPort);
+    if (s.match(/vw$/)) return this.numValue() / 100.0 * svg.ViewPort.ComputeSize('x');
+    if (s.match(/vh$/)) return this.numValue() / 100.0 * svg.ViewPort.ComputeSize('y');
     if (s.match(/%$/)) return this.numValue() * svg.ViewPort.ComputeSize(viewPort);
     var n = this.numValue();
     if (processPercent && n < 1.0) return n * svg.ViewPort.ComputeSize(viewPort);

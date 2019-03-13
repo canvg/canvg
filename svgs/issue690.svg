@@ -1,0 +1,5 @@
+<svg id="src" height="100" width="200">
+  <text style='font-family:FontAwesome;font-size:20vh' x="0" y="15" fill="red"> I love SVG!</text>
+  <text style='font-family:FontAwesome;font-size:10vw' x="0" y="45" fill="green"> I love SVG!</text>
+  <text style='font-family:FontAwesome;font-size:20vmin' x="0" y="75" fill="blue"> I love SVG!</text>
+</svg>
