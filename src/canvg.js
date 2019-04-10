@@ -2453,13 +2453,36 @@ function build(opts) {
         }
         return;
       }
-      if (ctx.paintOrder == 'stroke') {
-        if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
-        if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
+      var dx = svg.ToNumberArray(this.parent.attribute('x').value);
+      var dy = svg.ToNumberArray(this.parent.attribute('y').value);
+      var text = this.getText();
+      if ((dx.length > 1 && dx.length == text.length) || (dy.length > 1 && dy.length == text.length)) {
+        text = text.split('');
+        if (dx.length == 1) {
+          dx = new Array(text.length);
+          dx.fill(this.x); 
+        }
+        if (dy.length == 1) {
+          dy = new Array(text.length);
+          dy.fill(this.y); 
+        }
+        if (ctx.paintOrder == 'stroke') {
+          if (ctx.strokeStyle != '') text.forEach(function(t, i){ctx.strokeText(t, dx[i], dy[i])});
+          if (ctx.fillStyle != '') text.forEach(function(t, i){ctx.fillText(t, dx[i], dy[i])});
+        } else {
+          if (ctx.fillStyle != '') text.forEach(function(t, i){ctx.fillText(t, dx[i], dy[i])});
+          if (ctx.strokeStyle != '') text.forEach(function(t, i){ctx.strokeText(t, dx[i], dy[i])});
+        }
       } else {
-        if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(this.getText()), this.x, this.y);
-        if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(this.getText()), this.x, this.y);
-      }
+	        if (ctx.paintOrder == 'stroke') {
+	          if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(text), this.x, this.y);
+	          if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(text), this.x, this.y);
+	        } else {
+	          if (ctx.fillStyle != '') ctx.fillText(svg.compressSpaces(text), this.x, this.y);
+	          if (ctx.strokeStyle != '') ctx.strokeText(svg.compressSpaces(text), this.x, this.y);
+	        }
+	      }
+	    };
     }
 
     this.getText = function () {
