@@ -494,6 +494,73 @@ function build(opts) {
       }
     }
 
+    this.ParseShorthandFont = function(font) {
+      var fontFamily = null;
+      var fontSize = null;
+      var fontStyle = 'normal';
+      var fontWeight = 'normal';
+      var fontVariant = 'normal';
+      var lineHeight = 'normal';
+
+      var elements = font.split(/\s+/);
+      while (elements.length > 0) {
+        var element = elements.shift();
+        switch (element) {
+          case 'normal':
+            break;
+
+          case 'italic':
+          case 'oblique':
+            fontStyle = element;
+            break;
+
+          case 'small-caps':
+            fontVariant = element;
+            break;
+
+          case 'bold':
+          case 'bolder':
+          case 'lighter':
+          case '100':
+          case '200':
+          case '300':
+          case '400':
+          case '500':
+          case '600':
+          case '700':
+          case '800':
+          case '900':
+            fontWeight = element;
+            break;
+
+          default:
+            if (!fontSize) {
+              var tokens = element.split('/');
+              fontSize = tokens[0];
+              if (tokens.length > 1) {
+                lineHeight = tokens[1];
+              }
+              break
+            }
+
+            fontFamily = element;
+            if (elements.length) {
+              fontFamily += ' ' + elements.join(' ');
+            }
+            elements.length = 0;
+            break
+        }
+      }
+      return {
+        fontStyle: fontStyle,
+        fontVariant: fontVariant,
+        fontWeight: fontWeight,
+        fontSize: fontSize || '12px',
+        lineHeight: lineHeight,
+        fontFamily: fontFamily || 'Arial'
+      }
+  }
+
     var that = this;
     this.Parse = function (s) {
       var f = {};
@@ -1096,12 +1163,23 @@ function build(opts) {
 
       // font
       if (typeof ctx.font != 'undefined') {
-        ctx.font = svg.Font.CreateFont(
-          this.style('font-style').value,
-          this.style('font-variant').value,
-          this.style('font-weight').value,
-          this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
-          this.style('font-family').value).toString();
+        if (this.style('font').hasValue()) {
+          var font = svg.Font.ParseShorthandFont(this.style('font').value)
+          ctx.font = svg.Font.CreateFont(
+            font.fontStyle,
+            font.fontVariant,
+            font.fontWeight,
+            font.fontSize,
+            font.fontFamily).toString();
+        }
+        else {
+          ctx.font = svg.Font.CreateFont(
+            this.style('font-style').value,
+            this.style('font-variant').value,
+            this.style('font-weight').value,
+            this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
+            this.style('font-family').value).toString();
+        }
 
         // update em size if needed
         var currentFontSize = this.style('font-size', false, false);
