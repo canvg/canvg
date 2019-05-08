@@ -1096,17 +1096,21 @@ function build(opts) {
 
       // font
       if (typeof ctx.font != 'undefined') {
-        ctx.font = svg.Font.CreateFont(
-          this.style('font-style').value,
-          this.style('font-variant').value,
-          this.style('font-weight').value,
-          this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
-          this.style('font-family').value).toString();
+        if (this.style('font').hasValue()) {
+          ctx.font = this.style('font').value;
+        } else {
+          ctx.font = svg.Font.CreateFont(
+            this.style('font-style').value,
+            this.style('font-variant').value,
+            this.style('font-weight').value,
+            this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
+            this.style('font-family').value).toString();
 
-        // update em size if needed
-        var currentFontSize = this.style('font-size', false, false);
-        if (currentFontSize.isPixels()) {
-          svg.emSize = currentFontSize.toPixels();
+          // update em size if needed
+          var currentFontSize = this.style('font-size', false, false);
+          if (currentFontSize.isPixels()) {
+            svg.emSize = currentFontSize.toPixels();
+          }
         }
       }
 
