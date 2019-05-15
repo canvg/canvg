@@ -522,7 +522,7 @@ function build(opts) {
 
   // points and paths
   svg.ToNumberArray = function (s) {
-    var a = (s || '').match(/-?(\d+(\.\d+)?|\.\d+)(?=\D|$)/gm) || [];
+    var a = (s || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];
     for (var i = 0; i < a.length; i++) {
       a[i] = parseFloat(a[i]);
     }
