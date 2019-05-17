@@ -13,6 +13,7 @@ test('ToNumberArray', (t) => {
   t.deepEqual(ToNumberArray("7 88.8"), [7, 88.8]);
   t.deepEqual(ToNumberArray("1,-2,3,14,5"), [1, -2, 3, 14, 5]);
   t.deepEqual(ToNumberArray(" 1 -0.2   ,3,.14,  5  "), [1, -0.2, 3, 0.14, 5]);
+  t.deepEqual(ToNumberArray("-1.83697e-16 -1 1 -1.83697e-16 0 100"), [-1.83697e-16, -1, 1, -1.83697e-16, 0, 100])
 
   // Should support the omission of superfluous separators
   t.deepEqual(ToNumberArray("5.5.5"), [5.5, 0.5]);
