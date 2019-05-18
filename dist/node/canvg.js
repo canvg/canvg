@@ -1,7 +1,7 @@
 
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
- * version 2.0.0-beta.1
+ * version 2.0.0
  * MIT Licensed
  * Gabe Lerner (gabelerner@gmail.com)
  * https://github.com/canvg/canvg
@@ -497,7 +497,7 @@
 
 	  // points and paths
 	  svg.ToNumberArray = function (s) {
-	    var a = (s || '').match(/-?(\d+(\.\d+)?|\.\d+)(?=\D|$)/gm) || [];
+	    var a = (s || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];
 	    for (var i = 0; i < a.length; i++) {
 	      a[i] = parseFloat(a[i]);
 	    }
@@ -1071,17 +1071,21 @@
 
 	      // font
 	      if (typeof ctx.font != 'undefined') {
-	        ctx.font = svg.Font.CreateFont(
-	          this.style('font-style').value,
-	          this.style('font-variant').value,
-	          this.style('font-weight').value,
-	          this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
-	          this.style('font-family').value).toString();
+	        if (this.style('font').hasValue()) {
+	          ctx.font = this.style('font').value;
+	        } else {
+	          ctx.font = svg.Font.CreateFont(
+	            this.style('font-style').value,
+	            this.style('font-variant').value,
+	            this.style('font-weight').value,
+	            this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
+	            this.style('font-family').value).toString();
 
-	        // update em size if needed
-	        var currentFontSize = this.style('font-size', false, false);
-	        if (currentFontSize.isPixels()) {
-	          svg.emSize = currentFontSize.toPixels();
+	          // update em size if needed
+	          var currentFontSize = this.style('font-size', false, false);
+	          if (currentFontSize.isPixels()) {
+	            svg.emSize = currentFontSize.toPixels();
+	          }
 	        }
 	      }
 
