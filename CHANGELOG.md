@@ -1,7 +1,9 @@
 # Change Log
 
-## v2.0.0 (beta)
+## v2.0.0
 - **Breaking change**: for use on server, peer dependencies [canvas 2.x](https://github.com/Automattic/node-canvas), [jsdom 13.x](https://github.com/jsdom/jsdom) and [xmldom 0.x](https://github.com/jindw/xmldom) must be installed.
+- Fix exponential notation ([#710](https://github.com/canvg/canvg/pull/710))
+- Fix font parsing ([#707](https://github.com/canvg/canvg/pull/707))
 - Implement `textPath` ([#687](https://github.com/canvg/canvg/pull/687))
 - Implement focal gradient radius ([#675](https://github.com/canvg/canvg/pull/675))
 - Fixes 0 height rects ([#674](https://github.com/canvg/canvg/pull/674))
