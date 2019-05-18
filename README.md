@@ -43,14 +43,14 @@ Locally, you can run `npm start` and view the examples at [http://localhost:3123
 
 ## Usage on the server
 
-`npm install canvg@^1.5`
-
-**2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md))
-
-`npm install canvg@2.0.0-beta.1 canvas@^2 jsdom@^13 xmldom@^0`
+`npm install canvg canvas@^2 jsdom@^13 xmldom@^0`
 
 The dependencies required on the server only are peers so must be installed
 alongside the canvg package.
+
+**Older version**
+
+`npm install canvg@^1.5`
 
 ## Usage on the browser
 
