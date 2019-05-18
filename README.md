@@ -66,16 +66,6 @@ Alternatively, canvg can be included directly into a webpage:
 <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 ```
 
-For the **2.0.0 beta** (see [CHANGELOG](https://github.com/canvg/canvg/blob/master/CHANGELOG.md)), use this:
-```html
-<!-- Required to convert named colors to RGB -->
-<script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script>
-<!-- Optional if you want blur -->
-<script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
-<!-- Main canvg code -->
-<script src="https://cdn.jsdelivr.net/npm/canvg@2.0.0-beta.1/dist/browser/canvg.min.js"></script>
-```
-
 Put a canvas on your page
 ```html
 <canvas id="canvas" width="1000px" height="600px"></canvas>
