@@ -2410,6 +2410,8 @@ function build(opts) {
     this.base = svg.Element.RenderedElementBase;
     this.base(node);
 
+    this.cachedTextWidth = undefined;
+
     this.getGlyph = function (font, text, i) {
       var c = text[i];
       var glyph = null;
@@ -2481,11 +2483,16 @@ function build(opts) {
     }
 
     this.measureText = function (ctx) {
-      var text = this.getText();
-      if (text.length === 0) {
-        return 0
+      if (this.cachedTextWidth !== undefined) {
+        return this.cachedTextWidth
       }
 
+      var text = this.getText();
+      if (text.length === 0) {
+        return this.cachedTextWidth = 0;
+      }
+
+      var textWidth;
       var customFont = this.parent.style('font-family').getDefinition();
       if (customFont != null) {
         var fontSize = this.parent.style('font-size').numValueOrDefault(svg.Font.Parse(svg.ctx.font).fontSize);
@@ -2499,17 +2506,21 @@ function build(opts) {
             measure += dx[i];
           }
         }
-        return measure;
+        textWidth = measure
+      } else {
+        var textToMeasure = svg.compressSpaces(text);
+        if (!ctx.measureText) {
+          textWidth = textToMeasure.length * 10;
+        } else {
+          ctx.save();
+          this.setContext(ctx, true);
+          textWidth = ctx.measureText(textToMeasure).width;
+          ctx.restore();
+        }
       }
 
-      var textToMeasure = svg.compressSpaces(text);
-      if (!ctx.measureText) return textToMeasure.length * 10;
-
-      ctx.save();
-      this.setContext(ctx, true);
-      var width = ctx.measureText(textToMeasure).width;
-      ctx.restore();
-      return width;
+      this.cachedTextWidth = textWidth;
+      return textWidth;
     }
 
     this.getBoundingBox = function (ctx) {
@@ -2596,6 +2607,7 @@ function build(opts) {
     var pathElement = this.getHrefAttribute().getDefinition();
 
     this.text = svg.compressSpaces(node.value || node.text || node.textContent || '');
+    this.cachedTextWidth = undefined
 
     this.renderChildren = function (ctx) {
       this.setTextData(ctx);
@@ -2703,11 +2715,16 @@ function build(opts) {
     }
 
     this.measureText = function (ctx, text) {
-      text = text || this.getText();
-      if (text.length === 0) {
-        return 0
+      if (this.cachedTextWidth !== undefined) {
+        return this.cachedTextWidth;
       }
 
+      text = text || this.getText();
+      if (text.length === 0) {
+        return this.cachedTextWidth = 0;
+      }
+
+      var textWidth;
       var customFont = this.parent.style('font-family').getDefinition();
       if (customFont != null) {
         var fontSize = this.fontSize();
@@ -2721,17 +2738,21 @@ function build(opts) {
             measure += dx[i];
           }
         }
-        return measure;
+        textWidth = measure;
+      } else {
+        var textToMeasure = svg.compressSpaces(text);
+        if (!ctx.measureText) {
+          textWidth = textToMeasure.length * 10;
+        } else {
+          ctx.save();
+          this.setContext(ctx);
+          textWidth = ctx.measureText(textToMeasure).width;
+          ctx.restore();
+        }
       }
 
-      var textToMeasure = svg.compressSpaces(text);
-      if (!ctx.measureText) return textToMeasure.length * 10;
-
-      ctx.save();
-      this.setContext(ctx);
-      var width = ctx.measureText(textToMeasure).width;
-      ctx.restore();
-      return width;
+      this.cachedTextWidth = textWidth
+      return textWidth
     }
 
     // This method supposes what all custom fonts already loaded.
