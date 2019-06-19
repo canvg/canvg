@@ -2328,7 +2328,9 @@ function build(opts) {
       for (var i = 0; i < this.children.length; i++) {
         this.renderChild(ctx, this, this, i);
       }
-      svg.Mouse.checkBoundingBox(this, this.getBoundingBox(ctx));
+      if (svg.opts['ignoreMouse'] != true) {
+        svg.Mouse.checkBoundingBox(this, this.getBoundingBox(ctx));
+      }
     }
 
     this.getAnchorDelta = function (ctx, parent, startI) {
