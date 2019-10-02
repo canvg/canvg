@@ -7,7 +7,7 @@
  * https://github.com/canvg/canvg
  *
  */
- 
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('rgbcolor'), require('stackblur-canvas')) :
 	typeof define === 'function' && define.amd ? define(['rgbcolor', 'stackblur-canvas'], factory) :

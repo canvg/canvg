@@ -1,10 +1,33 @@
 {
-  "name": "canvg",
+  "name": "@flexis/canvg",
+  "version": "1.0.0",
   "description": "Javascript SVG parser and renderer on Canvas",
-  "homepage": "https://github.com/canvg/canvg",
-  "bugs": "https://github.com/canvg/canvg/issues",
+  "author": "dangreen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TrigenSoftware/flexis-canvg"
+  },
+  "bugs": {
+    "url": "https://github.com/TrigenSoftware/flexis-canvg/issues"
+  },
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "umd": "lib/umd.js",
+  "types": "lib/index.d.ts",
   "engines": {
-    "node": "*"
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "lint": "trigen-scripts lint",
+    "jest": "trigen-scripts jest",
+    "checkSize": "trigen-scripts checkSize",
+    "test": "trigen-scripts test",
+    "build:docs": "trigen-scripts build:docs",
+    "start": "trigen-scripts start",
+    "build": "trigen-scripts build",
+    "cleanPublish": "trigen-scripts cleanPublish",
+    "coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "javascript",
@@ -13,77 +36,42 @@
     "svg",
     "canvas"
   ],
-  "author": "Gabe Lerner <gabelerner@gmail.com>",
-  "contributors": [
-    "Brett Zamir"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/canvg/canvg.git"
-  },
-  "main": "dist/node/canvg.js",
-  "types": "dist/node/canvg.d.ts",
-  "browser": "dist/browser/canvg.min.js",
-  "version": "2.0.0",
-  "scripts": {
-    "test-browser": "ava test/browser.test.js --tap | tap-diff",
-    "test-node": "ava test/node.test.js --tap | tap-diff",
-    "test-common": "ava test/common.test.js --tap | tap-diff",
-    "test": "npm run test-common && npm run test-node",
-    "minify-browser": "uglifyjs --mangle --compress if_return=true -o dist/browser/canvg.min.js dist/browser/canvg.js",
-    "minify": "npm run minify-browser",
-    "eslint": "eslint --report-unused-disable-directives .",
-    "build-browser": "touch src/dummy.js && rollup -c && rm src/dummy.js",
-    "build-node": "IS_NODE=1 rollup -c",
-    "build-win": "npm run build-browser-win && npm run build-node-win && npm run minify && del src\\dummy.js",
-    "build-browser-win": "type nul > src\\dummy.js && rollup -c",
-    "build-node-win": "cmd /C \"set IS_NODE=1 && rollup -c\"",
-    "build": "npm run eslint && npm run build-browser && npm run build-node && npm run minify",
-    "generate-expected": "node test/_generate_expected_node.js",
-    "start": "node test/_server.js"
-  },
-  "license": "MIT",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "package.json"
-  ],
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "rgbcolor": "^1.0.1",
-    "stackblur-canvas": "^2.0.0"
-  },
   "peerDependencies": {
     "canvas": "^2.1.0",
     "jsdom": "^13.0.0",
     "xmldom": "^0.1.27"
   },
+  "dependencies": {
+    "@babel/runtime": "^7.6.2",
+    "@types/raf": "^3.4.0",
+    "core-js": "3",
+    "raf": "^3.4.1",
+    "rgbcolor": "^1.0.1",
+    "stackblur-canvas": "^2.0.0"
+  },
   "devDependencies": {
-    "ava": "^1.0.0-rc.2",
-    "ava-is-running": "^1.0.3",
-    "blink-diff": "^1.0.13",
-    "bluebird": "^3.5.3",
+    "@size-limit/preset-small-lib": "^2.1.6",
+    "@trigen/scripts": "3.2.0",
+    "@trigen/scripts-plugin-babel": "3.2.0",
+    "@trigen/scripts-plugin-eslint": "3.2.0",
+    "@trigen/scripts-plugin-jest": "3.2.0",
+    "@trigen/scripts-plugin-rollup": "3.1.0",
+    "@trigen/scripts-plugin-size-limit": "3.2.0",
+    "@trigen/scripts-plugin-typescript": "3.2.0",
+    "@trigen/scripts-preset-lib": "3.2.0",
     "canvas": "^2.1.0",
-    "data-uri-to-buffer": "^2.0.0",
-    "debug": "^4.1.0",
-    "eslint": "^5.9.0",
-    "jsdom": "^13.0.0",
-    "mkdirp": "^0.5.1",
-    "pngjs-image": "^0.11.7",
-    "puppeteer": "^1.16.0",
-    "rollup": "^0.67.3",
-    "rollup-plugin-alias": "^1.4.0",
-    "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-replace": "^2.1.0",
-    "serve-handler": "^5.0.7",
-    "tap-diff": "^0.1.1",
-    "uglify-js": "^3.4.9",
+    "jsdom": "^15.1.1",
+    "rollup-plugin-babel-minify": "^9.1.0",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-tslint": "^0.2.2",
+    "rollup-plugin-typescript2": "^0.24.3",
     "xmldom": "^0.1.27"
   },
-  "jspm": {
-    "registry": "npm"
-  }
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ]
 }

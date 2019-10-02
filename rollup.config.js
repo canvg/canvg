@@ -1,64 +1,64 @@
-/* eslint-env node */
-import resolve from "rollup-plugin-node-resolve";
-import commonjs from "rollup-plugin-commonjs";
-import json from "rollup-plugin-json";
-import replace from "rollup-plugin-replace";
-import alias from "rollup-plugin-alias";
-import pkgConfig from "./package.json";
+import {
+	external
+} from '@trigen/scripts-plugin-rollup/helpers';
+import tslint from 'rollup-plugin-tslint';
+import commonjs from 'rollup-plugin-commonjs';
+import globals from 'rollup-plugin-node-globals';
+import typescript from 'rollup-plugin-typescript2';
+import babel from 'rollup-plugin-babel';
+import resolve from 'rollup-plugin-node-resolve';
+import minify from 'rollup-plugin-babel-minify';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
+import pkg from './package.json';
 
-let is_node = process.env.IS_NODE === "1";
-
-let globals = { "stackblur-canvas": "StackBlur", rgbcolor: "RGBColor" };
-let external = ["stackblur-canvas", "rgbcolor"];
-
-let plugins = [
-  replace({
-    "nodeEnv = isNode": is_node ? "nodeEnv = true;" : "nodeEnv = false;"
-  }),
-  commonjs(),
-  resolve(),
-  json()
-];
-
-if (is_node) {
-  external = external.concat(["canvas", "xmldom", "jsdom"]);
-  globals.canvas = "canvas";
-  globals.xmldom = "xmldom";
-  globals.jsdom = "jsdom";
-} else {
-  plugins = [
-    alias({
-      canvas: "./dummy.js",
-      jsdom: "./dummy.js",
-      xmldom: "./dummy.js"
-    })
-  ].concat(plugins);
+function getPlugins(standalone) {
+	return [
+		tslint({
+			exclude:    ['**/*.json', 'node_modules/**'],
+			throwError: true
+		}),
+		commonjs(),
+		standalone && globals(),
+		typescript(),
+		babel({
+			extensions: [
+				...DEFAULT_EXTENSIONS,
+				'ts',
+				'tsx'
+			],
+			runtimeHelpers: true
+		}),
+		standalone && resolve({
+			preferBuiltins: false
+		}),
+		standalone && minify({
+			comments: false
+		})
+	].filter(Boolean);
 }
 
-let input = "./src/canvg.js",
-  output = {
-    file: is_node ? "./dist/node/canvg.js" : "./dist/browser/canvg.js",
-    format: "umd",
-    exports: "default",
-    name: "canvg",
-
-    globals: globals,
-    banner: `
-/*
- * canvg.js - Javascript SVG parser and renderer on Canvas
- * version ${pkgConfig.version}
- * MIT Licensed
- * Gabe Lerner (gabelerner@gmail.com)
- * https://github.com/canvg/canvg
- *
- */
- `,
-    extend: false
-  };
-
-export default {
-  input: input,
-  plugins: plugins,
-  output: output,
-  external: external
-};
+export default [{
+	input:    'src/index.ts',
+	plugins:  getPlugins(),
+	external: external(pkg, true),
+	output:   [{
+		file:      pkg.main,
+		format:    'cjs',
+		exports:   'named',
+		sourcemap: 'inline'
+	}, {
+		file:      pkg.module,
+		format:    'es',
+		sourcemap: 'inline'
+	}]
+}, {
+	input:   'src/index.ts',
+	plugins: getPlugins(true),
+	output:  {
+		file:      pkg.umd,
+		format:    'umd',
+		exports:   'named',
+		name:      'canvg',
+		sourcemap: true
+	}
+}];

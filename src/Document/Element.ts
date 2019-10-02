@@ -1,0 +1,290 @@
+import {
+	normalizeAttributeName,
+	compressSpaces
+} from '../util';
+import Property from '../Property';
+import Document from './Document';
+import MaskElement from './MaskElement';
+import FilterElement from './FilterElement';
+
+export default abstract class Element {
+
+	static readonly ignoreChildTypes = [
+		'title'
+	];
+
+	readonly type: string;
+	readonly attributes: Record<string, Property> = {};
+	readonly styles: Record<string, Property> = {};
+	readonly stylesSpecificity: Record<string, string> = {};
+	animationFrozen = false;
+	animationFrozenValue = '';
+	parent: Element = null;
+	children: Element[] = [];
+
+	constructor(
+		protected readonly document: Document,
+		protected readonly node: HTMLElement,
+		protected readonly captureTextNodes = false
+	) {
+
+		if (!node || node.nodeType !== 1) { // ELEMENT_NODE
+			return;
+		}
+
+		// add attributes
+		Array.from(node.attributes).forEach((attribute) => {
+
+			const nodeName = normalizeAttributeName(attribute.nodeName);
+
+			this.attributes[nodeName] = new Property(document, nodeName, attribute.value);
+		});
+
+		this.addStylesFromStyleDefinition();
+
+		// add inline styles
+		if (this.getAttribute('style').hasValue()) {
+
+			const styles = this.getAttribute('style')
+				.getString()
+				.split(';')
+				.map(_ => _.trim());
+
+			styles.forEach((style) => {
+
+				if (!style) {
+					return;
+				}
+
+				const [
+					name,
+					value
+				] = style.split(':');
+
+				this.styles[name] = new Property(document, name.trim(), value.trim());
+			});
+		}
+
+		const {
+			definitions
+		} = document;
+		const id = this.getAttribute('id');
+
+		// add id
+		if (id.hasValue()) {
+			if (!definitions[id.getValue()]) {
+				definitions[id.getValue()] = this;
+			}
+		}
+
+		Array.from(node.childNodes).forEach((childNode: HTMLElement) => {
+
+			if (childNode.nodeType === 1) {
+				this.addChild(childNode); // ELEMENT_NODE
+			} else
+			if (captureTextNodes && (
+				childNode.nodeType === 3
+				|| childNode.nodeType === 4
+			)) {
+
+				const text = (childNode as any).value
+					|| (childNode as any).text
+					|| childNode.textContent
+					|| '';
+
+				if (compressSpaces(text)) {
+					this.addChild(document.createTextNode(childNode)); // TEXT_NODE
+				}
+			}
+		});
+	}
+
+	getAttribute(name: string, createIfNotExists = false) {
+
+		const attr = this.attributes[name];
+
+		if (!attr && createIfNotExists) {
+
+			const attr = new Property(this.document, name, '');
+
+			this.attributes[name] = attr;
+
+			return attr;
+		}
+
+		return attr || Property.empty(this.document);
+	}
+
+	getHrefAttribute() {
+
+		for (const key in this.attributes) {
+
+			if (key === 'href' || /:href$/.test(key)) {
+				return this.attributes[key];
+			}
+		}
+
+		return Property.empty(this.document);
+	}
+
+	getStyle(name: string, createIfNotExists = false, skipAncestors = false): Property {
+
+		const style = this.styles[name];
+
+		if (style) {
+			return style;
+		}
+
+		const attr = this.getAttribute(name);
+
+		if (attr && attr.hasValue()) {
+			this.styles[name] = attr; // move up to me to cache
+			return attr;
+		}
+
+		if (!skipAncestors) {
+
+			const {
+				parent
+			} = this;
+
+			if (parent) {
+
+				const parentStyle = parent.getStyle(name);
+
+				if (parentStyle && parentStyle.hasValue()) {
+					return parentStyle;
+				}
+			}
+		}
+
+		if (createIfNotExists) {
+
+			const style = new Property(this.document, name, '');
+
+			this.styles[name] = style;
+
+			return style;
+		}
+
+		return style || Property.empty(this.document);
+	}
+
+	render(ctx: CanvasRenderingContext2D) {
+		// don't render display=none
+		// don't render visibility=hidden
+		if (this.getStyle('display').getString() === 'none'
+			|| this.getStyle('visibility').getString() === 'hidden'
+		) {
+			return;
+		}
+
+		ctx.save();
+
+		if (this.getStyle('mask').hasValue()) { // mask
+
+			const mask = this.getStyle('mask').getDefinition<MaskElement>();
+
+			if (mask) {
+				mask.apply(ctx, this);
+			}
+
+		} else
+		if (this.getStyle('filter').hasValue()) { // filter
+
+			const filter = this.getStyle('filter').getDefinition<FilterElement>();
+
+			if (filter) {
+				filter.apply(ctx, this as any);
+			}
+
+		} else {
+			this.setContext(ctx);
+			this.renderChildren(ctx);
+			this.clearContext(ctx);
+		}
+
+		ctx.restore();
+	}
+
+	setContext(_: CanvasRenderingContext2D) {}
+
+	clearContext(_: CanvasRenderingContext2D) {}
+
+	renderChildren(ctx: CanvasRenderingContext2D) {
+		this.children.forEach((child) => {
+			child.render(ctx);
+		});
+	}
+
+	protected addChild(childNode: Element|HTMLElement) {
+
+		const child = childNode instanceof Element
+			? childNode
+			: this.document.createElement(childNode);
+
+		child.parent = this;
+
+		if (!Element.ignoreChildTypes.includes(child.type)) {
+			this.children.push(child);
+		}
+	}
+
+	protected matchesSelector(selector: string) {
+
+		const {
+			node
+		} = this;
+
+		if (typeof node.matches === 'function') {
+			return node.matches(selector);
+		}
+
+		const styleClasses = node.getAttribute('class');
+
+		if (!styleClasses || styleClasses === '') {
+			return false;
+		}
+
+		return styleClasses.split(' ').some((styleClass) => {
+
+			if (`.${styleClass}` === selector) {
+				return true;
+			}
+		});
+	}
+
+	addStylesFromStyleDefinition() {
+
+		const {
+			styles,
+			stylesSpecificity
+		} = this.document;
+
+		for (const selector in styles) {
+
+			if (selector[0] !== '@' && this.matchesSelector(selector)) {
+
+				const style = styles[selector];
+				const specificity = stylesSpecificity[selector];
+
+				if (style) {
+
+					for (const name in style) {
+
+						let existingSpecificity = this.stylesSpecificity[name];
+
+						if (typeof existingSpecificity === 'undefined') {
+							existingSpecificity = '000';
+						}
+
+						if (specificity >= existingSpecificity) {
+							this.styles[name] = style[name];
+							this.stylesSpecificity[name] = specificity;
+						}
+					}
+				}
+			}
+		}
+	}
+}
