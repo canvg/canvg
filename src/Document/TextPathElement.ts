@@ -192,7 +192,9 @@ export default class TextPathElement extends TextElement {
 
 		const textDecoration = this.parent.getStyle('text-decoration').getString();
 		const fontSize = this.getFontSize();
-		const glyphInfo = this.glyphInfo;
+		const {
+			glyphInfo
+		} = this;
 		const fill = ctx.fillStyle;
 
 		if (textDecoration === 'underline') {
@@ -326,7 +328,7 @@ export default class TextPathElement extends TextElement {
 
 			for (let i = 0; i < len; i++) {
 
-				const glyph = this.getGlyph(customFont, text, i);
+				const glyph = this.getGlyph(customFont, targetText, i);
 
 				measure += (glyph.horizAdvX || customFont.horizAdvX)
 					* fontSize
@@ -339,7 +341,7 @@ export default class TextPathElement extends TextElement {
 			return measure;
 		}
 
-		const textToMeasure = compressSpaces(text);
+		const textToMeasure = compressSpaces(targetText);
 
 		if (!ctx.measureText) {
 			return textToMeasure.length * 10;
@@ -360,7 +362,7 @@ export default class TextPathElement extends TextElement {
 	// You need to call this method manually to update glyphs cache.
 	protected setTextData(ctx: CanvasRenderingContext2D) {
 
-		if (!this.glyphInfo) {
+		if (this.glyphInfo) {
 			return;
 		}
 
@@ -432,7 +434,7 @@ export default class TextPathElement extends TextElement {
 
 			// Find such segment what distance between p0 and p1 is approx. width of glyph
 			const {
-				offset: offsetD,
+				offset: nextOffset,
 				segment
 			} = this.findSegmentToFitChar(
 				ctx,
@@ -445,7 +447,7 @@ export default class TextPathElement extends TextElement {
 				i
 			);
 
-			offset += offsetD;
+			offset = nextOffset;
 
 			if (!segment.p0 || !segment.p1) {
 				return;
@@ -1224,7 +1226,7 @@ export default class TextPathElement extends TextElement {
 
 		if (this.pathLength === -1) {
 			this.pathLength = this.dataArray.reduce(
-				(length, command) => (
+				(length, command: IPathCommand) => (
 					command.pathLength > 0
 						? length + command.pathLength
 						: length

@@ -31,7 +31,9 @@ import TextPathElement from './TextPathElement';
 import ImageElement from './ImageElement';
 import GElement from './GElement';
 import SymbolElement from './SymbolElement';
+import StyleElement from './StyleElement';
 import UseElement from './UseElement';
+import MaskElement from './MaskElement';
 import ClipPathElement from './ClipPathElement';
 import FilterElement from './FilterElement';
 import FeDropShadowElement from './FeDropShadowElement';
@@ -52,7 +54,7 @@ export default {
 	'polygon':          PolygonElement,
 	'path':             PathElement,
 	'pattern':          PatternElement,
-	'mark':             MarkerElement,
+	'marker':           MarkerElement,
 	'defs':             DefsElement,
 	'linearGradient':   LinearGradientElement,
 	'radialGradient':   RadialGradientElement,
@@ -72,7 +74,9 @@ export default {
 	'image':            ImageElement,
 	'g':                GElement,
 	'symbol':           SymbolElement,
+	'style':            StyleElement,
 	'use':              UseElement,
+	'mask':             MaskElement,
 	'clipPath':         ClipPathElement,
 	'filter':           FilterElement,
 	'feDropShadow':     FeDropShadowElement,
@@ -118,7 +122,9 @@ export {
 	ImageElement,
 	GElement,
 	SymbolElement,
+	StyleElement,
 	UseElement,
+	MaskElement,
 	ClipPathElement,
 	FilterElement,
 	FeDropShadowElement,

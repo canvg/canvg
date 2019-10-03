@@ -4,8 +4,23 @@
 		<meta charset="utf-8" />
 		<title>canvg.js test</title>
 		<script src="../lib/umd.js"></script>
+		<style>
+			body {
+				font-family: verdana;
+			}
+		</style>
+		<script>
+
+			async function render(url) {
+				const ctx = document.querySelector('canvas').getContext('2d');
+				const c = await canvg.Canvg.from(ctx, url);
+				c.render().then(() => console.log('done'))
+			}
+		</script>
 	</head>
 	<body>
-		<canvas></canvas>
+		<div style="width: 500px; height: 500px;">
+			<canvas width="500px" height="500px"></canvas>
+		</div>
 	</body>
 </html>

@@ -58,4 +58,8 @@ export default class EllipseElement extends PathElement {
 			cy + ry
 		);
 	}
+
+	getMarkers() {
+		return null;
+	}
 }

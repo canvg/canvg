@@ -76,9 +76,7 @@ export default class Screen {
 	ready() {
 
 		if (!this.readyPromise) {
-			this.readyPromise = new Promise((resolve) => {
-				this.resolveReady = resolve;
-			});
+			return Promise.resolve();
 		}
 
 		return this.readyPromise;
@@ -135,7 +133,6 @@ export default class Screen {
 		] = cleanAspectRatio.split(' ');
 		const align = aspectRatioAlign || 'xMidYMid';
 		const meetOrSlice = aspectRatioMeetOrSlice || 'meet';
-
 		// calculate scale
 		const scaleX = width / desiredWidth;
 		const scaleY = height / desiredHeight;
@@ -244,6 +241,9 @@ export default class Screen {
 		const frameDuration = 1000 / FRAMERATE;
 
 		this.frameDuration = frameDuration;
+		this.readyPromise = new Promise((resolve) => {
+			this.resolveReady = resolve;
+		});
 
 		if (this.isReady()) {
 			this.render(
@@ -382,23 +382,26 @@ export default class Screen {
 			viewPort.setCurrent(CLIENT_WIDTH, CLIENT_HEIGHT);
 		}
 
+		const widthStyle = element.getStyle('width');
+		const heightStyle = element.getStyle('height');
+
 		if (!ignoreDimensions && (
-			this.isFirstRender
+			isFirstRender
 			|| typeof scaleWidth !== 'number' && typeof scaleHeight !== 'number'
 		)) {
 			// set canvas size
-			if (element.getStyle('width').hasValue()) {
+			if (widthStyle.hasValue()) {
 
-				canvas.width = element.getStyle('width').getPixels('x');
+				canvas.width = widthStyle.getPixels('x');
 
 				if (canvas.style) {
 					canvas.style.width = `${canvas.width}px`;
 				}
 			}
 
-			if (element.getStyle('height').hasValue()) {
+			if (heightStyle.hasValue()) {
 
-				canvas.height = element.getStyle('height').getPixels('y');
+				canvas.height = heightStyle.getPixels('y');
 
 				if (canvas.style) {
 					canvas.style.height = `${canvas.height}px`;
@@ -406,8 +409,6 @@ export default class Screen {
 			}
 		}
 
-		const widthStyle = element.getStyle('width');
-		const heightStyle = element.getStyle('height');
 		let cWidth = canvas.clientWidth || canvas.width;
 		let cHeight = canvas.clientHeight || canvas.height;
 

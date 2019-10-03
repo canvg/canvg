@@ -24,4 +24,8 @@ export default class CircleElement extends PathElement {
 			cy + r
 		);
 	}
+
+	getMarkers() {
+		return null;
+	}
 }

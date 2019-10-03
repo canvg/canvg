@@ -24,21 +24,10 @@ export default class PathElement extends RenderedElement {
 
 		super(document, node, captureTextNodes);
 
-		if (new.target === PathElement) {
-			this.pathParser = new PathParser(this.getAttribute('d').getString());
-		}
+		this.pathParser = new PathParser(this.getAttribute('d').getString());
 	}
 
 	path(ctx?: CanvasRenderingContext2D) {
-
-		if (this.type !== 'path') {
-
-			if (ctx) {
-				ctx.beginPath();
-			}
-
-			return new BoundingBox();
-		}
 
 		const {
 			pathParser
@@ -119,10 +108,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	getMarkers(): Marker[] {
-
-		if (this.type !== 'path') {
-			return null;
-		}
 
 		const {
 			pathParser

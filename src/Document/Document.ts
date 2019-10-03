@@ -109,9 +109,7 @@ export default class Document {
 
 	createElement<T extends Element>(node: HTMLElement) {
 
-		const elementType = node.nodeName
-			.replace(/^[^:]+:/, '')
-			.replace(/\-/g, '');
+		const elementType = node.nodeName.replace(/^[^:]+:/, '');
 		const ElementType = Document.elementTypes[elementType];
 
 		if (typeof ElementType !== 'undefined') {

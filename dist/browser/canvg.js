@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 /*
  * canvg.js - Javascript SVG parser and renderer on Canvas
  * version 2.0.0

@@ -56,4 +56,8 @@ export default class RectElement extends PathElement {
 
 		return new BoundingBox(x, y, x + width, y + height);
 	}
+
+	getMarkers() {
+		return null;
+	}
 }

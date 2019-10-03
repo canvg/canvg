@@ -178,9 +178,13 @@ export default class TextElement extends RenderedElement {
 
 		if (customFont) {
 
+			const {
+				unitsPerEm
+			} = customFont.fontFace;
 			const ctxFont = Font.parse(document.ctx.font);
 			const fontSize = parent.getStyle('font-size').getNumber(ctxFont.fontSize);
 			const fontStyle = parent.getStyle('font-style').getString(ctxFont.fontStyle);
+			const scale = fontSize / unitsPerEm;
 			const text = customFont.isRTL
 				? this.getText().split('').reverse().join('')
 				: this.getText();
@@ -190,14 +194,13 @@ export default class TextElement extends RenderedElement {
 			for (let i = 0; i < len; i++) {
 
 				const glyph = this.getGlyph(customFont, text, i);
-				const scale = fontSize / customFont.fontFace.unitsPerEm;
 
 				ctx.translate(this.x, this.y);
 				ctx.scale(scale, -scale);
 
 				const lw = ctx.lineWidth;
 
-				ctx.lineWidth = ctx.lineWidth * customFont.fontFace.unitsPerEm / fontSize;
+				ctx.lineWidth = ctx.lineWidth * unitsPerEm / fontSize;
 
 				if (fontStyle === 'italic') {
 					ctx.transform(1, 0, .4, 1, 0, 0);
@@ -213,7 +216,7 @@ export default class TextElement extends RenderedElement {
 				ctx.scale(1 / scale, -1 / scale);
 				ctx.translate(-this.x, -this.y);
 
-				this.x += fontSize * (glyph.horizAdvX || customFont.horizAdvX) / customFont.fontFace.unitsPerEm;
+				this.x += fontSize * (glyph.horizAdvX || customFont.horizAdvX) / unitsPerEm;
 
 				if (typeof dx[i] !== 'undefined' && !isNaN(dx[i])) {
 					this.x += dx[i];
