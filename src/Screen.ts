@@ -295,7 +295,7 @@ export default class Screen {
 		};
 
 		mouse.start();
-		requestAnimationFrame(tick);
+		this.intervalId = requestAnimationFrame(tick);
 	}
 
 	stop() {

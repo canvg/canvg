@@ -125,7 +125,6 @@ export default class PathElement extends RenderedElement {
 	renderChildren(ctx: CanvasRenderingContext2D) {
 
 		this.path(ctx);
-
 		this.document.screen.mouse.checkPath(this, ctx);
 
 		const fillRuleStyleProp = this.getStyle('fill-rule');

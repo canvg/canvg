@@ -66,7 +66,7 @@ export default class Mouse {
 
 		events.forEach(({ x, y }, i) => {
 
-			if (ctx.isPointInPath && ctx.isPointInPath(x, y)) {
+			if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
 				eventElements[i] = element;
 			}
 		});
@@ -85,7 +85,7 @@ export default class Mouse {
 
 		events.forEach(({ x, y }, i) => {
 
-			if (boundingBox.isPointInBox(x, y)) {
+			if (!eventElements[i] && boundingBox.isPointInBox(x, y)) {
 				eventElements[i] = element;
 			}
 		});
@@ -157,8 +157,8 @@ export default class Mouse {
 			x,
 			y,
 			run(event) {
-				if (event.onclick) {
-					event.onclick();
+				if (event.onClick) {
+					event.onClick();
 				}
 			}
 		});
@@ -179,8 +179,8 @@ export default class Mouse {
 			x,
 			y,
 			run(event) {
-				if (event.onmousemove) {
-					event.onmousemove();
+				if (event.onMouseMove) {
+					event.onMouseMove();
 				}
 			}
 		});
