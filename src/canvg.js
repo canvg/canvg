@@ -914,7 +914,7 @@ function build(opts) {
       if (this.style('visibility').value == 'hidden') return;
 
       ctx.save();
-      if (this.style('mask').hasValue() && this.style('mask').value && this.style('mask').value !== 'none' && this.style('mask').value !== 'undefined') { // mask
+      if (this.style('mask').hasValue()) { // mask
         var mask = this.style('mask').getDefinition();
         if (mask != null) mask.apply(ctx, this);
       } else if (this.style('filter').hasValue() && this.style('filter').value && this.style('filter').value !== 'none' && this.style('filter').value !== 'undefined') { // filter
