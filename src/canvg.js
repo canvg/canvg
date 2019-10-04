@@ -914,10 +914,10 @@ function build(opts) {
       if (this.style('visibility').value == 'hidden') return;
 
       ctx.save();
-      if (this.style('mask').hasValue()) { // mask
+      if (this.style('mask').hasValue() && this.style('mask').value && this.style('mask').value !== 'none' && this.style('mask').value !== 'undefined') { // mask
         var mask = this.style('mask').getDefinition();
         if (mask != null) mask.apply(ctx, this);
-      } else if (this.style('filter').hasValue()) { // filter
+      } else if (this.style('filter').hasValue() && this.style('filter').value && this.style('filter').value !== 'none' && this.style('filter').value !== 'undefined') { // filter
         var filter = this.style('filter').getDefinition();
         if (filter != null) filter.apply(ctx, this);
       } else {
