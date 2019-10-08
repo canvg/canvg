@@ -31,9 +31,9 @@ export default class TextElement extends RenderedElement {
 		);
 	}
 
-	setContext(ctx: CanvasRenderingContext2D, _?: boolean) {
+	setContext(ctx: CanvasRenderingContext2D, fromMeasure = false) {
 
-		super.setContext(ctx);
+		super.setContext(ctx, fromMeasure);
 
 		const textBaseline = this.getStyle('dominant-baseline').getTextBaseline()
 			|| this.getStyle('alignment-baseline').getTextBaseline();
@@ -445,7 +445,10 @@ export default class TextElement extends RenderedElement {
 		ctx.save();
 		this.setContext(ctx, true);
 
-		const width = ctx.measureText(textToMeasure).width;
+		const {
+			width
+		} = ctx.measureText(textToMeasure);
+
 		ctx.restore();
 
 		return width;

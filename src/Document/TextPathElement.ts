@@ -348,9 +348,11 @@ export default class TextPathElement extends TextElement {
 		}
 
 		ctx.save();
-		this.setContext(ctx);
+		this.setContext(ctx); // fromMeasure?
 
-		const width = ctx.measureText(textToMeasure).width;
+		const {
+			width
+		} = ctx.measureText(textToMeasure);
 
 		ctx.restore();
 
@@ -1225,7 +1227,7 @@ export default class TextPathElement extends TextElement {
 	protected getPathLength() {
 
 		if (this.pathLength === -1) {
-			this.pathLength = this.dataArray.reduce(
+			this.pathLength = this.dataArray.reduce<number>(
 				(length, command: IPathCommand) => (
 					command.pathLength > 0
 						? length + command.pathLength
