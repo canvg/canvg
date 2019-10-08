@@ -47,9 +47,14 @@
         }
 
         async function render(svg, width, height) {
-            document.createElement('canvas')
-            var c = document.createElement('canvas');
-            c.width = width || 500;
+
+			if (document.querySelector('[name=offscreen]').checked) {
+				return offscreenRender(svg, width, height);
+			}
+
+            const c = document.createElement('canvas');
+
+			c.width = width || 500;
             c.height = height || 500;
             document.getElementById('canvas').innerHTML = '';
 			document.getElementById('canvas').appendChild(c);
@@ -76,7 +81,37 @@
 				document.getElementById('input').value = svgHtml;
 				overrideTextBox = false;
 			}
-        }
+		}
+
+		async function offscreenRender(svg, width, height) {
+            const c = new OffscreenCanvas(width || 500, height || 500);
+
+			console.time(svg);
+
+			const ctx = c.getContext('2d');
+			const v = await canvg.Canvg.from(ctx, svg);
+
+			console.log(v);
+
+			await v.render();
+
+			console.timeEnd(svg);
+
+			const blob = await c.convertToBlob({
+				type: 'image/png'
+			});
+            document.getElementById('canvas').innerHTML = `<img src="${URL.createObjectURL(blob)}">`;
+
+			const response = await fetch(svg);
+			const svgHtml = await response.text();
+
+			document.getElementById('svg').innerHTML = svgHtml;
+
+			if (overrideTextBox) {
+				document.getElementById('input').value = svgHtml;
+				overrideTextBox = false;
+			}
+		}
 
         function renderCustom() {
             render(document.getElementById('input').value,
@@ -288,7 +323,12 @@
                 <label>height:</label>
                 <input type="text" id="height" value="500" size="7" />
                 <input type="button" value="Render" onclick="renderCustom();" />
-            </td>
+			</td>
+			<td>
+				<label>
+					OffscreenCanvas: <input type="checkbox" name="offscreen">
+				</label>
+			</td>
         </tr>
     </table>
     <table>
