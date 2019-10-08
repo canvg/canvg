@@ -7,7 +7,7 @@ export default class ImageElement extends RenderedElement {
 	type = 'image';
 	loaded = false;
 	protected readonly isSvg: boolean;
-	protected image: HTMLImageElement | string;
+	protected image: CanvasImageSource | string;
 
 	constructor(
 		document: Document,
@@ -36,22 +36,22 @@ export default class ImageElement extends RenderedElement {
 		this.isSvg = isSvg;
 	}
 
-	protected loadImage(href: string) {
+	protected async loadImage(href: string) {
 
-		const image = this.document.createImage();
 		// if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
 
-		image.onload = () => {
-			this.loaded = true;
-		};
-		image.onerror = () => {
-			// tslint:disable-next-line: no-console
-			console.error(`ERROR: image "${href}" not found`);
-			this.loaded = true;
-		};
-		image.src = href;
+		try {
 
-		this.image = image;
+			const image = await this.document.createImage(href);
+
+			this.image = image;
+
+		} catch (err) {
+			// tslint:disable-next-line: no-console
+			console.error(`ERROR: image "${href}" not found`, err);
+		}
+
+		this.loaded = true;
 	}
 
 	protected async loadSvg(href: string) {
@@ -104,23 +104,23 @@ export default class ImageElement extends RenderedElement {
 			).render();
 		} else {
 
-			const image = this.image as HTMLImageElement;
+			const image = this.image as CanvasImageSource;
 
 			ctx.translate(x, y);
 			document.setAspectRatio(
 				ctx,
 				this.getAttribute('preserveAspectRatio').getString(),
 				width,
-				image.width,
+				image.width as number,
 				height,
-				image.height,
+				image.height as number,
 				0,
 				0
 			);
 
 			if (this.loaded) {
 
-				if (typeof image.complete === 'undefined' || image.complete) {
+				if (typeof (image as any).complete === 'undefined' || (image as any).complete) {
 					ctx.drawImage(image, 0, 0);
 				}
 			}

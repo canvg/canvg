@@ -98,8 +98,13 @@ export default class Mouse {
 			events,
 			eventElements
 		} = this;
+		const {
+			style
+		} = document.ctx.canvas;
 
-		document.ctx.canvas.style.cursor = '';
+		if (style) {
+			style.cursor = '';
+		}
 
 		events.forEach(({ run }, i) => {
 

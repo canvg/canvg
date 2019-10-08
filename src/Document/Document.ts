@@ -28,8 +28,19 @@ function defaultCreateCanvas(width: number, height: number) {
 	return canvas;
 }
 
-function defaultCreateImage() {
-	return document.createElement('img');
+async function defaultCreateImage(src: string): Promise<CanvasImageSource> {
+
+	const image = document.createElement('img');
+
+	return new Promise((resolve, reject) => {
+		image.onload = () => {
+			resolve(image);
+		};
+		image.onerror = () => {
+			reject();
+		};
+		image.src = src;
+	});
 }
 
 export default class Document {
