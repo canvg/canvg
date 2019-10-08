@@ -917,7 +917,7 @@ function build(opts) {
       if (this.style('mask').hasValue()) { // mask
         var mask = this.style('mask').getDefinition();
         if (mask != null) mask.apply(ctx, this);
-      } else if (this.style('filter').hasValue() && this.style('filter').value && this.style('filter').value !== 'none' && this.style('filter').value !== 'undefined') { // filter
+      } else if (this.style('filter').valueOrDefault('none') !== 'none') { // filter
         var filter = this.style('filter').getDefinition();
         if (filter != null) filter.apply(ctx, this);
       } else {
