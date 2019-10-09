@@ -19,6 +19,13 @@ a image {
 	border: 0;
 }
 
+.light .title,
+.light .message,
+.light .settings,
+.light h2 {
+	display: none;
+}
+
 .title {
 	padding: 0 0 5px 5px;
 }

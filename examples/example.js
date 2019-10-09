@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* eslint-disable import/unambiguous, no-console */
-/* global canvg */
+/* global canvg, canvgv2 */
 
 const {
 	Canvg,
@@ -21,6 +21,18 @@ main();
 function main() {
 
 	const search = new URLSearchParams(location.search);
+
+	if (search.has('light')) {
+		document.body.classList.add('light');
+	}
+
+	if (search.has('redraw')) {
+		options.redraw.checked = JSON.parse(search.get('redraw'));
+	}
+
+	if (search.has('render')) {
+		options.render.value = search.get('render');
+	}
 
 	if (search.has('url')) {
 		overrideTextBox = true;
@@ -62,8 +74,13 @@ function onCustomRenderSubmit(event) {
 
 async function render(svg, width, height) {
 
-	if (options.offscreen.checked) {
+	if (options.render.value === 'offscreen') {
 		offscreenRender(svg, width, height);
+		return;
+	}
+
+	if (options.render.value === 'v2') {
+		v2Render(svg, width, height);
 		return;
 	}
 
@@ -118,6 +135,23 @@ async function offscreenRender(svg, width, height) {
 	canvasOutput.innerHTML = `<img src="${URL.createObjectURL(blob)}">`;
 
 	renderSource(svg);
+}
+
+function v2Render(svg, width, height) {
+
+	const c = Document.defaultCreateCanvas(
+		width || DEFAULT_WIDTH,
+		height || DEFAULT_HEIGHT
+	);
+
+	canvasOutput.innerHTML = '';
+	canvasOutput.appendChild(c);
+
+	canvgv2(c, svg, {
+		renderCallback() {
+			renderSource(svg);
+		}
+	});
 }
 
 async function renderSource(svg) {

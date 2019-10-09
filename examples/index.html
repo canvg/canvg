@@ -4,9 +4,11 @@
 		<meta charset="utf-8" />
 		<title>canvg.js test</title>
 		<link rel="stylesheet" href="./example.css">
-		<script defer src="../lib/umd.js"></script>
-		<script defer src="./example.js">
-		</script>
+		<script src="./v2/rgbcolor.min.js"></script>
+		<script src="./v2/stackblur.min.js"></script>
+		<script src="./v2/canvg.js"></script>
+		<script radiodefer src="../lib/umd.js"></script>
+		<script defer src="./example.js"></script>
 	</head>
 	<body>
 		<h1 class="title">
@@ -20,7 +22,7 @@
 				need a feature? have a bug or issue? svg not rendering? log it here!
 			</a>
 		</div>
-		<table class="table">
+		<table class="table settings">
 			<thead>
 				<tr>
 					<th>
@@ -249,15 +251,34 @@
 							<label>
 								Redraw: <input
 									name="redraw"
+									value="redraw"
 									type="checkbox"
 									checked
 								>
 							</label>
 							<br>
 							<label>
-								OffscreenCanvas: <input
-									name="offscreen"
-									type="checkbox"
+								V3: <input
+									name="render"
+									value="v3"
+									type="radio"
+									checked
+								>
+							</label>
+							<br>
+							<label>
+								V3 OffscreenCanvas: <input
+									name="render"
+									value="offscreen"
+									type="radio"
+								>
+							</label>
+							<br>
+							<label>
+								V2: <input
+									name="render"
+									value="v2"
+									type="radio"
 								>
 							</label>
 						</form>
@@ -265,7 +286,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="table">
+		<table class="table preview">
 			<thead>
 				<tr>
 					<th>
