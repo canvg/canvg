@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./example.css" />
     <script src="./rgbcolor.min.js"></script>
     <script src="./stackblur.min.js"></script>
-    <script src="../dist/browser/canvg.js"></script>
+    <script src="./canvg.js"></script>
     <script>
         function q(k) {
             var qs = window.location.search.substring(1);
@@ -37,14 +37,14 @@
             examples.onchange = function () {
                 if (!examples.value) return;
                 overrideTextBox = true;
-                render('../svgs/' + examples.value);
+                render('../../svgs/' + examples.value);
             };
 
             var issues = document.getElementById('issues');
             issues.onchange = function () {
                 if (!issues.value) return;
                 overrideTextBox = true;
-                render('../svgs/' + issues.value);
+                render('../../svgs/' + issues.value);
             };
         }
 

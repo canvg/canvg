@@ -31,7 +31,7 @@ function getPlugins(standalone) {
 		standalone && resolve({
 			preferBuiltins: false
 		}),
-		standalone && minify({
+		!process.env.ROLLUP_WATCH && standalone && minify({
 			comments: false
 		})
 	].filter(Boolean);

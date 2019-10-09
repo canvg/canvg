@@ -1,7 +1,6 @@
 import {
 	compressSpaces
 } from './util';
-// import Document from './Document';
 
 function prepareFontFamily(fontFamily: string) {
 	return fontFamily
@@ -115,7 +114,7 @@ export default class Font {
 
 		const def = inherit
 			? Font.parse(inherit)
-			: {} as any; // new Font('', '', '', '', '', svg.ctx.font);
+			: {} as any;
 
 		this.fontFamily = prepareFontFamily(fontFamily || def.fontFamily);
 		this.fontSize = fontSize || def.fontSize;
