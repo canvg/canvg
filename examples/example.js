@@ -142,3 +142,38 @@ async function renderSource(svg) {
 		overrideTextBox = false;
 	}
 }
+
+// eslint-disable-next-line
+function contextLogger(ctx) {
+	return new Proxy(ctx, {
+
+		get(target, key) {
+
+			const value = target[key];
+
+			if (typeof value === 'function') {
+				return (...args) => {
+
+					const result = Reflect.apply(value, target, args);
+
+					console.log('Call:', key, '()', args, '=>', result);
+
+					return result;
+				};
+			}
+
+			console.log('Get:', key, ':', value);
+
+			return value;
+		},
+
+		set(target, key, value) {
+
+			console.log('Set:', key, ':', value);
+
+			target[key] = value;
+
+			return true;
+		}
+	});
+}

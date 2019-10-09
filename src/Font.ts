@@ -3,14 +3,16 @@ import {
 } from './util';
 
 function prepareFontFamily(fontFamily: string) {
-	return fontFamily
-		.trim()
-		.split(',')
-		.map(_ =>
-			_.startsWith('"')
-				? _
-				: `"${_}"`)
-		.join(',');
+	return typeof process === 'undefined'
+		? fontFamily
+		: fontFamily
+			.trim()
+			.split(',')
+			.map(_ =>
+				_.startsWith('"')
+					? _
+					: `"${_}"`)
+			.join(',');
 }
 
 export default class Font {
