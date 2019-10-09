@@ -19,10 +19,10 @@ a image {
 	border: 0;
 }
 
-.light .title,
-.light .message,
-.light .settings,
-.light h2 {
+.no-ui .title,
+.no-ui .message,
+.no-ui .settings,
+.no-ui h2 {
 	display: none;
 }
 

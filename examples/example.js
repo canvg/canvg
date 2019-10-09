@@ -22,8 +22,8 @@ function main() {
 
 	const search = new URLSearchParams(location.search);
 
-	if (search.has('light')) {
-		document.body.classList.add('light');
+	if (search.has('no-ui')) {
+		document.body.classList.add('no-ui');
 	}
 
 	if (search.has('redraw')) {
