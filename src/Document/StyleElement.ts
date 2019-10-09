@@ -1,21 +1,12 @@
 import {
 	compressSpaces,
-	getSelectorSpecificity
+	getSelectorSpecificity,
+	parseExternalUrl
 } from '../util';
 import Property from '../Property';
 import SVGFontLoader from '../SVGFontLoader';
 import Document from './Document';
 import Element from './Element';
-
-function parseExternalUrl(url: string): string {
-	//                                   single quotes [2]
-	//                                   v           double quotes [3]
-	//                                   v           v        no quotes [4]
-	//                                   v           v        v
-	const urlMatch = url.match(/url\(('([^']+)'|"([^"]+)"|([^'"\)]+))\)/) || [];
-
-	return urlMatch[2] || urlMatch[3] || urlMatch[4];
-}
 
 export default class StyleElement extends Element {
 

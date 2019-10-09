@@ -84,7 +84,7 @@ async function render(svg, width, height) {
 		return;
 	}
 
-	const c = Document.defaultCreateCanvas(
+	const c = Document.createCanvas(
 		width || DEFAULT_WIDTH,
 		height || DEFAULT_HEIGHT
 	);
@@ -95,9 +95,7 @@ async function render(svg, width, height) {
 	canvasOutput.appendChild(c);
 
 	if (options.redraw.checked) {
-		await v.start({
-			enableRedraw: true
-		});
+		await v.start();
 	} else {
 		await v.render();
 	}
@@ -113,6 +111,7 @@ async function offscreenRender(svg, width, height) {
 	);
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg, {
+		window: null,
 		createCanvas(width, height) {
 			return new OffscreenCanvas(width, height);
 		},
@@ -139,7 +138,8 @@ async function offscreenRender(svg, width, height) {
 
 function v2Render(svg, width, height) {
 
-	const c = Document.defaultCreateCanvas(
+	const freeze = !options.redraw.checked;
+	const c = Document.createCanvas(
 		width || DEFAULT_WIDTH,
 		height || DEFAULT_HEIGHT
 	);
@@ -148,6 +148,8 @@ function v2Render(svg, width, height) {
 	canvasOutput.appendChild(c);
 
 	canvgv2(c, svg, {
+		ignoreAnimation: freeze,
+		ignoreMouse:     freeze,
 		renderCallback() {
 			renderSource(svg);
 		}

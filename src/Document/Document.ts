@@ -9,16 +9,20 @@ import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
 import elementTypes from './elements';
 
+export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement;
+
+export type CreateImage = (src: string) => Promise<CanvasImageSource>;
+
 export interface IDocumentOptions {
 	rootEmSize?: number;
 	emSize?: number;
-	createCanvas?: typeof defaultCreateCanvas;
-	createImage?: typeof defaultCreateImage;
+	createCanvas?: CreateCanvas;
+	createImage?: CreateImage;
 }
 
 type DOMDocument = typeof window.document;
 
-function defaultCreateCanvas(width: number, height: number) {
+function createCanvas(width: number, height: number) {
 
 	const canvas = document.createElement('canvas');
 
@@ -28,11 +32,11 @@ function defaultCreateCanvas(width: number, height: number) {
 	return canvas;
 }
 
-async function defaultCreateImage(src: string): Promise<CanvasImageSource> {
+async function createImage(src: string) {
 
 	const image = document.createElement('img');
 
-	return new Promise((resolve, reject) => {
+	return new Promise<HTMLImageElement>((resolve, reject) => {
 		image.onload = () => {
 			resolve(image);
 		};
@@ -45,16 +49,16 @@ async function defaultCreateImage(src: string): Promise<CanvasImageSource> {
 
 export default class Document {
 
-	static readonly defaultCreateCanvas = defaultCreateCanvas;
-	static readonly defaultCreateImage = defaultCreateImage;
+	static readonly createCanvas = createCanvas;
+	static readonly createImage = createImage;
 	static readonly elementTypes = elementTypes;
 
 	rootEmSize: number;
 	emSize: number;
 	documentElement: SVGElement;
 	readonly screen: Screen;
-	readonly createCanvas: typeof defaultCreateCanvas;
-	readonly createImage: typeof defaultCreateImage;
+	readonly createCanvas: CreateCanvas;
+	readonly createImage: CreateImage;
 	readonly definitions: Record<string, Element> = {};
 	readonly styles: Record<string, Record<string, Property>> = {};
 	readonly stylesSpecificity: Record<string, string> = {};
@@ -67,8 +71,8 @@ export default class Document {
 		{
 			rootEmSize = 12,
 			emSize = 12,
-			createCanvas = defaultCreateCanvas,
-			createImage = defaultCreateImage
+			createCanvas = Document.createCanvas,
+			createImage = Document.createImage
 		}: IDocumentOptions = {}
 	) {
 

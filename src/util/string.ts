@@ -21,3 +21,13 @@ export function normalizeAttributeName(name: string) {
 
 	return name;
 }
+
+export function parseExternalUrl(url: string): string {
+	//                                   single quotes [2]
+	//                                   v           double quotes [3]
+	//                                   v           v        no quotes [4]
+	//                                   v           v        v
+	const urlMatch = url.match(/url\(('([^']+)'|"([^"]+)"|([^'"\)]+))\)/) || [];
+
+	return urlMatch[2] || urlMatch[3] || urlMatch[4];
+}

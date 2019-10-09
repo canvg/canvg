@@ -36,11 +36,6 @@
     "svg",
     "canvas"
   ],
-  "peerDependencies": {
-    "canvas": "^2.1.0",
-    "jsdom": "^13.0.0",
-    "xmldom": "^0.1.27"
-  },
   "dependencies": {
     "@babel/runtime": "^7.6.2",
     "@types/raf": "^3.4.0",
@@ -59,8 +54,12 @@
     "@trigen/scripts-plugin-size-limit": "3.2.0",
     "@trigen/scripts-plugin-typescript": "3.2.0",
     "@trigen/scripts-preset-lib": "3.2.0",
+    "@types/jsdom": "^12.2.4",
+    "@types/xmldom": "^0.1.29",
     "canvas": "^2.1.0",
+    "jest-image-snapshot": "^2.11.0",
     "jsdom": "^15.1.1",
+    "node-fetch": "^2.6.0",
     "rollup-plugin-babel-minify": "^9.1.0",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",

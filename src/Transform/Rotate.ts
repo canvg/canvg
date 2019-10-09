@@ -60,7 +60,8 @@ export default class Rotate {
 		const rad = angle.getRadians();
 
 		// tslint:disable-next-line: no-console
-		console.warn('Unknown action:', (this as any).p, this);
+		// console.warn('Unknown action:', (this as any).p, this);
+		// ?
 
 		point.applyTransform([
 			1,

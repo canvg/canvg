@@ -137,8 +137,7 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (pointOrderStyleProp.hasValue()) {
-				// tslint:disable-next-line: no-console
-				console.warn('Unknown action:', (ctx as any).paintOrder, pointOrderStyleProp.getValue());
+				// ?
 				(ctx as any).paintOrder = pointOrderStyleProp.getValue();
 			}
 

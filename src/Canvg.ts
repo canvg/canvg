@@ -117,6 +117,7 @@ export default class Canvg {
 		} = this;
 
 		screen.start(documentElement, {
+			enableRedraw: true,
 			...baseOptions,
 			...options
 		});

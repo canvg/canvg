@@ -12,7 +12,7 @@ import Document, {
 } from './Document';
 
 export interface IScreenOptions {
-	window?: typeof window;
+	window?: Window;
 	fetch?: typeof fetch;
 }
 
@@ -45,7 +45,7 @@ export default class Screen {
 	MAX_VIRTUAL_PIXELS = 30000;
 	CLIENT_WIDTH = 800;
 	CLIENT_HEIGHT = 600;
-	readonly window: typeof defaultWindow;
+	readonly window?: Window;
 	readonly fetch: typeof defaultFetch;
 	readonly viewPort = new ViewPort();
 	readonly mouse = new Mouse(this);
