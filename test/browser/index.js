@@ -127,9 +127,7 @@ async function offscreenRender(svg, width, height) {
 
 	await v.render();
 
-	const blob = await c.convertToBlob({
-		type: 'image/png'
-	});
+	const blob = await c.convertToBlob();
 
 	canvasOutput.innerHTML = `<img src="${URL.createObjectURL(blob)}">`;
 

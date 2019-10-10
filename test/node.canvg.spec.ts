@@ -88,7 +88,10 @@ describe('canvg', () => {
 				it(`should render ${description}`, async () => {
 					expect(
 						await render(svg)
-					).toMatchImageSnapshot();
+					).toMatchImageSnapshot({
+						customSnapshotsDir:       path.join(__dirname, 'expected'),
+						customSnapshotIdentifier: () => `${svg}.png`
+					});
 				});
 			}
 		}
