@@ -1,5 +1,5 @@
 /* eslint-env browser */
-/* eslint-disable import/unambiguous, no-console */
+/* eslint-disable no-magic-numbers, import/unambiguous, no-console */
 /* global canvg, canvgv2 */
 
 const {
@@ -7,8 +7,9 @@ const {
 	Document,
 	Parser
 } = canvg;
-const DEFAULT_WIDTH = 500;
-const DEFAULT_HEIGHT = 500;
+let DEFAULT_WIDTH = 500;
+let DEFAULT_HEIGHT = 500;
+const search = new URLSearchParams(location.search);
 const gallery = document.querySelector('#gallery');
 const custom = document.querySelector('#custom');
 const options = document.querySelector('#options');
@@ -20,10 +21,10 @@ main();
 
 function main() {
 
-	const search = new URLSearchParams(location.search);
-
 	if (search.has('no-ui')) {
 		document.body.classList.add('no-ui');
+		DEFAULT_WIDTH = 1280;
+		DEFAULT_HEIGHT = 720;
 	}
 
 	if (search.has('redraw')) {
@@ -44,8 +45,7 @@ function main() {
 		render(search.get('svg'));
 	}
 
-	gallery.examples.addEventListener('change', onGalleryChange);
-	gallery.issues.addEventListener('change', onGalleryChange);
+	gallery.addEventListener('change', onGalleryChange);
 	custom.addEventListener('submit', onCustomRenderSubmit);
 }
 
@@ -157,6 +157,11 @@ function v2Render(svg, width, height) {
 }
 
 async function renderSource(svg) {
+
+	if (search.has('no-svg')) {
+		svgOutput.innerHTML = '<svg>';
+		return;
+	}
 
 	let svgText = svg;
 

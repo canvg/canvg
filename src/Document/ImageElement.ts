@@ -38,8 +38,6 @@ export default class ImageElement extends RenderedElement {
 
 	protected async loadImage(href: string) {
 
-		// if (svg.opts['useCORS'] == true) { this.img.crossOrigin = 'Anonymous'; }
-
 		try {
 
 			const image = await this.document.createImage(href);

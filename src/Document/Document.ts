@@ -36,6 +36,8 @@ async function createImage(src: string) {
 
 	const image = document.createElement('img');
 
+	// image.crossOrigin = 'Anonymous';
+
 	return new Promise<HTMLImageElement>((resolve, reject) => {
 		image.onload = () => {
 			resolve(image);

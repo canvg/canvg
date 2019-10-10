@@ -1,12 +1,9 @@
-import './imageSnapshot';
+import './common/imageSnapshot';
 import path from 'path';
 import {
 	promises as fs,
 	createReadStream
 } from 'fs';
-// import {
-// 	JSDOM
-// } from 'jsdom';
 import {
 	DOMParser
 } from 'xmldom';
@@ -20,6 +17,10 @@ import fetch, {
 import Canvg, {
 	IOptions
 } from '../src';
+import {
+	filterConsoleWarn,
+	filterConsoleError
+} from './common';
 import svgs from './svgs.json';
 
 const options: IOptions = {
@@ -29,7 +30,7 @@ const options: IOptions = {
 		if (typeof input === 'string' && !/^http/.test(input)) {
 
 			const stream = createReadStream(
-				path.join(__dirname, input)
+				path.join(__dirname, 'svgs', input)
 			);
 			const response = new Response(stream);
 
@@ -47,7 +48,7 @@ const options: IOptions = {
 async function render(file: string) {
 
 	const svg = await fs.readFile(
-		path.join(__dirname, '..', 'svgs', file),
+		path.join(__dirname, 'svgs', file),
 		'utf8'
 	);
 	const c = createCanvas(800, 600);
@@ -63,38 +64,17 @@ describe('canvg', () => {
 
 	describe('node', () => {
 
-		let mockWarn: jest.SpyInstance = null;
-		let mockError: jest.SpyInstance = null;
+		let restoreWarn: () => void = null;
+		let restoreError: () => void = null;
 
 		beforeAll(() => {
-
-			const {
-				error,
-				warn
-			} = console;
-
-			mockWarn = jest.spyOn(console, 'warn').mockImplementation((first, ...args) => {
-
-				if (typeof first !== 'string'
-					|| !/Element (metadata|script|([a-z]+:[a-z]+)) not yet implemented/i.test(first)
-				) {
-					warn(first, ...args);
-				}
-			});
-
-			mockError = jest.spyOn(console, 'error').mockImplementation((first, ...args) => {
-
-				if (typeof first !== 'string'
-					|| !/entity not found/i.test(first)
-				) {
-					error(first, ...args);
-				}
-			});
+			restoreWarn = filterConsoleWarn();
+			restoreError = filterConsoleError();
 		});
 
 		afterAll(() => {
-			mockWarn.mockRestore();
-			mockError.mockRestore();
+			restoreWarn();
+			restoreError();
 		});
 
 		for (const type in svgs) {

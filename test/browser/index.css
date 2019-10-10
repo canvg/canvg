@@ -61,7 +61,7 @@ a image {
 	resize: vertical;
 }
 
-.output {
+body:not(.no-ui) .output {
 	border: 1px solid gray;
 	width: 500px;
 	height: 500px;
