@@ -99,7 +99,9 @@ export default class Canvg {
 	async render(options: IScreenStartOptions = {}) {
 
 		this.start({
-			enableRedraw: true,
+			enableRedraw:    true,
+			ignoreAnimation: true,
+			ignoreMouse:     true,
 			...options
 		});
 

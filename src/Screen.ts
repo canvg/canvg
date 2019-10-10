@@ -166,33 +166,28 @@ export default class Screen {
 			const isMeetMinX = meetOrSlice === 'meet' && scaleMin === scaleX;
 			const isSliceMaxX = meetOrSlice === 'slice' && scaleMax === scaleX;
 
-			switch (true) {
+			if (/^xMid/.test(align) && (
+				isMeetMinY || isSliceMaxY
+			)) {
+				ctx.translate(width / 2.0 - finalDesiredWidth / 2.0, 0);
+			}
 
-				case /^xMid/.test(align) && (
-					isMeetMinY || isSliceMaxY
-				):
-					ctx.translate(width / 2.0 - finalDesiredWidth / 2.0, 0);
-					break;
+			if (/YMid$/.test(align) && (
+				isMeetMinX || isSliceMaxX
+			)) {
+				ctx.translate(0, height / 2.0 - finalDesiredHeight / 2.0);
+			}
 
-				case /YMid$/.test(align) && (
-					isMeetMinX || isSliceMaxX
-				):
-					ctx.translate(0, height / 2.0 - finalDesiredHeight / 2.0);
-					break;
+			if (/^xMax/.test(align) && (
+				isMeetMinY || isSliceMaxY
+			)) {
+				ctx.translate(width - finalDesiredWidth, 0);
+			}
 
-				case /^xMax/.test(align) && (
-					isMeetMinY || isSliceMaxY
-				):
-					ctx.translate(width - finalDesiredWidth, 0);
-					break;
-
-				case /YMax$/.test(align) && (
-					isMeetMinX || isSliceMaxX
-				):
-					ctx.translate(0, height - finalDesiredHeight);
-					break;
-
-				default:
+			if (/YMax$/.test(align) && (
+				isMeetMinX || isSliceMaxX
+			)) {
+				ctx.translate(0, height - finalDesiredHeight);
 			}
 		}
 

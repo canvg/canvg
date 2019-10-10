@@ -114,6 +114,7 @@ describe('canvg', () => {
 					const description = svgsOfType[svg];
 
 					it(`should render ${description}`, async () => {
+
 						expect(
 							await render(page, svg)
 						).toMatchImageSnapshot();

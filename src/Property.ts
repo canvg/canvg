@@ -300,8 +300,22 @@ export default class Property<T = any> {
 		let {
 			value
 		} = this as any;
+		const len = value.length;
+		let commas = 0;
 
-		if (opacity.hasValue() && this.isString()) {
+		// Simulate old RGBColor version, which can't parse rgba.
+		for (let i = 0; i < len; i++) {
+
+			if (value[i] === ',') {
+				commas++;
+			}
+
+			if (commas === 3) {
+				break;
+			}
+		}
+
+		if (opacity.hasValue() && this.isString() && commas !== 3) {
 
 			const color = new RGBColor(value);
 

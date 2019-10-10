@@ -101,9 +101,15 @@ describe('canvg', () => {
 				const description = svgsOfType[svg];
 
 				it(`should render ${description}`, async () => {
+
 					expect(
 						await render(page, svg)
-					).toMatchImageSnapshot();
+					).toMatchImageSnapshot({
+						customSnapshotsDir:       path.join(__dirname, 'expected'),
+						customSnapshotIdentifier: svg,
+						failureThresholdType:     'percent',
+						failureThreshold:         .05
+					});
 				});
 			}
 		}

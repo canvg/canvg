@@ -51,7 +51,7 @@ async function render(file: string) {
 		path.join(__dirname, 'svgs', file),
 		'utf8'
 	);
-	const c = createCanvas(800, 600);
+	const c = createCanvas(1280, 720);
 	const ctx = c.getContext('2d');
 	const v = Canvg.fromString(ctx, svg, options);
 
@@ -86,11 +86,12 @@ describe('canvg', () => {
 				const description = svgsOfType[svg];
 
 				it(`should render ${description}`, async () => {
+
 					expect(
 						await render(svg)
 					).toMatchImageSnapshot({
-						customSnapshotsDir:       path.join(__dirname, 'expected'),
-						customSnapshotIdentifier: () => `${svg}.png`
+						// customSnapshotsDir:       path.join(__dirname, 'expected'),
+						// customSnapshotIdentifier: svg
 					});
 				});
 			}
