@@ -24,7 +24,7 @@
     "checkSize": "trigen-scripts checkSize",
     "test": "trigen-scripts test",
     "artifacts": "trigen-scripts artifacts test/__image_snapshots__",
-    "build:docs": "trigen-scripts build:docs && cp -R test/browser/ docs/demo/ && cp -R test/svgs/ docs/svgs/",
+    "build:docs": "./scripts/buildDocs.sh",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
     "start:node": "ts-node -P ./tsconfig.dev.json test/node/index.ts",
     "build": "trigen-scripts build",
