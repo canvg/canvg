@@ -1,68 +1,19 @@
 import './common/imageSnapshot';
-import path from 'path';
-import {
-	promises as fs,
-	createReadStream
-} from 'fs';
-import {
-	DOMParser
-} from 'xmldom';
-import {
-	createCanvas,
-	loadImage
-} from 'canvas';
-import fetch, {
-	Response
-} from 'node-fetch';
-import Canvg, {
-	IOptions
-} from '../src';
 import {
 	filterConsoleWarn,
 	filterConsoleError
 } from './common';
+import render from './node';
 import svgs from './svgs.json';
-
-const options: IOptions = {
-	DOMParser,
-	fetch(input) {
-
-		if (typeof input === 'string' && !/^http/.test(input)) {
-
-			const stream = createReadStream(
-				path.join(__dirname, 'svgs', input)
-			);
-			const response = new Response(stream);
-
-			return Promise.resolve(response);
-		}
-
-		return fetch(input);
-	},
-	createCanvas:    createCanvas as any,
-	createImage:     loadImage as any,
-	ignoreAnimation: true,
-	ignoreMouse:     true
-};
-
-async function render(file: string) {
-
-	const svg = await fs.readFile(
-		path.join(__dirname, 'svgs', file),
-		'utf8'
-	);
-	const c = createCanvas(1280, 720);
-	const ctx = c.getContext('2d');
-	const v = Canvg.fromString(ctx, svg, options);
-
-	await v.render();
-
-	return c.toBuffer();
-}
 
 describe('canvg', () => {
 
 	describe('node', () => {
+
+		if (process.platform !== 'linux') {
+			it('should run screenshots testing only on CI (linux)', () => {});
+			return;
+		}
 
 		let restoreWarn: () => void = null;
 		let restoreError: () => void = null;
@@ -90,8 +41,9 @@ describe('canvg', () => {
 					expect(
 						await render(svg)
 					).toMatchImageSnapshot({
-						// customSnapshotsDir:       path.join(__dirname, 'expected'),
-						// customSnapshotIdentifier: svg
+						customSnapshotIdentifier: `node-${svg}`,
+						failureThresholdType:     'percent',
+						failureThreshold:         .03
 					});
 				});
 			}

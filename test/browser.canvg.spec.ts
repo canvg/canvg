@@ -7,7 +7,7 @@ import {
 import {
 	Server,
 	base64ToBuffer,
-	ignoreWarnings
+	ignoreErrors
 } from './common';
 import {
 	launch,
@@ -18,7 +18,7 @@ import svgs from './svgs.json';
 
 async function render(page: Page, file: string) {
 
-	const url = `http://localhost:${Server.defaultPort}/test/browser/?no-ui&no-svg&redraw=false&url=${path.join('..', 'svgs', file)}`;
+	const url = `http://localhost:${Server.defaultPort}/test/browser/?no-ui&no-svg&redraw=false&&url=${path.join('..', 'svgs', file)}`;
 
 	return new Promise<Buffer>(async (resolve, reject) => {
 
@@ -28,8 +28,7 @@ async function render(page: Page, file: string) {
 				message
 			} = err;
 
-			if (ignoreWarnings.every(_ => !_.test(message))) {
-				console.dir(err);
+			if (ignoreErrors.every(_ => !_.test(message))) {
 				reject(err);
 			}
 		});
@@ -58,6 +57,11 @@ jest.setTimeout(30000);
 describe('canvg', () => {
 
 	describe('browser', () => {
+
+		if (process.platform !== 'linux') {
+			it('should run screenshots testing only on CI (linux)', () => {});
+			return;
+		}
 
 		let browser: Browser = null;
 		let page: Page = null;
@@ -105,10 +109,9 @@ describe('canvg', () => {
 					expect(
 						await render(page, svg)
 					).toMatchImageSnapshot({
-						customSnapshotsDir:       path.join(__dirname, 'expected'),
-						customSnapshotIdentifier: svg,
+						customSnapshotIdentifier: `browser-${svg}`,
 						failureThresholdType:     'percent',
-						failureThreshold:         .05
+						failureThreshold:         .03
 					});
 				});
 			}

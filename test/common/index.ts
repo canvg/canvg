@@ -1,11 +1,9 @@
 export * from './server';
 
-export const ignoreWarnings = [
-	/Element (metadata|script|([a-z]+:[a-z]+)) not yet implemented/i
-];
-
 export const ignoreErrors = [
-	/entity not found/i
+	/Element (metadata|script|([a-z]+:[a-z]+)) not yet implemented/i,
+	/entity not found/i,
+	/Synchronous XMLHttpRequest/i
 ];
 
 export function filterConsoleWarn(): () => void {
@@ -16,7 +14,7 @@ export function filterConsoleWarn(): () => void {
 	const mockWarn = jest.spyOn(console, 'warn').mockImplementation((first, ...args) => {
 
 		if (typeof first !== 'string'
-			|| ignoreWarnings.every(_ => !_.test(first))
+			|| ignoreErrors.every(_ => !_.test(first))
 		) {
 			warn(first, ...args);
 		}

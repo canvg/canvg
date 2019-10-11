@@ -7,7 +7,7 @@ import {
 import {
 	Server,
 	base64ToBuffer,
-	ignoreWarnings
+	ignoreErrors
 } from './common';
 import {
 	launch,
@@ -28,8 +28,7 @@ async function render(page: Page, file: string) {
 				message
 			} = err;
 
-			if (ignoreWarnings.every(_ => !_.test(message))) {
-				console.dir(err);
+			if (ignoreErrors.every(_ => !_.test(message))) {
 				reject(err);
 			}
 		});
@@ -71,6 +70,11 @@ describe('canvg', () => {
 	describe('browser', () => {
 
 		describe('offscreen', () => {
+
+			if (process.platform !== 'linux') {
+				it('should run screenshots testing only on CI (linux)', () => {});
+				return;
+			}
 
 			let browser: Browser = null;
 			let page: Page = null;
@@ -117,7 +121,11 @@ describe('canvg', () => {
 
 						expect(
 							await render(page, svg)
-						).toMatchImageSnapshot();
+						).toMatchImageSnapshot({
+							customSnapshotIdentifier: `offscreen-browser-${svg}`,
+							failureThresholdType:     'percent',
+							failureThreshold:         .03
+						});
 					});
 				}
 			}

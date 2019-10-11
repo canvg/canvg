@@ -365,14 +365,8 @@ export default class Screen {
 
 		viewPort.clear();
 
-		if (canvas.parentNode) {
-
-			const {
-				clientWidth,
-				clientHeight
-			} = canvas.parentNode as HTMLElement;
-
-			viewPort.setCurrent(clientWidth, clientHeight);
+		if (canvas.width && canvas.height) {
+			viewPort.setCurrent(canvas.width, canvas.height);
 		} else {
 			viewPort.setCurrent(CLIENT_WIDTH, CLIENT_HEIGHT);
 		}

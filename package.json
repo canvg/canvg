@@ -1,7 +1,7 @@
 {
   "name": "@flexis/canvg",
-  "version": "1.0.0",
-  "description": "Javascript SVG parser and renderer on Canvas",
+  "version": "3.0.0-beta",
+  "description": "JavaScript SVG parser and renderer on Canvas",
   "author": "dangreen",
   "license": "MIT",
   "repository": {
@@ -23,8 +23,10 @@
     "jest": "trigen-scripts jest",
     "checkSize": "trigen-scripts checkSize",
     "test": "trigen-scripts test",
+    "artifacts": "trigen-scripts artifacts test/__image_snapshots__",
     "build:docs": "trigen-scripts build:docs",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
+    "start:node": "ts-node -P ./tsconfig.dev.json test/node/index.ts",
     "build": "trigen-scripts build",
     "cleanPublish": "trigen-scripts cleanPublish",
     "coverage": "cat ./coverage/lcov.info | coveralls"
@@ -71,9 +73,6 @@
     "xmldom": "^0.1.27"
   },
   "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "package.json"
+    "lib"
   ]
 }
