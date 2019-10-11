@@ -92,7 +92,8 @@ export default class TextElement extends RenderedElement {
 			document,
 			parent
 		} = this;
-		const fontSize = parent.getStyle('font-size').getNumber(Font.parse(document.ctx.font).fontSize);
+		const currentFontSize = Font.parse(document.ctx.font).fontSize;
+		const fontSize = parent.getStyle('font-size').getNumber(currentFontSize);
 
 		return new BoundingBox(
 			this.x,

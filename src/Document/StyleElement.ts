@@ -68,7 +68,7 @@ export default class StyleElement extends Element {
 
 				if (cssClass === '@font-face') { //  && !nodeEnv
 
-					const fontFamily = props['font-family'].getString().replace(/"/g, '');
+					const fontFamily = props['font-family'].getString().replace(/"|'/g, '');
 					const srcs = props.src.getString().split(',');
 
 					srcs.forEach((src) => {

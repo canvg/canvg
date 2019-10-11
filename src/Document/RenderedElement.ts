@@ -173,34 +173,35 @@ export default abstract class RenderedElement extends Element {
 		if (typeof ctx.font !== 'undefined') {
 
 			const fontStyleProp = this.getStyle('font');
-
-			if (fontStyleProp.hasValue()) {
-				ctx.font = fontStyleProp.getString();
-			} else {
-
-				const fontStyleStyleProp = this.getStyle('font-style');
-				const fontVariantStyleProp = this.getStyle('font-variant');
-				const fontWeightStyleProp = this.getStyle('font-weight');
-				const fontSizeStyleProp = this.getStyle('font-size');
-				const fontFamilyStyleProp = this.getStyle('font-family');
-
-				ctx.font = new Font(
-					fontStyleStyleProp.getString(),
-					fontVariantStyleProp.getString(),
-					fontWeightStyleProp.getString(),
-					fontSizeStyleProp.hasValue()
-						? `${fontSizeStyleProp.getPixels()}px`
-						: '',
-					fontFamilyStyleProp.getString(),
+			const fontStyleStyleProp = this.getStyle('font-style');
+			const fontVariantStyleProp = this.getStyle('font-variant');
+			const fontWeightStyleProp = this.getStyle('font-weight');
+			const fontSizeStyleProp = this.getStyle('font-size');
+			const fontFamilyStyleProp = this.getStyle('font-family');
+			const font = new Font(
+				fontStyleStyleProp.getString(),
+				fontVariantStyleProp.getString(),
+				fontWeightStyleProp.getString(),
+				fontSizeStyleProp.hasValue()
+					? `${fontSizeStyleProp.getPixels()}px`
+					: '',
+				fontFamilyStyleProp.getString(),
+				Font.parse(
+					fontStyleProp.getString(),
 					ctx.font
-				).toString();
+				)
+			);
 
-				// update em size if needed
-				const currentFontSizeStyleProp = this.getStyle('font-size', false, false);
+			fontStyleStyleProp.setValue(font.fontStyle);
+			fontVariantStyleProp.setValue(font.fontVariant);
+			fontWeightStyleProp.setValue(font.fontWeight);
+			fontSizeStyleProp.setValue(font.fontSize);
+			fontFamilyStyleProp.setValue(font.fontFamily);
 
-				if (currentFontSizeStyleProp.isPixels()) {
-					this.document.emSize = currentFontSizeStyleProp.getPixels();
-				}
+			ctx.font = font.toString();
+
+			if (fontSizeStyleProp.isPixels()) {
+				this.document.emSize = fontSizeStyleProp.getPixels();
 			}
 		}
 

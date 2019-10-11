@@ -2,16 +2,22 @@ import {
 	compressSpaces
 } from './util';
 
+function wrapFontFamily(fontFamily: string) {
+
+	const trimmed = fontFamily.trim();
+
+	return /^('|")/.test(trimmed)
+		? trimmed
+		: `"${trimmed}"`;
+}
+
 function prepareFontFamily(fontFamily: string) {
 	return typeof process === 'undefined'
 		? fontFamily
 		: fontFamily
 			.trim()
 			.split(',')
-			.map(_ =>
-				_.startsWith('"')
-					? _
-					: `"${_}"`)
+			.map(wrapFontFamily)
 			.join(',');
 }
 
@@ -21,7 +27,10 @@ export default class Font {
 	static readonly variants = 'normal|small-caps|inherit';
 	static readonly weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
 
-	static parse(font = '') {
+	static parse(
+		font = '',
+		inherit?: string | Font
+	) {
 
 		let fontStyle = '';
 		let fontVariant = '';
@@ -95,7 +104,8 @@ export default class Font {
 			fontVariant,
 			fontWeight,
 			fontSize,
-			fontFamily
+			fontFamily,
+			inherit
 		);
 	}
 
@@ -111,18 +121,20 @@ export default class Font {
 		fontWeight: string,
 		fontSize: string,
 		fontFamily: string,
-		inherit?: string
+		inherit?: string | Font
 	) {
 
-		const def = inherit
-			? Font.parse(inherit)
+		const inheritFont = inherit
+			? typeof inherit === 'string'
+				? Font.parse(inherit)
+				: inherit
 			: {} as any;
 
-		this.fontFamily = prepareFontFamily(fontFamily || def.fontFamily);
-		this.fontSize = fontSize || def.fontSize;
-		this.fontStyle = fontStyle || def.fontStyle;
-		this.fontWeight = fontWeight || def.fontWeight;
-		this.fontVariant = fontVariant || def.fontVariant;
+		this.fontFamily = fontFamily || inheritFont.fontFamily;
+		this.fontSize = fontSize || inheritFont.fontSize;
+		this.fontStyle = fontStyle || inheritFont.fontStyle;
+		this.fontWeight = fontWeight || inheritFont.fontWeight;
+		this.fontVariant = fontVariant || inheritFont.fontVariant;
 	}
 
 	toString() {
@@ -131,7 +143,8 @@ export default class Font {
 			this.fontVariant,
 			this.fontWeight,
 			this.fontSize,
-			this.fontFamily
+			// Wrap fontFamily only on nodejs and only for canvas.ctx
+			prepareFontFamily(this.fontFamily)
 		].join(' ');
 	}
 }

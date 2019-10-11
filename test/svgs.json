@@ -143,7 +143,8 @@
 		"issue620.svg": "Issue #620: em font size",
 		"issue320.svg": "Issue #320: rem font size",
 		"issue564.svg": "Issue #564: tspan text-anchor",
-		"issue556.svg": "Issue #556: mask using alpha"
+		"issue556.svg": "Issue #556: mask using alpha",
+		"issue717.svg": "Issue #717: em font size"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
