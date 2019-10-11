@@ -190,7 +190,7 @@ export default abstract class Element {
 			}
 
 		} else
-		if (this.getStyle('filter').hasValue()) { // filter
+		if (this.getStyle('filter').getValue('none') !== 'none') { // filter
 
 			const filter = this.getStyle('filter').getDefinition<FilterElement>();
 
