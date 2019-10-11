@@ -3350,7 +3350,7 @@ function build(opts) {
         svg.log('ERROR: image "' + href + '" not found');
         self.loaded = true;
       }
-      this.img.src = href;
+      this.img.src = href + (href.indexOf('?') === -1 ? '?' : '&') + Date.now();
     } else {
       this.img = svg.ajax(href);
       this.loaded = true;
