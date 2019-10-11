@@ -23,6 +23,8 @@ export class Server extends HttpServer {
 	}
 }
 
-if (process.argv.indexOf(__filename) === process.argv.length - 1) {
+const maybeRunIndex = process.argv.indexOf(__filename);
+
+if (~maybeRunIndex && maybeRunIndex === process.argv.length - 1) {
 	new Server().listen();
 }

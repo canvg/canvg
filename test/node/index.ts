@@ -54,7 +54,9 @@ export default async function render(file: string) {
 	return c.toBuffer();
 }
 
-if (process.argv.indexOf(__filename) === process.argv.length - 3) {
+const maybeRunIndex = process.argv.indexOf(__filename);
+
+if (~maybeRunIndex && maybeRunIndex === process.argv.length - 3) {
 	(async () => {
 
 		const output = process.argv.pop();
