@@ -39,7 +39,7 @@
     "canvas"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.6.2",
+    "@babel/runtime": "^7.6.3",
     "@types/raf": "^3.4.0",
     "core-js": "3",
     "raf": "^3.4.1",
