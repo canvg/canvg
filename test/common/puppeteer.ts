@@ -43,6 +43,8 @@ export function onPageError(page: Page, listener: (error: Error) => void) {
 		if (message.type() === 'error'
 			|| message.type() === 'warning'
 		) {
+			console.dir(message);
+			console.dir(message.location());
 			listener(new Error(message.text()));
 		}
 	});
