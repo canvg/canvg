@@ -12,12 +12,10 @@ import {
 	QB3
 } from '../util';
 import PathParser from '../PathParser';
-import Font from '../Font';
 import Point from '../Point';
 import Document from './Document';
 import TextElement from './TextElement';
 import PathElement from './PathElement';
-import FontElement from './FontElement';
 
 export interface IPoint {
 	x: number;
@@ -58,9 +56,10 @@ export default class TextPathElement extends TextElement {
 	protected textHeight = 0;
 	protected pathLength = -1;
 	protected glyphInfo: IGlyphInfo[] = null;
-	protected letterSpacingCache: number[] = [];
-	protected equidistantCache: IEquidistantCache;
 	protected readonly dataArray: IPathCommand[];
+	private letterSpacingCache: number[] = [];
+	private equidistantCache: IEquidistantCache;
+	private readonly measuresCache = new Map<string, number>([['', 0]]);
 
 	constructor(
 		document: Document,
@@ -255,14 +254,6 @@ export default class TextPathElement extends TextElement {
 		ctx.restore();
 	}
 
-	protected getFontSize() {
-		return this.parent
-			.getStyle('font-size')
-			.getNumber(
-				Font.parse(this.document.ctx.font).fontSize
-			);
-	}
-
 	protected getLetterSpacingAt(idx = 0) {
 		return this.letterSpacingCache[idx] || 0;
 	}
@@ -311,52 +302,20 @@ export default class TextPathElement extends TextElement {
 		text?: string
 	) {
 
-		const customFont = this.parent.getStyle('font-family').getDefinition<FontElement>();
-		let targetText = text || this.getText();
-
-		if (customFont) {
-
-			const fontSize = this.getFontSize();
-			let measure = 0;
-
-			if (customFont.isRTL) {
-				targetText = targetText.split('').reverse().join('');
-			}
-
-			const dx = toNumberArray(this.parent.getAttribute('dx').getString());
-			const len = targetText.length;
-
-			for (let i = 0; i < len; i++) {
-
-				const glyph = this.getGlyph(customFont, targetText, i);
-
-				measure += (glyph.horizAdvX || customFont.horizAdvX)
-					* fontSize
-					/ customFont.fontFace.unitsPerEm;
-
-				if (typeof dx[i] !== 'undefined' && !isNaN(dx[i])) {
-					measure += dx[i];
-				}
-			}
-			return measure;
-		}
-
-		const textToMeasure = compressSpaces(targetText);
-
-		if (!ctx.measureText) {
-			return textToMeasure.length * 10;
-		}
-
-		ctx.save();
-		this.setContext(ctx); // fromMeasure?
-
 		const {
-			width
-		} = ctx.measureText(textToMeasure);
+			measuresCache
+		} = this;
+		const targetText = text || this.getText();
 
-		ctx.restore();
+		if (measuresCache.has(targetText)) {
+			return measuresCache.get(targetText);
+		}
 
-		return width;
+		const measure = this.measureTargetText(ctx, targetText);
+
+		measuresCache.set(targetText, measure);
+
+		return measure;
 	}
 
 	// This method supposes what all custom fonts already loaded.

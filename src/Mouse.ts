@@ -14,6 +14,7 @@ export interface IEvent {
 
 export default class Mouse {
 
+	private working = false;
 	private events: IEvent[] = [];
 	private eventElements: Element[] = [];
 
@@ -24,7 +25,15 @@ export default class Mouse {
 		this.onMouseMove = this.onMouseMove.bind(this);
 	}
 
+	isWorking() {
+		return this.working;
+	}
+
 	start() {
+
+		if (this.working) {
+			return;
+		}
 
 		const {
 			screen,
@@ -37,61 +46,33 @@ export default class Mouse {
 
 		canvas.onclick = onClick;
 		canvas.onmousemove = onMouseMove;
+		this.working = true;
 	}
 
 	stop() {
+
+		if (!this.working) {
+			return;
+		}
 
 		const {
 			canvas
 		} = this.screen.ctx;
 
+		this.working = false;
 		canvas.onclick = null;
 		canvas.onmousemove = null;
 	}
 
 	hasEvents() {
-		return Boolean(this.events.length);
-	}
-
-	checkPath(element: Element, ctx: CanvasRenderingContext2D) {
-
-		if (!ctx) {
-			return;
-		}
-
-		const {
-			events,
-			eventElements
-		} = this;
-
-		events.forEach(({ x, y }, i) => {
-
-			if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
-				eventElements[i] = element;
-			}
-		});
-	}
-
-	checkBoundingBox(element: Element, boundingBox: BoundingBox) {
-
-		if (!boundingBox) {
-			return;
-		}
-
-		const {
-			events,
-			eventElements
-		} = this;
-
-		events.forEach(({ x, y }, i) => {
-
-			if (!eventElements[i] && boundingBox.isPointInBox(x, y)) {
-				eventElements[i] = element;
-			}
-		});
+		return this.working && this.events.length > 0;
 	}
 
 	runEvents() {
+
+		if (!this.working) {
+			return;
+		}
 
 		const {
 			screen: document,
@@ -119,6 +100,44 @@ export default class Mouse {
 		// done running, clear
 		this.events = [];
 		this.eventElements = [];
+	}
+
+	checkPath(element: Element, ctx: CanvasRenderingContext2D) {
+
+		if (!this.working || !ctx) {
+			return;
+		}
+
+		const {
+			events,
+			eventElements
+		} = this;
+
+		events.forEach(({ x, y }, i) => {
+
+			if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
+				eventElements[i] = element;
+			}
+		});
+	}
+
+	checkBoundingBox(element: Element, boundingBox: BoundingBox) {
+
+		if (!this.working || !boundingBox) {
+			return;
+		}
+
+		const {
+			events,
+			eventElements
+		} = this;
+
+		events.forEach(({ x, y }, i) => {
+
+			if (!eventElements[i] && boundingBox.isPointInBox(x, y)) {
+				eventElements[i] = element;
+			}
+		});
 	}
 
 	private mapXY(x: number, y: number) {

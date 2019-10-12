@@ -15,6 +15,7 @@ export default class TextElement extends RenderedElement {
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
+	private measureCache = -1;
 
 	constructor(
 		document: Document,
@@ -86,14 +87,21 @@ export default class TextElement extends RenderedElement {
 		return boundingBox;
 	}
 
-	protected getTElementBoundingBox(ctx: CanvasRenderingContext2D) {
+	protected getFontSize() {
 
 		const {
 			document,
 			parent
 		} = this;
-		const currentFontSize = Font.parse(document.ctx.font).fontSize;
-		const fontSize = parent.getStyle('font-size').getNumber(currentFontSize);
+		const inheritFontSize = Font.parse(document.ctx.font).fontSize;
+		const fontSize = parent.getStyle('font-size').getNumber(inheritFontSize);
+
+		return fontSize;
+	}
+
+	protected getTElementBoundingBox(ctx: CanvasRenderingContext2D) {
+
+		const fontSize = this.getFontSize();
 
 		return new BoundingBox(
 			this.x,
@@ -166,7 +174,18 @@ export default class TextElement extends RenderedElement {
 		this.children.forEach((_, i) => {
 			this.renderChild(ctx, this, this, i);
 		});
-		this.document.screen.mouse.checkBoundingBox(this, this.getBoundingBox(ctx));
+
+		const {
+			mouse
+		} = this.document.screen;
+
+		// Do not calc bounding box if mouse is not working.
+		if (mouse.isWorking()) {
+			mouse.checkBoundingBox(
+				this,
+				this.getBoundingBox(ctx)
+			);
+		}
 	}
 
 	protected renderTElementChildren(ctx: CanvasRenderingContext2D) {
@@ -409,17 +428,41 @@ export default class TextElement extends RenderedElement {
 	protected measureText(ctx: CanvasRenderingContext2D) {
 
 		const {
-			parent,
-			document
+			measureCache
+		} = this;
+		const text = this.getText();
+
+		if (~measureCache) {
+			return measureCache;
+		}
+
+		const measure = this.measureTargetText(ctx, text);
+
+		this.measureCache = measure;
+
+		return measure;
+	}
+
+	protected measureTargetText(
+		ctx: CanvasRenderingContext2D,
+		targetText: string
+	) {
+
+		if (!targetText.length) {
+			return 0;
+		}
+
+		const {
+			parent
 		} = this;
 		const customFont = parent.getStyle('font-family').getDefinition<FontElement>();
 
 		if (customFont) {
 
-			const fontSize = parent.getStyle('font-size').getNumber(Font.parse(document.ctx.font).fontSize);
+			const fontSize = this.getFontSize();
 			const text = customFont.isRTL
-				? this.getText().split('').reverse().join('')
-				: this.getText();
+				? targetText.split('').reverse().join('')
+				: targetText;
 			const dx = toNumberArray(parent.getAttribute('dx').getString());
 			const len = text.length;
 			let measure = 0;
@@ -428,16 +471,19 @@ export default class TextElement extends RenderedElement {
 
 				const glyph = this.getGlyph(customFont, text, i);
 
-				measure += (glyph.horizAdvX || customFont.horizAdvX) * fontSize / customFont.fontFace.unitsPerEm;
+				measure += (glyph.horizAdvX || customFont.horizAdvX)
+					* fontSize
+					/ customFont.fontFace.unitsPerEm;
 
 				if (typeof dx[i] !== 'undefined' && !isNaN(dx[i])) {
 					measure += dx[i];
 				}
 			}
+
 			return measure;
 		}
 
-		const textToMeasure = compressSpaces(this.getText());
+		const textToMeasure = compressSpaces(targetText);
 
 		if (!ctx.measureText) {
 			return textToMeasure.length * 10;
@@ -447,11 +493,11 @@ export default class TextElement extends RenderedElement {
 		this.setContext(ctx, true);
 
 		const {
-			width
+			width: measure
 		} = ctx.measureText(textToMeasure);
 
 		ctx.restore();
 
-		return width;
+		return measure;
 	}
 }

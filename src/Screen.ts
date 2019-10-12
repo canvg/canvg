@@ -269,7 +269,6 @@ export default class Screen {
 				then = now - (delta % frameDuration);
 
 				if (this.shouldUpdate(
-					ignoreMouse,
 					ignoreAnimation,
 					forceRedraw
 				)) {
@@ -289,7 +288,10 @@ export default class Screen {
 			this.intervalId = requestAnimationFrame(tick);
 		};
 
-		mouse.start();
+		if (!ignoreMouse) {
+			mouse.start();
+		}
+
 		this.intervalId = requestAnimationFrame(tick);
 	}
 
@@ -304,7 +306,6 @@ export default class Screen {
 	}
 
 	private shouldUpdate(
-		ignoreMouse: boolean,
 		ignoreAnimation: boolean,
 		forceRedraw: () => boolean
 	) {
@@ -335,7 +336,7 @@ export default class Screen {
 		}
 
 		// need update from mouse events?
-		if (!ignoreMouse && this.mouse.hasEvents()) {
+		if (this.mouse.hasEvents()) {
 			return true;
 		}
 

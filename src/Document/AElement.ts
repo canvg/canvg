@@ -56,21 +56,27 @@ export default class AElement extends TextElement {
 				x,
 				y
 			} = this;
+			const {
+				mouse
+			} = document.screen;
 			const fontSize = new Property(
 				document,
 				'fontSize',
 				Font.parse(document.ctx.font).fontSize
 			);
 
-			document.screen.mouse.checkBoundingBox(
-				this,
-				new BoundingBox(
-					x,
-					y - fontSize.getPixels('y'),
-					x + this.measureText(ctx),
-					y
-				)
-			);
+			// Do not calc bounding box if mouse is not working.
+			if (mouse.isWorking()) {
+				mouse.checkBoundingBox(
+					this,
+					new BoundingBox(
+						x,
+						y - fontSize.getPixels('y'),
+						x + this.measureText(ctx),
+						y
+					)
+				);
+			}
 
 		} else
 		if (this.children.length > 0) {
