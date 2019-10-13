@@ -1098,6 +1098,12 @@ function build(opts) {
       if (typeof ctx.font != 'undefined') {
         if (this.style('font').hasValue()) {
           ctx.font = this.style('font').value;
+          // store the font-size in case we have to update the current font-size
+          // we can add the element temporarily in dom to extract the style and parse the font easily
+          var element = document.createElement('span');
+          element.setAttribute('style', 'font: ' + ctx.font);
+          this.styles['font-size'] = new svg.Property('font-size', element.style['fontSize']);
+          element.remove();
         } else {
           ctx.font = svg.Font.CreateFont(
             this.style('font-style').value,
@@ -1105,12 +1111,11 @@ function build(opts) {
             this.style('font-weight').value,
             this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
             this.style('font-family').value).toString();
-
-          // update em size if needed
-          var currentFontSize = this.style('font-size', false, false);
-          if (currentFontSize.isPixels()) {
-            svg.emSize = currentFontSize.toPixels();
-          }
+        }
+        // update em size if needed
+        var currentFontSize = this.style('font-size', false, false);
+        if (currentFontSize.isPixels()) {
+          svg.emSize = currentFontSize.toPixels();
         }
       }
 
