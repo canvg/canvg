@@ -1,4 +1,5 @@
 import {
+	PSEUDO_ZERO,
 	toNumberArray,
 	vectorsRatio,
 	vectorsAngle,
@@ -983,7 +984,7 @@ export default class TextPathElement extends TextElement {
 		fromY = P1y
 	) {
 
-		const m = (P2y - P1y) / ((P2x - P1x) + 0.00000001);
+		const m = (P2y - P1y) / ((P2x - P1x) + PSEUDO_ZERO);
 		let run = Math.sqrt(dist * dist / (1 + m * m));
 
 		if (P2x < P1x) {
@@ -999,7 +1000,7 @@ export default class TextPathElement extends TextElement {
 				y: fromY + rise
 			};
 		} else
-		if ((fromY - P1y) / ((fromX - P1x) + 0.00000001) === m) {
+		if ((fromY - P1y) / ((fromX - P1x) + PSEUDO_ZERO) === m) {
 			pt = {
 				x: fromX + run,
 				y: fromY + rise
@@ -1010,7 +1011,7 @@ export default class TextPathElement extends TextElement {
 			let iy = 0;
 			const len = this.getLineLength(P1x, P1y, P2x, P2y);
 
-			if (len < 0.00000001) {
+			if (len < PSEUDO_ZERO) {
 				return null;
 			}
 

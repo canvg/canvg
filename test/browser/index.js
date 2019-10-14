@@ -15,6 +15,7 @@ const custom = document.querySelector('#custom');
 const options = document.querySelector('#options');
 const canvasOutput = document.querySelector('#canvas');
 const svgOutput = document.querySelector('#svg');
+let currentSvg = '';
 let overrideTextBox = false;
 
 main();
@@ -47,6 +48,7 @@ function main() {
 
 	gallery.addEventListener('change', onGalleryChange);
 	custom.addEventListener('submit', onCustomRenderSubmit);
+	options.addEventListener('change', onOptionChange);
 }
 
 function onGalleryChange(event) {
@@ -72,7 +74,17 @@ function onCustomRenderSubmit(event) {
 	);
 }
 
+function onOptionChange() {
+
+	if (currentSvg) {
+		overrideTextBox = true;
+		render(currentSvg);
+	}
+}
+
 async function render(svg, width, height) {
+
+	currentSvg = svg;
 
 	if (options.render.value === 'offscreen') {
 		offscreenRender(svg, width, height);

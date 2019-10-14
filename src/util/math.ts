@@ -1,3 +1,6 @@
+
+export const PSEUDO_ZERO = .00000001;
+
 // vector magnitude
 export function vectorMagnitude(v: number[]) {
 	return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2));

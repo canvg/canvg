@@ -1,4 +1,5 @@
 import {
+	PSEUDO_ZERO,
 	toNumberArray
 } from '../util';
 import Font from '../Font';
@@ -113,8 +114,8 @@ export default abstract class RenderedElement extends Element {
 				const newLineWidth = strokeWidthStyleProp.getPixels();
 
 				ctx.lineWidth = !newLineWidth
-					? 0.001
-					: newLineWidth; // browsers don't respect 0
+					? PSEUDO_ZERO // browsers don't respect 0 (or node-canvas? :-)
+					: newLineWidth;
 			}
 
 			const strokeLinecapStyleProp = this.getStyle('stroke-linecap');

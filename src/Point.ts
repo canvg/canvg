@@ -4,11 +4,11 @@ import {
 
 export default class Point {
 
-	static parse(point: string) {
+	static parse(point: string, defaultValue = 0) {
 
 		const [
-			x,
-			y
+			x = defaultValue,
+			y = x
 		] = toNumberArray(point);
 
 		return new Point(x, y);

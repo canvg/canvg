@@ -1,16 +1,30 @@
+import {
+	PSEUDO_ZERO
+} from '../util';
 import Document from '../Document';
 import Point from '../Point';
 
 export default class Scale {
 
 	type = 'scale';
-	private readonly point: Point = null;
+	private readonly scale: Point = null;
 
 	constructor(
 		_: Document,
-		point: string
+		scale: string
 	) {
-		this.point = Point.parse(point);
+
+		const scaleSize = Point.parse(scale, 1);
+
+		// Workaround for node-canvas
+		if (scaleSize.x === 0
+			|| scaleSize.y === 0
+		) {
+			scaleSize.x = PSEUDO_ZERO;
+			scaleSize.y = PSEUDO_ZERO;
+		}
+
+		this.scale = scaleSize;
 	}
 
 	apply(ctx: CanvasRenderingContext2D) {
@@ -18,9 +32,9 @@ export default class Scale {
 		const {
 			x,
 			y
-		} = this.point;
+		} = this.scale;
 
-		ctx.scale(x || 1.0, y || x || 1.0);
+		ctx.scale(x, y || x);
 	}
 
 	unapply(ctx: CanvasRenderingContext2D) {
@@ -28,9 +42,9 @@ export default class Scale {
 		const {
 			x,
 			y
-		} = this.point;
+		} = this.scale;
 
-		ctx.scale(1.0 / x || 1.0, 1.0 / y || x || 1.0);
+		ctx.scale(1.0 / x, 1.0 / y || x);
 	}
 
 	applyToPoint(point: Point) {
@@ -38,7 +52,7 @@ export default class Scale {
 		const {
 			x,
 			y
-		} = this.point;
+		} = this.scale;
 
 		point.applyTransform([
 			x || 0.0,
