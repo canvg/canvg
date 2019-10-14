@@ -1100,7 +1100,7 @@ function build(opts) {
           ctx.font = this.style('font').value;
           // store the font-size in case we have to update the current font-size
           // we can add the element temporarily in dom to extract the style and parse the font easily
-          var element = document.createElement('span');
+          var element = doc.createElement('span');
           element.setAttribute('style', 'font: ' + ctx.font);
           this.styles['font-size'] = new svg.Property('font-size', element.style['fontSize']);
           element.remove();
