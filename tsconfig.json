@@ -26,11 +26,9 @@
 		]
 	},
 	"include": [
-		"src/**/*.ts",
-		"test/**/*.ts"
+		"src/**/*.ts"
 	],
 	"exclude": [
-		"lib/**/*",
-		"test/**/*.ts"
+		"lib/**/*"
 	]
 }

@@ -1,6 +1,3 @@
-import {
-	compressSpaces
-} from '../util';
 import Document from './Document';
 import TextElement from './TextElement';
 
@@ -23,20 +20,13 @@ export default class TSpanElement extends TextElement {
 				: captureTextNodes
 		);
 
-		this.text = compressSpaces(
-			(node as any).value
-			|| (node as any).text
-			|| node.textContent
-			|| ''
-		);
+		// if this node has children, then they own the text
+		this.text = this.children.length > 0
+			? ''
+			: this.getTextFromNode();
 	}
 
 	getText() {
-		// if this node has children, then they own the text
-		if (this.children.length > 0) {
-			return '';
-		}
-
 		return this.text;
 	}
 }

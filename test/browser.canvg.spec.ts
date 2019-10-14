@@ -109,9 +109,7 @@ describe('canvg', () => {
 					expect(
 						await render(page, svg)
 					).toMatchImageSnapshot({
-						customSnapshotIdentifier: `browser-${svg}`,
-						failureThresholdType:     'percent',
-						failureThreshold:         .03
+						customSnapshotIdentifier: `browser-${svg}`
 					});
 				});
 			}

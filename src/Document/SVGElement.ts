@@ -108,31 +108,35 @@ export default class SVGElement extends RenderedElement {
 
 		// viewbox
 		const viewBoxAttr = this.getAttribute('viewBox');
+		const hasViewBox = viewBoxAttr.hasValue();
+		let minX = 0;
+		let minY = 0;
 
-		if (viewBoxAttr.hasValue()) {
-
-			const viewBox = toNumberArray(viewBoxAttr.getString());
-			const minX = viewBox[0];
-			const minY = viewBox[1];
-
-			width = viewBox[2];
-			height = viewBox[3];
-
-			document.setAspectRatio(
-				ctx,
-				this.getAttribute('preserveAspectRatio').getString(),
-				screen.viewPort.width,
-				width,
-				screen.viewPort.height,
-				height,
+		if (hasViewBox) {
+			[
 				minX,
 				minY,
-				this.getAttribute('refX').getNumber(),
-				this.getAttribute('refY').getNumber()
-			);
+				width,
+				height
+			] = toNumberArray(viewBoxAttr.getString());
+		}
 
+		document.setAspectRatio(
+			ctx,
+			this.getAttribute('preserveAspectRatio').getString(),
+			screen.viewPort.width,
+			width,
+			screen.viewPort.height,
+			height,
+			minX,
+			minY,
+			this.getAttribute('refX').getNumber(),
+			this.getAttribute('refY').getNumber()
+		);
+
+		if (hasViewBox) {
 			screen.viewPort.removeCurrent();
-			screen.viewPort.setCurrent(viewBox[2], viewBox[3]);
+			screen.viewPort.setCurrent(width, height);
 		}
 	}
 }

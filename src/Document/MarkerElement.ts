@@ -17,14 +17,16 @@ export default class MarkerElement extends Element {
 			x,
 			y
 		} = point;
+		const orient = this.getAttribute('orient').getValue('auto');
+		const markerUnits = this.getAttribute('markerUnits').getValue('strokeWidth');
 
 		ctx.translate(x, y);
 
-		if (this.getAttribute('orient').getValue('auto') === 'auto') {
+		if (orient === 'auto') {
 			ctx.rotate(angle);
 		}
 
-		if (this.getAttribute('markerUnits').getValue('strokeWidth') === 'strokeWidth') {
+		if (markerUnits === 'strokeWidth') {
 			ctx.scale(ctx.lineWidth, ctx.lineWidth);
 		}
 
@@ -77,14 +79,14 @@ export default class MarkerElement extends Element {
 
 		ctx.restore();
 
-		if (this.getAttribute('markerUnits').getValue('strokeWidth') === 'strokeWidth') {
+		if (markerUnits === 'strokeWidth') {
 			ctx.scale(1 / ctx.lineWidth, 1 / ctx.lineWidth);
 		}
 
-		if (this.getAttribute('orient').getValue('auto') === 'auto') {
+		if (orient === 'auto') {
 			ctx.rotate(-angle);
 		}
 
-		ctx.translate(-point.x, -point.y);
+		ctx.translate(-x, -y);
 	}
 }

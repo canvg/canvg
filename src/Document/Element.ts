@@ -1,6 +1,5 @@
 import {
-	normalizeAttributeName,
-	compressSpaces
+	normalizeAttributeName
 } from '../util';
 import Property from '../Property';
 import Document from './Document';
@@ -87,13 +86,10 @@ export default abstract class Element {
 				|| childNode.nodeType === 4
 			)) {
 
-				const text = (childNode as any).value
-					|| (childNode as any).text
-					|| childNode.textContent
-					|| '';
+				const textNode = document.createTextNode(childNode);
 
-				if (compressSpaces(text)) {
-					this.addChild(document.createTextNode(childNode)); // TEXT_NODE
+				if (textNode.getText().length > 0) {
+					this.addChild(textNode); // TEXT_NODE
 				}
 			}
 		});

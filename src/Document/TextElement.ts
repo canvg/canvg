@@ -1,6 +1,8 @@
 import {
 	toNumberArray,
-	compressSpaces
+	compressSpaces,
+	trimLeft,
+	trimRight
 } from '../util';
 import Font from '../Font';
 import BoundingBox from '../BoundingBox';
@@ -163,6 +165,29 @@ export default class TextElement extends RenderedElement {
 		return '';
 	}
 
+	protected getTextFromNode(node?: ChildNode) {
+
+		const textNode = node || this.node;
+		const childNodes = Array.from(textNode.parentNode.childNodes);
+		const index = childNodes.indexOf(textNode);
+		const lastIndex = childNodes.length - 1;
+		let text = compressSpaces(
+			(textNode as any).value
+			|| (textNode as any).text
+			|| textNode.textContent
+			|| ''
+		);
+
+		if (index === 0) {
+			text = trimLeft(text);
+		} else
+		if (index === lastIndex) {
+			text = trimRight(text);
+		}
+
+		return text;
+	}
+
 	renderChildren(ctx: CanvasRenderingContext2D) {
 
 		if (this.type !== 'text') {
@@ -194,6 +219,7 @@ export default class TextElement extends RenderedElement {
 			document,
 			parent
 		} = this;
+		const renderText = this.getText();
 		const customFont = parent.getStyle('font-family').getDefinition<FontElement>();
 
 		if (customFont) {
@@ -206,8 +232,8 @@ export default class TextElement extends RenderedElement {
 			const fontStyle = parent.getStyle('font-style').getString(ctxFont.fontStyle);
 			const scale = fontSize / unitsPerEm;
 			const text = customFont.isRTL
-				? this.getText().split('').reverse().join('')
-				: this.getText();
+				? renderText.split('').reverse().join('')
+				: renderText;
 			const dx = toNumberArray(parent.getAttribute('dx').getString());
 			const len = text.length;
 
@@ -246,7 +272,6 @@ export default class TextElement extends RenderedElement {
 			return;
 		}
 
-		const renderText = compressSpaces(this.getText());
 		const {
 			x,
 			y
@@ -430,13 +455,13 @@ export default class TextElement extends RenderedElement {
 		const {
 			measureCache
 		} = this;
-		const text = this.getText();
 
 		if (~measureCache) {
 			return measureCache;
 		}
 
-		const measure = this.measureTargetText(ctx, text);
+		const renderText = this.getText();
+		const measure = this.measureTargetText(ctx, renderText);
 
 		this.measureCache = measure;
 
@@ -483,10 +508,8 @@ export default class TextElement extends RenderedElement {
 			return measure;
 		}
 
-		const textToMeasure = compressSpaces(targetText);
-
 		if (!ctx.measureText) {
-			return textToMeasure.length * 10;
+			return targetText.length * 10;
 		}
 
 		ctx.save();
@@ -494,7 +517,7 @@ export default class TextElement extends RenderedElement {
 
 		const {
 			width: measure
-		} = ctx.measureText(textToMeasure);
+		} = ctx.measureText(targetText);
 
 		ctx.restore();
 

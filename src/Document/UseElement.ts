@@ -1,6 +1,6 @@
+// tslint:disable: variable-name
 import Property from '../Property';
 import Transform from '../Transform';
-import Document from './Document';
 import RenderedElement from './RenderedElement';
 import PathElement from './PathElement';
 import SVGElement from './SVGElement';
@@ -8,18 +8,7 @@ import SVGElement from './SVGElement';
 export default class UseElement extends RenderedElement {
 
 	type = 'use';
-	protected readonly element: PathElement;
-
-	constructor(
-		document: Document,
-		node: HTMLElement,
-		captureTextNodes?: boolean
-	) {
-
-		super(document, node, captureTextNodes);
-
-		this.element = this.getHrefAttribute().getDefinition();
-	}
+	private _element: PathElement;
 
 	setContext(ctx: CanvasRenderingContext2D) {
 
@@ -51,8 +40,8 @@ export default class UseElement extends RenderedElement {
 	renderChildren(ctx: CanvasRenderingContext2D) {
 
 		const {
-			element,
-			document
+			document,
+			element
 		} = this;
 
 		if (element) {
@@ -142,5 +131,14 @@ export default class UseElement extends RenderedElement {
 		}
 
 		return null;
+	}
+
+	protected get element() {
+
+		if (!this._element) {
+			this._element = this.getHrefAttribute().getDefinition();
+		}
+
+		return this._element;
 	}
 }

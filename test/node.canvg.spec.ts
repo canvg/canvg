@@ -31,6 +31,10 @@ describe('canvg', () => {
 		for (const type in svgs) {
 
 			const svgsOfType = svgs[type];
+			const threshold = type === 'passing' ? {} : {
+				failureThresholdType: 'percent',
+				failureThreshold:     .03
+			};
 
 			for (const svg in svgsOfType) {
 
@@ -41,9 +45,8 @@ describe('canvg', () => {
 					expect(
 						await render(svg)
 					).toMatchImageSnapshot({
-						customSnapshotIdentifier: `node-${svg}`,
-						failureThresholdType:     'percent',
-						failureThreshold:         .03
+						...threshold,
+						customSnapshotIdentifier: `node-${svg}`
 					});
 				});
 			}

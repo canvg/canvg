@@ -146,6 +146,7 @@ export default class PathElement extends RenderedElement {
 
 		if (markers) {
 
+			const markersLastIndex = markers.length - 1;
 			const markerStartStyleProp = this.getStyle('marker-start');
 			const markerMidStyleProp = this.getStyle('marker-mid');
 			const markerEndStyleProp = this.getStyle('marker-end');
@@ -153,23 +154,38 @@ export default class PathElement extends RenderedElement {
 			if (markerStartStyleProp.isUrlDefinition()) {
 
 				const marker = markerStartStyleProp.getDefinition<MarkerElement>();
+				const [
+					point,
+					angle
+				] = markers[0];
 
-				marker.render(ctx, markers[0][0], markers[0][1]);
+				marker.render(ctx, point, angle);
 			}
+
 			if (markerMidStyleProp.isUrlDefinition()) {
 
 				const marker = markerMidStyleProp.getDefinition<MarkerElement>();
 
-				markers.forEach((m) => {
-					marker.render(ctx, m[0], m[1]);
-				});
+				for (let i = 1; i < markersLastIndex; i++) {
+
+					const [
+						point,
+						angle
+					] = markers[i];
+
+					marker.render(ctx, point, angle);
+				}
 			}
 
 			if (markerEndStyleProp.isUrlDefinition()) {
 
 				const marker = markerEndStyleProp.getDefinition<MarkerElement>();
+				const [
+					point,
+					angle
+				] = markers[markersLastIndex];
 
-				marker.render(ctx, markers[markers.length - 1][0], markers[markers.length - 1][1]);
+				marker.render(ctx, point, angle);
 			}
 		}
 	}

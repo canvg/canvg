@@ -19,25 +19,16 @@ export default class AElement extends TextElement {
 
 		super(document, node, captureTextNodes);
 
-		let hasText = node.childNodes.length > 0;
-
-		if (hasText) {
-			Array.from(node.childNodes).some((node) => {
-
-				if (node.nodeType !== 3) {
-					hasText = false;
-					return true;
-				}
-
-				return false;
-			});
-		}
-
-		const firstChild = node.childNodes[0] as any;
+		const {
+			childNodes
+		} = node;
+		const firstChild = childNodes[0];
+		const hasText = childNodes.length > 0
+			&& Array.from(childNodes).every(node => node.nodeType === 3);
 
 		this.hasText = hasText;
 		this.text = hasText
-			? firstChild.value || firstChild.data
+			? this.getTextFromNode(firstChild)
 			: '';
 	}
 

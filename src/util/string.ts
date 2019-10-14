@@ -3,6 +3,14 @@ export function compressSpaces(str: string) {
 	return str.replace(/(?!\u3000)\s+/gm, ' ');
 }
 
+export function trimLeft(str: string) {
+	return str.replace(/^[\n \t]+/, '');
+}
+
+export function trimRight(str: string) {
+	return str.replace(/[\n \t]+$/, '');
+}
+
 export function toNumberArray(str: string) {
 
 	const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];

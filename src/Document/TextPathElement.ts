@@ -1,6 +1,5 @@
 import {
 	toNumberArray,
-	compressSpaces,
 	vectorsRatio,
 	vectorsAngle,
 	CB1,
@@ -51,11 +50,11 @@ interface IGlyphInfo {
 export default class TextPathElement extends TextElement {
 
 	type = 'textPath';
-	readonly text: string;
 	protected textWidth = 0;
 	protected textHeight = 0;
 	protected pathLength = -1;
 	protected glyphInfo: IGlyphInfo[] = null;
+	protected readonly text: string;
 	protected readonly dataArray: IPathCommand[];
 	private letterSpacingCache: number[] = [];
 	private equidistantCache: IEquidistantCache;
@@ -71,12 +70,7 @@ export default class TextPathElement extends TextElement {
 
 		const pathElement = this.getHrefAttribute().getDefinition<PathElement>();
 
-		this.text = compressSpaces(
-			(node as any).value
-			|| (node as any).text
-			|| node.textContent
-			|| ''
-		);
+		this.text = this.getTextFromNode();
 		this.dataArray = this.parsePathData(pathElement);
 	}
 
@@ -213,11 +207,11 @@ export default class TextPathElement extends TextElement {
 			ctx.rotate(glyphInfo[i].rotation);
 
 			if (ctx.fillStyle) {
-				ctx.fillText(compressSpaces(partialText), 0, 0);
+				ctx.fillText(partialText, 0, 0);
 			}
 
 			if (ctx.strokeStyle) {
-				ctx.strokeText(compressSpaces(partialText), 0, 0);
+				ctx.strokeText(partialText, 0, 0);
 			}
 
 			ctx.restore();
@@ -327,8 +321,9 @@ export default class TextPathElement extends TextElement {
 			return;
 		}
 
-		const chars = this.getText().split('');
-		const spacesNumber = this.getText().split(' ').length - 1;
+		const renderText = this.getText();
+		const chars = renderText.split('');
+		const spacesNumber = renderText.split(' ').length - 1;
 		const dx = toNumberArray(this.parent.getAttribute('dx').getString('0'));
 		const anchor = this.parent.getStyle('text-anchor').getString('start');
 		const thisSpacing = this.getStyle('letter-spacing');
@@ -351,10 +346,9 @@ export default class TextPathElement extends TextElement {
 
 		// fill letter-spacing cache
 		const letterSpacingCache: number[] = [];
+		const textLen = renderText.length;
 
 		this.letterSpacingCache = letterSpacingCache;
-
-		const textLen = this.getText().length;
 
 		for (let i = 0; i < textLen; i++) {
 			letterSpacingCache.push(
