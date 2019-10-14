@@ -159,6 +159,32 @@ export default class Property<T = any> {
 
 		switch (true) {
 
+			case this.isString(/vmin$/):
+				return this.getNumber()
+					/ 100.0
+					* Math.min(
+						viewPort.computeSize('x'),
+						viewPort.computeSize('y')
+					);
+
+			case this.isString(/vmax$/):
+				return this.getNumber()
+					/ 100.0
+					* Math.max(
+						viewPort.computeSize('x'),
+						viewPort.computeSize('y')
+					);
+
+			case this.isString(/vw$/):
+				return this.getNumber()
+					/ 100.0
+					* viewPort.computeSize('x');
+
+			case this.isString(/vh$/):
+				return this.getNumber()
+					/ 100.0
+					* viewPort.computeSize('y');
+
 			case this.isString(/rem$/):
 				return this.getNumber() * this.getRem(/* viewPort */);
 
