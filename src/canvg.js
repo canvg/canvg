@@ -703,9 +703,15 @@ function build(opts) {
     this.Type.scale = function (s) {
       this.p = svg.CreatePoint(s);
       this.apply = function (ctx) {
+        if (this.px === 0 || this.py === 0) {
+          return;
+        }
         ctx.scale(this.p.x || 1.0, this.p.y || this.p.x || 1.0);
       }
       this.unapply = function (ctx) {
+        if (this.px === 0 || this.py === 0) {
+          return;
+        }
         ctx.scale(1.0 / this.p.x || 1.0, 1.0 / this.p.y || this.p.x || 1.0);
       }
       this.applyToPoint = function (p) {
