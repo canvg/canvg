@@ -35,14 +35,14 @@ export default abstract class GradientElement extends Element {
 		});
 	}
 
-	abstract getGradient(ctx: CanvasRenderingContext2D, element: PathElement): CanvasGradient;
+	abstract getGradient(ctx: RenderingContext2D, element: PathElement): CanvasGradient;
 
 	getGradientUnits() {
 		return this.getAttribute('gradientUnits').getString('objectBoundingBox');
 	}
 
 	createGradient(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		element,
 		parentOpacityProp: Property
 	) {

@@ -4,7 +4,7 @@ export default class PolygonElement extends PolylineElement {
 
 	type = 'polygon';
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const boundingBox = super.path(ctx);
 		const [{

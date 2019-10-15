@@ -27,7 +27,7 @@ export default class Scale {
 		this.scale = scaleSize;
 	}
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			x,
@@ -37,7 +37,7 @@ export default class Scale {
 		ctx.scale(x, y || x);
 	}
 
-	unapply(ctx: CanvasRenderingContext2D) {
+	unapply(ctx: RenderingContext2D) {
 
 		const {
 			x,

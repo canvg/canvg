@@ -27,7 +27,7 @@ export default class PathElement extends RenderedElement {
 		this.pathParser = new PathParser(this.getAttribute('d').getString());
 	}
 
-	path(ctx?: CanvasRenderingContext2D) {
+	path(ctx?: RenderingContext2D) {
 
 		const {
 			pathParser
@@ -103,7 +103,7 @@ export default class PathElement extends RenderedElement {
 		return boundingBox;
 	}
 
-	getBoundingBox(_?: CanvasRenderingContext2D) {
+	getBoundingBox(_?: RenderingContext2D) {
 		return this.path();
 	}
 
@@ -122,7 +122,7 @@ export default class PathElement extends RenderedElement {
 		return markers;
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		this.path(ctx);
 		this.document.screen.mouse.checkPath(this, ctx);
@@ -191,7 +191,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathM(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -231,7 +231,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathL(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -260,7 +260,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathH(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -292,7 +292,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathV(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -324,7 +324,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathC(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -367,7 +367,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathS(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -410,7 +410,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathQ(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -448,7 +448,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathT(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -489,7 +489,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathA(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
@@ -599,7 +599,7 @@ export default class PathElement extends RenderedElement {
 	}
 
 	protected pathZ(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 

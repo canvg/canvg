@@ -10,7 +10,7 @@ export default class UseElement extends RenderedElement {
 	type = 'use';
 	private _element: PathElement;
 
-	setContext(ctx: CanvasRenderingContext2D) {
+	setContext(ctx: RenderingContext2D) {
 
 		super.setContext(ctx);
 
@@ -26,7 +26,7 @@ export default class UseElement extends RenderedElement {
 		}
 	}
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const {
 			element
@@ -37,7 +37,7 @@ export default class UseElement extends RenderedElement {
 		}
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		const {
 			document,
@@ -102,7 +102,7 @@ export default class UseElement extends RenderedElement {
 		}
 	}
 
-	getBoundingBox(ctx: CanvasRenderingContext2D) {
+	getBoundingBox(ctx: RenderingContext2D) {
 
 		const {
 			element

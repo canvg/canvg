@@ -5,7 +5,7 @@ export default class FeCompositeElement extends Element {
 	type = 'feComposite';
 
 	apply(
-		_: CanvasRenderingContext2D,
+		_: RenderingContext2D,
 		__: number,
 		___: number,
 		____: number,

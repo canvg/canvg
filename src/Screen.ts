@@ -59,7 +59,7 @@ export default class Screen {
 	private intervalId: any = null;
 
 	constructor(
-		readonly ctx: CanvasRenderingContext2D,
+		readonly ctx: RenderingContext2D,
 		{
 			fetch = defaultFetch,
 			window = defaultWindow
@@ -104,7 +104,7 @@ export default class Screen {
 		return isReadyLock;
 	}
 
-	setDefaults(ctx: CanvasRenderingContext2D) {
+	setDefaults(ctx: RenderingContext2D) {
 		// initial values and defaults
 		ctx.strokeStyle = 'rgba(0,0,0,0)';
 		ctx.lineCap = 'butt';
@@ -114,7 +114,7 @@ export default class Screen {
 
 	setAspectRatio(
 		document: Document,
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		aspectRatio: string,
 		width: number,
 		desiredWidth: number,
@@ -360,9 +360,7 @@ export default class Screen {
 			ctx,
 			isFirstRender
 		} = this;
-		const {
-			canvas
-		} = ctx;
+		const canvas = ctx.canvas as HTMLCanvasElement;
 
 		viewPort.clear();
 

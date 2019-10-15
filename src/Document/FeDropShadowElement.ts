@@ -17,7 +17,7 @@ export default class FeDropShadowElement extends Element {
 	}
 
 	apply(
-		_: CanvasRenderingContext2D,
+		_: RenderingContext2D,
 		__: number,
 		___: number,
 		____: number,

@@ -23,7 +23,7 @@ export default class PolylineElement extends PathElement {
 		);
 	}
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const {
 			points

@@ -34,7 +34,7 @@ export default class TextElement extends RenderedElement {
 		);
 	}
 
-	setContext(ctx: CanvasRenderingContext2D, fromMeasure = false) {
+	setContext(ctx: RenderingContext2D, fromMeasure = false) {
 
 		super.setContext(ctx, fromMeasure);
 
@@ -46,7 +46,7 @@ export default class TextElement extends RenderedElement {
 		}
 	}
 
-	protected initializeCoordinates(ctx: CanvasRenderingContext2D) {
+	protected initializeCoordinates(ctx: RenderingContext2D) {
 
 		this.x = this.getAttribute('x').getPixels('x');
 		this.y = this.getAttribute('y').getPixels('y');
@@ -65,7 +65,7 @@ export default class TextElement extends RenderedElement {
 		this.x += this.getAnchorDelta(ctx, this, 0);
 	}
 
-	getBoundingBox(ctx: CanvasRenderingContext2D) {
+	getBoundingBox(ctx: RenderingContext2D) {
 
 		if (this.type !== 'text') {
 			return this.getTElementBoundingBox(ctx);
@@ -101,7 +101,7 @@ export default class TextElement extends RenderedElement {
 		return fontSize;
 	}
 
-	protected getTElementBoundingBox(ctx: CanvasRenderingContext2D) {
+	protected getTElementBoundingBox(ctx: RenderingContext2D) {
 
 		const fontSize = this.getFontSize();
 
@@ -188,7 +188,7 @@ export default class TextElement extends RenderedElement {
 		return text;
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		if (this.type !== 'text') {
 			this.renderTElementChildren(ctx);
@@ -213,7 +213,7 @@ export default class TextElement extends RenderedElement {
 		}
 	}
 
-	protected renderTElementChildren(ctx: CanvasRenderingContext2D) {
+	protected renderTElementChildren(ctx: RenderingContext2D) {
 
 		const {
 			document,
@@ -301,7 +301,7 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected getAnchorDelta(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		parent: Element,
 		startI: number
 	) {
@@ -330,7 +330,7 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected adjustChildCoordinates(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		textParent: TextElement,
 		parent: Element,
 		i: number
@@ -406,7 +406,7 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected getChildBoundingBox(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		textParent: TextElement,
 		parent: Element,
 		i: number
@@ -426,7 +426,7 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected renderChild(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		textParent: TextElement,
 		parent: Element,
 		i: number
@@ -440,7 +440,7 @@ export default class TextElement extends RenderedElement {
 		});
 	}
 
-	protected measureTextRecursive(ctx: CanvasRenderingContext2D) {
+	protected measureTextRecursive(ctx: RenderingContext2D) {
 
 		const width: number = this.children.reduce(
 			(width, child: TextElement) => width + child.measureTextRecursive(ctx),
@@ -450,7 +450,7 @@ export default class TextElement extends RenderedElement {
 		return width;
 	}
 
-	protected measureText(ctx: CanvasRenderingContext2D) {
+	protected measureText(ctx: RenderingContext2D) {
 
 		const {
 			measureCache
@@ -469,7 +469,7 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected measureTargetText(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		targetText: string
 	) {
 

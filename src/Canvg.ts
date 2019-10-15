@@ -20,7 +20,7 @@ export interface IOptions extends IParserOptions,
 export default class Canvg {
 
 	static async from(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {
@@ -32,7 +32,7 @@ export default class Canvg {
 	}
 
 	static fromString(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {
@@ -50,7 +50,7 @@ export default class Canvg {
 	private readonly options: IOptions;
 
 	constructor(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		svg: DOMDocument,
 		options: IOptions = {}
 	) {
@@ -67,7 +67,7 @@ export default class Canvg {
 	}
 
 	fork(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {
@@ -78,7 +78,7 @@ export default class Canvg {
 	}
 
 	forkString(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {

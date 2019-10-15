@@ -24,7 +24,7 @@ export default class Rotate {
 		this.cy = numbers[2] || 0;
 	}
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			cx,
@@ -37,7 +37,7 @@ export default class Rotate {
 		ctx.translate(-cx, -cy);
 	}
 
-	unapply(ctx: CanvasRenderingContext2D) {
+	unapply(ctx: RenderingContext2D) {
 
 		const {
 			cx,

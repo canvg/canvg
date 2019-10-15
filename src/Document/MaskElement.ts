@@ -7,7 +7,7 @@ export default class MaskElement extends Element {
 
 	type = 'mask';
 
-	apply(ctx: CanvasRenderingContext2D, element: Element) {
+	apply(ctx: RenderingContext2D, element: Element) {
 
 		const {
 			document
@@ -76,7 +76,7 @@ export default class MaskElement extends Element {
 		element.getStyle('mask').setValue(mask);
 	}
 
-	render(_: CanvasRenderingContext2D) {
+	render(_: RenderingContext2D) {
 		// NO RENDER
 	}
 }

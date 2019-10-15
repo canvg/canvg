@@ -110,7 +110,7 @@ export default class FeColorMatrixElement extends Element {
 	}
 
 	apply(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		_: number,
 		__: number,
 		width: number,

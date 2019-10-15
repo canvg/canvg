@@ -4,7 +4,7 @@ export default class SymbolElement extends RenderedElement {
 
 	type = 'symbol';
 
-	render(_: CanvasRenderingContext2D) {
+	render(_: RenderingContext2D) {
 		// NO RENDER
 	}
 }

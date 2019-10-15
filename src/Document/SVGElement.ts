@@ -10,14 +10,14 @@ export default class SVGElement extends RenderedElement {
 	type = 'svg';
 	root = false;
 
-	clearContext(ctx: CanvasRenderingContext2D) {
+	clearContext(ctx: RenderingContext2D) {
 
 		super.clearContext(ctx);
 
 		this.document.screen.viewPort.removeCurrent();
 	}
 
-	setContext(ctx: CanvasRenderingContext2D) {
+	setContext(ctx: RenderingContext2D) {
 
 		const {
 			document
@@ -26,16 +26,17 @@ export default class SVGElement extends RenderedElement {
 			screen,
 			window
 		} = document;
+		const canvas = ctx.canvas as HTMLCanvasElement;
 
 		screen.setDefaults(ctx);
 
-		if (ctx.canvas.style
+		if (canvas.style
 			&& typeof ctx.font !== 'undefined'
 			&& window
 			&& typeof window.getComputedStyle !== 'undefined'
 		) {
 
-			ctx.font = window.getComputedStyle(ctx.canvas).getPropertyValue('font');
+			ctx.font = window.getComputedStyle(canvas).getPropertyValue('font');
 
 			const fontSizeProp = new Property(
 				document,

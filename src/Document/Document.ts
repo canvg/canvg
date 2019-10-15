@@ -9,7 +9,7 @@ import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
 import elementTypes from './elements';
 
-export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement;
+export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas;
 
 export type CreateImage = (src: string) => Promise<CanvasImageSource>;
 
@@ -141,7 +141,7 @@ export default class Document {
 	}
 
 	setAspectRatio(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		aspectRatio: string,
 		width: number,
 		desiredWidth: number,

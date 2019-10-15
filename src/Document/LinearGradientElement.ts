@@ -22,7 +22,7 @@ export default class LinearGradientElement extends GradientElement {
 		);
 	}
 
-	getGradient(ctx: CanvasRenderingContext2D, element: PathElement) {
+	getGradient(ctx: RenderingContext2D, element: PathElement) {
 
 		const boundingBox = this.getGradientUnits() === 'objectBoundingBox'
 			? element.getBoundingBox(ctx)

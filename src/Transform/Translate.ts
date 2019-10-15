@@ -13,7 +13,7 @@ export default class Translate {
 		this.point = Point.parse(point);
 	}
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			x,
@@ -26,7 +26,7 @@ export default class Translate {
 		);
 	}
 
-	unapply(ctx: CanvasRenderingContext2D) {
+	unapply(ctx: RenderingContext2D) {
 
 		const {
 			x,

@@ -5,7 +5,7 @@ export default class RectElement extends PathElement {
 
 	type = 'rect';
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');

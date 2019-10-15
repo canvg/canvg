@@ -36,7 +36,7 @@ export default class AElement extends TextElement {
 		return this.text;
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		if (this.hasText) {
 			// render as text element
@@ -95,6 +95,9 @@ export default class AElement extends TextElement {
 	}
 
 	onMouseMove() {
-		this.document.ctx.canvas.style.cursor = 'pointer';
+
+		const ctx = this.document.ctx as CanvasRenderingContext2D;
+
+		ctx.canvas.style.cursor = 'pointer';
 	}
 }

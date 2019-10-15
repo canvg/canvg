@@ -7,7 +7,7 @@ export default class MarkerElement extends Element {
 
 	type = 'marker';
 
-	render(ctx: CanvasRenderingContext2D, point?: Point, angle?: number) {
+	render(ctx: RenderingContext2D, point?: Point, angle?: number) {
 
 		if (!point) {
 			return;

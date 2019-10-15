@@ -79,7 +79,7 @@ export default class TextPathElement extends TextElement {
 		return this.text;
 	}
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const {
 			dataArray
@@ -179,7 +179,7 @@ export default class TextPathElement extends TextElement {
 		});
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		this.setTextData(ctx);
 		ctx.save();
@@ -254,7 +254,7 @@ export default class TextPathElement extends TextElement {
 	}
 
 	protected findSegmentToFitChar(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		anchor: string,
 		textFullWidth: number,
 		fullPathWidth: number,
@@ -293,7 +293,7 @@ export default class TextPathElement extends TextElement {
 	}
 
 	protected measureText(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		text?: string
 	) {
 
@@ -316,7 +316,7 @@ export default class TextPathElement extends TextElement {
 	// This method supposes what all custom fonts already loaded.
 	// If some font will be loaded after this method call, <textPath> will not be rendered correctly.
 	// You need to call this method manually to update glyphs cache.
-	protected setTextData(ctx: CanvasRenderingContext2D) {
+	protected setTextData(ctx: RenderingContext2D) {
 
 		if (this.glyphInfo) {
 			return;

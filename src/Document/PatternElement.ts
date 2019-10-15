@@ -7,7 +7,7 @@ export default class PatternElement extends Element {
 	type = 'pattern';
 
 	createPattern(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		_: Element,
 		parentOpacityProp: Property
 	) {

@@ -1,5 +1,5 @@
 
-export function ctxLogger(ctx: CanvasRenderingContext2D) {
+export function ctxLogger(ctx: RenderingContext2D) {
 	return new Proxy(ctx, {
 
 		get(target, key) {
@@ -33,13 +33,13 @@ export function ctxLogger(ctx: CanvasRenderingContext2D) {
 	});
 }
 
-export function point(ctx: CanvasRenderingContext2D, x = 0, y = 0, radius = 10) {
+export function point(ctx: RenderingContext2D, x = 0, y = 0, radius = 10) {
 	ctx.beginPath();
 	ctx.arc(x, y, radius, 0, 2 * Math.PI);
 	ctx.stroke();
 }
 
-export function angle(ctx: CanvasRenderingContext2D, x = 0, y = 0, size = 10) {
+export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
 	ctx.beginPath();
 	ctx.moveTo(x, y);
 	ctx.lineTo(x + size * 2, y - size);

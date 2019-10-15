@@ -24,7 +24,7 @@ export default class RadialGradientElement extends GradientElement {
 		);
 	}
 
-	getGradient(ctx: CanvasRenderingContext2D, element: PathElement) {
+	getGradient(ctx: RenderingContext2D, element: PathElement) {
 
 		const boundingBox = element.getBoundingBox(ctx);
 

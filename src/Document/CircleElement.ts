@@ -5,7 +5,7 @@ export default class CircleElement extends PathElement {
 
 	type = 'circle';
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const cx = this.getAttribute('cx').getPixels('x');
 		const cy = this.getAttribute('cy').getPixels('y');

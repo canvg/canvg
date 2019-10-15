@@ -6,7 +6,7 @@ export default class GElement extends RenderedElement {
 
 	type = 'g';
 
-	getBoundingBox(ctx: CanvasRenderingContext2D) {
+	getBoundingBox(ctx: RenderingContext2D) {
 
 		const boundingBox = new BoundingBox();
 

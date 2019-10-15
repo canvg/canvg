@@ -6,19 +6,17 @@ import {
 import {
 	DOMParser
 } from 'xmldom';
-import {
-	createCanvas,
-	loadImage
-} from 'canvas';
+import * as canvas from 'canvas';
 import fetch, {
 	Response
 } from 'node-fetch';
 import Canvg, {
-	IOptions
+	presets
 } from '../../src';
 
-const options: IOptions = {
+const preset = presets.node({
 	DOMParser,
+	canvas,
 	fetch(input) {
 
 		if (typeof input === 'string' && !/^http/.test(input)) {
@@ -32,12 +30,8 @@ const options: IOptions = {
 		}
 
 		return fetch(input);
-	},
-	createCanvas:    createCanvas as any,
-	createImage:     loadImage as any,
-	ignoreAnimation: true,
-	ignoreMouse:     true
-};
+	}
+});
 
 export default async function render(file: string) {
 
@@ -45,9 +39,9 @@ export default async function render(file: string) {
 		path.join(__dirname, '..', 'svgs', file),
 		'utf8'
 	);
-	const c = createCanvas(1280, 720);
+	const c = preset.createCanvas(1280, 720);
 	const ctx = c.getContext('2d');
-	const v = Canvg.fromString(ctx, svg, options);
+	const v = Canvg.fromString(ctx, svg, preset);
 
 	await v.render();
 

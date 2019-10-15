@@ -6,7 +6,7 @@ export default class FilterElement extends Element {
 
 	type = 'filter';
 
-	apply(ctx: CanvasRenderingContext2D, element: PathElement) {
+	apply(ctx: RenderingContext2D, element: PathElement) {
 		// render as temp svg
 		const {
 			document
@@ -70,7 +70,7 @@ export default class FilterElement extends Element {
 		element.getStyle('filter', true).setValue(filter);
 	}
 
-	render(_: CanvasRenderingContext2D) {
+	render(_: RenderingContext2D) {
 		// NO RENDER
 	}
 }

@@ -23,7 +23,7 @@ export default class FeGaussianBlurElement extends Element {
 	}
 
 	apply(
-		ctx: CanvasRenderingContext2D,
+		ctx: RenderingContext2D,
 		x: number,
 		y: number,
 		width: number,
@@ -37,19 +37,20 @@ export default class FeGaussianBlurElement extends Element {
 		const body = document.window
 			? document.window.document.body
 			: null;
+		const canvas = ctx.canvas as HTMLCanvasElement;
 
 		// StackBlur requires canvas be on document
-		ctx.canvas.id = document.getUniqueId();
+		canvas.id = document.getUniqueId();
 
 		if (body) {
-			ctx.canvas.style.display = 'none';
-			body.appendChild(ctx.canvas);
+			canvas.style.display = 'none';
+			body.appendChild(canvas);
 		}
 
-		canvasRGBA(ctx.canvas, x, y, width, height, blurRadius);
+		canvasRGBA(canvas, x, y, width, height, blurRadius);
 
 		if (body) {
-			body.removeChild(ctx.canvas);
+			body.removeChild(canvas);
 		}
 	}
 }

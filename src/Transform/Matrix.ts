@@ -19,7 +19,7 @@ export default class Matrix implements ITransform {
 		this.matrix = toNumberArray(matrix);
 	}
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			matrix
@@ -35,7 +35,7 @@ export default class Matrix implements ITransform {
 		);
 	}
 
-	unapply(ctx: CanvasRenderingContext2D) {
+	unapply(ctx: RenderingContext2D) {
 
 		const {
 			matrix

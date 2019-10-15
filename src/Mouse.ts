@@ -40,9 +40,7 @@ export default class Mouse {
 			onClick,
 			onMouseMove
 		} = this;
-		const {
-			canvas
-		} = screen.ctx;
+		const canvas = screen.ctx.canvas as HTMLCanvasElement;
 
 		canvas.onclick = onClick;
 		canvas.onmousemove = onMouseMove;
@@ -55,9 +53,7 @@ export default class Mouse {
 			return;
 		}
 
-		const {
-			canvas
-		} = this.screen.ctx;
+		const canvas = this.screen.ctx.canvas as HTMLCanvasElement;
 
 		this.working = false;
 		canvas.onclick = null;
@@ -81,7 +77,7 @@ export default class Mouse {
 		} = this;
 		const {
 			style
-		} = document.ctx.canvas;
+		} = document.ctx.canvas as HTMLCanvasElement;
 
 		if (style) {
 			style.cursor = '';
@@ -102,7 +98,7 @@ export default class Mouse {
 		this.eventElements = [];
 	}
 
-	checkPath(element: Element, ctx: CanvasRenderingContext2D) {
+	checkPath(element: Element, ctx: RenderingContext2D) {
 
 		if (!this.working || !ctx) {
 			return;

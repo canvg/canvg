@@ -69,7 +69,7 @@ export default class ImageElement extends RenderedElement {
 		this.loaded = true;
 	}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 
 		const {
 			document

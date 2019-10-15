@@ -26,3 +26,8 @@ export { default as SVGFontLoader } from './SVGFontLoader';
 export * from './SVGFontLoader';
 export { default as PathParser } from './PathParser';
 export * from './PathParser';
+import * as presets from './presets';
+
+export {
+	presets
+};

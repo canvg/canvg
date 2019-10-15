@@ -5,7 +5,7 @@ export default class FeMorphologyElement extends Element {
 	type = 'feMorphology';
 
 	apply(
-		_: CanvasRenderingContext2D,
+		_: RenderingContext2D,
 		__: number,
 		___: number,
 		____: number,

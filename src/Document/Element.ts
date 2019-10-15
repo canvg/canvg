@@ -166,7 +166,7 @@ export default abstract class Element {
 		return style || Property.empty(this.document);
 	}
 
-	render(ctx: CanvasRenderingContext2D) {
+	render(ctx: RenderingContext2D) {
 		// don't render display=none
 		// don't render visibility=hidden
 		if (this.getStyle('display').getString() === 'none'
@@ -203,11 +203,11 @@ export default abstract class Element {
 		ctx.restore();
 	}
 
-	setContext(_: CanvasRenderingContext2D) {}
+	setContext(_: RenderingContext2D) {}
 
-	clearContext(_: CanvasRenderingContext2D) {}
+	clearContext(_: RenderingContext2D) {}
 
-	renderChildren(ctx: CanvasRenderingContext2D) {
+	renderChildren(ctx: RenderingContext2D) {
 		this.children.forEach((child) => {
 			child.render(ctx);
 		});

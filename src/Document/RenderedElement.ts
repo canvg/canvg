@@ -30,7 +30,7 @@ export default abstract class RenderedElement extends Element {
 		return opacity;
 	}
 
-	setContext(ctx: CanvasRenderingContext2D, fromMeasure = false) {
+	setContext(ctx: RenderingContext2D, fromMeasure = false) {
 
 		if (!fromMeasure) { // causes stack overflow when measuring text with gradients
 

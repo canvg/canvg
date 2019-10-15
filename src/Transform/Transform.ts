@@ -83,7 +83,7 @@ export default class Transform {
 		});
 	}
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			transforms
@@ -95,7 +95,7 @@ export default class Transform {
 		}
 	}
 
-	unapply(ctx: CanvasRenderingContext2D) {
+	unapply(ctx: RenderingContext2D) {
 
 		const {
 			transforms

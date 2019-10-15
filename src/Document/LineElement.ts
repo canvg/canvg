@@ -20,7 +20,7 @@ export default class LineElement extends PathElement {
 		];
 	}
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const [
 			{

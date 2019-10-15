@@ -5,7 +5,7 @@ export default class EllipseElement extends PathElement {
 
 	type = 'ellipse';
 
-	path(ctx: CanvasRenderingContext2D) {
+	path(ctx: RenderingContext2D) {
 
 		const KAPPA = 4 * ((Math.sqrt(2) - 1) / 3);
 		const rx = this.getAttribute('rx').getPixels('x');

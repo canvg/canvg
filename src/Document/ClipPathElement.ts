@@ -8,14 +8,12 @@ export default class ClipPathElement extends Element {
 
 	type = 'clipPath';
 
-	apply(ctx: CanvasRenderingContext2D) {
+	apply(ctx: RenderingContext2D) {
 
 		const {
 			document
 		} = this;
-		const contextProto = typeof CanvasRenderingContext2D !== 'undefined'
-			? CanvasRenderingContext2D.prototype
-			: null;
+		const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D;
 		const {
 			beginPath,
 			closePath
@@ -67,7 +65,7 @@ export default class ClipPathElement extends Element {
 		}
 	}
 
-	render(_: CanvasRenderingContext2D) {
+	render(_: RenderingContext2D) {
 		// NO RENDER
 	}
 }
