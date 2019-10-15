@@ -25,6 +25,7 @@
   },
   "main": "lib/index.js",
   "module": "lib/index.es.js",
+  "raw": "lib/index.babel.js",
   "umd": "lib/umd.js",
   "types": "lib/index.d.ts",
   "engines": {

@@ -13,5 +13,10 @@
 		"path": "lib/umd.js",
 		"limit": "50 KB",
 		"webpack": false
+	},
+	{
+		"path": "lib/index.babel.js",
+		"limit": "35 KB",
+		"webpack": false
 	}
 ]

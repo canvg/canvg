@@ -79,7 +79,7 @@ export default class FeColorMatrixElement extends Element {
 				break;
 			}
 
-			case 'hueRotate':
+			case 'hueRotate': {
 
 				const a = matrix[0] * Math.PI / 180.0;
 
@@ -91,6 +91,7 @@ export default class FeColorMatrixElement extends Element {
 					0, 0, 0, 0, 1
 				];
 				break;
+			}
 
 			case 'luminanceToAlpha':
 				matrix = [
