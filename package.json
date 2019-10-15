@@ -2,7 +2,19 @@
   "name": "@flexis/canvg",
   "version": "3.0.0-beta",
   "description": "JavaScript SVG parser and renderer on Canvas",
-  "author": "dangreen",
+  "authors": [
+    {
+      "name": "Gabe Lerner",
+      "email": "gabelerner@gmail.com"
+    },
+    {
+      "name": "Brett Zamir"
+    },
+    {
+      "name": "Dan Green",
+      "url": "https://twitter.com/dangreen58"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
