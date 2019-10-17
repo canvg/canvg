@@ -43,8 +43,6 @@ yarn add @flexis/canvg
 
 ## Usage
 
-### JS API
-
 Basic module exports:
 
 ```js
@@ -56,9 +54,7 @@ export {
 
 [Description of all exports you can find in Documentation.](https://trigensoftware.github.io/flexis-canvg/index.html)
 
-#### Example
-
-##### Browser:
+### Example
 
 ```js
 import Canvg from '@flexis/canvg';
@@ -81,7 +77,10 @@ window.onbeforeunload = () => {
 };
 ```
 
-##### OffscreenCanvas:
+<details>
+    <summary>
+        <b>OffscreenCanvas</b>
+    </summary>
 
 ```js
 import Canvg, {
@@ -110,7 +109,12 @@ self.onmessage = async (event) => {
 };
 ```
 
-##### NodeJS:
+</details>
+
+<details>
+    <summary>
+        <b>NodeJS</b>
+    </summary>
 
 ```js
 import {
@@ -151,7 +155,9 @@ const preset = presets.node({
 );
 ```
 
-#### Options
+</details>
+
+### Options
 
 The third parameter of `new Canvg(...)`, `Canvg.from(...)` and `Canvg.fromString(...)` is options:
 
@@ -228,7 +234,7 @@ interface IOptions {
 }
 ```
 
-##### Options presets
+#### Options presets
 
 There are two options presets:
 
