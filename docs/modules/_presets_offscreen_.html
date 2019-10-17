@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;util/debug&quot; | @flexis/canvg</title>
+	<title>&quot;presets/offscreen&quot; | @flexis/canvg</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_util_debug_.html">&quot;util/debug&quot;</a>
+					<a href="_presets_offscreen_.html">&quot;presets/offscreen&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;util/debug&quot;</h1>
+			<h1>External module &quot;presets/offscreen&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,9 +71,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#angle" class="tsd-kind-icon">angle</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#ctxlogger" class="tsd-kind-icon">ctx<wbr>Logger</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#point" class="tsd-kind-icon">point</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_presets_offscreen_.html#offscreen" class="tsd-kind-icon">offscreen</a></li>
 							</ul>
 						</section>
 					</div>
@@ -82,134 +80,80 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="angle" class="tsd-anchor"></a>
-					<h3>angle</h3>
+					<a name="offscreen" class="tsd-anchor"></a>
+					<h3>offscreen</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">angle<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">offscreen<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/util/debug.ts#L59">util/debug.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/presets/offscreen.ts#L4">presets/offscreen.ts:4</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Draw triangle to vizualize angle.</p>
+									<p>Options preset for <code>OffscreenCanvas</code>.</p>
 								</div>
 							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Rendering context.</p>
-									</div>
+								<li class="tsd-parameter">
+									<h5>ignore<wbr>Animation<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
 								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Angle x.</p>
-									</div>
+								<li class="tsd-parameter">
+									<h5>ignore<wbr>Mouse<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
 								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Angle y.</p>
-									</div>
+								<li class="tsd-parameter">
+									<h5>window<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span></h5>
 								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> size: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Triangle size.</p>
-									</div>
-								</li>
+								<li class="tsd-parameter">
+									<h5>create<wbr>Canvas<span class="tsd-signature-symbol">: </span>function</h5>
+									<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-not-exported">
+										<li class="tsd-signature tsd-kind-icon">create<wbr>Canvas<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OffscreenCanvas</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<aside class="tsd-sources">
+												<ul>
+													<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/presets/offscreen.ts#L9">presets/offscreen.ts:9</a></li>
+												</ul>
+											</aside>
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5>width: <span class="tsd-signature-type">number</span></h5>
+												</li>
+												<li>
+													<h5>height: <span class="tsd-signature-type">number</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OffscreenCanvas</span></h4>
+										</li>
+								</ul>        </li>
+								<li class="tsd-parameter">
+									<h5>create<wbr>Image<span class="tsd-signature-symbol">: </span>function</h5>
+									<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-type-literal tsd-is-not-exported">
+										<li class="tsd-signature tsd-kind-icon">create<wbr>Image<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ImageBitmap</span><span class="tsd-signature-symbol">&gt;</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<aside class="tsd-sources">
+												<ul>
+													<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/presets/offscreen.ts#L12">presets/offscreen.ts:12</a></li>
+												</ul>
+											</aside>
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5>url: <span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ImageBitmap</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										</li>
+								</ul>        </li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="ctxlogger" class="tsd-anchor"></a>
-					<h3>ctx<wbr>Logger</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">ctx<wbr>Logger<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">OffscreenCanvasRenderingContext2D</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/util/debug.ts#L5">util/debug.ts:5</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Wrap rendering context to log every action.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Rendering context.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">CanvasRenderingContext2D</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">OffscreenCanvasRenderingContext2D</span>
-							</h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="point" class="tsd-anchor"></a>
-					<h3>point</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">point<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, radius<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/TrigenSoftware/flexis-canvg/blob/3b385ea/src/util/debug.ts#L46">util/debug.ts:46</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Draw point.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Rendering context.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Point x.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Point y</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> radius: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;10</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Point radius.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -222,20 +166,14 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_util_debug_.html">"util/debug"</a>
+						<a href="_presets_offscreen_.html">"presets/offscreen"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_util_debug_.html#angle" class="tsd-kind-icon">angle</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_util_debug_.html#ctxlogger" class="tsd-kind-icon">ctx<wbr>Logger</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_util_debug_.html#point" class="tsd-kind-icon">point</a>
+						<a href="_presets_offscreen_.html#offscreen" class="tsd-kind-icon">offscreen</a>
 					</li>
 				</ul>
 			</nav>

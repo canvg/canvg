@@ -5,7 +5,8 @@
 const {
 	Canvg,
 	Document,
-	Parser
+	Parser,
+	presets
 } = canvg;
 let DEFAULT_WIDTH = 500;
 let DEFAULT_HEIGHT = 500;
@@ -122,20 +123,7 @@ async function offscreenRender(svg, width, height) {
 		height || DEFAULT_HEIGHT
 	);
 	const ctx = c.getContext('2d');
-	const v = await Canvg.from(ctx, svg, {
-		window: null,
-		createCanvas(width, height) {
-			return new OffscreenCanvas(width, height);
-		},
-		async createImage(url) {
-
-			const response = await fetch(url);
-			const blob = await response.blob();
-			const img = await createImageBitmap(blob);
-
-			return img;
-		}
-	});
+	const v = await Canvg.from(ctx, svg, presets.offscreen());
 
 	await v.render();
 
