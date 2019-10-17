@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from '../util';
 import Document from '../Document';
 import Property from '../Property';
@@ -17,7 +17,7 @@ export default class Rotate {
 		rotate: string
 	) {
 
-		const numbers = toNumberArray(rotate);
+		const numbers = toNumbers(rotate);
 
 		this.angle = new Property(document, 'angle', numbers[0]);
 		this.cx = numbers[1] || 0;

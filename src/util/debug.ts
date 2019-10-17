@@ -1,4 +1,7 @@
-
+/**
+ * Wrap rendering context to log every action.
+ * @param ctx - Rendering context.
+ */
 export function ctxLogger(ctx: RenderingContext2D) {
 	return new Proxy(ctx, {
 
@@ -33,12 +36,26 @@ export function ctxLogger(ctx: RenderingContext2D) {
 	});
 }
 
+/**
+ * Draw point.
+ * @param ctx - Rendering context.
+ * @param x - Point x.
+ * @param y - Point y
+ * @param radius - Point radius.
+ */
 export function point(ctx: RenderingContext2D, x = 0, y = 0, radius = 10) {
 	ctx.beginPath();
 	ctx.arc(x, y, radius, 0, 2 * Math.PI);
 	ctx.stroke();
 }
 
+/**
+ * Draw triangle to vizualize angle.
+ * @param ctx - Rendering context.
+ * @param x - Angle x.
+ * @param y - Angle y.
+ * @param size - Triangle size.
+ */
 export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
 	ctx.beginPath();
 	ctx.moveTo(x, y);

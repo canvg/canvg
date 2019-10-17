@@ -1,6 +1,6 @@
 import {
 	PSEUDO_ZERO,
-	toNumberArray
+	toNumbers
 } from '../util';
 import Font from '../Font';
 import Property from '../Property';
@@ -144,7 +144,7 @@ export default abstract class RenderedElement extends Element {
 
 			if (strokeDasharrayStyleProp.hasValue() && strokeDasharrayStyleProp.getString() !== 'none') {
 
-				const gaps = toNumberArray(strokeDasharrayStyleProp.getString());
+				const gaps = toNumbers(strokeDasharrayStyleProp.getString());
 
 				if (typeof ctx.setLineDash !== 'undefined') {
 					ctx.setLineDash(gaps);

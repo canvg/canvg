@@ -1,7 +1,7 @@
 import requestAnimationFrame from 'raf';
 import {
 	compressSpaces,
-	toNumberArray
+	toNumbers
 } from './util';
 import Property from './Property';
 import ViewPort from './ViewPort';
@@ -12,20 +12,56 @@ import Document, {
 } from './Document';
 
 export interface IScreenOptions {
+	/**
+	 * Window object.
+	 */
 	window?: Window;
+	/**
+	 * WHATWG-compatible `fetch` function.
+	 */
 	fetch?: typeof fetch;
 }
 
 export interface IScreenStartOptions {
+	/**
+	 * Whether enable the redraw.
+	 */
 	enableRedraw?: boolean;
+	/**
+	 * Ignore mouse events.
+	 */
 	ignoreMouse?: boolean;
+	/**
+	 * Ignore animations.
+	 */
 	ignoreAnimation?: boolean;
+	/**
+	 * Does not try to resize canvas.
+	 */
 	ignoreDimensions?: boolean;
+	/**
+	 * Does not clear canvas.
+	 */
 	ignoreClear?: boolean;
+	/**
+	 * Scales horizontally to width.
+	 */
 	scaleWidth?: number;
+	/**
+	 * Scales vertically to height.
+	 */
 	scaleHeight?: number;
+	/**
+	 * Draws at a x offset.
+	 */
 	offsetX?: number;
+	/**
+	 * Draws at a y offset.
+	 */
 	offsetY?: number;
+	/**
+	 * Will call the function on every frame, if it returns true, will redraw.
+	 */
 	forceRedraw?(): boolean;
 }
 
@@ -419,7 +455,7 @@ export default class Screen {
 			|| typeof scaleHeight === 'number'
 		) {
 
-			const viewBox = toNumberArray(element.getAttribute('viewBox').getString());
+			const viewBox = toNumbers(element.getAttribute('viewBox').getString());
 			let xRatio = 0;
 			let yRatio = 0;
 

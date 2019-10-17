@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from '../util';
 import Property from '../Property';
 import Font from '../Font';
@@ -119,7 +119,7 @@ export default class SVGElement extends RenderedElement {
 				minY,
 				width,
 				height
-			] = toNumberArray(viewBoxAttr.getString());
+			] = toNumbers(viewBoxAttr.getString());
 		}
 
 		document.setAspectRatio(

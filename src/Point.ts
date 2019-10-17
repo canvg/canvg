@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from './util';
 
 export default class Point {
@@ -9,14 +9,14 @@ export default class Point {
 		const [
 			x = defaultValue,
 			y = x
-		] = toNumberArray(point);
+		] = toNumbers(point);
 
 		return new Point(x, y);
 	}
 
 	static parsePath(path: string) {
 
-		const points = toNumberArray(path);
+		const points = toNumbers(path);
 		const len = points.length;
 		const pathPoints: Point[] = [];
 

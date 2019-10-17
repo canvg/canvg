@@ -17,8 +17,17 @@ export interface IOptions extends IParserOptions,
 	IScreenStartOptions,
 	IDocumentOptions {}
 
+/**
+ * SVG renderer on canvas.
+ */
 export default class Canvg {
 
+	/**
+	 * Create Canvg isntance from SVG source string or URL.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG source string or URL.
+	 * @param options - Rendering options.
+	 */
 	static async from(
 		ctx: RenderingContext2D,
 		svg: string,
@@ -31,6 +40,12 @@ export default class Canvg {
 		return new Canvg(ctx, svgDocument, options);
 	}
 
+	/**
+	 * Create Canvg isntance from SVG source string.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG source string.
+	 * @param options - Rendering options.
+	 */
 	static fromString(
 		ctx: RenderingContext2D,
 		svg: string,
@@ -43,12 +58,27 @@ export default class Canvg {
 		return new Canvg(ctx, svgDocument, options);
 	}
 
+	/**
+	 * XML/HTML parser isntance.
+	 */
 	readonly parser: Parser;
+	/**
+	 * Screen instance.
+	 */
 	readonly screen: Screen;
+	/**
+	 * Canvg Document.
+	 */
 	readonly document: Document;
 	private readonly documentElement: SVGElement;
 	private readonly options: IOptions;
 
+	/**
+	 * Main constructor.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG Document.
+	 * @param options - Rendering options.
+	 */
 	constructor(
 		ctx: RenderingContext2D,
 		svg: DOMDocument,
@@ -66,6 +96,12 @@ export default class Canvg {
 		this.documentElement = documentElement;
 	}
 
+	/**
+	 * Create new Canvg instance with inherited options.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG source string or URL.
+	 * @param options - Rendering options.
+	 */
 	fork(
 		ctx: RenderingContext2D,
 		svg: string,
@@ -77,6 +113,12 @@ export default class Canvg {
 		});
 	}
 
+	/**
+	 * Create new Canvg instance with inherited options.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG source string.
+	 * @param options - Rendering options.
+	 */
 	forkString(
 		ctx: RenderingContext2D,
 		svg: string,
@@ -88,14 +130,24 @@ export default class Canvg {
 		});
 	}
 
+	/**
+	 * Document is ready promise.
+	 */
 	ready() {
 		return this.screen.ready();
 	}
 
+	/**
+	 * Document is ready value.
+	 */
 	isReady() {
 		return this.screen.isReady();
 	}
 
+	/**
+	 * Render only first frame, ignoring animations and mouse.
+	 * @param options - Rendering options.
+	 */
 	async render(options: IScreenStartOptions = {}) {
 
 		this.start({
@@ -110,6 +162,10 @@ export default class Canvg {
 		this.stop();
 	}
 
+	/**
+	 * Start rendering.
+	 * @param options - Render options.
+	 */
 	start(options: IScreenStartOptions = {}) {
 
 		const {
@@ -125,6 +181,9 @@ export default class Canvg {
 		});
 	}
 
+	/**
+	 * Stop rendering.
+	 */
 	stop() {
 		this.screen.stop();
 	}

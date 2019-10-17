@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from '../util';
 import AnimateElement from './AnimateElement';
 
@@ -16,8 +16,8 @@ export default class AnimateTransformElement extends AnimateElement {
 		} = this.getProgress();
 
 		// tween value linearly
-		const transformFrom = toNumberArray(from.getString());
-		const transformTo = toNumberArray(to.getString());
+		const transformFrom = toNumbers(from.getString());
+		const transformTo = toNumbers(to.getString());
 		const newValue = transformFrom.map((from, i) => {
 
 			const to = transformTo[i];

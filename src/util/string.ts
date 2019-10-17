@@ -1,17 +1,32 @@
-
+/**
+ * HTML-safe compress white-spaces.
+ * @param str - String to compress.
+ */
 export function compressSpaces(str: string) {
 	return str.replace(/(?!\u3000)\s+/gm, ' ');
 }
 
+/**
+ * HTML-safe left trim.
+ * @param str - String to trim.
+ */
 export function trimLeft(str: string) {
 	return str.replace(/^[\n \t]+/, '');
 }
 
+/**
+ * HTML-safe right trim.
+ * @param str - String to trim.
+ */
 export function trimRight(str: string) {
 	return str.replace(/[\n \t]+$/, '');
 }
 
-export function toNumberArray(str: string) {
+/**
+ * String to numbers array.
+ * @param str - Numbers string.
+ */
+export function toNumbers(str: string) {
 
 	const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];
 
@@ -21,6 +36,10 @@ export function toNumberArray(str: string) {
 // Microsoft Edge fix
 const allUppercase = /^[A-Z-]+$/;
 
+/**
+ * Normalize attribute name.
+ * @param name - Attribute name.
+ */
 export function normalizeAttributeName(name: string) {
 
 	if (allUppercase.test(name)) {
@@ -30,6 +49,10 @@ export function normalizeAttributeName(name: string) {
 	return name;
 }
 
+/**
+ * Parse external URL.
+ * @param url - CSS url string.
+ */
 export function parseExternalUrl(url: string): string {
 	//                                   single quotes [2]
 	//                                   v           double quotes [3]

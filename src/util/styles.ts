@@ -25,6 +25,10 @@ function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
 	];
 }
 
+/**
+ * Measure selector specificity.
+ * @param selector - Selector to measure.
+ */
 export function getSelectorSpecificity(selector: string) {
 
 	const specificity = [0, 0, 0];

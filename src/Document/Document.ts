@@ -9,14 +9,32 @@ import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
 import elementTypes from './elements';
 
+/**
+ * Function to create new canvas.
+ */
 export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas;
 
+/**
+ * Function to create new image.
+ */
 export type CreateImage = (src: string) => Promise<CanvasImageSource>;
 
 export interface IDocumentOptions {
+	/**
+	 * Default `rem` size.
+	 */
 	rootEmSize?: number;
+	/**
+	 * Default `em` size.
+	 */
 	emSize?: number;
+	/**
+	 * Function to create new canvas.
+	 */
 	createCanvas?: CreateCanvas;
+	/**
+	 * Function to create new image.
+	 */
 	createImage?: CreateImage;
 }
 

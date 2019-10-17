@@ -1,5 +1,5 @@
 import {
-	toNumberArray,
+	toNumbers,
 	compressSpaces,
 	trimLeft,
 	trimRight
@@ -234,7 +234,7 @@ export default class TextElement extends RenderedElement {
 			const text = customFont.isRTL
 				? renderText.split('').reverse().join('')
 				: renderText;
-			const dx = toNumberArray(parent.getAttribute('dx').getString());
+			const dx = toNumbers(parent.getAttribute('dx').getString());
 			const len = text.length;
 
 			for (let i = 0; i < len; i++) {
@@ -488,7 +488,7 @@ export default class TextElement extends RenderedElement {
 			const text = customFont.isRTL
 				? targetText.split('').reverse().join('')
 				: targetText;
-			const dx = toNumberArray(parent.getAttribute('dx').getString());
+			const dx = toNumbers(parent.getAttribute('dx').getString());
 			const len = text.length;
 			let measure = 0;
 

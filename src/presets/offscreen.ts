@@ -1,4 +1,6 @@
-
+/**
+ * Options preset for `OffscreenCanvas`.
+ */
 export function offscreen() {
 	return {
 		window:          null as null,

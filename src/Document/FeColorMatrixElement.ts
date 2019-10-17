@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from '../util';
 import Document from './Document';
 import Element from './Element';
@@ -61,7 +61,7 @@ export default class FeColorMatrixElement extends Element {
 
 		super(document, node, captureTextNodes);
 
-		let matrix = toNumberArray(this.getAttribute('values').getString());
+		let matrix = toNumbers(this.getAttribute('values').getString());
 
 		switch (this.getAttribute('type').getString('matrix')) { // http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
 

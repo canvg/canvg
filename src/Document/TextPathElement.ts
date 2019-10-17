@@ -1,6 +1,6 @@
 import {
 	PSEUDO_ZERO,
-	toNumberArray,
+	toNumbers,
 	vectorsRatio,
 	vectorsAngle,
 	CB1,
@@ -325,7 +325,7 @@ export default class TextPathElement extends TextElement {
 		const renderText = this.getText();
 		const chars = renderText.split('');
 		const spacesNumber = renderText.split(' ').length - 1;
-		const dx = toNumberArray(this.parent.getAttribute('dx').getString('0'));
+		const dx = toNumbers(this.parent.getAttribute('dx').getString('0'));
 		const anchor = this.parent.getStyle('text-anchor').getString('start');
 		const thisSpacing = this.getStyle('letter-spacing');
 		const parentSpacing = this.parent.getStyle('letter-spacing');

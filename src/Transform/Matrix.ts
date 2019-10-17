@@ -1,5 +1,5 @@
 import {
-	toNumberArray
+	toNumbers
 } from '../util';
 import Document from '../Document';
 import Point from '../Point';
@@ -16,7 +16,7 @@ export default class Matrix implements ITransform {
 		_: Document,
 		matrix: string
 	) {
-		this.matrix = toNumberArray(matrix);
+		this.matrix = toNumbers(matrix);
 	}
 
 	apply(ctx: RenderingContext2D) {

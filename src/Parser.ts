@@ -1,7 +1,13 @@
 import Screen from './Screen';
 
 export interface IParserOptions {
+	/**
+	 * WHATWG-compatible `fetch` function.
+	 */
 	fetch?: typeof fetch;
+	/**
+	 * XML/HTML parser from string into DOM Document.
+	 */
 	DOMParser?: typeof DOMParser;
 }
 
