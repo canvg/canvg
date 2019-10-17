@@ -1,7 +1,6 @@
 # @flexis/canvg
 
 [![NPM version][npm]][npm-url]
-[![Peer dependencies status][peer-deps]][peer-deps-url]
 [![Dependencies status][deps]][deps-url]
 [![Build status][build]][build-url]
 [![Coverage status][coverage]][coverage-url]
@@ -10,9 +9,6 @@
 
 [npm]: https://img.shields.io/npm/v/@flexis/canvg.svg
 [npm-url]: https://npmjs.com/package/@flexis/canvg
-
-[peer-deps]: https://david-dm.org/TrigenSoftware/flexis-canvg/peer-status.svg
-[peer-deps-url]: https://david-dm.org/TrigenSoftware/flexis-canvg?type=peer
 
 [deps]: https://david-dm.org/TrigenSoftware/flexis-canvg.svg
 [deps-url]: https://david-dm.org/TrigenSoftware/flexis-canvg
