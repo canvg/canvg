@@ -40,6 +40,10 @@ a image {
 	color: white;
 }
 
+.settings input[type=number] {
+	width: 40px;
+}
+
 .table th {
 	text-align: left;
 }

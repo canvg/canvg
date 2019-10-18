@@ -153,6 +153,48 @@ const preset = presets.node({
 
 </details>
 
+<details>
+    <summary>
+        <b>Resize</b>
+    </summary>
+
+```js
+import Canvg, {
+    presets
+} from '@flexis/canvg';
+
+self.onmessage = async (event) => {
+
+    const {
+        width,
+        height,
+        svg
+    } = event.data;
+    const canvas = new OffscreenCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    const v = await Canvg.from(ctx, svg, presets.offscreen());
+
+    /**
+	 * Resize SVG to fit in given size.
+	 * @param width
+	 * @param height
+	 * @param preserveAspectRatio
+	 */
+    v.resize(width, height, 'xMidYMid meet');
+
+    // Render only first frame, ignoring animations and mouse.
+    await v.render();
+
+    const blob = await canvas.convertToBlob();
+
+    self.postMessage({
+        pngUrl: blob
+    });
+};
+```
+
+</details>
+
 ### Options
 
 The third parameter of `new Canvg(...)`, `Canvg.from(...)` and `Canvg.fromString(...)` is options:

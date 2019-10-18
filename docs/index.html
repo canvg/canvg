@@ -179,6 +179,43 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
     process.argv.pop()
 );</code></pre>
 				</details>
+				<details>
+					<summary>
+						<b>Resize</b>
+					</summary>
+					<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg, {
+    presets
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'@flexis/canvg'</span>;
+
+self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
+
+    <span class="hljs-keyword">const</span> {
+        width,
+        height,
+        svg
+    } = event.data;
+    <span class="hljs-keyword">const</span> canvas = <span class="hljs-keyword">new</span> OffscreenCanvas(width, height);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> Canvg.from(ctx, svg, presets.offscreen());
+
+    <span class="hljs-comment">/**
+     * Resize SVG to fit in given size.
+     * @param width
+     * @param height
+     * @param preserveAspectRatio
+     */</span>
+    v.resize(width, height, <span class="hljs-string">'xMidYMid meet'</span>);
+
+    <span class="hljs-comment">// Render only first frame, ignoring animations and mouse.</span>
+    <span class="hljs-keyword">await</span> v.render();
+
+    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">await</span> canvas.convertToBlob();
+
+    self.postMessage({
+        <span class="hljs-attr">pngUrl</span>: blob
+    });
+};</code></pre>
+				</details>
 				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
 					<h3>Options</h3>
 				</a>
