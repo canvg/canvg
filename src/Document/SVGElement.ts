@@ -140,4 +140,59 @@ export default class SVGElement extends RenderedElement {
 			screen.viewPort.setCurrent(width, height);
 		}
 	}
+
+	/**
+	 * Resize SVG to fit in given size.
+	 * @param width
+	 * @param height
+	 * @param preserveAspectRatio
+	 */
+	resize(
+		width: number,
+		height = width,
+		preserveAspectRatio: boolean|string = false
+	) {
+
+		const widthAttr = this.getAttribute('width', true);
+		const heightAttr = this.getAttribute('height', true);
+		const viewBoxAttr = this.getAttribute('viewBox');
+		const styleAttr = this.getAttribute('style');
+		const originWidth = widthAttr.getNumber(0);
+		const originHeight = heightAttr.getNumber(0);
+
+		if (preserveAspectRatio) {
+
+			if (typeof preserveAspectRatio === 'string') {
+				this.getAttribute('preserveAspectRatio', true).setValue(preserveAspectRatio);
+			} else {
+
+				const preserveAspectRatioAttr = this.getAttribute('preserveAspectRatio');
+
+				if (preserveAspectRatioAttr.hasValue()) {
+					preserveAspectRatioAttr.setValue(preserveAspectRatioAttr.getString().replace(/^\s*(\S.*\S)\s*$/, '$1'));
+				}
+			}
+		}
+
+		widthAttr.setValue(width);
+		heightAttr.setValue(height);
+
+		if (!viewBoxAttr.hasValue()) {
+			viewBoxAttr.setValue(`0 0 ${originWidth || width} ${originHeight || height}`);
+		}
+
+		if (styleAttr.hasValue()) {
+
+			const widthStyle = this.getStyle('width');
+			const heightStyle = this.getStyle('height');
+
+			if (widthStyle.hasValue()) {
+				widthStyle.setValue(`${width}px`);
+			}
+
+			if (heightStyle.hasValue()) {
+				heightStyle.setValue(`${height}px`);
+			}
+		}
+	}
 }

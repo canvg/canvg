@@ -187,4 +187,18 @@ export default class Canvg {
 	stop() {
 		this.screen.stop();
 	}
+
+	/**
+	 * Resize SVG to fit in given size.
+	 * @param width
+	 * @param height
+	 * @param preserveAspectRatio
+	 */
+	resize(
+		width: number,
+		height = width,
+		preserveAspectRatio: boolean|string = false
+	) {
+		this.documentElement.resize(width, height, preserveAspectRatio);
+	}
 }

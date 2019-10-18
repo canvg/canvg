@@ -33,7 +33,12 @@ const preset = presets.node({
 	}
 });
 
-export default async function render(file: string) {
+export default async function render(
+	file: string,
+	width?: number,
+	height?: number,
+	preserveAspectRatio?: string
+) {
 
 	const svg = await fs.readFile(
 		path.join(__dirname, '..', 'svgs', file),
@@ -42,6 +47,10 @@ export default async function render(file: string) {
 	const c = preset.createCanvas(1280, 720);
 	const ctx = c.getContext('2d');
 	const v = Canvg.fromString(ctx, svg, preset);
+
+	if (width && height && preserveAspectRatio) {
+		v.resize(width, height, preserveAspectRatio);
+	}
 
 	await v.render();
 

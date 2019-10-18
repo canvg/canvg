@@ -51,5 +51,14 @@ describe('canvg', () => {
 				});
 			}
 		}
+
+		it('should resize SVG', async () => {
+
+			expect(
+				await render('../svgs/favicon.svg', 64, 64, 'xMidYMid meet')
+			).toMatchImageSnapshot({
+				customSnapshotIdentifier: 'node-favicon.svg'
+			});
+		});
 	});
 });

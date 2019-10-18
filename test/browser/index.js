@@ -104,6 +104,10 @@ async function render(svg, width, height) {
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg);
 
+	if (custom.resize.checked) {
+		v.resize(width, height, custom.preserveAspectRatio.value);
+	}
+
 	canvasOutput.innerHTML = '';
 	canvasOutput.appendChild(c);
 
@@ -124,6 +128,10 @@ async function offscreenRender(svg, width, height) {
 	);
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg, presets.offscreen());
+
+	if (custom.resize.checked) {
+		v.resize(width, height, custom.preserveAspectRatio.value);
+	}
 
 	await v.render();
 
