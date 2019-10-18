@@ -175,11 +175,11 @@ self.onmessage = async (event) => {
     const v = await Canvg.from(ctx, svg, presets.offscreen());
 
     /**
-	 * Resize SVG to fit in given size.
-	 * @param width
-	 * @param height
-	 * @param preserveAspectRatio
-	 */
+     * Resize SVG to fit in given size.
+     * @param width
+     * @param height
+     * @param preserveAspectRatio
+     */
     v.resize(width, height, 'xMidYMid meet');
 
     // Render only first frame, ignoring animations and mouse.
