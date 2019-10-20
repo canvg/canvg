@@ -312,6 +312,10 @@ function build(opts) {
     return (this.value != null && this.value !== '');
   }
 
+  svg.Property.prototype.isAbsolute = function () {
+    return !this.value.match(/(%|rem|em)$/);
+  }
+
   // return the numerical value of the property
   svg.Property.prototype.numValue = function () {
     if (!this.hasValue()) return 0;
@@ -407,7 +411,7 @@ function build(opts) {
   }
 
   // get the length as pixels
-  svg.Property.prototype.toPixels = function (viewPort, processPercent) {
+  svg.Property.prototype.toPixels = function (viewPort, processPercent, parentsFontSize) {
     if (!this.hasValue()) return 0;
     var s = this.value + '';
     if (s.match(/rem$/)) return this.numValue() * this.getREM(viewPort);
@@ -419,11 +423,22 @@ function build(opts) {
     if (s.match(/cm$/)) return this.numValue() * this.getDPI(viewPort) / 2.54;
     if (s.match(/mm$/)) return this.numValue() * this.getDPI(viewPort) / 25.4;
     if (s.match(/in$/)) return this.numValue() * this.getDPI(viewPort);
-    if (s.match(/%$/)) return this.numValue() * svg.ViewPort.ComputeSize(viewPort);
+    if (s.match(/%$/)) {
+      var calculatedPxls;
+      if (parentsFontSize) {
+        // return relative size based on first parent element with
+        // specified font-size
+        calculatedPxls = this.numValue() * parentsFontSize;
+      } else {
+        // return relative size based on root element
+        calculatedPxls = this.numValue() * svg.ViewPort.ComputeSize(viewPort);
+      }
+      return calculatedPxls;
+    };
     var n = this.numValue();
     if (processPercent && n < 1.0) return n * svg.ViewPort.ComputeSize(viewPort);
     return n;
-  }
+  };
 
   // time extensions
   // get the time as milliseconds
@@ -980,6 +995,16 @@ function build(opts) {
       }
     };
 
+    // Get the first parent of a given element
+    this.firstParentWithAbsoluteSize = function(parent, propertyName) {
+      while (parent) {
+        if (parent.style(propertyName).hasValue() && parent.style(propertyName).isAbsolute()) {
+          return parent;
+        }
+        parent = parent.parent;
+      }
+    }
+
     // Microsoft Edge fix
     var allUppercase = new RegExp('^[A-Z\-]+$');
     var normalizeAttributeName = function (name) {
@@ -1104,24 +1129,28 @@ function build(opts) {
       if (typeof ctx.font != 'undefined') {
         if (this.style('font').hasValue()) {
           ctx.font = this.style('font').value;
-          // store the font-size in case we have to update the current font-size
-          // we can add the element temporarily in dom to extract the style and parse the font easily
-          var element = doc.createElement('span');
-          element.setAttribute('style', 'font: ' + ctx.font);
-          this.styles['font-size'] = new svg.Property('font-size', element.style['fontSize']);
-          element.remove();
         } else {
+          var parentsFontSize;
+          if (this.parent) {
+            var parent = this.firstParentWithAbsoluteSize(this.parent, 'font-size');
+            if (parent) {
+              parentsFontSize = parent.style('font-size').toPixels();
+            }
+          }
+
           ctx.font = svg.Font.CreateFont(
             this.style('font-style').value,
             this.style('font-variant').value,
             this.style('font-weight').value,
-            this.style('font-size').hasValue() ? this.style('font-size').toPixels() + 'px' : '',
+            this.style('font-size').hasValue() ? this.style('font-size').toPixels(undefined, 
+              undefined, parentsFontSize) + 'px' : '',
             this.style('font-family').value).toString();
-        }
-        // update em size if needed
-        var currentFontSize = this.style('font-size', false, false);
-        if (currentFontSize.isPixels()) {
-          svg.emSize = currentFontSize.toPixels();
+
+          // update em size if needed
+          var currentFontSize = this.style('font-size', false, false);
+          if (currentFontSize.isPixels()) {
+            svg.emSize = currentFontSize.toPixels();
+          }
         }
       }
 
