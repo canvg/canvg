@@ -23,3 +23,18 @@ DO NOT TOUCH. SAVE IT ON TOP.
 - ...
 
 -->
+
+## [3.0.0] - 2019-10-23
+### Added
+- `OffscreenCanvas` support.
+
+### Changed
+- JavaScript -> TypeScript.
+
+### Fixed
+- [#406](https://github.com/canvg/canvg/issues/406)
+- [#690](https://github.com/canvg/canvg/issues/690)
+- [#713](https://github.com/canvg/canvg/issues/713)
+- [#716](https://github.com/canvg/canvg/pull/716)
+- [#717](https://github.com/canvg/canvg/issues/717)
+- [#742](https://github.com/canvg/canvg/pull/742)

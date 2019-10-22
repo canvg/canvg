@@ -1,6 +1,6 @@
 {
   "name": "@flexis/canvg",
-  "version": "3.0.0-beta",
+  "version": "3.1.0-beta",
   "description": "JavaScript SVG parser and renderer on Canvas.",
   "authors": [
     {
