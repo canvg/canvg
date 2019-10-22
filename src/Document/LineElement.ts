@@ -12,7 +12,8 @@ export default class LineElement extends PathElement {
 		return [
 			new Point(
 				this.getAttribute('x1').getPixels('x'),
-				this.getAttribute('y1').getPixels('y')),
+				this.getAttribute('y1').getPixels('y')
+			),
 			new Point(
 				this.getAttribute('x2').getPixels('x'),
 				this.getAttribute('y2').getPixels('y')
