@@ -297,10 +297,6 @@
 	    return (this.value != null && this.value !== '');
 	  };
 
-	  svg.Property.prototype.isAbsolute = function () {
-	    return !this.value.match(/(%|rem|em)$/);
-	  };
-
 	  // return the numerical value of the property
 	  svg.Property.prototype.numValue = function () {
 	    if (!this.hasValue()) return 0;
@@ -396,7 +392,7 @@
 	  };
 
 	  // get the length as pixels
-	  svg.Property.prototype.toPixels = function (viewPort, processPercent, parentsFontSize) {
+	  svg.Property.prototype.toPixels = function (viewPort, processPercent, considerParentFontSize) {
 	    if (!this.hasValue()) return 0;
 	    var s = this.value + '';
 	    if (s.match(/rem$/)) return this.numValue() * this.getREM(viewPort);
@@ -410,10 +406,10 @@
 	    if (s.match(/in$/)) return this.numValue() * this.getDPI(viewPort);
 	    if (s.match(/%$/)) {
 	      var calculatedPxls;
-	      if (parentsFontSize) {
+	      if (considerParentFontSize) {
 	        // return relative size based on first parent element with
 	        // specified font-size
-	        calculatedPxls = this.numValue() * parentsFontSize;
+	        calculatedPxls = this.numValue() * this.getEM(viewPort);
 	      } else {
 	        // return relative size based on root element
 	        calculatedPxls = this.numValue() * svg.ViewPort.ComputeSize(viewPort);
@@ -970,16 +966,6 @@
 	      }
 	    };
 
-	    // Get the first parent of a given element
-	    this.firstParentWithAbsoluteSize = function(parent, propertyName) {
-	      while (parent) {
-	        if (parent.style(propertyName).hasValue() && parent.style(propertyName).isAbsolute()) {
-	          return parent;
-	        }
-	        parent = parent.parent;
-	      }
-	    };
-
 	    // Microsoft Edge fix
 	    var allUppercase = new RegExp('^[A-Z\-]+$');
 	    var normalizeAttributeName = function (name) {
@@ -1105,20 +1091,11 @@
 	        if (this.style('font').hasValue()) {
 	          ctx.font = this.style('font').value;
 	        } else {
-	          var parentsFontSize;
-	          if (this.parent) {
-	            var parent = this.firstParentWithAbsoluteSize(this.parent, 'font-size');
-	            if (parent) {
-	              parentsFontSize = parent.style('font-size').toPixels();
-	            }
-	          }
-
 	          ctx.font = svg.Font.CreateFont(
 	            this.style('font-style').value,
 	            this.style('font-variant').value,
 	            this.style('font-weight').value,
-	            this.style('font-size').hasValue() ? this.style('font-size').toPixels(undefined, 
-	              undefined, parentsFontSize) + 'px' : '',
+	            this.style('font-size').hasValue() ? this.style('font-size').toPixels(undefined, undefined, true) + 'px' : '',
 	            this.style('font-family').value).toString();
 
 	          // update em size if needed
