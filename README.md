@@ -1,4 +1,4 @@
-# @flexis/canvg
+# canvg
 
 [![NPM version][npm]][npm-url]
 [![Dependencies status][deps]][deps-url]
@@ -7,34 +7,34 @@
 [![Dependabot badge][dependabot]][dependabot-url]
 [![Documentation badge][documentation]][documentation-url]
 
-[npm]: https://img.shields.io/npm/v/@flexis/canvg.svg
-[npm-url]: https://npmjs.com/package/@flexis/canvg
+[npm]: https://img.shields.io/npm/v/canvg.svg
+[npm-url]: https://npmjs.com/package/canvg
 
-[deps]: https://david-dm.org/TrigenSoftware/flexis-canvg.svg
-[deps-url]: https://david-dm.org/TrigenSoftware/flexis-canvg
+[deps]: https://david-dm.org/canvg/canvg.svg
+[deps-url]: https://david-dm.org/canvg/canvg
 
-[build]: http://img.shields.io/travis/com/TrigenSoftware/flexis-canvg/master.svg
-[build-url]: https://travis-ci.com/TrigenSoftware/flexis-canvg
+[build]: http://img.shields.io/travis/com/canvg/canvg/master.svg
+[build-url]: https://travis-ci.com/canvg/canvg
 
-[coverage]: https://img.shields.io/coveralls/TrigenSoftware/flexis-canvg.svg
-[coverage-url]: https://coveralls.io/r/TrigenSoftware/flexis-canvg
+[coverage]: https://img.shields.io/coveralls/canvg/canvg.svg
+[coverage-url]: https://coveralls.io/r/canvg/canvg
 
-[dependabot]: https://api.dependabot.com/badges/status?host=github&repo=TrigenSoftware/flexis-canvg
+[dependabot]: https://api.dependabot.com/badges/status?host=github&repo=canvg/canvg
 [dependabot-url]: https://dependabot.com/
 
 [documentation]: https://img.shields.io/badge/API-Documentation-2b7489.svg
-[documentation-url]: https://trigensoftware.github.io/flexis-canvg
+[documentation-url]: https://canvg.github.io/canvg
 
 JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas.
 
-[Demo](https://trigensoftware.github.io/flexis-canvg/demo/)
+[Demo](https://canvg.github.io/canvg/demo/)
 
 ## Install
 
 ```sh
-npm i @flexis/canvg
+npm i canvg
 # or
-yarn add @flexis/canvg
+yarn add canvg
 ```
 
 ## Usage
@@ -48,12 +48,12 @@ export {
 };
 ```
 
-[Description of all exports you can find in Documentation.](https://trigensoftware.github.io/flexis-canvg/index.html)
+[Description of all exports you can find in Documentation.](https://canvg.github.io/canvg/index.html)
 
 ### Example
 
 ```js
-import Canvg from '@flexis/canvg';
+import Canvg from 'canvg';
 
 let v = null;
 
@@ -81,7 +81,7 @@ window.onbeforeunload = () => {
 ```js
 import Canvg, {
     presets
-} from '@flexis/canvg';
+} from 'canvg';
 
 self.onmessage = async (event) => {
 
@@ -123,7 +123,7 @@ import * as canvas from 'canvas';
 import fetch from 'node-fetch';
 import Canvg, {
     presets
-} from '@flexis/canvg';
+} from 'canvg';
 
 const preset = presets.node({
     DOMParser,
@@ -161,7 +161,7 @@ const preset = presets.node({
 ```js
 import Canvg, {
     presets
-} from '@flexis/canvg';
+} from 'canvg';
 
 self.onmessage = async (event) => {
 

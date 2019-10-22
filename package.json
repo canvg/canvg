@@ -1,5 +1,5 @@
 {
-  "name": "@flexis/canvg",
+  "name": "canvg",
   "version": "3.0.0-beta",
   "description": "JavaScript SVG parser and renderer on Canvas.",
   "authors": [
@@ -18,10 +18,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TrigenSoftware/flexis-canvg"
+    "url": "https://github.com/canvg/canvg"
   },
   "bugs": {
-    "url": "https://github.com/TrigenSoftware/flexis-canvg/issues"
+    "url": "https://github.com/canvg/canvg/issues"
   },
   "main": "lib/index.js",
   "module": "lib/index.es.js",
