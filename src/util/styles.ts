@@ -37,29 +37,29 @@ export function getSelectorSpecificity(selector: string) {
 		.replace(/{[\s\S]*/gm, ' ');
 	let delta = 0;
 
-	[currentSelector, delta] = findSelectorMatch(selector, attributeRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, attributeRegex);
 	specificity[1] += delta;
 
-	[currentSelector, delta] = findSelectorMatch(selector, idRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, idRegex);
 	specificity[0] += delta;
 
-	[currentSelector, delta] = findSelectorMatch(selector, classRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, classRegex);
 	specificity[1] += delta;
 
-	[currentSelector, delta] = findSelectorMatch(selector, pseudoElementRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, pseudoElementRegex);
 	specificity[2] += delta;
 
-	[currentSelector, delta] = findSelectorMatch(selector, pseudoClassWithBracketsRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, pseudoClassWithBracketsRegex);
 	specificity[1] += delta;
 
-	[currentSelector, delta] = findSelectorMatch(selector, pseudoClassRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, pseudoClassRegex);
 	specificity[1] += delta;
 
 	currentSelector = currentSelector
 		.replace(/[\*\s\+>~]/g, ' ')
 		.replace(/[#\.]/g, ' ');
 
-	[currentSelector, delta] = findSelectorMatch(selector, elementRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, elementRegex);
 	specificity[2] += delta;
 
 	return specificity.join('');
