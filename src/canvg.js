@@ -109,7 +109,7 @@ var canvg = function (target, s, opts) {
     // load from url
     svg.load(ctx, s);
   }
-}
+};
 
 var matchesSelector;
 if (nodeEnv) {
@@ -267,12 +267,9 @@ function build(opts) {
     if (nodeEnv) { return null; }
     var AJAX;
     if (windowEnv.XMLHttpRequest) { AJAX = new windowEnv.XMLHttpRequest(); } else { AJAX = new ActiveXObject('Microsoft.XMLHTTP'); }
-    if (AJAX) {
-      AJAX.open('GET', url, false);
-      AJAX.send(null);
-      return AJAX.responseText;
-    }
-    return null;
+    AJAX.open('GET', url, false);
+    AJAX.send(null);
+    return AJAX.responseText;
   }
 
   // parse xml
@@ -498,7 +495,7 @@ function build(opts) {
     this.Parse = function (s) {
       var f = {};
       var d = svg.trim(svg.compressSpaces(s || '')).split(' ');
-      var set = { fontSize: false, fontStyle: false, fontWeight: false, fontVariant: false }
+      var set = { fontSize: false, fontStyle: false, fontWeight: false, fontVariant: false };
       var ff = '';
       for (var i = 0; i < d.length; i++) {
         if (!set.fontStyle && that.Styles.indexOf(d[i]) != -1) {
@@ -618,7 +615,7 @@ function build(opts) {
             3 * Math.pow(1 - t, 2) * t * p1[i] +
             3 * (1 - t) * Math.pow(t, 2) * p2[i] +
             Math.pow(t, 3) * p3[i];
-        }
+        };
 
         var b = 6 * p0[i] - 12 * p1[i] + 6 * p2[i];
         var a = -3 * p0[i] + 9 * p1[i] - 9 * p2[i] + 3 * p3[i];
@@ -981,7 +978,7 @@ function build(opts) {
     };
 
     // Microsoft Edge fix
-    var allUppercase = new RegExp('^[A-Z\-]+$');
+    var allUppercase = new RegExp('^[A-Z-]+$');
     var normalizeAttributeName = function (name) {
       if (allUppercase.test(name)) {
         return name.toLowerCase();
@@ -1726,11 +1723,11 @@ function build(opts) {
                 (curr.y + cp.y) / 2.0 + Math.sin(xAxisRotation) * cpp.x + Math.cos(xAxisRotation) * cpp.y
               );
               // vector magnitude
-              var m = function (v) { return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2)); }
+              var m = function (v) { return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2)); };
               // ratio between two vectors
-              var r = function (u, v) { return (u[0] * v[0] + u[1] * v[1]) / (m(u) * m(v)) }
+              var r = function (u, v) { return (u[0] * v[0] + u[1] * v[1]) / (m(u) * m(v)) };
               // angle between two vectors
-              var a = function (u, v) { return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(r(u, v)); }
+              var a = function (u, v) { return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(r(u, v)); };
               // initial angle
               var a1 = a([1, 0], [(currp.x - cpp.x) / rx, (currp.y - cpp.y) / ry]);
               // angle delta
@@ -2115,7 +2112,7 @@ function build(opts) {
         // loop for indefinitely repeating animations
         if (this.attribute('repeatCount').value == 'indefinite' ||
           this.attribute('repeatDur').value == 'indefinite') {
-          this.duration = 0.0
+          this.duration = 0.0;
         } else if (this.attribute('fill').valueOrDefault('remove') == 'freeze' && !this.frozen) {
           this.frozen = true;
           this.parent.animationFrozen = true;
@@ -2266,7 +2263,7 @@ function build(opts) {
     this.render = function(/* ctx */) {
       // NO RENDER
     }
-  }
+  };
   svg.Element.font.prototype = new svg.Element.ElementBase;
 
   // font-face element
@@ -2982,15 +2979,15 @@ function build(opts) {
               // vector magnitude
               var m = function (v) {
                 return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2));
-              }
+              };
               // ratio between two vectors
               var r = function (u, v) {
                 return (u[0] * v[0] + u[1] * v[1]) / (m(u) * m(v))
-              }
+              };
               // angle between two vectors
               var a = function (u, v) {
                 return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(r(u, v));
-              }
+              };
               // initial angle
               var a1 = a([1, 0], [(currp.x - cpp.x) / rx, (currp.y - cpp.y) / ry]); // θ1
               // angle delta
@@ -3448,7 +3445,7 @@ function build(opts) {
     this.base(node);
 
     // text, or spaces then CDATA
-    var css = ''
+    var css = '';
     for (var i = 0; i < node.childNodes.length; i++) {
       css += node.childNodes[i].data;
     }
@@ -3820,7 +3817,7 @@ function build(opts) {
       ctx.clearRect(0, 0, width, height);
       ctx.putImageData(srcData, 0, 0);
     }
-  }
+  };
   svg.Element.feColorMatrix.prototype = new svg.Element.ElementBase;
 
   svg.Element.feGaussianBlur = function (node) {
@@ -4114,7 +4111,7 @@ if (typeof CanvasRenderingContext2D != 'undefined') {
       }
     }
     canvg(this.canvas, s, cOpts);
-  }
+  };
 }
 
 // for tests
