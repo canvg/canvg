@@ -3507,23 +3507,27 @@ function build(opts) {
       if (this.attribute('y').hasValue()) ctx.translate(0, this.attribute('y').toPixels('y'));
     }
 
-    var element = this.getHrefAttribute().getDefinition();
+    this.element = null;
+    this.getElement = function() {
+      return this.element || this.getHrefAttribute().getDefinition();
+    }
 
     this.path = function (ctx) {
-      if (element != null) element.path(ctx);
+      if (this.getElement() != null) this.getElement().path(ctx);
     }
 
     this.elementTransform = function () {
-      if (element != null && element.style('transform', false, true).hasValue()) {
-        return new svg.Transform(element.style('transform', false, true).value);
+      if (this.getElement() != null && this.getElement().style('transform', false, true).hasValue()) {
+        return new svg.Transform(this.getElement().style('transform', false, true).value);
       }
     }
 
     this.getBoundingBox = function (ctx) {
-      if (element != null) return element.getBoundingBox(ctx);
+      if (this.getElement() != null) return this.getElement().getBoundingBox(ctx);
     }
 
     this.renderChildren = function (ctx) {
+      var element = this.getElement()
       if (element != null) {
         var tempSvg = element;
         if (element.type == 'symbol') {

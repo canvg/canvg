@@ -144,6 +144,7 @@ const svgs = {
     "issue320.svg": "Issue #320: rem font size",
     "issue564.svg": "Issue #564: tspan text-anchor",
     "issue556.svg": "Issue #556: mask using alpha",
+    "issue694.svg": "Issue #694: use elements with forward references"
   },
 
   broken: {
