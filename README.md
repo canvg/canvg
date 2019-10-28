@@ -59,7 +59,7 @@ For browser applications with a build process, canvg can be installed using `npm
 Alternatively, canvg can be included directly into a webpage:
 ```html
 <!-- Required to convert named colors to RGB -->
-<script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
 <!-- Optional if you want blur -->
 <script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
 <!-- Main canvg code -->
