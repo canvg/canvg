@@ -36,7 +36,7 @@
     "jest": "NODE_ENV=test jest -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
-    "test": "yarn typecheck & yarn lint & yarn jest & yarn build & yarn checkSize",
+    "test": "yarn typecheck && yarn lint && yarn jest && yarn build && yarn checkSize",
     "artifacts": "node ./scripts/artifacts.js test/__image_snapshots__",
     "build:docs": "./scripts/buildDocs.sh",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",

@@ -1,8 +1,0 @@
-[
-	"@trigen/scripts-plugin-jest",
-	"@trigen/scripts-plugin-babel",
-	"@trigen/scripts-plugin-typescript",
-	"@trigen/scripts-plugin-rollup",
-	"@trigen/scripts-preset-lib",
-	"@trigen/scripts-plugin-size-limit"
-]
