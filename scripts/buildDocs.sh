@@ -1,7 +1,10 @@
 #!/bin/bash
 
-trigen-scripts build
-trigen-scripts build:docs
+set -e
+
+yarn build
+set +e; typedoc ./src --out ./docs --ignoreCompilerErrors --excludeExternals --mode modules; set -e
+touch docs/.nojekyll
 cp -R test/browser/ docs/demo/
 cp -R test/svgs/ docs/svgs/
 cp lib/umd.js docs/demo/
