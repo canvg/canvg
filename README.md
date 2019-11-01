@@ -1,112 +1,284 @@
 # canvg
 
-[![Build Status](https://travis-ci.com/canvg/canvg.svg?branch=master)](https://travis-ci.com/canvg/canvg)
-[![npm](https://img.shields.io/npm/dm/canvg.svg)](https://www.npmjs.com/package/canvg)
-[![](https://data.jsdelivr.com/v1/package/npm/canvg/badge?style=rounded)](https://www.jsdelivr.com/package/npm/canvg)
+[![NPM version][npm]][npm-url]
+[![Dependencies status][deps]][deps-url]
+[![Build status][build]][build-url]
+[![Coverage status][coverage]][coverage-url]
+[![Dependabot badge][dependabot]][dependabot-url]
+[![Documentation badge][documentation]][documentation-url]
 
-## Looking for Contributors
+[npm]: https://img.shields.io/npm/v/canvg.svg
+[npm-url]: https://npmjs.com/package/canvg
 
-In an attempt to keep this repo more active and merge PRs and do releases, if you would like to be a contributor, please start a conversation with me at gabelerner at gmail. The prerequisite is to have a few PRs open to prove out an understanding of the code.  Thanks!
+[deps]: https://david-dm.org/canvg/canvg.svg
+[deps-url]: https://david-dm.org/canvg/canvg
 
-## Introduction
+[build]: http://img.shields.io/travis/com/canvg/canvg/master.svg
+[build-url]: https://travis-ci.com/canvg/canvg
 
-canvg is a SVG parser and renderer. It takes a URL to a SVG file or the text of an SVG file, parses it in JavaScript, and renders the result on a [Canvas](http://dev.w3.org/html5/2dcontext/) element.  The rendering speed of the examples is about as fast as native SVG.
+[coverage]: https://img.shields.io/coveralls/canvg/canvg.svg
+[coverage-url]: https://coveralls.io/r/canvg/canvg
+
+[dependabot]: https://api.dependabot.com/badges/status?host=github&repo=canvg/canvg
+[dependabot-url]: https://dependabot.com/
+
+[documentation]: https://img.shields.io/badge/API-Documentation-2b7489.svg
+[documentation-url]: https://canvg.github.io/canvg
+
+JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas.
+
+[Demo](https://canvg.github.io/canvg/demo/)
+
+## Install
+
+```sh
+npm i canvg
+# or
+yarn add canvg
+```
+
+## Usage
+
+Basic module exports:
+
+```js
+export default Canvg;
+export {
+    presets
+};
+```
+
+[Description of all exports you can find in Documentation.](https://canvg.github.io/canvg/index.html)
+
+### Example
+
+```js
+import Canvg from 'canvg';
+
+let v = null;
+
+window.onload = async () => {
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    v = await Canvg.from(ctx, './svgs/1.svg');
+
+    // Start SVG rendering with animations and mouse handling.
+    v.start();
+};
+
+window.onbeforeunload = () => {
+    v.stop();
+};
+```
+
+<details>
+    <summary>
+        <b>OffscreenCanvas</b>
+    </summary>
+
+```js
+import Canvg, {
+    presets
+} from 'canvg';
+
+self.onmessage = async (event) => {
+
+    const {
+        width,
+        height,
+        svg
+    } = event.data;
+    const canvas = new OffscreenCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    const v = await Canvg.from(ctx, svg, presets.offscreen());
+
+    // Render only first frame, ignoring animations and mouse.
+    await v.render();
+
+    const blob = await canvas.convertToBlob();
+
+    self.postMessage({
+        pngUrl: blob
+    });
+};
+```
+
+</details>
+
+<details>
+    <summary>
+        <b>NodeJS</b>
+    </summary>
+
+```js
+import {
+    promises as fs
+} from 'fs';
+import {
+    DOMParser
+} from 'xmldom';
+import * as canvas from 'canvas';
+import fetch from 'node-fetch';
+import Canvg, {
+    presets
+} from 'canvg';
+
+const preset = presets.node({
+    DOMParser,
+    canvas,
+    fetch
+});
+
+(async (output, input) => {
+
+    const svg = await fs.readFile(input, 'utf8');
+    const canvas = preset.createCanvas(800, 600);
+    const ctx = canvas.getContext('2d');
+    const v = Canvg.fromString(ctx, svg, preset);
+
+    // Render only first frame, ignoring animations.
+    await v.render();
+
+    const png = canvas.toBuffer();
+
+    await fs.writeFile(output, png);
+
+})(
+    process.argv.pop(),
+    process.argv.pop()
+);
+```
+
+</details>
+
+<details>
+    <summary>
+        <b>Resize</b>
+    </summary>
+
+```js
+import Canvg, {
+    presets
+} from 'canvg';
+
+self.onmessage = async (event) => {
+
+    const {
+        width,
+        height,
+        svg
+    } = event.data;
+    const canvas = new OffscreenCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    const v = await Canvg.from(ctx, svg, presets.offscreen());
+
+    /**
+     * Resize SVG to fit in given size.
+     * @param width
+     * @param height
+     * @param preserveAspectRatio
+     */
+    v.resize(width, height, 'xMidYMid meet');
+
+    // Render only first frame, ignoring animations and mouse.
+    await v.render();
+
+    const blob = await canvas.convertToBlob();
+
+    self.postMessage({
+        pngUrl: blob
+    });
+};
+```
+
+</details>
+
+### Options
+
+The third parameter of `new Canvg(...)`, `Canvg.from(...)` and `Canvg.fromString(...)` is options:
+
+```ts
+interface IOptions {
+    /**
+     * WHATWG-compatible `fetch` function.
+     */
+    fetch?: typeof fetch;
+    /**
+     * XML/HTML parser from string into DOM Document.
+     */
+    DOMParser?: typeof DOMParser;
+    /**
+     * Window object.
+     */
+    window?: Window;
+    /**
+     * Whether enable the redraw.
+     */
+    enableRedraw?: boolean;
+    /**
+     * Ignore mouse events.
+     */
+    ignoreMouse?: boolean;
+    /**
+     * Ignore animations.
+     */
+    ignoreAnimation?: boolean;
+    /**
+     * Does not try to resize canvas.
+     */
+    ignoreDimensions?: boolean;
+    /**
+     * Does not clear canvas.
+     */
+    ignoreClear?: boolean;
+    /**
+     * Scales horizontally to width.
+     */
+    scaleWidth?: number;
+    /**
+     * Scales vertically to height.
+     */
+    scaleHeight?: number;
+    /**
+     * Draws at a x offset.
+     */
+    offsetX?: number;
+    /**
+     * Draws at a y offset.
+     */
+    offsetY?: number;
+    /**
+     * Will call the function on every frame, if it returns true, will redraw.
+     */
+    forceRedraw?(): boolean;
+    /**
+     * Default `rem` size.
+     */
+    rootEmSize?: number;
+    /**
+     * Default `em` size.
+     */
+    emSize?: number;
+    /**
+     * Function to create new canvas.
+     */
+    createCanvas?: (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas;
+    /**
+     * Function to create new image.
+     */
+    createImage?: (src: string) => Promise<CanvasImageSource>;
+}
+```
+
+#### Options presets
+
+There are two options presets:
+
+- `presets.offscreen()`: options for [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas);
+- `presets.node({ DOMParser, canvas, fetch })`: options for NodeJS with [`node-canvas`](https://github.com/Automattic/node-canvas).
 
 ## What's implemented?
 
-The end goal is everything from the [SVG spec](http://www.w3.org/TR/SVG/). The majority of the rendering and animation is working.  If you would like to see a feature implemented, don't hesitate to contact me or add it to the issues list.
-
-## Potential uses
-
-* Allows for inline embedding of SVG through JavaScript (w/o having to request another file or break validation)
-* Allows for single SVG version across all browsers that support Canvas
-* Allows for mobile devices supporting Canvas but not SVG to render SVG
-* Allows for SVG -> Canvas -> png transition all on the client side (through [toDataUrl](http://www.w3.org/TR/html5/the-canvas-element.html#dom-canvas-todataurl))
-
-## Example Demonstration
-
-[hosted](http://canvg.github.io/canvg/examples/index.htm)
-
-[jsfiddle playground](http://jsfiddle.net/6r2jug6o/2590/)
-
-Locally, you can run `npm start` and view the examples at [http://localhost:3123/examples/index.htm](http://localhost:3123/examples/index.htm)
-
-## Building
-
-`npm run build` then look in the `dist` folder
-
-## Testing
-
-- `npm run test-node` runs tests on `node`
-- `npm run test-browser` runs tests on `browser`
-- `npm run generate-expected foo.svg` to create the expected png for a given svg in the `svgs` folder
-
-## Usage on the server
-
-`npm install canvg canvas@^2 jsdom@^13 xmldom@^0`
-
-The dependencies required on the server only are peers so must be installed
-alongside the canvg package.
-
-**Older version**
-
-`npm install canvg@^1.5`
-
-## Usage on the browser
-
-For browser applications with a build process, canvg can be installed using `npm` similar to use on the server. Note in this case the peer dependencies are not required so do not need to be installed.
-
-Alternatively, canvg can be included directly into a webpage:
-```html
-<!-- Required to convert named colors to RGB -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
-<!-- Optional if you want blur -->
-<script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script>
-<!-- Main canvg code -->
-<script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
-```
-
-Put a canvas on your page
-```html
-<canvas id="canvas" width="1000px" height="600px"></canvas>
-```
-
-Example canvg calls:
-```html
-<script>
-window.onload = function() {
-  //load '../path/to/your.svg' in the canvas with id = 'canvas'
-  canvg('canvas', '../path/to/your.svg')
-
-  //load a svg snippet in the canvas with id = 'drawingArea'
-  canvg(document.getElementById('drawingArea'), '<svg>...</svg>')
-
-  //ignore mouse events and animation
-  canvg('canvas', 'file.svg', { ignoreMouse: true, ignoreAnimation: true })
-}
-</script>
-```
-
-The third parameter is options:
-* log: true => console.log information
-* ignoreMouse: true => ignore mouse events
-* ignoreAnimation: true => ignore animations
-* ignoreDimensions: true => does not try to resize canvas
-* ignoreClear: true => does not clear canvas
-* offsetX: int => draws at a x offset
-* offsetY: int => draws at a y offset
-* scaleWidth: int => scales horizontally to width
-* scaleHeight: int => scales vertically to height
-* renderCallback: function => will call the function after the first render is completed
-* forceRedraw: function => will call the function on every frame, if it returns true, will redraw
-* useCORS: true => will attempt to use CORS on images to not taint canvas
-
-You can call canvg without parameters to replace all svg images on a page. See the
-[example](http://canvg.github.io/canvg/examples/convert.htm).
-
-There is also a built in extension method to the canvas context to draw svgs similar to the way [drawImage](http://www.w3.org/TR/2dcontext/#dom-context-2d-drawimage) works:
-```javascript
-var c = document.getElementById('canvas');
-var ctx = c.getContext('2d');
-ctx.drawSvg(SVG_XML_OR_PATH_TO_SVG, dx, dy, dw, dh);
-```
+The end goal is everything from the [SVG spec](http://www.w3.org/TR/SVG/). The majority of the rendering and animation is working. If you would like to see a feature implemented, don't hesitate to add it to the issues list, or better is to create pull request 😎

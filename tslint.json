@@ -1,0 +1,7 @@
+{
+	"extends": "tslint-config-trigen/base",
+	"rules": {
+		"no-magic-numbers": false,
+		"binary-expression-operand-order": false
+	}
+}
