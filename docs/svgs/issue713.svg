@@ -1,0 +1,14 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500">
+	<g transform="scale(0 0)" fill="#b6d957">
+		<circle cx="6" cy="6" r="5"></circle>
+	</g>
+	<g transform="scale()" fill="#b6d957">
+		<circle cx="30" cy="6" r="5"></circle>
+	</g>
+	<g fill="#b6d957">
+		<circle cx="6" cy="40" r="5"></circle>
+	</g>
+	<g transform="scale(2 2)" fill="#b6d957">
+		<circle cx="6" cy="40" r="5"></circle>
+	</g>
+</svg>
