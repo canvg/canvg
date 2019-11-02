@@ -147,7 +147,8 @@
 		"issue717.svg": "Issue #717: em font size",
 		"issue406.svg": "Issue #406: refX and refY is invalid when draw the marker",
 		"issue690.svg": "Issue #690: vh, vw, vmin, vmax",
-		"issue713.svg": "Issue #713: scale 0 not applied"
+		"issue713.svg": "Issue #713: scale 0 not applied",
+		"issue748.svg": "Issue #748: relative font-sizes"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
