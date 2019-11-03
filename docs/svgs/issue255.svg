@@ -1,0 +1,18 @@
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="372.05" height="524.41" id="svgMYV">
+	<g transform="translate(0,-527.95275)" id="layer1">
+	<rect width="521.42999" height="369.06778" x="529.44244" y="-370.55682" transform="matrix(0,1,-1,0,0,0)" id="rect2985" style="fill:white;stroke:black;stroke-width:2;stroke-opacity:1"></rect>
+	<g transform="translate(365.6791076660156,1585.134521484375)rotate(180)skewX(0)scale(1,1)" id="g1" visibility="visible">
+		<text xml:space="preserve" style="font-size:298.88345337px;font-family:Liberation;" x="37.00465" y="460.40408" transform="scale(0.45800257,2.1833939)">
+			<tspan fill="#000000" id="g1tspan" x="37.00465" y="460.40408" style="fill:rgb(127,178,193);fill-opacity:0.8;">2014</tspan></text>
+	</g>
+	<g transform="translate(-370.5179443359375,1050.302001953125)rotate(270)scale(1.4180182218551636,0.6967310309410095)" id="g2" visibility="visible">
+		<text x="-1360.0754" y="252.41367" transform="matrix(0,-0.75595693,1.3228267,0,0,0)" id="txt2" xml:space="preserve" style="font-size:347.29910278px;font-family:Liberation;">
+			<tspan fill="#007800" x="-1360.0754" y="252.41367" id="g2tspan" style="fill:rgb(18,227,185);fill-opacity:0.8;">MES</tspan></text>
+					</g>
+	<g transform="translate(0.4618189036846161,5.657965660095215)rotate(0)skewX(0)scale(0.9995729923248291,0.9894717931747437)" id="g3" visibility="visible">
+		<text x="54.654762" y="448.80807" transform="scale(0.44365324,2.2540126)" id="txt3" xml:space="preserve" style="font-size:298.31869507px;font-family:Liberation;"><tspan fill="#f0f000" x="54.654762" y="448.80807" id="g3tspan" style="fill:rgb(156.91148953599998,35.97962854399999,176.999297536);fill-opacity:0.8;">YEAR</tspan></text>
+					</g>
+	<g transform="translate(737.3848630408336,528.3610494591582)rotate(89.99977336384616)scale(1.4303165556122286,0.7001695169499671)" id="g4" visibility="visible">
+		<text x="997.91339" y="-17.678368" transform="matrix(0,0.56915981,-1.7569758,0,0,0)" id="txt4" xml:space="preserve" style="font-size:261.48141479px;font-family:Liberation;"><tspan fill="#c80000" x="997.91339" y="-17.678368" id="g4tspan" style="fill:rgb(156.00917504,60.99764070399999,63.00406323200001);fill-opacity:0.8;">VOEUX</tspan></text>
+	</g>
+</g></svg>
