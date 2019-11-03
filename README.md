@@ -29,7 +29,7 @@ JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file o
 
 [Demo](https://canvg.github.io/canvg/demo/index.html)
 
-[Playground](https://jsfiddle.net/gep7tnqy/)
+[Playground](https://jsfiddle.net/0f2dbt8y/)
 
 ## Install
 
@@ -193,6 +193,31 @@ self.onmessage = async (event) => {
         pngUrl: blob
     });
 };
+```
+
+</details>
+
+<details>
+    <summary>
+        <b>Browser</b>
+    </summary>
+
+```html
+<script type="text/javascript" src="https://unpkg.com/canvg@3.0.0-beta.0/lib/umd.js"></script>
+<script type="text/javascript">
+window.onload = async () => {
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    v = await canvg.Canvg.fromString(ctx, '<svg width="600" height="600"><text x="50" y="50">Hello World!</text></svg>');
+
+    // Start SVG rendering with animations and mouse handling.
+    v.start();
+
+};
+</script>
+<canvas />
 ```
 
 </details>
