@@ -27,7 +27,9 @@
 
 JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas.
 
-[Demo](https://canvg.github.io/canvg/demo/)
+[Demo](https://canvg.github.io/canvg/demo/index.html)
+
+[Playground](https://jsfiddle.net/gep7tnqy/)
 
 ## Install
 
