@@ -184,7 +184,7 @@ export default abstract class RenderedElement extends Element {
 				fontVariantStyleProp.getString(),
 				fontWeightStyleProp.getString(),
 				fontSizeStyleProp.hasValue()
-					? `${fontSizeStyleProp.getPixels()}px`
+					? `${fontSizeStyleProp.getPixels(true)}px`
 					: '',
 				fontFamilyStyleProp.getString(),
 				Font.parse(

@@ -1,6 +1,6 @@
 {
 	"src/**/*.{ts,tsx}": [
-		"trigen-scripts lint:ts",
+		"yarn lint",
 		"git add"
 	]
 }
