@@ -207,15 +207,9 @@ export default abstract class RenderedElement extends Element {
 		}
 
 		// transform
-		const transformStyleProp = this.getStyle('transform', false, true);
+		const transform = Transform.fromElement(this, this.document);
 
-		if (transformStyleProp.hasValue()) {
-
-			const transform = new Transform(
-				this.document,
-				transformStyleProp.getString()
-			);
-
+		if (transform) {
 			transform.apply(ctx);
 		}
 

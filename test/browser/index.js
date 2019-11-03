@@ -117,7 +117,7 @@ async function render(svg, width, height) {
 		await v.render();
 	}
 
-	renderSource(svg);
+	renderSource(svg, width, height);
 }
 
 async function offscreenRender(svg, width, height) {
@@ -162,7 +162,7 @@ function v2Render(svg, width, height) {
 	});
 }
 
-async function renderSource(svg) {
+async function renderSource(svg, width, height) {
 
 	if (search.has('no-svg')) {
 		svgOutput.innerHTML = '<svg>';
@@ -178,11 +178,19 @@ async function renderSource(svg) {
 		svgText = await response.text();
 	}
 
-	const parser = new Parser();
-	const document = parser.parseFromString(svgText);
+	try {
+		svgOutput.innerHTML = svgText;
+	}
+	catch {
+		svgOutput.innerHTML = '<svg>';
+		return;
+	}
 
-	svgOutput.innerHTML = '';
-	svgOutput.append(document.documentElement);
+	if (custom.resize.checked) {
+		const svgElement = svgOutput.childNodes[0];
+		svgElement.style.width = width;
+		svgElement.style.height = height;
+	}
 
 	if (overrideTextBox) {
 		custom.svg.value = svgOutput.innerHTML;
