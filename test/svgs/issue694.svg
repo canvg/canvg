@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="520" viewBox="0 0 620 520"
+     style="overflow: hidden; display: block;">
+  <defs>
+    <rect id="outer" fill="red" width="80" height="80"/>
+    <clipPath>
+      <defs>
+        <rect id="dumb" fill="gold" width="80" height="80"/>
+      </defs>
+    </clipPath>
+
+    <rect id="duplicate" fill="blue" width="80" height="80"/>
+
+    <linearGradient id="gradient">
+      <stop stop-color="gold" offset="0"/>
+      <stop stop-color="green" offset="1"/>
+    </linearGradient>
+
+
+    <g id="nested">
+      <defs>
+        <linearGradient id="nestedGradient">
+          <stop stop-color="red" offset="0"/>
+          <stop stop-color="green" offset="1"/>
+        </linearGradient>
+      </defs>
+      <rect width="80" height="80" fill="url(#nestedGradient)"/>
+    </g>
+
+    <rect id="sameLevel" width="80" height="80" fill="url(#gradient)"/>
+
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="80" height="80">
+      <use href="#outer"/>
+    </pattern>
+  </defs>
+  <g>
+    <!-- usages with standard references -->
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="600" viewBox="0 0 200 600">
+      <defs>
+        <rect id="inner" fill="green" width="80" height="80"/>
+        <rect id="duplicate" fill="gray" width="80" height="80"/>
+
+        <linearGradient id="gradient">
+          <stop stop-color="gray" offset="0"/>
+          <stop stop-color="green" offset="1"/>
+        </linearGradient>
+      </defs>
+
+      <use href="#outer" transform="translate(20, 20)"/>
+      <use href="#inner" transform="translate(20, 120)"/>
+
+      <use href="#dumb" transform="translate(20, 220)"/>
+
+      <use href="#duplicate" transform="translate(20, 320)"/>
+
+      <rect fill="url(#gradient)" width="80" height="80" transform="translate(20, 420)"/>
+
+    </svg>
+
+    <use href="#outer" transform="translate(120, 20)"/>
+    <use href="#inner" transform="translate(120, 120)"/>
+
+    <use href="#dumb" transform="translate(120, 220)"/>
+
+    <use href="#duplicate" transform="translate(120, 320)"/>
+
+    <rect fill="url(#gradient)" width="80" height="80" transform="translate(120, 420)"/>
+
+    <use href="#nested" transform="translate(220, 20)"/>
+
+    <use href="#sameLevel" transform="translate(220, 120)"/>
+
+    <rect fill="url(#pattern)" width="80" height="80" transform="translate(220, 220)"/>
+  </g>
+
+  <line stroke="black" stroke-width="2px" x1="310" x2="310" y1="20" y2="500"/>
+
+  <g transform="translate(300, 0)">
+    <!-- usages with forward references -->
+    <use href="#outer-forward" transform="translate(120, 20)"/>
+    <use href="#inner-forward" transform="translate(120, 120)"/>
+
+    <use href="#dumb-forward" transform="translate(120, 220)"/>
+
+    <use href="#duplicate-forward" transform="translate(120, 320)"/>
+
+    <rect fill="url(#gradient-forward)" width="80" height="80" transform="translate(120, 420)"/>
+
+    <use href="#nested-forward" transform="translate(220, 20)"/>
+
+    <use href="#sameLevel-forward" transform="translate(220, 120)"/>
+
+    <rect fill="url(#pattern-forward)" width="80" height="80" transform="translate(220, 220)"/>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="600" viewBox="0 0 200 600">
+      <use href="#outer-forward" transform="translate(20, 20)"/>
+      <use href="#inner-forward" transform="translate(20, 120)"/>
+
+      <use href="#dumb-forward" transform="translate(20, 220)"/>
+
+      <use href="#duplicate-forward" transform="translate(20, 320)"/>
+
+      <rect fill="url(#gradient-forward)" width="80" height="80" transform="translate(20, 420)"/>
+
+      <defs>
+        <rect id="inner-forward" fill="green" width="80" height="80"/>
+        <rect id="duplicate-forward" fill="blue" width="80" height="80"/>
+
+        <linearGradient id="gradient-forward">
+          <stop stop-color="gold" offset="0"/>
+          <stop stop-color="green" offset="1"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </g>
+
+  <defs>
+    <rect id="outer-forward" fill="red" width="80" height="80"/>
+    <clipPath>
+      <defs>
+        <rect id="dumb-forward" fill="gold" width="80" height="80"/>
+      </defs>
+    </clipPath>
+
+    <rect id="duplicate-forward" fill="gray" width="80" height="80"/>
+
+    <linearGradient id="gradient-forward">
+      <stop stop-color="gray" offset="0"/>
+      <stop stop-color="green" offset="1"/>
+    </linearGradient>
+
+
+    <g id="nested-forward">
+      <defs>
+        <linearGradient id="nestedGradient-forward">
+          <stop stop-color="red" offset="0"/>
+          <stop stop-color="green" offset="1"/>
+        </linearGradient>
+      </defs>
+      <rect width="80" height="80" fill="url(#nestedGradient)"/>
+    </g>
+
+    <rect id="sameLevel-forward" width="80" height="80" fill="url(#gradient)"/>
+
+    <pattern id="pattern-forward" patternUnits="userSpaceOnUse" width="80" height="80">
+      <use href="#outer"/>
+    </pattern>
+  </defs>
+</svg>
