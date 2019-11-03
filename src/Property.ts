@@ -147,7 +147,16 @@ export default class Property<T = any> {
 		return this.getString().replace(/[0-9\.\-]/g, '');
 	}
 
-	getPixels(axis?: Axis, processPercent = false, considerParentFontSize = false) {
+	getPixels(axis?: Axis, processPercent?: boolean): number;
+	getPixels(isFontSize?: boolean): number;
+	getPixels(axisOrIsFontSize?: Axis | boolean, processPercent = false): number {
+
+		const [
+			axis,
+			isFontSize
+		] = typeof axisOrIsFontSize === 'boolean'
+			? [undefined, axisOrIsFontSize]
+			: [axisOrIsFontSize];
 
 		if (!this.hasValue()) {
 			return 0;
@@ -212,11 +221,10 @@ export default class Property<T = any> {
 			case this.isString(/in$/):
 				return this.getNumber() * this.getDpi(/* viewPort */);
 
-			case this.isString(/%$/):
-				if (considerParentFontSize) {
-					return this.getNumber() * this.getEm(/* viewPort */);
-				}
+			case this.isString(/%$/) && isFontSize:
+				return this.getNumber() * this.getEm(/* viewPort */);
 
+			case this.isString(/%$/):
 				return this.getNumber() * viewPort.computeSize(axis);
 
 			default: {
