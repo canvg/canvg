@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	compressSpaces
 } from '../util';
 import Point from '../Point';

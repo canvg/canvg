@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	toNumbers,
 	compressSpaces,
 	trimLeft,

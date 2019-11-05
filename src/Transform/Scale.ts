@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	PSEUDO_ZERO
 } from '../util';
 import Document from '../Document';

@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	normalizeAttributeName
 } from '../util';
 import Property from '../Property';

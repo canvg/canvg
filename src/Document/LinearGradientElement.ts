@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Document from './Document';
 import PathElement from './PathElement';
 import GradientElement from './GradientElement';
