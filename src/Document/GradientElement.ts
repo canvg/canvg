@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Property from '../Property';
 import Document from './Document';
 import Element from './Element';

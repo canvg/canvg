@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Element from './Element';
 import PathElement from './PathElement';
 import FeGaussianBlurElement from './FeGaussianBlurElement';

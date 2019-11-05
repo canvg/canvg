@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import BoundingBox from '../BoundingBox';
 import Element from './Element';
 import PathElement from './PathElement';

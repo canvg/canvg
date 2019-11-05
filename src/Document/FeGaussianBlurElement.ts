@@ -1,6 +1,9 @@
 import {
 	canvasRGBA
 } from 'stackblur-canvas';
+import {
+	RenderingContext2D
+} from '../types';
 import Document from './Document';
 import Element from './Element';
 

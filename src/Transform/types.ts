@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Point from '../Point';
 
 export interface ITransform {
