@@ -1,11 +1,14 @@
 import {
-	compressSpaces, toNumbers
+	compressSpaces,
+	toNumbers
 } from '../util';
 import Point from '../Point';
 import {
 	ITransform
 } from './types';
-import Document, { Element } from '../Document';
+import Document, {
+  Element
+} from '../Document';
 import Translate from './Translate';
 import Rotate from './Rotate';
 import Scale from './Scale';
@@ -46,16 +49,17 @@ function parseTransform(transform: string) {
 }
 
 interface ITransformConstructor {
+	prototype: ITransform;
 	new (
 		document: Document,
 		value: string,
 		transformOrigin?: number[]
-	): any;
+	): ITransform;
 }
 
 export default class Transform {
 
-	static transformTypes: { [key: string]: ITransformConstructor } = {
+	static transformTypes: Record<string, ITransformConstructor> = {
 		translate: Translate,
 		rotate:    Rotate,
 		scale:     Scale,
@@ -64,7 +68,7 @@ export default class Transform {
 		skewY:     SkewY
 	};
 
-	static fromElement(element: Element, document: Document): Transform | undefined {
+	static fromElement(document: Document, element: Element) {
 
 		const transformStyle = element.getStyle('transform', false, true);
 		const transformOriginStyle = element.getStyle('transform-origin', false, true);
@@ -76,6 +80,8 @@ export default class Transform {
 				transformOriginStyle.getString()
 			);
 		}
+
+		return null;
 	}
 
 	private readonly transforms: ITransform[] = [];
@@ -87,6 +93,9 @@ export default class Transform {
 	) {
 
 		const data = parseTransforms(transform);
+		const originCoords = transformOrigin
+			? toNumbers(transformOrigin)
+			: [];
 
 		data.forEach((transform) => {
 
@@ -101,9 +110,7 @@ export default class Transform {
 			const TransformType = Transform.transformTypes[type];
 
 			if (typeof TransformType !== 'undefined') {
-				const parsedTransformOrigin: number[] | undefined = transformOrigin && toNumbers(transformOrigin);
-
-				this.transforms.push(new TransformType(this.document, value, parsedTransformOrigin));
+				this.transforms.push(new TransformType(this.document, value, originCoords));
 			}
 		});
 	}

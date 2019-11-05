@@ -178,13 +178,11 @@ async function renderSource(svg, width, height) {
 		svgText = await response.text();
 	}
 
-	try {
-		svgOutput.innerHTML = svgText;
-	}
-	catch {
-		svgOutput.innerHTML = '<svg>';
-		return;
-	}
+	const parser = new Parser();
+	const document = parser.parseFromString(svgText);
+
+	svgOutput.innerHTML = '';
+	svgOutput.append(document.documentElement);
 
 	if (custom.resize.checked) {
 		const svgElement = svgOutput.childNodes[0];
