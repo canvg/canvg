@@ -37,7 +37,7 @@ export default class ClipPathElement extends Element {
 				: null; // handle <use />
 
 			if (!transform) {
-				transform = Transform.fromElement(child, document);
+				transform = Transform.fromElement(document, child);
 			}
 
 			if (transform) {

@@ -122,7 +122,7 @@ export default class UseElement extends RenderedElement {
 			element
 		} = this;
 
-		return Transform.fromElement(element, document);
+		return Transform.fromElement(document, element);
 	}
 
 	protected get element() {

@@ -207,7 +207,7 @@ export default abstract class RenderedElement extends Element {
 		}
 
 		// transform
-		const transform = Transform.fromElement(this, this.document);
+		const transform = Transform.fromElement(this.document, this);
 
 		if (transform) {
 			transform.apply(ctx);
