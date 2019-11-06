@@ -89,13 +89,13 @@ export default class SVGElement extends RenderedElement {
 
 			const refXAttr = this.getAttribute('refX');
 			const refYAttr = this.getAttribute('refY');
-			let x = 0;
-			let y = 0;
+			const x = 0;
+			const y = 0;
 
 			if (refXAttr.hasValue() && refYAttr.hasValue()) {
-				const _x = -refXAttr.getPixels('x');
-				const _y = -refYAttr.getPixels('y');
-				ctx.translate(_x, _y);
+				const translateX = -refXAttr.getPixels('x');
+				const translateY = -refYAttr.getPixels('y');
+				ctx.translate(translateX, translateY);
 			}
 
 			if (this.getAttribute('overflow').getValue('hidden') !== 'visible') {
