@@ -124,16 +124,8 @@ export default class UseElement extends RenderedElement {
 			document,
 			element
 		} = this;
-		const transformAttr = element.getStyle('transform', false, true);
 
-		if (element && transformAttr.hasValue()) {
-			return new Transform(
-				document,
-				transformAttr.getString()
-			);
-		}
-
-		return null;
+		return Transform.fromElement(document, element);
 	}
 
 	protected get element() {
