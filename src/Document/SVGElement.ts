@@ -93,8 +93,9 @@ export default class SVGElement extends RenderedElement {
 			let y = 0;
 
 			if (refXAttr.hasValue() && refYAttr.hasValue()) {
-				x = -refXAttr.getPixels('x');
-				y = -refYAttr.getPixels('y');
+				const _x = -refXAttr.getPixels('x');
+				const _y = -refYAttr.getPixels('y');
+				ctx.translate(_x, _y);
 			}
 
 			if (this.getAttribute('overflow').getValue('hidden') !== 'visible') {
@@ -153,7 +154,7 @@ export default class SVGElement extends RenderedElement {
 	resize(
 		width: number,
 		height = width,
-		preserveAspectRatio: boolean|string = false
+		preserveAspectRatio: boolean | string = false
 	) {
 
 		const widthAttr = this.getAttribute('width', true);
