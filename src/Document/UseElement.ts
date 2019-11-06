@@ -1,4 +1,7 @@
 // tslint:disable: variable-name
+import {
+	RenderingContext2D
+} from '../types';
 import Property from '../Property';
 import Transform from '../Transform';
 import RenderedElement from './RenderedElement';

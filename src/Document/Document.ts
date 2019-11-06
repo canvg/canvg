@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Canvg from '../Canvg';
 import Screen from '../Screen';
 import Property from '../Property';

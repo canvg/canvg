@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Property from '../Property';
 import Element from './Element';
 import SVGElement from './SVGElement';

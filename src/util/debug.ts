@@ -1,3 +1,7 @@
+import {
+	RenderingContext2D
+} from '../types';
+
 /**
  * Wrap rendering context to log every action.
  * @param ctx - Rendering context.

@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Transform from '../Transform';
 import Element from './Element';
 import UseElement from './UseElement';
