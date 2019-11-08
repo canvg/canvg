@@ -1,6 +1,3 @@
-import {
-	RenderingContext2D
-} from '../types';
 import Canvg from '../Canvg';
 import Screen, {
 	IScreenAspectRatioConfig
