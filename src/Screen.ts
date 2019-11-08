@@ -1,5 +1,8 @@
 import requestAnimationFrame from 'raf';
 import {
+	RenderingContext2D
+} from './types';
+import {
 	compressSpaces,
 	toNumbers
 } from './util';

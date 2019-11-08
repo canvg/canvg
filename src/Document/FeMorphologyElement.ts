@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Element from './Element';
 
 export default class FeMorphologyElement extends Element {

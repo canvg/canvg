@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	toNumbers
 } from '../util';
 import Property from '../Property';

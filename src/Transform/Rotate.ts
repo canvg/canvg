@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	toNumbers
 } from '../util';
 import Document from '../Document';
@@ -14,14 +17,15 @@ export default class Rotate {
 
 	constructor(
 		document: Document,
-		rotate: string
+		rotate: string,
+		transformOrigin: number[] = []
 	) {
 
 		const numbers = toNumbers(rotate);
 
 		this.angle = new Property(document, 'angle', numbers[0]);
-		this.cx = numbers[1] || 0;
-		this.cy = numbers[2] || 0;
+		this.cx = (numbers[1] || 0) + (transformOrigin[0] || 0);
+		this.cy = (numbers[2] || 0) + (transformOrigin[1] || 0);
 	}
 
 	apply(ctx: RenderingContext2D) {

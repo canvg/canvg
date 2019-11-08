@@ -1,4 +1,7 @@
 import {
+	RenderingContext2D
+} from '../types';
+import {
 	PSEUDO_ZERO,
 	toNumbers
 } from '../util';
@@ -207,15 +210,9 @@ export default abstract class RenderedElement extends Element {
 		}
 
 		// transform
-		const transformStyleProp = this.getStyle('transform', false, true);
+		const transform = Transform.fromElement(this.document, this);
 
-		if (transformStyleProp.hasValue()) {
-
-			const transform = new Transform(
-				this.document,
-				transformStyleProp.getString()
-			);
-
+		if (transform) {
 			transform.apply(ctx);
 		}
 

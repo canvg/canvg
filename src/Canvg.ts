@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from './types';
 import Parser, {
 	IParserOptions
 } from './Parser';

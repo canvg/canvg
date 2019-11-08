@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import BoundingBox from '../BoundingBox';
 import Document from './Document';
 import RenderedElement from './RenderedElement';

@@ -1,3 +1,6 @@
+import {
+	RenderingContext2D
+} from '../types';
 import Property from '../Property';
 import Font from '../Font';
 import BoundingBox from '../BoundingBox';

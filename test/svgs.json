@@ -150,6 +150,7 @@
 		"issue694.svg": "Issue #694: support forward references in use elements",
 		"issue713.svg": "Issue #713: scale 0 not applied",
 		"issue748.svg": "Issue #748: relative font-sizes",
+		"issue757.svg": "Issue #757: transform-origin css",
 		"issue735.svg": "Issue #735: Incorrect markers rendering"
 	},
 	"broken": {

@@ -1,3 +1,4 @@
+export * from './types';
 export * from './util';
 export { default } from './Canvg';
 export { default as Canvg } from './Canvg';
