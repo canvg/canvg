@@ -212,13 +212,30 @@ export default class Screen {
 
 		const refXProp = new Property(document, 'refX', refX);
 		const refYProp = new Property(document, 'refY', refY);
+		const hasRefs = refXProp.hasValue() && refYProp.hasValue();
 
-		if (refXProp.hasValue() && refYProp.hasValue()) {
+		if (hasRefs) {
 			ctx.translate(
 				-scaleMin * refXProp.getPixels('x'),
 				-scaleMin * refYProp.getPixels('y')
 			);
-		} else {
+		}
+
+		if (clip) {
+
+			const scaledClipX = scaleMin * clipX;
+			const scaledClipY = scaleMin * clipY;
+
+			ctx.beginPath();
+			ctx.moveTo(scaledClipX, scaledClipY);
+			ctx.lineTo(width, scaledClipY);
+			ctx.lineTo(width, height);
+			ctx.lineTo(scaledClipX, height);
+			ctx.closePath();
+			ctx.clip();
+		}
+
+		if (!hasRefs) {
 
 			const isMeetMinY = meetOrSlice === 'meet' && scaleMin === scaleY;
 			const isSliceMaxY = meetOrSlice === 'slice' && scaleMax === scaleY;
@@ -248,20 +265,6 @@ export default class Screen {
 			)) {
 				ctx.translate(0, height - finalDesiredHeight);
 			}
-		}
-
-		if (clip) {
-
-			const scaledClipX = scaleMin * clipX;
-			const scaledClipY = scaleMin * clipY;
-
-			ctx.beginPath();
-			ctx.moveTo(scaledClipX, scaledClipY);
-			ctx.lineTo(width, scaledClipY);
-			ctx.lineTo(width, height);
-			ctx.lineTo(scaledClipX, height);
-			ctx.closePath();
-			ctx.clip();
 		}
 
 		// scale
