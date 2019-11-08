@@ -65,6 +65,23 @@ export interface IScreenStartOptions {
 	forceRedraw?(): boolean;
 }
 
+export interface IScreenAspectRatioConfig {
+	document: Document;
+	ctx: RenderingContext2D;
+	aspectRatio: string;
+	width: number;
+	desiredWidth: number;
+	height: number;
+	desiredHeight: number;
+	minX?: number;
+	minY?: number;
+	refX?: number;
+	refY?: number;
+	clip?: boolean;
+	clipX?: number;
+	clipY?: number;
+}
+
 const defaultWindow = typeof window !== 'undefined'
 	? window
 	: null;
@@ -148,19 +165,22 @@ export default class Screen {
 		ctx.miterLimit = 4;
 	}
 
-	setAspectRatio(
-		document: Document,
-		ctx: RenderingContext2D,
-		aspectRatio: string,
-		width: number,
-		desiredWidth: number,
-		height: number,
-		desiredHeight: number,
+	setAspectRatio({
+		document,
+		ctx,
+		aspectRatio,
+		width,
+		desiredWidth,
+		height,
+		desiredHeight,
 		minX = 0,
 		minY = 0,
-		refX?: number,
-		refY?: number
-	) {
+		refX,
+		refY,
+		clip = false,
+		clipX = 0,
+		clipY = 0
+	}: IScreenAspectRatioConfig) {
 		// aspect ratio - http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
 		const cleanAspectRatio = compressSpaces(aspectRatio).replace(/^defer\s/, ''); // ignore defer
 		const [
@@ -225,6 +245,20 @@ export default class Screen {
 			)) {
 				ctx.translate(0, height - finalDesiredHeight);
 			}
+		}
+
+		if (clip) {
+
+			const scaledClipX = scaleMin * clipX;
+			const scaledClipY = scaleMin * clipY;
+
+			ctx.beginPath();
+			ctx.moveTo(scaledClipX, scaledClipY);
+			ctx.lineTo(width, scaledClipY);
+			ctx.lineTo(width, height);
+			ctx.lineTo(scaledClipX, height);
+			ctx.closePath();
+			ctx.clip();
 		}
 
 		// scale

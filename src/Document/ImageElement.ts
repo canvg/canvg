@@ -105,16 +105,14 @@ export default class ImageElement extends RenderedElement {
 			const image = this.image as CanvasImageSource;
 
 			ctx.translate(x, y);
-			document.setAspectRatio(
+			document.setAspectRatio({
 				ctx,
-				this.getAttribute('preserveAspectRatio').getString(),
+				aspectRatio:   this.getAttribute('preserveAspectRatio').getString(),
 				width,
-				image.width as number,
+				desiredWidth:  image.width as number,
 				height,
-				image.height as number,
-				0,
-				0
-			);
+				desiredHeight: image.height as number
+			});
 
 			if (this.loaded) {
 

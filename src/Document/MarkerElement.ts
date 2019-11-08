@@ -38,6 +38,7 @@ export default class MarkerElement extends Element {
 			null
 		);
 
+		markerSvg.type = this.type;
 		markerSvg.attributes.viewBox = new Property(
 			this.document,
 			'viewBox',
@@ -62,6 +63,11 @@ export default class MarkerElement extends Element {
 			this.document,
 			'height',
 			this.getAttribute('markerHeight').getValue()
+		);
+		markerSvg.attributes.overflow = new Property(
+			this.document,
+			'overflow',
+			this.getAttribute('overflow').getValue()
 		);
 		markerSvg.attributes.fill = new Property(
 			this.document,
