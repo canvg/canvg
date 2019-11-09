@@ -38,10 +38,9 @@ export default class ClipPathElement extends Element {
 			let transform = typeof child.elementTransform !== 'undefined'
 				? child.elementTransform()
 				: null; // handle <use />
-			const transformAttr = child.getStyle('transform', false, true);
 
-			if (!transform && transformAttr.hasValue()) {
-				transform = new Transform(document, transformAttr.getString());
+			if (!transform) {
+				transform = Transform.fromElement(document, child);
 			}
 
 			if (transform) {

@@ -2,13 +2,16 @@ import {
 	RenderingContext2D
 } from '../types';
 import {
-	compressSpaces
+	compressSpaces,
+	toNumbers
 } from '../util';
 import Point from '../Point';
 import {
 	ITransform
 } from './types';
-import Document from '../Document';
+import Document, {
+  Element
+} from '../Document';
 import Translate from './Translate';
 import Rotate from './Rotate';
 import Scale from './Scale';
@@ -48,9 +51,18 @@ function parseTransform(transform: string) {
 	];
 }
 
+interface ITransformConstructor {
+	prototype: ITransform;
+	new (
+		document: Document,
+		value: string,
+		transformOrigin?: number[]
+	): ITransform;
+}
+
 export default class Transform {
 
-	static transformTypes = {
+	static transformTypes: Record<string, ITransformConstructor> = {
 		translate: Translate,
 		rotate:    Rotate,
 		scale:     Scale,
@@ -59,14 +71,34 @@ export default class Transform {
 		skewY:     SkewY
 	};
 
+	static fromElement(document: Document, element: Element) {
+
+		const transformStyle = element.getStyle('transform', false, true);
+		const transformOriginStyle = element.getStyle('transform-origin', false, true);
+
+		if (transformStyle.hasValue()) {
+			return new Transform(
+				document,
+				transformStyle.getString(),
+				transformOriginStyle.getString()
+			);
+		}
+
+		return null;
+	}
+
 	private readonly transforms: ITransform[] = [];
 
 	constructor(
 		private readonly document: Document,
-		transform: string
+		transform: string,
+		transformOrigin?: string
 	) {
 
 		const data = parseTransforms(transform);
+		const originCoords = transformOrigin
+			? toNumbers(transformOrigin)
+			: [];
 
 		data.forEach((transform) => {
 
@@ -81,7 +113,7 @@ export default class Transform {
 			const TransformType = Transform.transformTypes[type];
 
 			if (typeof TransformType !== 'undefined') {
-				this.transforms.push(new TransformType(this.document, value));
+				this.transforms.push(new TransformType(this.document, value, originCoords));
 			}
 		});
 	}
