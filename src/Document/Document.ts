@@ -1,6 +1,6 @@
 import Canvg from '../Canvg';
 import Screen, {
-	IScreenAspectRatioConfig
+	IScreenViewBoxConfig
 } from '../Screen';
 import Property from '../Property';
 import SVGFontLoader from '../SVGFontLoader';
@@ -40,7 +40,7 @@ export interface IDocumentOptions {
 	createImage?: CreateImage;
 }
 
-export type IAspectRatioConfig = Omit<IScreenAspectRatioConfig, 'document'>;
+export type IViewBoxConfig = Omit<IScreenViewBoxConfig, 'document'>;
 
 type DOMDocument = typeof window.document;
 
@@ -162,8 +162,8 @@ export default class Document {
 		return new TSpanElement(this, node);
 	}
 
-	setAspectRatio(config: IAspectRatioConfig) {
-		this.screen.setAspectRatio({
+	setViewBox(config: IViewBoxConfig) {
+		this.screen.setViewBox({
 			document: this,
 			...config
 		});

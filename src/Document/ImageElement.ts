@@ -108,7 +108,7 @@ export default class ImageElement extends RenderedElement {
 			const image = this.image as CanvasImageSource;
 
 			ctx.translate(x, y);
-			document.setAspectRatio({
+			document.setViewBox({
 				ctx,
 				aspectRatio:   this.getAttribute('preserveAspectRatio').getString(),
 				width,

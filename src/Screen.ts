@@ -68,7 +68,7 @@ export interface IScreenStartOptions {
 	forceRedraw?(): boolean;
 }
 
-export interface IScreenAspectRatioConfig {
+export interface IScreenViewBoxConfig {
 	document: Document;
 	ctx: RenderingContext2D;
 	aspectRatio: string;
@@ -168,7 +168,7 @@ export default class Screen {
 		ctx.miterLimit = 4;
 	}
 
-	setAspectRatio({
+	setViewBox({
 		document,
 		ctx,
 		aspectRatio,
@@ -183,7 +183,7 @@ export default class Screen {
 		clip = false,
 		clipX = 0,
 		clipY = 0
-	}: IScreenAspectRatioConfig) {
+	}: IScreenViewBoxConfig) {
 		// aspect ratio - http://www.w3.org/TR/SVG/coords.html#PreserveAspectRatioAttribute
 		const cleanAspectRatio = compressSpaces(aspectRatio).replace(/^defer\s/, ''); // ignore defer
 		const [

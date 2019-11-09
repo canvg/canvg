@@ -120,7 +120,7 @@ export default class SVGElement extends RenderedElement {
 			height = viewBox[3];
 		}
 
-		document.setAspectRatio({
+		document.setViewBox({
 			ctx,
 			aspectRatio:   this.getAttribute('preserveAspectRatio').getString(),
 			width:         screen.viewPort.width,
