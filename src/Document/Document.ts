@@ -1,8 +1,7 @@
-import {
-	RenderingContext2D
-} from '../types';
 import Canvg from '../Canvg';
-import Screen from '../Screen';
+import Screen, {
+	IScreenViewBoxConfig
+} from '../Screen';
 import Property from '../Property';
 import SVGFontLoader from '../SVGFontLoader';
 import Element from './Element';
@@ -40,6 +39,8 @@ export interface IDocumentOptions {
 	 */
 	createImage?: CreateImage;
 }
+
+export type IViewBoxConfig = Omit<IScreenViewBoxConfig, 'document'>;
 
 type DOMDocument = typeof window.document;
 
@@ -161,30 +162,10 @@ export default class Document {
 		return new TSpanElement(this, node);
 	}
 
-	setAspectRatio(
-		ctx: RenderingContext2D,
-		aspectRatio: string,
-		width: number,
-		desiredWidth: number,
-		height: number,
-		desiredHeight: number,
-		minX = 0,
-		minY = 0,
-		refX?: number,
-		refY?: number
-	) {
-		this.screen.setAspectRatio(
-			this,
-			ctx,
-			aspectRatio,
-			width,
-			desiredWidth,
-			height,
-			desiredHeight,
-			minX,
-			minY,
-			refX,
-			refY
-		);
+	setViewBox(config: IViewBoxConfig) {
+		this.screen.setViewBox({
+			document: this,
+			...config
+		});
 	}
 }
