@@ -77,7 +77,7 @@ export default class Document {
 	static readonly elementTypes = elementTypes;
 
 	rootEmSize: number;
-	emSize: number;
+	emSizeStack: number[] = [];
 	documentElement: SVGElement;
 	readonly screen: Screen;
 	readonly createCanvas: CreateCanvas;
@@ -101,7 +101,7 @@ export default class Document {
 
 		this.screen = canvg.screen;
 		this.rootEmSize = rootEmSize;
-		this.emSize = emSize;
+		this.emSizeStack.push(emSize);
 		this.createCanvas = createCanvas;
 		this.createImage = createImage;
 

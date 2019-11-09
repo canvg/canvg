@@ -13,6 +13,8 @@ import ClipPathElement from './ClipPathElement';
 
 export default abstract class RenderedElement extends Element {
 
+	modifiedEmSizeStack = false;
+
 	protected calculateOpacity() {
 
 		let opacity = 1.0;
@@ -31,6 +33,15 @@ export default abstract class RenderedElement extends Element {
 		}
 
 		return opacity;
+	}
+
+	clearContext(ctx: RenderingContext2D) {
+
+		super.clearContext(ctx);
+
+		if (this.modifiedEmSizeStack) {
+			this.document.emSizeStack.pop();
+		}
 	}
 
 	setContext(ctx: RenderingContext2D, fromMeasure = false) {
@@ -174,6 +185,7 @@ export default abstract class RenderedElement extends Element {
 		}
 
 		// font
+		this.modifiedEmSizeStack = false;
 		if (typeof ctx.font !== 'undefined') {
 
 			const fontStyleProp = this.getStyle('font');
@@ -205,7 +217,8 @@ export default abstract class RenderedElement extends Element {
 			ctx.font = font.toString();
 
 			if (fontSizeStyleProp.isPixels()) {
-				this.document.emSize = fontSizeStyleProp.getPixels();
+				this.document.emSizeStack.push(fontSizeStyleProp.getPixels());
+				this.modifiedEmSizeStack = true;
 			}
 		}
 

@@ -140,7 +140,9 @@ export default class Property<T = any> {
 	}
 
 	getEm() {
-		return this.document.emSize;
+		const emSizeStack = this.document.emSizeStack;
+
+		return emSizeStack[emSizeStack.length - 1];
 	}
 
 	getUnits() {
