@@ -59,7 +59,7 @@ export function getSelectorSpecificity(selector: string) {
 		.replace(/[\*\s\+>~]/g, ' ')
 		.replace(/[#\.]/g, ' ');
 
-	[currentSelector, delta] = findSelectorMatch(currentSelector, elementRegex);
+	[currentSelector, delta] = findSelectorMatch(currentSelector, elementRegex); // lgtm [js/useless-assignment-to-local]
 	specificity[2] += delta;
 
 	return specificity.join('');
