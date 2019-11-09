@@ -49,7 +49,7 @@ export default class SVGElement extends RenderedElement {
 
 			if (fontSizeProp.hasValue()) {
 				document.rootEmSize = fontSizeProp.getPixels('y');
-				document.emSizeStack.push(document.rootEmSize);
+				document.emSize = document.rootEmSize;
 			}
 		}
 
