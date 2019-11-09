@@ -82,63 +82,61 @@ export default class SVGElement extends RenderedElement {
 			this.getAttribute('height', true).setValue('100%');
 		}
 
+		const refXAttr = this.getAttribute('refX');
+		const refYAttr = this.getAttribute('refY');
+		const viewBoxAttr = this.getAttribute('viewBox');
+		const viewBox = viewBoxAttr.hasValue()
+			? toNumbers(viewBoxAttr.getString())
+			: null;
+		const clip = !this.root
+			&& this.getAttribute('overflow').getValue('hidden') !== 'visible';
+		let minX = 0;
+		let minY = 0;
+		let clipX = 0;
+		let clipY = 0;
+
+		if (viewBox) {
+			minX = viewBox[0];
+			minY = viewBox[1];
+		}
+
 		if (!this.root) {
 
 			width = this.getAttribute('width').getPixels('x');
 			height = this.getAttribute('height').getPixels('y');
 
-			const refXAttr = this.getAttribute('refX');
-			const refYAttr = this.getAttribute('refY');
-			let x = 0;
-			let y = 0;
-
-			if (refXAttr.hasValue() && refYAttr.hasValue()) {
-				x = -refXAttr.getPixels('x');
-				y = -refYAttr.getPixels('y');
-			}
-
-			if (this.getAttribute('overflow').getValue('hidden') !== 'visible') {
-				ctx.beginPath();
-				ctx.moveTo(x, y);
-				ctx.lineTo(width, y);
-				ctx.lineTo(width, height);
-				ctx.lineTo(x, height);
-				ctx.closePath();
-				ctx.clip();
+			if (this.type === 'marker') {
+				clipX = minX;
+				clipY = minY;
+				minX = 0;
+				minY = 0;
 			}
 		}
 
 		screen.viewPort.setCurrent(width, height);
 
-		// viewbox
-		const viewBoxAttr = this.getAttribute('viewBox');
-		const hasViewBox = viewBoxAttr.hasValue();
-		let minX = 0;
-		let minY = 0;
-
-		if (hasViewBox) {
-			[
-				minX,
-				minY,
-				width,
-				height
-			] = toNumbers(viewBoxAttr.getString());
+		if (viewBox) {
+			width = viewBox[2];
+			height = viewBox[3];
 		}
 
-		document.setAspectRatio(
+		document.setViewBox({
 			ctx,
-			this.getAttribute('preserveAspectRatio').getString(),
-			screen.viewPort.width,
-			width,
-			screen.viewPort.height,
-			height,
+			aspectRatio:   this.getAttribute('preserveAspectRatio').getString(),
+			width:         screen.viewPort.width,
+			desiredWidth:  width,
+			height:        screen.viewPort.height,
+			desiredHeight: height,
 			minX,
 			minY,
-			this.getAttribute('refX').getNumber(),
-			this.getAttribute('refY').getNumber()
-		);
+			refX:          refXAttr.getValue(),
+			refY:          refYAttr.getValue(),
+			clip,
+			clipX,
+			clipY
+		});
 
-		if (hasViewBox) {
+		if (viewBox) {
 			screen.viewPort.removeCurrent();
 			screen.viewPort.setCurrent(width, height);
 		}
