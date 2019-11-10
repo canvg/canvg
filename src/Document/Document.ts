@@ -78,7 +78,6 @@ export default class Document {
 	static readonly elementTypes = elementTypes;
 
 	rootEmSize: number;
-	emSize: number;
 	documentElement: SVGElement;
 	readonly screen: Screen;
 	readonly createCanvas: CreateCanvas;
@@ -88,6 +87,7 @@ export default class Document {
 	readonly stylesSpecificity: Record<string, string> = {};
 	readonly images: ImageElement[] = [];
 	readonly fonts: SVGFontLoader[] = [];
+	private readonly emSizeStack: number[] = [];
 	private uniqueId = 0;
 
 	constructor(
@@ -120,6 +120,33 @@ export default class Document {
 
 	get ctx() {
 		return this.screen.ctx;
+	}
+
+	get emSize() {
+
+		const {
+			emSizeStack
+		} = this;
+
+		return emSizeStack[emSizeStack.length - 1];
+	}
+
+	set emSize(value: number) {
+
+		const {
+			emSizeStack
+		} = this;
+
+		emSizeStack.push(value);
+	}
+
+	popEmSize() {
+
+		const {
+			emSizeStack
+		} = this;
+
+		emSizeStack.pop();
 	}
 
 	getUniqueId() {
