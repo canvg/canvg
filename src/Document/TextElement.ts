@@ -361,11 +361,11 @@ export default class TextElement extends RenderedElement {
 		if (i === 0) {
 
 			if (dxAttr.hasValue() && !xAttr.hasValue()) {
-				xAttr.setValue(dxAttr.getValue());
+				xAttr.setValue(textParent.getAttribute('x').getValue('0'));
 			}
 
 			if (dyAttr.hasValue() && !yAttr.hasValue()) {
-				yAttr.setValue(dyAttr.getValue());
+				yAttr.setValue(textParent.getAttribute('y').getValue('0'));
 			}
 		}
 
