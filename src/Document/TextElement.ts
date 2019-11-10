@@ -313,14 +313,20 @@ export default class TextElement extends RenderedElement {
 
 		if (textAnchor !== 'start') {
 
-			const len = parent.children.length;
+			const {
+				children
+			} = parent;
+			const len = children.length;
+			let child: TextElement = null;
 			let width = 0;
 
 			for (let i = startI; i < len; i++) {
 
-				const child = parent.children[i] as TextElement;
+				child = children[i] as TextElement;
 
-				if (i > startI && child.getAttribute('x').hasValue()) {
+				if (i > startI && child.getAttribute('x').hasValue()
+					|| child.getAttribute('text-anchor').hasValue()
+				) {
 					break; // new group
 				}
 
@@ -329,6 +335,7 @@ export default class TextElement extends RenderedElement {
 
 			return -1 * (textAnchor === 'end' ? width : width / 2.0);
 		}
+
 		return 0;
 	}
 
@@ -346,13 +353,25 @@ export default class TextElement extends RenderedElement {
 		}
 
 		const xAttr = child.getAttribute('x');
+		const yAttr = child.getAttribute('y');
+		const dxAttr = child.getAttribute('dx');
+		const dyAttr = child.getAttribute('dy');
+		const textAnchor = child.getAttribute('text-anchor').getString('start');
+
+		if (i === 0) {
+
+			if (dxAttr.hasValue() && !xAttr.hasValue()) {
+				xAttr.setValue(dxAttr.getValue());
+			}
+
+			if (dyAttr.hasValue() && !yAttr.hasValue()) {
+				yAttr.setValue(dyAttr.getValue());
+			}
+		}
 
 		if (xAttr.hasValue()) {
 
 			child.x = xAttr.getPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
-
-			// local text-anchor
-			const textAnchor = child.getAttribute('text-anchor').getString('start');
 
 			if (textAnchor !== 'start') {
 
@@ -361,15 +380,18 @@ export default class TextElement extends RenderedElement {
 				child.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
 			}
 
-			const dxAttr = child.getAttribute('dx');
-
 			if (dxAttr.hasValue()) {
 				child.x += dxAttr.getPixels('x');
 			}
 
 		} else {
 
-			const dxAttr = child.getAttribute('dx');
+			if (textAnchor !== 'start') {
+
+				const width = child.measureTextRecursive(ctx);
+
+				textParent.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
+			}
 
 			if (dxAttr.hasValue()) {
 				textParent.x += dxAttr.getPixels('x');
@@ -380,21 +402,15 @@ export default class TextElement extends RenderedElement {
 
 		textParent.x = child.x + child.measureText(ctx);
 
-		const yAttr = child.getAttribute('y');
-
 		if (yAttr.hasValue()) {
 
 			child.y = yAttr.getPixels('y');
-
-			const dyAttr = child.getAttribute('dy');
 
 			if (dyAttr.hasValue()) {
 				child.y += dyAttr.getPixels('y');
 			}
 
 		} else {
-
-			const dyAttr = child.getAttribute('dy');
 
 			if (dyAttr.hasValue()) {
 				textParent.y += dyAttr.getPixels('y');
