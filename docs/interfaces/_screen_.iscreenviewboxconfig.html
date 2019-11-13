@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IScreenStartOptions | canvg</title>
+	<title>IScreenViewBoxConfig | canvg</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/_screen_.html">&quot;Screen&quot;</a>
 				</li>
 				<li>
-					<a href="_screen_.iscreenstartoptions.html">IScreenStartOptions</a>
+					<a href="_screen_.iscreenviewboxconfig.html">IScreenViewBoxConfig</a>
 				</li>
 			</ul>
-			<h1>Interface IScreenStartOptions</h1>
+			<h1>Interface IScreenViewBoxConfig</h1>
 		</div>
 	</div>
 </header>
@@ -71,12 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IScreenStartOptions</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="_canvg_.ioptions.html" class="tsd-signature-type">IOptions</a>
-							</li>
-						</ul>
+						<span class="target">IScreenViewBoxConfig</span>
 					</li>
 				</ul>
 			</section>
@@ -87,21 +82,20 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#enableredraw" class="tsd-kind-icon">enable<wbr>Redraw</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#ignoreanimation" class="tsd-kind-icon">ignore<wbr>Animation</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#ignoreclear" class="tsd-kind-icon">ignore<wbr>Clear</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#ignoredimensions" class="tsd-kind-icon">ignore<wbr>Dimensions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#ignoremouse" class="tsd-kind-icon">ignore<wbr>Mouse</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#offsetx" class="tsd-kind-icon">offsetX</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#offsety" class="tsd-kind-icon">offsetY</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#scaleheight" class="tsd-kind-icon">scale<wbr>Height</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#scalewidth" class="tsd-kind-icon">scale<wbr>Width</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_screen_.iscreenstartoptions.html#forceredraw" class="tsd-kind-icon">force<wbr>Redraw</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#aspectratio" class="tsd-kind-icon">aspect<wbr>Ratio</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#clip" class="tsd-kind-icon">clip</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#clipx" class="tsd-kind-icon">clipX</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#clipy" class="tsd-kind-icon">clipY</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#ctx" class="tsd-kind-icon">ctx</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#desiredheight" class="tsd-kind-icon">desired<wbr>Height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#desiredwidth" class="tsd-kind-icon">desired<wbr>Width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#document" class="tsd-kind-icon">document</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#height" class="tsd-kind-icon">height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#minx" class="tsd-kind-icon">minX</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#miny" class="tsd-kind-icon">minY</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#refx" class="tsd-kind-icon">refX</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#refy" class="tsd-kind-icon">refY</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_screen_.iscreenviewboxconfig.html#width" class="tsd-kind-icon">width</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,164 +104,144 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="enableredraw" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> enable<wbr>Redraw</h3>
-					<div class="tsd-signature tsd-kind-icon">enable<wbr>Redraw<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="aspectratio" class="tsd-anchor"></a>
+					<h3>aspect<wbr>Ratio</h3>
+					<div class="tsd-signature tsd-kind-icon">aspect<wbr>Ratio<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L32">Screen.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L74">Screen.ts:74</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether enable the redraw.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ignoreanimation" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ignore<wbr>Animation</h3>
-					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Animation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="clip" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clip</h3>
+					<div class="tsd-signature tsd-kind-icon">clip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L40">Screen.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L83">Screen.ts:83</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Ignore animations.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ignoreclear" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ignore<wbr>Clear</h3>
-					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Clear<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="clipx" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clipX</h3>
+					<div class="tsd-signature tsd-kind-icon">clipX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L48">Screen.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L84">Screen.ts:84</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Does not clear canvas.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ignoredimensions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ignore<wbr>Dimensions</h3>
-					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Dimensions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="clipy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clipY</h3>
+					<div class="tsd-signature tsd-kind-icon">clipY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L44">Screen.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L85">Screen.ts:85</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Does not try to resize canvas.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ignoremouse" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ignore<wbr>Mouse</h3>
-					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Mouse<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="ctx" class="tsd-anchor"></a>
+					<h3>ctx</h3>
+					<div class="tsd-signature tsd-kind-icon">ctx<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L36">Screen.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L73">Screen.ts:73</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Ignore mouse events.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="offsetx" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> offsetX</h3>
-					<div class="tsd-signature tsd-kind-icon">offsetX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="desiredheight" class="tsd-anchor"></a>
+					<h3>desired<wbr>Height</h3>
+					<div class="tsd-signature tsd-kind-icon">desired<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L60">Screen.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L78">Screen.ts:78</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Draws at a x offset.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="offsety" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> offsetY</h3>
-					<div class="tsd-signature tsd-kind-icon">offsetY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="desiredwidth" class="tsd-anchor"></a>
+					<h3>desired<wbr>Width</h3>
+					<div class="tsd-signature tsd-kind-icon">desired<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L64">Screen.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L76">Screen.ts:76</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Draws at a y offset.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scaleheight" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scale<wbr>Height</h3>
-					<div class="tsd-signature tsd-kind-icon">scale<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="document" class="tsd-anchor"></a>
+					<h3>document</h3>
+					<div class="tsd-signature tsd-kind-icon">document<span class="tsd-signature-symbol">:</span> <a href="../classes/_document_document_.document.html" class="tsd-signature-type">Document</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L56">Screen.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L72">Screen.ts:72</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Scales vertically to height.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scalewidth" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scale<wbr>Width</h3>
-					<div class="tsd-signature tsd-kind-icon">scale<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="height" class="tsd-anchor"></a>
+					<h3>height</h3>
+					<div class="tsd-signature tsd-kind-icon">height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L52">Screen.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L77">Screen.ts:77</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Scales horizontally to width.</p>
-						</div>
-					</div>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="forceredraw" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> force<wbr>Redraw</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">force<wbr>Redraw<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L68">Screen.ts:68</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Will call the function on every frame, if it returns true, will redraw.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="minx" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> minX</h3>
+					<div class="tsd-signature tsd-kind-icon">minX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L79">Screen.ts:79</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="miny" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> minY</h3>
+					<div class="tsd-signature tsd-kind-icon">minY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L80">Screen.ts:80</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="refx" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refX</h3>
+					<div class="tsd-signature tsd-kind-icon">refX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L81">Screen.ts:81</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="refy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> refY</h3>
+					<div class="tsd-signature tsd-kind-icon">refY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L82">Screen.ts:82</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="width" class="tsd-anchor"></a>
+					<h3>width</h3>
+					<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/b5abd24/src/Screen.ts#L75">Screen.ts:75</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -290,48 +264,60 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_screen_.iscreenoptions.html" class="tsd-kind-icon">IScreen<wbr>Options</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_screen_.iscreenstartoptions.html" class="tsd-kind-icon">IScreen<wbr>Start<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_screen_.iscreenstartoptions.html" class="tsd-kind-icon">IScreen<wbr>Start<wbr>Options</a>
+						<a href="_screen_.iscreenviewboxconfig.html" class="tsd-kind-icon">IScreen<wbr>View<wbr>Box<wbr>Config</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#enableredraw" class="tsd-kind-icon">enable<wbr>Redraw</a>
+								<a href="_screen_.iscreenviewboxconfig.html#aspectratio" class="tsd-kind-icon">aspect<wbr>Ratio</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#ignoreanimation" class="tsd-kind-icon">ignore<wbr>Animation</a>
+								<a href="_screen_.iscreenviewboxconfig.html#clip" class="tsd-kind-icon">clip</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#ignoreclear" class="tsd-kind-icon">ignore<wbr>Clear</a>
+								<a href="_screen_.iscreenviewboxconfig.html#clipx" class="tsd-kind-icon">clipX</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#ignoredimensions" class="tsd-kind-icon">ignore<wbr>Dimensions</a>
+								<a href="_screen_.iscreenviewboxconfig.html#clipy" class="tsd-kind-icon">clipY</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#ignoremouse" class="tsd-kind-icon">ignore<wbr>Mouse</a>
+								<a href="_screen_.iscreenviewboxconfig.html#ctx" class="tsd-kind-icon">ctx</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#offsetx" class="tsd-kind-icon">offsetX</a>
+								<a href="_screen_.iscreenviewboxconfig.html#desiredheight" class="tsd-kind-icon">desired<wbr>Height</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#offsety" class="tsd-kind-icon">offsetY</a>
+								<a href="_screen_.iscreenviewboxconfig.html#desiredwidth" class="tsd-kind-icon">desired<wbr>Width</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#scaleheight" class="tsd-kind-icon">scale<wbr>Height</a>
+								<a href="_screen_.iscreenviewboxconfig.html#document" class="tsd-kind-icon">document</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#scalewidth" class="tsd-kind-icon">scale<wbr>Width</a>
+								<a href="_screen_.iscreenviewboxconfig.html#height" class="tsd-kind-icon">height</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_screen_.iscreenstartoptions.html#forceredraw" class="tsd-kind-icon">force<wbr>Redraw</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_screen_.iscreenviewboxconfig.html#minx" class="tsd-kind-icon">minX</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_screen_.iscreenviewboxconfig.html#miny" class="tsd-kind-icon">minY</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_screen_.iscreenviewboxconfig.html#refx" class="tsd-kind-icon">refX</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_screen_.iscreenviewboxconfig.html#refy" class="tsd-kind-icon">refY</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_screen_.iscreenviewboxconfig.html#width" class="tsd-kind-icon">width</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_screen_.iscreenviewboxconfig.html" class="tsd-kind-icon">IScreen<wbr>View<wbr>Box<wbr>Config</a>
-					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_screen_.html#defaultfetch" class="tsd-kind-icon">default<wbr>Fetch</a>
 					</li>

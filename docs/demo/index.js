@@ -104,8 +104,11 @@ async function render(svg, width, height) {
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg);
 
+	renderSource(svg);
+
 	if (custom.resize.checked) {
 		v.resize(width, height, custom.preserveAspectRatio.value);
+		resizeSvg(v.documentElement);
 	}
 
 	canvasOutput.innerHTML = '';
@@ -116,8 +119,6 @@ async function render(svg, width, height) {
 	} else {
 		await v.render();
 	}
-
-	renderSource(svg);
 }
 
 async function offscreenRender(svg, width, height) {
@@ -129,8 +130,11 @@ async function offscreenRender(svg, width, height) {
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg, presets.offscreen());
 
+	renderSource(svg);
+
 	if (custom.resize.checked) {
 		v.resize(width, height, custom.preserveAspectRatio.value);
+		resizeSvg(v.documentElement);
 	}
 
 	await v.render();
@@ -138,8 +142,6 @@ async function offscreenRender(svg, width, height) {
 	const blob = await c.convertToBlob();
 
 	canvasOutput.innerHTML = `<img src="${URL.createObjectURL(blob)}">`;
-
-	renderSource(svg);
 }
 
 function v2Render(svg, width, height) {
@@ -178,6 +180,10 @@ async function renderSource(svg) {
 		svgText = await response.text();
 	}
 
+	if (!/ xmlns="/.test(svgText)) {
+		svgText = svgText.replace(/(<svg)/, '$1 xmlns="http://www.w3.org/2000/svg"');
+	}
+
 	const parser = new Parser();
 	const document = parser.parseFromString(svgText);
 
@@ -188,6 +194,27 @@ async function renderSource(svg) {
 		custom.svg.value = svgOutput.innerHTML;
 		overrideTextBox = false;
 	}
+}
+
+function resizeSvg(canvgDocumentElement) {
+
+	const svg = svgOutput.firstElementChild;
+	const attributes = [
+		'width',
+		'height',
+		'viewBox',
+		'preserveAspectRatio',
+		'style'
+	];
+
+	attributes.forEach((name) => {
+
+		const attr = canvgDocumentElement.getAttribute(name);
+
+		if (attr.hasValue()) {
+			svg.setAttribute(name, attr.getValue());
+		}
+	});
 }
 
 // eslint-disable-next-line

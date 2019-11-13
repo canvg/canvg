@@ -1,0 +1,9 @@
+<svg>
+  <rect x="25" y="25" width="50" height="50" fill="red" style="
+      transform: rotate(45deg);
+      transform-origin: 50px 50px;
+  "></rect>
+  <rect x="25" y="25" width="50" height="50" fill="blue" transform="rotate(45 50 50)" style="
+      transform-origin: 50px 50px;
+  "></rect>
+</svg>
