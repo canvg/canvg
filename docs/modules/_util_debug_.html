@@ -72,6 +72,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#angle" class="tsd-kind-icon">angle</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#box" class="tsd-kind-icon">box</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#ctxlogger" class="tsd-kind-icon">ctx<wbr>Logger</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_util_debug_.html#point" class="tsd-kind-icon">point</a></li>
 							</ul>
@@ -85,13 +86,13 @@
 					<a name="angle" class="tsd-anchor"></a>
 					<h3>angle</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">angle<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">angle<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/c58b315/src/util/debug.ts#L59">util/debug.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/846e3e4/src/util/debug.ts#L65">util/debug.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -102,7 +103,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
+									<h5>ctx: <a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Rendering context.</p>
 									</div>
@@ -131,16 +132,65 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="ctxlogger" class="tsd-anchor"></a>
-					<h3>ctx<wbr>Logger</h3>
+					<a name="box" class="tsd-anchor"></a>
+					<h3>box</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">ctx<wbr>Logger<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">OffscreenCanvasRenderingContext2D</span></li>
+						<li class="tsd-signature tsd-kind-icon">box<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a>, x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/c58b315/src/util/debug.ts#L5">util/debug.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/846e3e4/src/util/debug.ts#L83">util/debug.ts:83</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Draw triangle to vizualize angle.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ctx: <a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Rendering context.</p>
+									</div>
+								</li>
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Angle x.</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Angle y.</p>
+									</div>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="ctxlogger" class="tsd-anchor"></a>
+					<h3>ctx<wbr>Logger</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">ctx<wbr>Logger<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CanvasRenderingContext2D</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">OffscreenCanvasRenderingContext2D</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/846e3e4/src/util/debug.ts#L9">util/debug.ts:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -151,7 +201,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
+									<h5>ctx: <a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Rendering context.</p>
 									</div>
@@ -168,13 +218,13 @@
 					<a name="point" class="tsd-anchor"></a>
 					<h3>point</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">point<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderingContext2D</span>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, radius<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">point<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a>, x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, radius<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/c58b315/src/util/debug.ts#L46">util/debug.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/846e3e4/src/util/debug.ts#L50">util/debug.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,7 +235,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ctx: <span class="tsd-signature-type">RenderingContext2D</span></h5>
+									<h5>ctx: <a href="_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Rendering context.</p>
 									</div>
@@ -230,6 +280,9 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_util_debug_.html#angle" class="tsd-kind-icon">angle</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_util_debug_.html#box" class="tsd-kind-icon">box</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_util_debug_.html#ctxlogger" class="tsd-kind-icon">ctx<wbr>Logger</a>
