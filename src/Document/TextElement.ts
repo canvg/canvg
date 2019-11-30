@@ -358,7 +358,7 @@ export default class TextElement extends RenderedElement {
 		const dyAttr = child.getAttribute('dy');
 		const textAnchor = child.getAttribute('text-anchor').getString('start');
 
-		if (i === 0) {
+		if (i === 0 && textParent === parent) {
 
 			if (dxAttr.hasValue() && !xAttr.hasValue()) {
 				xAttr.setValue(textParent.getAttribute('x').getValue('0'));
@@ -366,6 +366,14 @@ export default class TextElement extends RenderedElement {
 
 			if (dyAttr.hasValue() && !yAttr.hasValue()) {
 				yAttr.setValue(textParent.getAttribute('y').getValue('0'));
+			}
+
+			if (!dxAttr.hasValue()) {
+				dxAttr.setValue(textParent.getAttribute('dx').getValue('0'));
+			}
+
+			if (!dyAttr.hasValue()) {
+				dyAttr.setValue(textParent.getAttribute('dy').getValue('0'));
 			}
 		}
 
