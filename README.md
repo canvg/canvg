@@ -203,7 +203,7 @@ self.onmessage = async (event) => {
     </summary>
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/canvg@3.0.0-beta.3/lib/umd.js"></script>
+<script type="text/javascript" src="https://unpkg.com/canvg@3.0.0-beta.4/lib/umd.js"></script>
 <script type="text/javascript">
 window.onload = () => {
 
