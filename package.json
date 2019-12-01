@@ -66,6 +66,7 @@
     "@babel/node": "^7.6.3",
     "@size-limit/preset-small-lib": "^2.1.6",
     "@types/jest": "^24.0.21",
+    "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^1.20.2",
     "@types/xmldom": "^0.1.29",
     "archiver": "^3.1.1",
