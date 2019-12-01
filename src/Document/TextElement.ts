@@ -20,7 +20,6 @@ export default class TextElement extends RenderedElement {
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
-	protected isTextNode = false;
 	private measureCache = -1;
 
 	constructor(
@@ -359,7 +358,7 @@ export default class TextElement extends RenderedElement {
 		const dyAttr = child.getAttribute('dy');
 		const textAnchor = child.getAttribute('text-anchor').getString('start');
 
-		if (i === 0 && !child.isTextNode) {
+		if (i === 0 && child.type !== 'textNode') {
 
 			if (!xAttr.hasValue()) {
 				xAttr.setValue(textParent.getAttribute('x').getValue('0'));
