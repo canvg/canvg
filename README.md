@@ -29,7 +29,7 @@ JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file o
 
 [Demo](https://canvg.github.io/canvg/demo/index.html)
 
-[Playground](https://jsfiddle.net/mdrv9qku/) # TODO
+[Playground](https://jsfiddle.net/5n230gh7/)
 
 ## Install
 
