@@ -16,6 +16,11 @@ interface ICanvas {
 	loadImage(src: string): Promise<any>;
 }
 
+/**
+ * WHATWG-compatible `fetch` function.
+ */
+type Fetch = (input: any, config?: any) => Promise<any>;
+
 interface IConfig {
 	/**
 	 * XML/HTML parser from string into DOM Document.
@@ -28,7 +33,7 @@ interface IConfig {
 	/**
 	 * WHATWG-compatible `fetch` function.
 	 */
-	fetch: typeof fetch;
+	fetch: Fetch;
 }
 
 /**
