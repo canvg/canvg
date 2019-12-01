@@ -6,7 +6,7 @@ import Property from '../Property';
 import SVGFontLoader from '../SVGFontLoader';
 import Element from './Element';
 import UnknownElement from './UnknownElement';
-import TSpanElement from './TSpanElement';
+import TextNode from './TextNode';
 import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
 import elementTypes from './elements';
@@ -186,7 +186,7 @@ export default class Document {
 	}
 
 	createTextNode(node: HTMLElement) {
-		return new TSpanElement(this, node);
+		return new TextNode(this, node);
 	}
 
 	setViewBox(config: IViewBoxConfig) {

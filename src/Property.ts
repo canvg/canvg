@@ -151,17 +151,16 @@ export default class Property<T = any> {
 	getPixels(isFontSize?: boolean): number;
 	getPixels(axisOrIsFontSize?: Axis | boolean, processPercent = false): number {
 
+		if (!this.hasValue()) {
+			return 0;
+		}
+
 		const [
 			axis,
 			isFontSize
 		] = typeof axisOrIsFontSize === 'boolean'
 			? [undefined, axisOrIsFontSize]
 			: [axisOrIsFontSize];
-
-		if (!this.hasValue()) {
-			return 0;
-		}
-
 		const {
 			viewPort
 		} = this.document.screen;
