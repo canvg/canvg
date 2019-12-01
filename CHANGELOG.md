@@ -32,6 +32,7 @@ DO NOT TOUCH. SAVE IT ON TOP.
 - JavaScript -> TypeScript.
 
 ### Fixed
+- TODO
 - [#406](https://github.com/canvg/canvg/issues/406)
 - [#690](https://github.com/canvg/canvg/issues/690)
 - [#713](https://github.com/canvg/canvg/issues/713)
