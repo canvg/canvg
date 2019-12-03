@@ -44,7 +44,7 @@ function prepareFontStyle(fontStyle: string) {
 
 		default:
 
-			if (/^oblique (-|)\d+deg$/.test(targetFontStyle)) {
+			if (/^oblique\s+(-|)\d+deg$/.test(targetFontStyle)) {
 				return targetFontStyle;
 			}
 
