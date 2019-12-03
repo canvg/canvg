@@ -4,7 +4,7 @@ export const ignoreErrors = [
 	/Element (metadata|script|([a-z]+:[a-z]+)) not yet implemented/i,
 	/entity not found/i,
 	/Synchronous XMLHttpRequest/i,
-	/Element fe[A-Z][a-z]+ not yet implemented/
+	/Element fe\w+ not yet implemented/
 ];
 
 export function filterConsoleWarn(): () => void {

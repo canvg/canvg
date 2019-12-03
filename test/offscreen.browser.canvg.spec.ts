@@ -6,8 +6,7 @@ import {
 } from 'puppeteer';
 import {
 	Server,
-	base64ToBuffer,
-	ignoreErrors
+	base64ToBuffer
 } from './common';
 import {
 	launch,
@@ -22,16 +21,7 @@ async function render(page: Page, file: string) {
 
 	return new Promise<Buffer>(async (resolve, reject) => {
 
-		onPageError(page, (err) => {
-
-			const {
-				message
-			} = err;
-
-			if (ignoreErrors.every(_ => !_.test(message))) {
-				reject(err);
-			}
-		});
+		onPageError(page, reject);
 
 		try {
 
