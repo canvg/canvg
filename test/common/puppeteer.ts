@@ -2,6 +2,9 @@ import puppeteer, {
 	Browser,
 	Page
 } from 'puppeteer';
+import {
+	ignoreErrors
+} from './';
 
 export function launch() {
 	return puppeteer.launch({
@@ -43,7 +46,12 @@ export function onPageError(page: Page, listener: (error: Error) => void) {
 		if (message.type() === 'error'
 			|| message.type() === 'warning'
 		) {
-			listener(new Error(message.text()));
+
+			const text = message.text();
+
+			if (ignoreErrors.every(_ => !_.test(text))) {
+				listener(new Error(text));
+			}
 		}
 	});
 	page.on('error', listener);
