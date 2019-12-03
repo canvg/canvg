@@ -29,7 +29,12 @@ export default class RadialGradientElement extends GradientElement {
 
 	getGradient(ctx: RenderingContext2D, element: PathElement) {
 
+		const isBoundingBoxUnits = this.getGradientUnits() === 'objectBoundingBox';
 		const boundingBox = element.getBoundingBox(ctx);
+
+		if (isBoundingBoxUnits && !boundingBox) {
+			return null;
+		}
 
 		if (!this.getAttribute('cx').hasValue()) {
 			this.getAttribute('cx', true).setValue('50%');
@@ -43,28 +48,28 @@ export default class RadialGradientElement extends GradientElement {
 			this.getAttribute('r', true).setValue('50%');
 		}
 
-		const cx = this.getGradientUnits() === 'objectBoundingBox'
+		const cx = isBoundingBoxUnits
 			? boundingBox.x + boundingBox.width * this.getAttribute('cx').getNumber()
 			: this.getAttribute('cx').getPixels('x');
-		const cy = this.getGradientUnits() === 'objectBoundingBox'
+		const cy = isBoundingBoxUnits
 			? boundingBox.y + boundingBox.height * this.getAttribute('cy').getNumber()
 			: this.getAttribute('cy').getPixels('y');
 		let fx = cx;
 		let fy = cy;
 
 		if (this.getAttribute('fx').hasValue()) {
-			fx = this.getGradientUnits() === 'objectBoundingBox'
+			fx = isBoundingBoxUnits
 				? boundingBox.x + boundingBox.width * this.getAttribute('fx').getNumber()
 				: this.getAttribute('fx').getPixels('x');
 		}
 
 		if (this.getAttribute('fy').hasValue()) {
-			fy = this.getGradientUnits() === 'objectBoundingBox'
+			fy = isBoundingBoxUnits
 				? boundingBox.y + boundingBox.height * this.getAttribute('fy').getNumber()
 				: this.getAttribute('fy').getPixels('y');
 		}
 
-		const r = this.getGradientUnits() === 'objectBoundingBox'
+		const r = isBoundingBoxUnits
 			? (boundingBox.width + boundingBox.height) / 2.0 * this.getAttribute('r').getNumber()
 			: this.getAttribute('r').getPixels();
 		const fr = this.getAttribute('fr').getPixels();

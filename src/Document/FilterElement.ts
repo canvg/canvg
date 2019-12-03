@@ -15,6 +15,11 @@ export default class FilterElement extends Element {
 			document
 		} = this;
 		const boundingBox = element.getBoundingBox(ctx);
+
+		if (!boundingBox) {
+			return;
+		}
+
 		const x = Math.floor(boundingBox.x1);
 		const y = Math.floor(boundingBox.y1);
 		const width = Math.floor(boundingBox.width);

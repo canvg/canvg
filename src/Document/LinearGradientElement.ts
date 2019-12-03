@@ -27,9 +27,14 @@ export default class LinearGradientElement extends GradientElement {
 
 	getGradient(ctx: RenderingContext2D, element: PathElement) {
 
-		const boundingBox = this.getGradientUnits() === 'objectBoundingBox'
+		const isBoundingBoxUnits = this.getGradientUnits() === 'objectBoundingBox';
+		const boundingBox = isBoundingBoxUnits
 			? element.getBoundingBox(ctx)
 			: null;
+
+		if (isBoundingBoxUnits && !boundingBox) {
+			return null;
+		}
 
 		if (!this.getAttribute('x1').hasValue()
 			&& !this.getAttribute('y1').hasValue()
@@ -42,16 +47,16 @@ export default class LinearGradientElement extends GradientElement {
 			this.getAttribute('y2', true).setValue(0);
 		}
 
-		const x1 = this.getGradientUnits() === 'objectBoundingBox'
+		const x1 = isBoundingBoxUnits
 			? boundingBox.x + boundingBox.width * this.getAttribute('x1').getNumber()
 			: this.getAttribute('x1').getPixels('x');
-		const y1 = this.getGradientUnits() === 'objectBoundingBox'
+		const y1 = isBoundingBoxUnits
 			? boundingBox.y + boundingBox.height * this.getAttribute('y1').getNumber()
 			: this.getAttribute('y1').getPixels('y');
-		const x2 = this.getGradientUnits() === 'objectBoundingBox'
+		const x2 = isBoundingBoxUnits
 			? boundingBox.x + boundingBox.width * this.getAttribute('x2').getNumber()
 			: this.getAttribute('x2').getPixels('x');
-		const y2 = this.getGradientUnits() === 'objectBoundingBox'
+		const y2 = isBoundingBoxUnits
 			? boundingBox.y + boundingBox.height * this.getAttribute('y2').getNumber()
 			: this.getAttribute('y2').getPixels('y');
 
