@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="apexcharts-svg" id="SvgjsSvg1055" style="background: white;" width="600" height="305.805" version="1.1">
+	<g class="apexcharts-inner apexcharts-graphical" id="SvgjsG1057" transform="translate(164.5)">
+		<defs id="SvgjsDefs1056">
+			<clipPath id="gridRectMaskra4aivril">
+				<rect id="SvgjsRect1058" opacity="1" fill="#ffffff" stroke="none" stroke-dasharray="0" stroke-width="0" x="-1" y="-1" width="275" height="297" rx="0" ry="0"></rect>
+			</clipPath>
+			<clipPath id="gridRectMarkerMaskra4aivril">
+				<rect id="SvgjsRect1059" opacity="1" fill="#ffffff" stroke="none" stroke-dasharray="0" stroke-width="0" x="-1" y="-1" width="275" height="297" rx="0" ry="0"></rect>
+			</clipPath>
+			<filter id="SvgjsFilter1068" filterUnits="userSpaceOnUse">
+				<feFlood id="SvgjsFeFlood1069" flood-color="#000000" flood-opacity="0.9" result="SvgjsFeFlood1069Out" in="SourceGraphic"></feFlood>
+				<feComposite id="SvgjsFeComposite1070" result="SvgjsFeComposite1070Out" in="SvgjsFeFlood1069Out" in2="SourceAlpha" operator="in"></feComposite>
+				<feOffset id="SvgjsFeOffset1071" result="SvgjsFeOffset1071Out" in="SvgjsFeComposite1070Out" dx="1" dy="1"></feOffset>
+				<feGaussianBlur id="SvgjsFeGaussianBlur1072" result="SvgjsFeGaussianBlur1072Out" in="SvgjsFeOffset1071Out" stdDeviation="0.5"></feGaussianBlur>
+				<feBlend id="SvgjsFeBlend1073" result="SvgjsFeBlend1073Out" in="SourceGraphic" in2="SvgjsFeGaussianBlur1072Out" mode="normal"></feBlend>
+			</filter>
+			<filter id="SvgjsFilter1078" filterUnits="userSpaceOnUse">
+				<feFlood id="SvgjsFeFlood1079" flood-color="#000000" flood-opacity="0.9" result="SvgjsFeFlood1079Out" in="SourceGraphic"></feFlood>
+				<feComposite id="SvgjsFeComposite1080" result="SvgjsFeComposite1080Out" in="SvgjsFeFlood1079Out" in2="SourceAlpha" operator="in"></feComposite>
+				<feOffset id="SvgjsFeOffset1081" result="SvgjsFeOffset1081Out" in="SvgjsFeComposite1080Out" dx="1" dy="1"></feOffset>
+				<feGaussianBlur id="SvgjsFeGaussianBlur1082" result="SvgjsFeGaussianBlur1082Out" in="SvgjsFeOffset1081Out" stdDeviation="0.5"></feGaussianBlur>
+				<feBlend id="SvgjsFeBlend1083" result="SvgjsFeBlend1083Out" in="SourceGraphic" in2="SvgjsFeGaussianBlur1082Out" mode="normal"></feBlend>
+			</filter>
+		</defs>
+		<g class="apexcharts-pie" id="SvgjsG1061">
+			<g id="SvgjsG1062" transform="translate(0 -5) scale(1)">
+				<g class="apexcharts-slices" id="SvgjsG1063">
+					<g class="apexcharts-series apexcharts-pie-series" id="SvgjsG1064" rel="1" seriesName="Май">
+						<path class="apexcharts-pie-area apexcharts-pie-slice-0" id="SvgjsPath1065" fill="rgba(234, 50, 35, 1)" fill-opacity="1" stroke="#ffffff" stroke-dasharray="0" stroke-linecap="butt" stroke-opacity="1" stroke-width="2" d="M 136.5 9.59756 A 137.902 137.902 0 0 1 136.5 285.402 L 136.5 147.5 L 136.5 9.59756" index="0" j="0"></path>
+					</g>
+					<g class="apexcharts-series apexcharts-pie-series" id="SvgjsG1074" rel="2" seriesName="Сентябрь">
+						<path class="apexcharts-pie-area apexcharts-pie-slice-1" id="SvgjsPath1075" fill="rgba(153, 153, 153, 1)" fill-opacity="1" stroke="#ffffff" stroke-dasharray="0" stroke-linecap="butt" stroke-opacity="1" stroke-width="2" d="M 136.5 285.402 A 137.902 137.902 0 0 1 136.476 9.59756 L 136.5 147.5 L 136.5 285.402" index="0" j="1"></path>
+					</g>
+					<text class="apexcharts-pie-label" id="SvgjsText1066" font-family="Helvetica, Arial, sans-serif" font-size="12px" font-weight="regular" filter="url(&quot;#SvgjsFilter1068&quot;)" style="font-family: Helvetica, Arial, sans-serif;" dominant-baseline="auto" fill="white" text-anchor="middle" x="246.822" y="147.5">1
+					</text>
+					<text class="apexcharts-pie-label" id="SvgjsText1076" font-family="Helvetica, Arial, sans-serif" font-size="12px" font-weight="regular" filter="url(&quot;#SvgjsFilter1078&quot;)" style="font-family: Helvetica, Arial, sans-serif;" dominant-baseline="auto" fill="white" text-anchor="middle" x="26.178" y="147.5">1
+					</text>
+				</g>
+			</g>
+		</g>
+		<line class="apexcharts-ycrosshairs" id="SvgjsLine1084" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" x1="0" y1="0" x2="273" y2="0"></line>
+		<line class="apexcharts-ycrosshairs-hidden" id="SvgjsLine1085" stroke-dasharray="0" stroke-width="0" x1="0" y1="0" x2="273" y2="0"></line>
+	</g>
+</svg>
