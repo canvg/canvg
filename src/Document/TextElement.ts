@@ -183,7 +183,8 @@ export default class TextElement extends RenderedElement {
 
 		if (index === 0) {
 			text = trimLeft(text);
-		} else
+		}
+
 		if (index === lastIndex) {
 			text = trimRight(text);
 		}
@@ -441,6 +442,10 @@ export default class TextElement extends RenderedElement {
 
 		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
 		const boundingBox = child.getBoundingBox(ctx);
+
+		if (!boundingBox) {
+			return null;
+		}
 
 		child.children.forEach((_, i) => {
 

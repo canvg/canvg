@@ -64,7 +64,6 @@ export default abstract class GradientElement extends Element {
 		const gradient = this.getGradient(ctx, element);
 
 		if (!gradient) {
-
 			return this.addParentOpacity(
 				parentOpacityProp,
 				stops[stops.length - 1].color

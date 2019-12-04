@@ -70,12 +70,19 @@ export default class BoundingBox {
 		this.addPoint(null, y);
 	}
 
-	addBoundingBox({
-		x1,
-		y1,
-		x2,
-		y2
-	}: BoundingBox) {
+	addBoundingBox(boundingBox: BoundingBox) {
+
+		if (!boundingBox) {
+			return;
+		}
+
+		const {
+			x1,
+			y1,
+			x2,
+			y2
+		} = boundingBox;
+
 		this.addPoint(x1, y1);
 		this.addPoint(x2, y2);
 	}

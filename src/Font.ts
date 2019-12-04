@@ -21,6 +21,69 @@ function prepareFontFamily(fontFamily: string) {
 			.join(',');
 }
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
+ */
+function prepareFontStyle(fontStyle: string) {
+
+	if (!fontStyle) {
+		return '';
+	}
+
+	const targetFontStyle = fontStyle.trim().toLowerCase();
+
+	switch (targetFontStyle) {
+
+		case 'normal':
+		case 'italic':
+		case 'oblique':
+		case 'inherit':
+		case 'initial':
+		case 'unset':
+			return targetFontStyle;
+
+		default:
+
+			if (/^oblique\s+(-|)\d+deg$/.test(targetFontStyle)) {
+				return targetFontStyle;
+			}
+
+			return '';
+	}
+}
+
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+ */
+function prepareFontWeight(fontWeight: string) {
+
+	if (!fontWeight) {
+		return '';
+	}
+
+	const targetFontWeight = fontWeight.trim().toLowerCase();
+
+	switch (targetFontWeight) {
+
+		case 'normal':
+		case 'bold':
+		case 'lighter':
+		case 'bolder':
+		case 'inherit':
+		case 'initial':
+		case 'unset':
+			return targetFontWeight;
+
+		default:
+
+			if (/^[\d.]+$/.test(targetFontWeight)) {
+				return targetFontWeight;
+			}
+
+			return '';
+	}
+}
+
 export default class Font {
 
 	static readonly styles = 'normal|italic|oblique|inherit';
@@ -139,12 +202,12 @@ export default class Font {
 
 	toString() {
 		return [
-			this.fontStyle,
+			prepareFontStyle(this.fontStyle),
 			this.fontVariant,
-			this.fontWeight,
+			prepareFontWeight(this.fontWeight),
 			this.fontSize,
 			// Wrap fontFamily only on nodejs and only for canvas.ctx
 			prepareFontFamily(this.fontFamily)
-		].join(' ');
+		].join(' ').trim();
 	}
 }
