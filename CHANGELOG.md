@@ -24,6 +24,10 @@ DO NOT TOUCH. SAVE IT ON TOP.
 
 -->
 
+## [3.0.1] - 2019-12-03
+### Fixed
+- [#816](https://github.com/canvg/canvg/issues/816)
+
 ## [3.0.0] - 2019-10-23
 ### Added
 - `OffscreenCanvas` support.
