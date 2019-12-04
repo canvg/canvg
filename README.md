@@ -29,7 +29,7 @@ JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file o
 
 [Demo](https://canvg.github.io/canvg/demo/index.html)
 
-[Playground](https://jsfiddle.net/5n230gh7/)
+[Playground](https://jsfiddle.net/0q1vrjxk/)
 
 ## Install
 
@@ -203,7 +203,7 @@ self.onmessage = async (event) => {
     </summary>
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/canvg@3.0.0/lib/umd.js"></script>
+<script type="text/javascript" src="https://unpkg.com/canvg@3.0.1/lib/umd.js"></script>
 <script type="text/javascript">
 window.onload = () => {
 
