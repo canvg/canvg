@@ -17,7 +17,7 @@ export default class Scale {
 		scale: string
 	) {
 
-		const scaleSize = Point.parse(scale, 1);
+		const scaleSize = Point.parseScale(scale);
 
 		// Workaround for node-canvas
 		if (scaleSize.x === 0

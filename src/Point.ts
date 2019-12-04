@@ -8,8 +8,18 @@ export default class Point {
 
 		const [
 			x = defaultValue,
-			y = x
+			y = defaultValue
 		] = toNumbers(point);
+
+		return new Point(x, y);
+	}
+
+	static parseScale(scale: string, defaultValue = 1) {
+
+		const [
+			x = defaultValue,
+			y = x
+		] = toNumbers(scale);
 
 		return new Point(x, y);
 	}
