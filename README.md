@@ -100,9 +100,10 @@ self.onmessage = async (event) => {
     await v.render();
 
     const blob = await canvas.convertToBlob();
+    const pngUrl = URL.createObjectURL(blob);
 
     self.postMessage({
-        pngUrl: blob
+        pngUrl
     });
 };
 ```
@@ -188,9 +189,10 @@ self.onmessage = async (event) => {
     await v.render();
 
     const blob = await canvas.convertToBlob();
+    const pngUrl = URL.createObjectURL(blob);
 
     self.postMessage({
-        pngUrl: blob
+        pngUrl
     });
 };
 ```
