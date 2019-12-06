@@ -133,9 +133,10 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
     <span class="hljs-keyword">await</span> v.render();
 
     <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">await</span> canvas.convertToBlob();
+    <span class="hljs-keyword">const</span> pngUrl = URL.createObjectURL(blob);
 
     self.postMessage({
-        <span class="hljs-attr">pngUrl</span>: blob
+        pngUrl
     });
 };</code></pre>
 				</details>
@@ -211,9 +212,10 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
     <span class="hljs-keyword">await</span> v.render();
 
     <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">await</span> canvas.convertToBlob();
+    <span class="hljs-keyword">const</span> pngUrl = URL.createObjectURL(blob);
 
     self.postMessage({
-        <span class="hljs-attr">pngUrl</span>: blob
+        pngUrl
     });
 };</code></pre>
 				</details>
@@ -221,7 +223,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 					<summary>
 						<b>Browser</b>
 					</summary>
-					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/canvg@3.0.1/lib/umd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/canvg@3.0.2/lib/umd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
 <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
 
