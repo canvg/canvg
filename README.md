@@ -205,7 +205,7 @@ self.onmessage = async (event) => {
     </summary>
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/canvg@3.0.1/lib/umd.js"></script>
+<script type="text/javascript" src="https://unpkg.com/canvg@3.0.2/lib/umd.js"></script>
 <script type="text/javascript">
 window.onload = () => {
 
