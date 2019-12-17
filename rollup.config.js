@@ -3,7 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
 import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import minify from 'rollup-plugin-babel-minify';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import {
