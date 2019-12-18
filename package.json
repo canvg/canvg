@@ -33,7 +33,7 @@
   },
   "scripts": {
     "lint": "tslint -p . -t stylish src/**/*.{ts,tsx}",
-    "jest": "NODE_ENV=test jest -c jest.config.json",
+    "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
     "test": "yarn typecheck && yarn lint && yarn jest && yarn build && yarn checkSize",
@@ -41,7 +41,7 @@
     "build:docs": "./scripts/buildDocs.sh",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
     "start:node": "ts-node -P ./tsconfig.dev.json -T test/node/index.ts",
-    "build": "NODE_ENV=production rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
     "cleanPublish": "yarn test && clean-publish",
     "coverage": "cat ./coverage/lcov.info | coveralls"
   },
@@ -78,6 +78,7 @@
     "canvas": "^2.1.0",
     "clean-publish": "^1.1.0",
     "coveralls": "^3.0.7",
+    "cross-env": "^6.0.3",
     "http-server": "^0.12.0",
     "husky": "^3.0.9",
     "jest": "^24.3.0",
