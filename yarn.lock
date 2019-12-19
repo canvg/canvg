@@ -2582,15 +2582,16 @@ class-utils@^0.3.5:
     static-extend "^0.1.1"
 
 clean-publish@^1.1.0:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/clean-publish/-/clean-publish-1.1.2.tgz#545d723c556fda854bd37ddd7d46d994dab5983c"
-  integrity sha512-3DTmVkVS6Fp4RaXgvdkPgfd4YTWkkKXQ4xGS/Q6/FuMN5T45EuwDy4zcY171nV7ydVJ54bcO6RcZKf0qMjo0xQ==
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/clean-publish/-/clean-publish-1.1.4.tgz#54d4f7c1ad02dcb26adaad2c2d8ad4a58015b39c"
+  integrity sha512-WrWt+c0HCHrNGq71jz/leTaUw9KVjT2fb1MMgycLuKbgPrSV2RKuVz625rbr4SF0vLJ+Jfr3f9tJrVN8NIskLQ==
   dependencies:
     chalk "^2.4.1"
     cosmiconfig "^5.0.7"
     cross-spawn "^6.0.5"
     fs-extra "^6.0.1"
     ramda "^0.25.0"
+    shelljs "^0.8.3"
     util.promisify "^1.0.0"
     yargs "^12.0.1"
 
