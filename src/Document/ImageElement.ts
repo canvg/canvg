@@ -75,14 +75,15 @@ export default class ImageElement extends RenderedElement {
 	renderChildren(ctx: RenderingContext2D) {
 
 		const {
-			document
+			document,
+			loaded
 		} = this;
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');
 		const width = this.getAttribute('width').getPixels('x');
 		const height = this.getAttribute('height').getPixels('y');
 
-		if (!width || !height) {
+		if (!loaded || !width || !height) {
 			return;
 		}
 
