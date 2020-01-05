@@ -18,8 +18,8 @@ export default class MaskElement extends Element {
 		// render as temp svg
 		let x = this.getAttribute('x').getPixels('x');
 		let y = this.getAttribute('y').getPixels('y');
-		let width = this.getAttribute('width').getPixels('x');
-		let height = this.getAttribute('height').getPixels('y');
+		let width = this.getStyle('width').getPixels('x');
+		let height = this.getStyle('height').getPixels('y');
 
 		if (!width && !height) {
 

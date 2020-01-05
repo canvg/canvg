@@ -77,22 +77,22 @@ export default class UseElement extends RenderedElement {
 
 			if (tempSvg.type === 'svg') {
 
-				const widthAttr = this.getAttribute('width');
-				const heightAttr = this.getAttribute('height');
+				const widthStyle = this.getStyle('width', false, true);
+				const heightStyle = this.getStyle('height', false, true);
 				// if symbol or svg, inherit width/height from me
-				if (widthAttr.hasValue()) {
+				if (widthStyle.hasValue()) {
 					tempSvg.attributes.width = new Property(
 						document,
 						'width',
-						this.getAttribute('width').getString()
+						widthStyle.getString()
 					);
 				}
 
-				if (heightAttr.hasValue()) {
+				if (heightStyle.hasValue()) {
 					tempSvg.attributes.height = new Property(
 						document,
 						'height',
-						heightAttr.getString()
+						heightStyle.getString()
 					);
 				}
 			}
