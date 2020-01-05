@@ -157,7 +157,8 @@
 		"issue782b.svg": "Issue #782b: Incorrect text-anchor, dx, dy, x and y",
 		"issue816.svg": "Issue #816: Handle empty bounding box",
 		"issue832.svg": "Issue #832: Correct translate parsing",
-		"issue870.svg": "Issue #870: image loading"
+		"issue870.svg": "Issue #870: image loading",
+		"issue869.svg": "Issue #869: box size from styles"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

@@ -501,10 +501,10 @@ export default class Screen {
 
 			if (typeof scaleWidth === 'number') {
 
-				const widthAttr = element.getAttribute('width');
+				const widthStyle = element.getStyle('width');
 
-				if (widthAttr.hasValue()) {
-					xRatio = widthAttr.getPixels('x') / scaleWidth;
+				if (widthStyle.hasValue()) {
+					xRatio = widthStyle.getPixels('x') / scaleWidth;
 				} else
 				if (!isNaN(viewBox[2])) {
 					xRatio = viewBox[2] / scaleWidth;
@@ -513,10 +513,10 @@ export default class Screen {
 
 			if (typeof scaleHeight === 'number') {
 
-				const heightAttr = element.getAttribute('height');
+				const heightStyle = element.getStyle('height');
 
-				if (heightAttr.hasValue()) {
-					yRatio = heightAttr.getPixels('y') / scaleHeight;
+				if (heightStyle.hasValue()) {
+					yRatio = heightStyle.getPixels('y') / scaleHeight;
 				} else
 				if (!isNaN(viewBox[3])) {
 					yRatio = viewBox[3] / scaleHeight;

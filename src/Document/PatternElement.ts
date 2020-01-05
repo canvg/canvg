@@ -15,8 +15,8 @@ export default class PatternElement extends Element {
 		parentOpacityProp: Property
 	) {
 
-		const width = this.getAttribute('width').getPixels('x', true);
-		const height = this.getAttribute('height').getPixels('y', true);
+		const width = this.getStyle('width').getPixels('x', true);
+		const height = this.getStyle('height').getPixels('y', true);
 		// render me using a temporary svg element
 		const patternSvg = new SVGElement(
 			this.document,

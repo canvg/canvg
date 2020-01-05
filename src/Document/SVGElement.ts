@@ -74,12 +74,12 @@ export default class SVGElement extends RenderedElement {
 			height
 		} = screen.viewPort;
 
-		if (!this.getAttribute('width').hasValue()) {
-			this.getAttribute('width', true).setValue('100%');
+		if (!this.getStyle('width').hasValue()) {
+			this.getStyle('width', true).setValue('100%');
 		}
 
-		if (!this.getAttribute('height').hasValue()) {
-			this.getAttribute('height', true).setValue('100%');
+		if (!this.getStyle('height').hasValue()) {
+			this.getStyle('height', true).setValue('100%');
 		}
 
 		const refXAttr = this.getAttribute('refX');
@@ -102,8 +102,8 @@ export default class SVGElement extends RenderedElement {
 
 		if (!this.root) {
 
-			width = this.getAttribute('width').getPixels('x');
-			height = this.getAttribute('height').getPixels('y');
+			width = this.getStyle('width').getPixels('x');
+			height = this.getStyle('height').getPixels('y');
 
 			if (this.type === 'marker') {
 				clipX = minX;

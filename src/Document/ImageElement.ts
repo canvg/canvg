@@ -76,14 +76,17 @@ export default class ImageElement extends RenderedElement {
 
 		const {
 			document,
+			image,
 			loaded
 		} = this;
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');
-		const width = this.getAttribute('width').getPixels('x');
-		const height = this.getAttribute('height').getPixels('y');
+		const width = this.getStyle('width').getPixels('x');
+		const height = this.getStyle('height').getPixels('y');
 
-		if (!loaded || !width || !height) {
+		if (!loaded || !image
+			|| !width || !height
+		) {
 			return;
 		}
 
@@ -133,8 +136,8 @@ export default class ImageElement extends RenderedElement {
 
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');
-		const width = this.getAttribute('width').getPixels('x');
-		const height = this.getAttribute('height').getPixels('y');
+		const width = this.getStyle('width').getPixels('x');
+		const height = this.getStyle('height').getPixels('y');
 
 		return new BoundingBox(x, y, x + width, y + height);
 	}

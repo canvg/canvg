@@ -12,8 +12,8 @@ export default class RectElement extends PathElement {
 
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');
-		const width = this.getAttribute('width').getPixels('x');
-		const height = this.getAttribute('height').getPixels('y');
+		const width = this.getStyle('width').getPixels('x');
+		const height = this.getStyle('height').getPixels('y');
 		const rxAttr = this.getAttribute('rx');
 		const ryAttr = this.getAttribute('ry');
 		let rx = rxAttr.getPixels('x');
