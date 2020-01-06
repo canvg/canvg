@@ -19,7 +19,7 @@ export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement 
 /**
  * Function to create new image.
  */
-export type CreateImage = (src: string) => Promise<CanvasImageSource>;
+export type CreateImage = (src: string, anonymousCrossOrigin?: boolean) => Promise<CanvasImageSource>;
 
 export interface IDocumentOptions {
 	/**
@@ -38,6 +38,10 @@ export interface IDocumentOptions {
 	 * Function to create new image.
 	 */
 	createImage?: CreateImage;
+	/**
+	 * Load images anonymously.
+	 */
+	anonymousCrossOrigin?: boolean;
 }
 
 export type IViewBoxConfig = Omit<IScreenViewBoxConfig, 'document'>;
@@ -54,11 +58,13 @@ function createCanvas(width: number, height: number) {
 	return canvas;
 }
 
-async function createImage(src: string) {
+async function createImage(src: string, anonymousCrossOrigin = false) {
 
 	const image = document.createElement('img');
 
-	// image.crossOrigin = 'Anonymous';
+	if (anonymousCrossOrigin) {
+		image.crossOrigin = 'Anonymous';
+	}
 
 	return new Promise<HTMLImageElement>((resolve, reject) => {
 		image.onload = () => {
@@ -96,7 +102,8 @@ export default class Document {
 			rootEmSize = 12,
 			emSize = 12,
 			createCanvas = Document.createCanvas,
-			createImage = Document.createImage
+			createImage = Document.createImage,
+			anonymousCrossOrigin
 		}: IDocumentOptions = {}
 	) {
 
@@ -104,10 +111,25 @@ export default class Document {
 		this.rootEmSize = rootEmSize;
 		this.emSize = emSize;
 		this.createCanvas = createCanvas;
-		this.createImage = createImage;
+		this.createImage = this.bindCreateImage(createImage, anonymousCrossOrigin);
 
 		this.screen.wait(this.isImagesLoaded.bind(this));
 		this.screen.wait(this.isFontsLoaded.bind(this));
+	}
+
+	private bindCreateImage(createImage: CreateImage, anonymousCrossOrigin?: boolean) {
+
+		if (typeof anonymousCrossOrigin === 'boolean') {
+			return (source: string, forceAnonymousCrossOrigin?: boolean) =>
+				createImage(
+					source,
+					typeof forceAnonymousCrossOrigin === 'boolean'
+						? forceAnonymousCrossOrigin
+						: anonymousCrossOrigin
+				);
+		}
+
+		return createImage;
 	}
 
 	get window() {

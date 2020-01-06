@@ -297,7 +297,11 @@ interface IOptions {
     /**
      * Function to create new image.
      */
-    createImage?: (src: string) => Promise<CanvasImageSource>;
+    createImage?: (src: string, anonymousCrossOrigin?: boolean) => Promise<CanvasImageSource>;
+    /**
+     * Load images anonymously.
+     */
+    anonymousCrossOrigin?: boolean;
 }
 ```
 
