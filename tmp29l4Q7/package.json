@@ -1,0 +1,52 @@
+{
+  "name": "canvg",
+  "version": "3.0.3",
+  "description": "JavaScript SVG parser and renderer on Canvas.",
+  "authors": [
+    {
+      "name": "Gabe Lerner",
+      "email": "gabelerner@gmail.com"
+    },
+    {
+      "name": "Brett Zamir"
+    },
+    {
+      "name": "Dan Green",
+      "url": "https://twitter.com/dangreen58"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/canvg/canvg"
+  },
+  "bugs": {
+    "url": "https://github.com/canvg/canvg/issues"
+  },
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "raw": "lib/index.babel.js",
+  "umd": "lib/umd.js",
+  "types": "lib/index.d.ts",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "javascript",
+    "client",
+    "browser",
+    "svg",
+    "canvas"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "@types/raf": "^3.4.0",
+    "core-js": "3",
+    "raf": "^3.4.1",
+    "rgbcolor": "^1.0.1",
+    "stackblur-canvas": "^2.0.0"
+  },
+  "files": [
+    "lib"
+  ]
+}
