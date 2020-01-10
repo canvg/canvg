@@ -2066,9 +2066,9 @@ babel-preset-minify@^0.5.1:
     lodash "^4.17.11"
 
 babel-preset-trigen@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-trigen/-/babel-preset-trigen-2.2.2.tgz#193baea0aea061ef05f8db4e34392c77d39daa09"
-  integrity sha512-Jfbrtk/rEwYLWBKTuuPzgI2OoMuTPF8keEnnM5Nek3Xdbo5+To/PNCnRaNyFvsmya2sohwY7kJ+yl6vQ3U5/Ew==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-trigen/-/babel-preset-trigen-2.3.0.tgz#70504e2fd8bf43ba05acf198dcaa8df52d7d3b35"
+  integrity sha512-2not1GdnWc0Ev5PtyyT0rulRDZtJrqDed5xslFAUBFblh3W8GPt7O7oqWcWp9WOt6J6x2w9rqTT/OYww97I/Dw==
   dependencies:
     "@babel/plugin-proposal-async-generator-functions" "^7.2.0"
     "@babel/plugin-proposal-class-properties" "^7.4.4"
