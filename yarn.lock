@@ -2299,9 +2299,9 @@ browserify-zlib@^0.2.0:
     pako "~1.0.5"
 
 browserslist-config-trigen@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/browserslist-config-trigen/-/browserslist-config-trigen-1.1.1.tgz#2dba9f7f3340b02c4547f38149075d4968bf9325"
-  integrity sha512-C4sDaZcxe07Z+hIY7MwG1GqAFuhQgrJBsGSEP4prt4hmQBerHLj4w68HIqh+ZHHZICTHRKAJml/gvzLbgPlkHw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/browserslist-config-trigen/-/browserslist-config-trigen-1.2.0.tgz#54279a9533ac84e6b760eb5fbe85491c3123efeb"
+  integrity sha512-V2UUIItqwVkXhFHEyIemio0LCmIe32KgJwcpRErQzwo2U3pgewiE2VA4nrEev+c9tw5yd7PnDYAwLKfT2wnc/g==
 
 browserslist@^4.0.0, browserslist@^4.6.0, browserslist@^4.6.6:
   version "4.7.0"
