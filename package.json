@@ -64,7 +64,7 @@
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
-    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
     "@size-limit/preset-small-lib": "^3.0.0",
     "@types/jest": "^24.0.21",
     "@types/node-fetch": "^2.5.4",
