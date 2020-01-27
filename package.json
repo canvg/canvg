@@ -78,7 +78,7 @@
     "canvas": "^2.1.0",
     "clean-publish": "^1.1.0",
     "coveralls": "^3.0.7",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.0",
     "http-server": "^0.12.0",
     "husky": "^4.0.9",
     "jest": "^24.3.0",
