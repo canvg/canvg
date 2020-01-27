@@ -23,16 +23,13 @@ export default class Parser {
 
 	private readonly fetch: typeof defaultFetch;
 	private readonly DOMParser: typeof DefaultDOMParser;
-	// private readonly options: any;
 
 	constructor({
 		fetch = defaultFetch,
 		DOMParser = DefaultDOMParser
-		// ...options
 	}: IParserOptions = {}) {
 		this.fetch = fetch;
 		this.DOMParser = DOMParser;
-		// this.options = options;
 	}
 
 	async parse(resource: string) {
