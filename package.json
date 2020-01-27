@@ -71,7 +71,7 @@
     "@types/puppeteer": "^1.20.2",
     "@types/xmldom": "^0.1.29",
     "archiver": "^3.1.1",
-    "babel-jest": "^24.5.0",
+    "babel-jest": "^25.1.0",
     "babel-preset-trigen": "^2.2.1",
     "browserslist-config-trigen": "^1.1.0",
     "builtin-modules": "*",
