@@ -89,8 +89,7 @@ const defaultWindow = typeof window !== 'undefined'
 	? window
 	: null;
 const defaultFetch: typeof fetch = typeof fetch !== 'undefined'
-	// tslint:disable-next-line: no-unnecessary-callback-wrapper
-	? (...args) => fetch(...args) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
+	? fetch.bind(void 0) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
 	: null;
 
 export default class Screen {
