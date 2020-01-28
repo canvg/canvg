@@ -88,8 +88,8 @@ export interface IScreenViewBoxConfig {
 const defaultWindow = typeof window !== 'undefined'
 	? window
 	: null;
-const defaultFetch = typeof fetch !== 'undefined'
-	? fetch.bind(window)
+const defaultFetch: typeof fetch = typeof fetch !== 'undefined'
+	? fetch.bind(void 0) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
 	: null;
 
 export default class Screen {
