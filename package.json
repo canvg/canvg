@@ -86,7 +86,7 @@
     "lint-staged": "^10.0.2",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.1",
-    "puppeteer": "^1.20.0",
+    "puppeteer": "^2.1.0",
     "rollup": "^1.13.0",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-babel-minify": "^9.1.0",
