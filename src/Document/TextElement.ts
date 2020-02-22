@@ -442,7 +442,10 @@ export default class TextElement extends RenderedElement {
 
 		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
 		const boundingBox = child.getBoundingBox(ctx);
-
+		if (!child.getBoundingBox) {
+			return null;
+		}
+		
 		if (!boundingBox) {
 			return null;
 		}
