@@ -12,7 +12,8 @@ export default class FilterElement extends Element {
 	apply(ctx: RenderingContext2D, element: PathElement) {
 		// render as temp svg
 		const {
-			document
+			document,
+			children
 		} = this;
 		const boundingBox = element.getBoundingBox(ctx);
 
@@ -20,19 +21,10 @@ export default class FilterElement extends Element {
 			return;
 		}
 
-		const x = Math.floor(boundingBox.x1);
-		const y = Math.floor(boundingBox.y1);
-		const width = Math.floor(boundingBox.width);
-		const height = Math.floor(boundingBox.height);
-		// temporarily remove filter to avoid recursion
-		const filter = element.getStyle('filter').getString();
-
-		element.getStyle('filter').setValue('');
-
 		let px = 0;
 		let py = 0;
 
-		this.children.forEach((child: FeGaussianBlurElement) => {
+		children.forEach((child: FeGaussianBlurElement) => {
 
 			const efd = child.extraFilterDistance || 0;
 
@@ -40,7 +32,23 @@ export default class FilterElement extends Element {
 			py = Math.max(py, efd);
 		});
 
-		const tmpCanvas = document.createCanvas(width + 2 * px, height + 2 * py);
+		const width = Math.floor(boundingBox.width);
+		const height = Math.floor(boundingBox.height);
+		const tmpCanvasWidth = width + 2 * px;
+		const tmpCanvasHeight = height + 2 * py;
+
+		if (tmpCanvasWidth < 1 || tmpCanvasHeight < 1) {
+			return;
+		}
+
+		const x = Math.floor(boundingBox.x1);
+		const y = Math.floor(boundingBox.y1);
+		// temporarily remove filter to avoid recursion
+		const filter = element.getStyle('filter').getString();
+
+		element.getStyle('filter').setValue('');
+
+		const tmpCanvas = document.createCanvas(tmpCanvasWidth, tmpCanvasHeight);
 		const tmpCtx = tmpCanvas.getContext('2d');
 
 		document.screen.setDefaults(tmpCtx);
@@ -48,15 +56,15 @@ export default class FilterElement extends Element {
 		element.render(tmpCtx);
 
 		// apply filters
-		this.children.forEach((child: FeGaussianBlurElement) => {
+		children.forEach((child: FeGaussianBlurElement) => {
 
 			if (typeof child.apply === 'function') {
 				child.apply(
 					tmpCtx,
 					0,
 					0,
-					width + 2 * px,
-					height + 2 * py
+					tmpCanvasWidth,
+					tmpCanvasHeight
 				);
 			}
 		});
@@ -66,12 +74,12 @@ export default class FilterElement extends Element {
 			tmpCanvas,
 			0,
 			0,
-			width + 2 * px,
-			height + 2 * py,
+			tmpCanvasWidth,
+			tmpCanvasHeight,
 			x - px,
 			y - py,
-			width + 2 * px,
-			height + 2 * py
+			tmpCanvasWidth,
+			tmpCanvasHeight
 		);
 
 		// reassign filter
