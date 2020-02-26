@@ -1329,10 +1329,10 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
-"@types/puppeteer@^1.20.2":
-  version "1.20.2"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.20.2.tgz#b123551fa868b78f1c65ef1cfc0dd5ea1f24234c"
-  integrity sha512-oSFCtftHSfVx8K9XPdNNYs79Zt4pYJs/0NP78ltuGCB25zS3UNGJSiypBfbhbvRC5Dcsh0k1R5Z0i8HHtqQUPQ==
+"@types/puppeteer@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-2.0.1.tgz#83a1d7f0a1c2e0edbbb488b4d8fb54b14ec9d455"
+  integrity sha512-G8vEyU83Bios+dzs+DZGpAirDmMqRhfFBJCkFrg+A5+6n5EPPHxwBLImJto3qjh0mrBXbLBCyuahhhtTrAfR5g==
   dependencies:
     "@types/node" "*"
 

@@ -68,7 +68,7 @@
     "@size-limit/preset-small-lib": "^3.0.0",
     "@types/jest": "^25.1.0",
     "@types/node-fetch": "^2.5.4",
-    "@types/puppeteer": "^1.20.2",
+    "@types/puppeteer": "^2.0.1",
     "@types/xmldom": "^0.1.29",
     "archiver": "^3.1.1",
     "babel-jest": "^25.1.0",
