@@ -94,13 +94,13 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-tslint": "^0.2.2",
-    "rollup-plugin-typescript2": "^0.25.2",
+    "rollup-plugin-typescript2": "^0.26.0",
     "ts-node-dev": "^1.0.0-pre.39",
     "tsconfig-paths": "^3.8.0",
     "tslint": "^6.0.0",
     "tslint-config-trigen": "^3.0.7",
     "typedoc": "^0.16.4",
-    "typescript": "3.7.5",
+    "typescript": "3.8.2",
     "xmldom": "^0.2.1"
   },
   "files": [

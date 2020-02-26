@@ -159,7 +159,8 @@
 		"issue832.svg": "Issue #832: Correct translate parsing",
 		"issue870.svg": "Issue #870: image loading",
 		"issue869.svg": "Issue #869: box size from styles",
-		"issue941.svg": "Issue #941: check ellipse radiuses"
+		"issue941.svg": "Issue #941: check ellipse radiuses",
+		"issue747.svg": "Issue #747: check filter size before draw"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
