@@ -37,7 +37,7 @@ export default class FilterElement extends Element {
 		const tmpCanvasWidth = width + 2 * px;
 		const tmpCanvasHeight = height + 2 * py;
 
-		if (!tmpCanvasWidth || !tmpCanvasHeight) {
+		if (tmpCanvasWidth < 1 || tmpCanvasHeight < 1) {
 			return;
 		}
 
