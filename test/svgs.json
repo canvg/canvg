@@ -158,7 +158,8 @@
 		"issue816.svg": "Issue #816: Handle empty bounding box",
 		"issue832.svg": "Issue #832: Correct translate parsing",
 		"issue870.svg": "Issue #870: image loading",
-		"issue869.svg": "Issue #869: box size from styles"
+		"issue869.svg": "Issue #869: box size from styles",
+		"issue941.svg": "Issue #941: check ellipse radiuses"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

@@ -16,7 +16,7 @@ export default class EllipseElement extends PathElement {
 		const cx = this.getAttribute('cx').getPixels('x');
 		const cy = this.getAttribute('cy').getPixels('y');
 
-		if (ctx) {
+		if (ctx && rx > 0 && ry > 0) {
 			ctx.beginPath();
 			ctx.moveTo(cx + rx, cy);
 			ctx.bezierCurveTo(
