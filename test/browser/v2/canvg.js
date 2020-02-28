@@ -269,6 +269,8 @@
 	      xmlDoc.loadXml(xml, settings);
 	      return xmlDoc;
 	    } else if (windowEnv.DOMParser) {
+	      // get rid of these potentially dupe attributes or IE11 fails -- BRH
+	      xml = xml.replace(/xmlns\=\".*?\"/g, '');
 	      try {
 	        var parser = opts.xmldom ? new windowEnv.DOMParser(opts.xmldom) : new windowEnv.DOMParser();
 	        return parser.parseFromString(xml, 'image/svg+xml');
