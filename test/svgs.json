@@ -160,7 +160,8 @@
 		"issue870.svg": "Issue #870: image loading",
 		"issue869.svg": "Issue #869: box size from styles",
 		"issue941.svg": "Issue #941: check ellipse radiuses",
-		"issue747.svg": "Issue #747: check filter size before draw"
+		"issue747.svg": "Issue #747: check filter size before draw",
+		"issue946.svg": "Issue #946: invalid path tokenizer"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
