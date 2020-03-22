@@ -212,10 +212,12 @@ export default abstract class RenderedElement extends Element {
 			}
 		}
 
-		this.applyEffects(ctx);
-
-		// opacity
-		ctx.globalAlpha = this.calculateOpacity();
+		if (!fromMeasure) {
+			// effects
+			this.applyEffects(ctx);
+			// opacity
+			ctx.globalAlpha = this.calculateOpacity();
+		}
 	}
 
 	clearContext(ctx: RenderingContext2D) {
