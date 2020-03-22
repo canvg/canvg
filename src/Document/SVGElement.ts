@@ -82,6 +82,10 @@ export default class SVGElement extends RenderedElement {
 			this.getStyle('height', true).setValue('100%');
 		}
 
+		if (!this.getStyle('color').hasValue()) {
+			this.getStyle('color', true).setValue('black');
+		}
+
 		const refXAttr = this.getAttribute('refX');
 		const refYAttr = this.getAttribute('refY');
 		const viewBoxAttr = this.getAttribute('viewBox');
