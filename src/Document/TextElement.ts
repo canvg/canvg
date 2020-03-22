@@ -551,6 +551,7 @@ export default class TextElement extends RenderedElement {
 			width: measure
 		} = ctx.measureText(targetText);
 
+		this.clearContext(ctx);
 		ctx.restore();
 
 		return measure;

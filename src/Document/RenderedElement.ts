@@ -7,9 +7,7 @@ import {
 } from '../util';
 import Font from '../Font';
 import Property from '../Property';
-import Transform from '../Transform';
 import Element from './Element';
-import ClipPathElement from './ClipPathElement';
 
 export default abstract class RenderedElement extends Element {
 
@@ -214,24 +212,7 @@ export default abstract class RenderedElement extends Element {
 			}
 		}
 
-		// transform
-		const transform = Transform.fromElement(this.document, this);
-
-		if (transform) {
-			transform.apply(ctx);
-		}
-
-		// clip
-		const clipPathStyleProp = this.getStyle('clip-path', false, true);
-
-		if (clipPathStyleProp.hasValue()) {
-
-			const clip = clipPathStyleProp.getDefinition<ClipPathElement>();
-
-			if (clip) {
-				clip.apply(ctx);
-			}
-		}
+		this.applyEffects(ctx);
 
 		// opacity
 		ctx.globalAlpha = this.calculateOpacity();
