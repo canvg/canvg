@@ -353,6 +353,7 @@ export default class TextElement extends RenderedElement {
 			return child;
 		}
 
+		ctx.save();
 		child.setContext(ctx, true);
 
 		const xAttr = child.getAttribute('x');
@@ -433,6 +434,7 @@ export default class TextElement extends RenderedElement {
 		textParent.y = child.y;
 
 		child.clearContext(ctx);
+		ctx.restore();
 
 		return child;
 	}
