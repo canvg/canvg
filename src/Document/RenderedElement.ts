@@ -57,7 +57,7 @@ export default abstract class RenderedElement extends Element {
 			if (fillStyleProp.hasValue()) {
 
 				if (fillStyleProp.getString() === 'currentColor') {
-					fillStyleProp.setValue(this.getStyle('color').getValue());
+					fillStyleProp.setValue(this.getStyle('color').getValue('black'));
 				}
 
 				const fillStyle = fillStyleProp.getString();
@@ -91,7 +91,7 @@ export default abstract class RenderedElement extends Element {
 			if (strokeStyleProp.hasValue()) {
 
 				if (strokeStyleProp.getString() === 'currentColor') {
-					strokeStyleProp.setValue(this.getStyle('color').getValue());
+					strokeStyleProp.setValue(this.getStyle('color').getValue('black'));
 				}
 
 				const strokeStyle = strokeStyleProp.getString();
