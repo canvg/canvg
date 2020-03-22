@@ -15,7 +15,10 @@ function preparePath(path: string) {
 		// Again, we need to run this twice to find all occurances
 		.replace(/(\.[0-9]*)(\.)/gm, '$1 $2') // separate digits when they start with a comma
 		.replace(/(\.[0-9]*)(\.)/gm, '$1 $2') // separate digits when they start with a comma
-		.replace(/([Aa](\s+[0-9]+){3})\s+([01])\s*([01])/gm, '$1 $3 $4 '); // shorthand elliptical arc path syntax
+		.replace(
+			/([Aa](?:\s+(?:[0-9]*\.)?[0-9]+){3})\s+([01])\s*([01])/gm,
+			'$1 $2 $3 '
+		); // shorthand elliptical arc path syntax
 
 	return compressSpaces(d).trim();
 }
