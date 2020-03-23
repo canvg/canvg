@@ -63,9 +63,9 @@ export default abstract class Element {
 				const [
 					name,
 					value
-				] = style.split(':');
+				] = style.split(':').map(_ => _.trim());
 
-				this.styles[name] = new Property(document, name.trim(), value.trim());
+				this.styles[name] = new Property(document, name, value);
 			});
 		}
 

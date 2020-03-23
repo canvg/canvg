@@ -28,6 +28,6 @@ export default class StopElement extends Element {
 		}
 
 		this.offset = offset;
-		this.color = stopColor.getString();
+		this.color = stopColor.getColor();
 	}
 }

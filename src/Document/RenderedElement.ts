@@ -55,10 +55,10 @@ export default abstract class RenderedElement extends Element {
 			if (fillStyleProp.hasValue()) {
 
 				if (fillStyleProp.getString() === 'currentColor') {
-					fillStyleProp.setValue(this.getStyle('color').getValue());
+					fillStyleProp.setValue(this.getStyle('color').getColor());
 				}
 
-				const fillStyle = fillStyleProp.getString();
+				const fillStyle = fillStyleProp.getColor();
 
 				if (fillStyle !== 'inherit') {
 					ctx.fillStyle = fillStyle === 'none'
@@ -71,7 +71,7 @@ export default abstract class RenderedElement extends Element {
 
 				const fillStyle = new Property(this.document, 'fill', ctx.fillStyle as string)
 					.addOpacity(fillOpacityStyleProp)
-					.getString();
+					.getColor();
 
 				ctx.fillStyle = fillStyle;
 			}
@@ -89,7 +89,7 @@ export default abstract class RenderedElement extends Element {
 			if (strokeStyleProp.hasValue()) {
 
 				if (strokeStyleProp.getString() === 'currentColor') {
-					strokeStyleProp.setValue(this.getStyle('color').getValue());
+					strokeStyleProp.setValue(this.getStyle('color').getColor());
 				}
 
 				const strokeStyle = strokeStyleProp.getString();
