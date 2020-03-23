@@ -161,10 +161,11 @@
 		"issue869.svg": "Issue #869: box size from styles",
 		"issue941.svg": "Issue #941: check ellipse radiuses",
 		"issue747.svg": "Issue #747: check filter size before draw",
-		"issue946.svg": "Issue #946: invalid path tokenizer",
 		"issue945.svg": "Issue #945: default currentColor",
+		"issue946.svg": "Issue #946: invalid path tokenizer",
 		"issue897a.svg": "Issue #897: invalid transform on element with filter",
-		"issue897b.svg": "Issue #897: invalid transform on element with mask"
+		"issue897b.svg": "Issue #897: invalid transform on element with mask",
+		"issue908.svg": "Issue #908: css imports"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

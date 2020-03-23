@@ -43,18 +43,31 @@ export default class Parser {
 
 	parseFromString(xml: string) {
 
+		const parser = new this.DOMParser();
+
 		try {
 
-			const parser = new this.DOMParser();
-
-			return parser.parseFromString(xml, 'image/svg+xml');
+			return this.checkDocument(
+				parser.parseFromString(xml, 'image/svg+xml')
+			);
 
 		} catch (err) {
 
-			const parser = new this.DOMParser();
-
-			return parser.parseFromString(xml, 'text/xml');
+			return this.checkDocument(
+				parser.parseFromString(xml, 'text/xml')
+			);
 		}
+	}
+
+	private checkDocument(document: Document) {
+
+		const parserError = document.getElementsByTagName('parsererror')[0];
+
+		if (parserError) {
+			throw new Error(parserError.textContent);
+		}
+
+		return document;
 	}
 
 	async load(url: string) {
