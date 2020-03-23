@@ -1,5 +1,8 @@
 import RGBColor from 'rgbcolor';
 import {
+	normalizeColor
+} from './util';
+import {
 	Axis
 } from './ViewPort';
 import Document, {
@@ -28,7 +31,7 @@ export default class Property<T = any> {
 		return new Property(document, 'EMPTY', '');
 	}
 
-	private isCleanColor = false;
+	private isNormalizedColor = false;
 
 	constructor(
 		private readonly document: Document,
@@ -135,26 +138,17 @@ export default class Property<T = any> {
 
 	getColor(def?: T) {
 
-		const colorString = this.getString(def);
+		let color = this.getString(def);
 
-		if (this.isCleanColor) {
-			return colorString;
+		if (this.isNormalizedColor) {
+			return color;
 		}
 
-		this.isCleanColor = true;
+		this.isNormalizedColor = true;
+		color = normalizeColor(color);
+		this.value = color as any;
 
-		if (!colorString.startsWith('rgb')) {
-			return colorString;
-		}
-
-		const cleanColorString = colorString.replace(
-			/(\d+)\.\d+\s*,/g,
-			(_, num) => `${num},`
-		);
-
-		this.value = cleanColorString as any;
-
-		return cleanColorString;
+		return color;
 	}
 
 	getDpi() {

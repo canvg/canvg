@@ -62,3 +62,24 @@ export function parseExternalUrl(url: string): string {
 
 	return urlMatch[2] || urlMatch[3] || urlMatch[4];
 }
+
+/**
+ * Transform floats to integers in rgb colors.
+ * @param color - Color to normalize.
+ */
+export function normalizeColor(color: string) {
+
+	if (!color.startsWith('rgb')) {
+		return color;
+	}
+
+	let rgbParts = 3;
+	const normalizedColor = color.replace(
+		/\d+(\.\d+)?/g,
+		(num, isFloat) => rgbParts-- && isFloat
+			? String(Math.round(parseFloat(num)))
+			: num
+	);
+
+	return normalizedColor;
+}

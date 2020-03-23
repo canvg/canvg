@@ -1,6 +1,7 @@
 import {
 	toNumbers,
-	parseExternalUrl
+	parseExternalUrl,
+	normalizeColor
 } from '../src/util';
 
 describe('util', () => {
@@ -88,6 +89,60 @@ describe('util', () => {
 			expect(
 				parseExternalUrl('url(\'foo\')')
 			).toBe('foo');
+		});
+	});
+
+	describe('normalizeColor', () => {
+
+		it('should normalize rgb', () => {
+
+			expect(
+				normalizeColor('rgb(123.32, 32.9, 54.21)')
+			).toBe(
+				'rgb(123, 33, 54)'
+			);
+
+			expect(
+				normalizeColor('rgb(123.32, 255, 255)')
+			).toBe(
+				'rgb(123, 255, 255)'
+			);
+		});
+
+		it('should normalize rgba', () => {
+
+			expect(
+				normalizeColor('rgba(123.32, 32.9, 54.21, 0.2)')
+			).toBe(
+				'rgba(123, 33, 54, 0.2)'
+			);
+
+			expect(
+				normalizeColor('rgba(123.32, 255, 255, .3)')
+			).toBe(
+				'rgba(123, 255, 255, .3)'
+			);
+		});
+
+		it('should not change color', () => {
+
+			expect(
+				normalizeColor('rgb(255, 255, 255)')
+			).toBe(
+				'rgb(255, 255, 255)'
+			);
+
+			expect(
+				normalizeColor('rgb(255, 255, 255, .9)')
+			).toBe(
+				'rgb(255, 255, 255, .9)'
+			);
+
+			expect(
+				normalizeColor('rgb(255, 255, 255, 0.9)')
+			).toBe(
+				'rgb(255, 255, 255, 0.9)'
+			);
 		});
 	});
 });
