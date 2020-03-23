@@ -8259,9 +8259,9 @@ size-limit@3.0.1:
     read-pkg-up "^7.0.1"
 
 size-limit@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-4.4.0.tgz#24dbdcf0c3a2069979a0ace2e95da630f28b8b0c"
-  integrity sha512-27B+05/0f972ErQki1VkcMXc0O3fS8PefI1pEkbGCj3Dm7An1NWa+JpHhzq0TveGpElNJKX7LVT+rojvqyxhCw==
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-4.4.1.tgz#0a763efcf236e6835f24141de38f19d9b82c7582"
+  integrity sha512-2EbjqOsZmWz5NNLy9xURH55OqXlE4TN95Yl3KiWhgZx4IJF0LloHgUTF0e9gXjeVYcYkqPbSIzzWooUq3x5LxA==
   dependencies:
     bytes "^3.1.0"
     chalk "^3.0.0"
