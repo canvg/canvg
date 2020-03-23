@@ -53,20 +53,9 @@ export default class Parser {
 
 		} catch (err) {
 
-			try {
-
-				return this.checkDocument(
-					parser.parseFromString(xml, 'text/xml')
-				);
-
-			} catch (err) {
-
-				return this.htmlToSvgDocument(
-					this.checkDocument(
-						parser.parseFromString(xml, 'text/html')
-					)
-				);
-			}
+			return this.checkDocument(
+				parser.parseFromString(xml, 'text/xml')
+			);
 		}
 	}
 
@@ -77,15 +66,6 @@ export default class Parser {
 		if (parserError) {
 			throw new Error(parserError.textContent);
 		}
-
-		return document;
-	}
-
-	private htmlToSvgDocument(document: Document) {
-
-		Reflect.defineProperty(document, 'documentElement', {
-			value: document.getElementsByTagName('svg')[0]
-		});
 
 		return document;
 	}
