@@ -6,12 +6,12 @@
 	},
 	{
 		"path": "lib/index.es.js",
-		"limit": "67 KB",
+		"limit": "68 KB",
 		"webpack": false
 	},
 	{
 		"path": "lib/umd.js",
-		"limit": "50 KB",
+		"limit": "51 KB",
 		"webpack": false
 	},
 	{

@@ -104,8 +104,6 @@ async function render(svg, width, height) {
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg);
 
-	renderSource(svg);
-
 	if (custom.resize.checked) {
 		v.resize(width, height, custom.preserveAspectRatio.value);
 		resizeSvg(v.documentElement);
@@ -119,6 +117,8 @@ async function render(svg, width, height) {
 	} else {
 		await v.render();
 	}
+
+	renderSource(svg);
 }
 
 async function offscreenRender(svg, width, height) {
@@ -130,8 +130,6 @@ async function offscreenRender(svg, width, height) {
 	const ctx = c.getContext('2d');
 	const v = await Canvg.from(ctx, svg, presets.offscreen());
 
-	renderSource(svg);
-
 	if (custom.resize.checked) {
 		v.resize(width, height, custom.preserveAspectRatio.value);
 		resizeSvg(v.documentElement);
@@ -142,6 +140,8 @@ async function offscreenRender(svg, width, height) {
 	const blob = await c.convertToBlob();
 
 	canvasOutput.innerHTML = `<img src="${URL.createObjectURL(blob)}">`;
+
+	renderSource(svg);
 }
 
 function v2Render(svg, width, height) {
