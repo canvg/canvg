@@ -99,7 +99,7 @@ export default class UseElement extends RenderedElement {
 
 			const oldParent = tempSvg.parent;
 
-			tempSvg.parent = null;
+			tempSvg.parent = this;
 			tempSvg.render(ctx);
 			tempSvg.parent = oldParent;
 		}
