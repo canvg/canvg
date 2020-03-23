@@ -12,8 +12,8 @@ export default class AnimateColorElement extends AnimateElement {
 			from,
 			to
 		} = this.getProgress();
-		const colorFrom = new RGBColor(from.getString());
-		const colorTo = new RGBColor(to.getString());
+		const colorFrom = new RGBColor(from.getColor());
+		const colorTo = new RGBColor(to.getColor());
 
 		if (colorFrom.ok && colorTo.ok) {
 			// tween color linearly
@@ -30,6 +30,6 @@ export default class AnimateColorElement extends AnimateElement {
 			})`;
 		}
 
-		return this.getAttribute('from').getString();
+		return this.getAttribute('from').getColor();
 	}
 }

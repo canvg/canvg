@@ -5,7 +5,9 @@ import {
 	normalizeAttributeName
 } from '../util';
 import Property from '../Property';
+import Transform from '../Transform';
 import Document from './Document';
+import ClipPathElement from './ClipPathElement';
 import MaskElement from './MaskElement';
 import FilterElement from './FilterElement';
 
@@ -61,9 +63,9 @@ export default abstract class Element {
 				const [
 					name,
 					value
-				] = style.split(':');
+				] = style.split(':').map(_ => _.trim());
 
-				this.styles[name] = new Property(document, name.trim(), value.trim());
+				this.styles[name] = new Property(document, name, value);
 			});
 		}
 
@@ -185,6 +187,7 @@ export default abstract class Element {
 			const mask = this.getStyle('mask').getDefinition<MaskElement>();
 
 			if (mask) {
+				this.applyEffects(ctx);
 				mask.apply(ctx, this);
 			}
 
@@ -194,6 +197,7 @@ export default abstract class Element {
 			const filter = this.getStyle('filter').getDefinition<FilterElement>();
 
 			if (filter) {
+				this.applyEffects(ctx);
 				filter.apply(ctx, this as any);
 			}
 
@@ -207,6 +211,28 @@ export default abstract class Element {
 	}
 
 	setContext(_: RenderingContext2D) {}
+
+	protected applyEffects(ctx: RenderingContext2D) {
+
+		// transform
+		const transform = Transform.fromElement(this.document, this);
+
+		if (transform) {
+			transform.apply(ctx);
+		}
+
+		// clip
+		const clipPathStyleProp = this.getStyle('clip-path', false, true);
+
+		if (clipPathStyleProp.hasValue()) {
+
+			const clip = clipPathStyleProp.getDefinition<ClipPathElement>();
+
+			if (clip) {
+				clip.apply(ctx);
+			}
+		}
+	}
 
 	clearContext(_: RenderingContext2D) {}
 
@@ -285,5 +311,38 @@ export default abstract class Element {
 				}
 			}
 		}
+	}
+
+	protected removeStyles(element: Element, ignoreStyles: string[]) {
+
+		const toRestore = ignoreStyles.reduce<[string, string][]>((toRestore, name) => {
+
+			const styleProp = element.getStyle(name);
+
+			if (!styleProp.hasValue()) {
+				return toRestore;
+			}
+
+			const value = styleProp.getString();
+
+			styleProp.setValue('');
+
+			return [
+				...toRestore,
+				[name, value]
+			];
+		}, []);
+
+		return toRestore;
+	}
+
+	protected restoreStyles(element: Element, styles: [string, string][]) {
+
+		styles.forEach(([
+			name,
+			value
+		]) => {
+			element.getStyle(name, true).setValue(value);
+		});
 	}
 }

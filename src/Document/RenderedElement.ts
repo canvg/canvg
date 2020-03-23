@@ -7,9 +7,7 @@ import {
 } from '../util';
 import Font from '../Font';
 import Property from '../Property';
-import Transform from '../Transform';
 import Element from './Element';
-import ClipPathElement from './ClipPathElement';
 
 export default abstract class RenderedElement extends Element {
 
@@ -57,10 +55,10 @@ export default abstract class RenderedElement extends Element {
 			if (fillStyleProp.hasValue()) {
 
 				if (fillStyleProp.getString() === 'currentColor') {
-					fillStyleProp.setValue(this.getStyle('color').getValue());
+					fillStyleProp.setValue(this.getStyle('color').getColor());
 				}
 
-				const fillStyle = fillStyleProp.getString();
+				const fillStyle = fillStyleProp.getColor();
 
 				if (fillStyle !== 'inherit') {
 					ctx.fillStyle = fillStyle === 'none'
@@ -73,7 +71,7 @@ export default abstract class RenderedElement extends Element {
 
 				const fillStyle = new Property(this.document, 'fill', ctx.fillStyle as string)
 					.addOpacity(fillOpacityStyleProp)
-					.getString();
+					.getColor();
 
 				ctx.fillStyle = fillStyle;
 			}
@@ -91,7 +89,7 @@ export default abstract class RenderedElement extends Element {
 			if (strokeStyleProp.hasValue()) {
 
 				if (strokeStyleProp.getString() === 'currentColor') {
-					strokeStyleProp.setValue(this.getStyle('color').getValue());
+					strokeStyleProp.setValue(this.getStyle('color').getColor());
 				}
 
 				const strokeStyle = strokeStyleProp.getString();
@@ -214,27 +212,12 @@ export default abstract class RenderedElement extends Element {
 			}
 		}
 
-		// transform
-		const transform = Transform.fromElement(this.document, this);
-
-		if (transform) {
-			transform.apply(ctx);
+		if (!fromMeasure) {
+			// effects
+			this.applyEffects(ctx);
+			// opacity
+			ctx.globalAlpha = this.calculateOpacity();
 		}
-
-		// clip
-		const clipPathStyleProp = this.getStyle('clip-path', false, true);
-
-		if (clipPathStyleProp.hasValue()) {
-
-			const clip = clipPathStyleProp.getDefinition<ClipPathElement>();
-
-			if (clip) {
-				clip.apply(ctx);
-			}
-		}
-
-		// opacity
-		ctx.globalAlpha = this.calculateOpacity();
 	}
 
 	clearContext(ctx: RenderingContext2D) {

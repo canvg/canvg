@@ -8,6 +8,12 @@ import FeColorMatrixElement from './FeColorMatrixElement';
 
 export default class MaskElement extends Element {
 
+	static ignoreStyles = [
+		'mask',
+		'transform',
+		'clip-path'
+	];
+
 	type = 'mask';
 
 	apply(ctx: RenderingContext2D, element: Element) {
@@ -35,48 +41,42 @@ export default class MaskElement extends Element {
 			height = Math.floor(boundingBox.height);
 		}
 
-		// temporarily remove mask to avoid recursion
-		const mask = element.getStyle('mask').getString();
-
-		element.getStyle('mask').setValue('');
-
-		const cMask = document.createCanvas(x + width, y + height);
-		const maskCtx = cMask.getContext('2d');
+		const ignoredStyles = this.removeStyles(element, MaskElement.ignoreStyles);
+		const maskCanvas = document.createCanvas(x + width, y + height);
+		const maskCtx = maskCanvas.getContext('2d');
 
 		document.screen.setDefaults(maskCtx);
 		this.renderChildren(maskCtx);
 
 		// convert mask to alpha with a fake node
 		// TODO: refactor out apply from feColorMatrix
-		const cm = new FeColorMatrixElement(
+		new FeColorMatrixElement(
 			document,
-			{
+			({
 				nodeType: 1,
 				childNodes: [],
 				attributes: [
 					{ nodeName: 'type', value: 'luminanceToAlpha' },
 					{ nodeName: 'includeOpacity', value: 'true' }
 				]
-			} as any
-		);
+			}) as any
+		).apply(maskCtx, 0, 0, x + width, y + height);
 
-		cm.apply(maskCtx, 0, 0, x + width, y + height);
+		const tmpCanvas = document.createCanvas(x + width, y + height);
+		const tmpCtx = tmpCanvas.getContext('2d');
 
-		const c = document.createCanvas(x + width, y + height);
-		const tempCtx = c.getContext('2d');
+		document.screen.setDefaults(tmpCtx);
+		element.render(tmpCtx);
 
-		document.screen.setDefaults(tempCtx);
-		element.render(tempCtx);
+		tmpCtx.globalCompositeOperation = 'destination-in';
+		tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat');
+		tmpCtx.fillRect(0, 0, x + width, y + height);
 
-		tempCtx.globalCompositeOperation = 'destination-in';
-		tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
-		tempCtx.fillRect(0, 0, x + width, y + height);
-
-		ctx.fillStyle = tempCtx.createPattern(c, 'no-repeat');
+		ctx.fillStyle = tmpCtx.createPattern(tmpCanvas, 'no-repeat');
 		ctx.fillRect(0, 0, x + width, y + height);
 
 		// reassign mask
-		element.getStyle('mask').setValue(mask);
+		this.restoreStyles(element, ignoredStyles);
 	}
 
 	render(_: RenderingContext2D) {

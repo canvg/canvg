@@ -7,6 +7,12 @@ import FeGaussianBlurElement from './FeGaussianBlurElement';
 
 export default class FilterElement extends Element {
 
+	static ignoreStyles = [
+		'filter',
+		'transform',
+		'clip-path'
+	];
+
 	type = 'filter';
 
 	apply(ctx: RenderingContext2D, element: PathElement) {
@@ -41,13 +47,9 @@ export default class FilterElement extends Element {
 			return;
 		}
 
-		const x = Math.floor(boundingBox.x1);
-		const y = Math.floor(boundingBox.y1);
-		// temporarily remove filter to avoid recursion
-		const filter = element.getStyle('filter').getString();
-
-		element.getStyle('filter').setValue('');
-
+		const x = Math.floor(boundingBox.x);
+		const y = Math.floor(boundingBox.y);
+		const ignoredStyles = this.removeStyles(element, FilterElement.ignoreStyles);
 		const tmpCanvas = document.createCanvas(tmpCanvasWidth, tmpCanvasHeight);
 		const tmpCtx = tmpCanvas.getContext('2d');
 
@@ -82,8 +84,7 @@ export default class FilterElement extends Element {
 			tmpCanvasHeight
 		);
 
-		// reassign filter
-		element.getStyle('filter', true).setValue(filter);
+		this.restoreStyles(element, ignoredStyles);
 	}
 
 	render(_: RenderingContext2D) {

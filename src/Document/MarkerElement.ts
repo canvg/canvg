@@ -75,7 +75,7 @@ export default class MarkerElement extends Element {
 		markerSvg.attributes.fill = new Property(
 			this.document,
 			'fill',
-			this.getAttribute('fill').getValue('black')
+			this.getAttribute('fill').getColor('black')
 		);
 		markerSvg.attributes.stroke = new Property(
 			this.document,

@@ -6,9 +6,12 @@ declare module 'rgbcolor' {
 		r: number;
 		g: number;
 		b: number;
-		a: number;
+		alpha: number;
 		ok: boolean;
 
 		constructor(color: string);
+
+		toRGB(): string;
+		toRGBA(): string;
 	}
 }
