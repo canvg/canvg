@@ -190,7 +190,7 @@ export default abstract class GradientElement extends Element {
 				color
 			);
 
-			return colorProp.addOpacity(parentOpacityProp).getString();
+			return colorProp.addOpacity(parentOpacityProp).getColor();
 		}
 
 		return color;

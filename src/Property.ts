@@ -28,6 +28,8 @@ export default class Property<T = any> {
 		return new Property(document, 'EMPTY', '');
 	}
 
+	private isCleanColor = false;
+
 	constructor(
 		private readonly document: Document,
 		private readonly name: string,
@@ -129,6 +131,30 @@ export default class Property<T = any> {
 		}
 
 		return String(def);
+	}
+
+	getColor(def?: T) {
+
+		const colorString = this.getString(def);
+
+		if (this.isCleanColor) {
+			return colorString;
+		}
+
+		this.isCleanColor = true;
+
+		if (!colorString.startsWith('rgb')) {
+			return colorString;
+		}
+
+		const cleanColorString = colorString.replace(
+			/(\d+)\.\d+\s*,/g,
+			(_, num) => `${num},`
+		);
+
+		this.value = cleanColorString as any;
+
+		return cleanColorString;
 	}
 
 	getDpi() {
@@ -334,9 +360,7 @@ export default class Property<T = any> {
 
 	addOpacity(opacity: Property) {
 
-		let {
-			value
-		} = this as any;
+		let value = this.getColor();
 		const len = value.length;
 		let commas = 0;
 
@@ -357,7 +381,8 @@ export default class Property<T = any> {
 			const color = new RGBColor(value);
 
 			if (color.ok) {
-				value = `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity.getNumber()})`;
+				color.alpha = opacity.getNumber();
+				value = color.toRGBA();
 			}
 		}
 
