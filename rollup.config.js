@@ -1,11 +1,15 @@
 import tslint from 'rollup-plugin-tslint';
-import commonjs from 'rollup-plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
 import babel from 'rollup-plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
-import minify from 'rollup-plugin-babel-minify';
-import { DEFAULT_EXTENSIONS } from '@babel/core';
+import {
+	terser
+} from 'rollup-plugin-terser';
+import {
+	DEFAULT_EXTENSIONS
+} from '@babel/core';
 import {
 	external
 } from './scripts/rollup-helpers';
@@ -31,9 +35,7 @@ function getPlugins(standalone, transpile = true) {
 		standalone && resolve({
 			preferBuiltins: false
 		}),
-		!process.env.ROLLUP_WATCH && standalone && minify({
-			comments: false
-		})
+		!process.env.ROLLUP_WATCH && standalone && terser()
 	].filter(Boolean);
 }
 
