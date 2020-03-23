@@ -1283,38 +1283,37 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@size-limit/file@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-3.0.1.tgz#5818f7fe91bf8401e9bf3c5bdc3fb329273b9e6f"
-  integrity sha512-5yiTePQvd/oLM7qPjBdD4YIRjbn1lbJWJ+101/W6wOJlCjapLg3Tsil9HYcF54z3pM45K02ZuOeqY2Ev9N663g==
+"@size-limit/file@4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.4.0.tgz#add2c76cdb817b193c621b471570482bcae5a2a2"
+  integrity sha512-AUL6TZ1qdg2IDvHfaFzU2d6nOpIyEWJFsK7P61DkIq4jO0GfeVgAUgBqEqJbhxT5qqKOs01UWussyVbG+EgmpA==
   dependencies:
-    semver "7.1.1"
-    size-limit "3.0.1"
+    semver "7.1.3"
 
-"@size-limit/preset-small-lib@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-3.0.1.tgz#eccc416ef9c6d209b963f3f19d8f03708f861262"
-  integrity sha512-XdjfeJDNqwbUBn4bEG/TN+8oXDWgyWa7FPPAX4sUVcMz4ZTq7NhRSTVNWnx05/ZxecJbZJ/eNFVnV486v6hrcw==
+"@size-limit/preset-small-lib@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.4.0.tgz#6bb97a92e8e8ea59c9606eb1e8b6ed1fe440c4e2"
+  integrity sha512-Kgrx93oSa2Y40QNZ3zFfSzao941Ibd8GOspp/QMfiJxDzQ9C1kyebW29MiJV68jSqAmoKKr1PrF9lhuTHBLtoQ==
   dependencies:
-    "@size-limit/file" "3.0.1"
-    "@size-limit/webpack" "3.0.1"
+    "@size-limit/file" "4.4.0"
+    "@size-limit/webpack" "4.4.0"
 
-"@size-limit/webpack@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-3.0.1.tgz#d822e6448aa76dfe15719b58fee34d5870d44825"
-  integrity sha512-HA8JwcGVvi1fibQ7wwv92MQgZkOGTYWcjgLW4d1TyNrlYBJGq86G5cmaCAHgFxNTzKFkxMXnMUfN/PDZO76pYA==
+"@size-limit/webpack@4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.4.0.tgz#69c3d886f05af598c0f17699cf04cfe0790abbc1"
+  integrity sha512-bdUeXxvr7+DG1Np6bE/jfRg2RONzvIBmr8M4OZojVXb1hrrWKDjBIuxg192hH5dw6C1o8CwDGMKbVjfG/bnB4Q==
   dependencies:
     css-loader "^3.4.2"
     escape-string-regexp "^2.0.0"
-    file-loader "^5.0.2"
+    file-loader "^5.1.0"
+    mkdirp "^1.0.3"
     nanoid "^2.1.11"
     optimize-css-assets-webpack-plugin "^5.0.3"
-    pnp-webpack-plugin "^1.6.0"
-    rimraf "^3.0.1"
-    size-limit "3.0.1"
+    pnp-webpack-plugin "^1.6.4"
+    rimraf "^3.0.2"
     style-loader "^1.1.3"
-    webpack "^4.41.5"
-    webpack-bundle-analyzer "^3.6.0"
+    webpack "^4.42.0"
+    webpack-bundle-analyzer "^3.6.1"
 
 "@types/babel__core@^7.1.0":
   version "7.1.6"
@@ -2581,11 +2580,6 @@ ci-info@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
-
-ci-job-number@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/ci-job-number/-/ci-job-number-0.3.1.tgz#4354e45bb3ed5a7301f09358d2876d510d4a570e"
-  integrity sha512-OfY2Cg+mTqZz7lWOxONGbAXVZNNWPSiyGtOpAjYHEVTXIae8lGCOg3cDfJpPh8zcl+2CqItOsxbvH6ueV+QOmw==
 
 ci-job-number@^1.2.1:
   version "1.2.1"
@@ -3887,7 +3881,7 @@ figures@^2.0.0:
   dependencies:
     escape-string-regexp "^1.0.5"
 
-file-loader@^5.0.2:
+file-loader@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-5.1.0.tgz#cb56c070efc0e40666424309bd0d9e45ac6f2bb8"
   integrity sha512-u/VkLGskw3Ue59nyOwUwXI/6nuBCo7KBkniB/l7ICwr/7cPNGsL1WCXUp3GB0qgOOKU1TiP49bv4DZF/LJqprg==
@@ -6195,6 +6189,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+mkdirp@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
+  integrity sha512-6uCP4Qc0sWsgMLy1EOqqS/3rjDHOEnsStVr/4vtAIK2Y5i2kA7lFFejYrpIyiN9w0pYf4ckeCYT9f1r1P9KX5g==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -6973,7 +6972,7 @@ pngjs@^3.0.0, pngjs@^3.3.3:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
   integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
 
-pnp-webpack-plugin@^1.6.0:
+pnp-webpack-plugin@^1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.6.4.tgz#c9711ac4dc48a685dabafc86f8b6dd9f8df84149"
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
@@ -7893,7 +7892,7 @@ rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3:
   dependencies:
     glob "^7.1.3"
 
-rimraf@^3.0.1:
+rimraf@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
@@ -8083,10 +8082,10 @@ semver@7.0.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
 
-semver@7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.1.tgz#29104598a197d6cbe4733eeecbe968f7b43a9667"
-  integrity sha512-WfuG+fl6eh3eZ2qAf6goB7nhiCd7NPXhmyFxigB/TOkQyeLP8w8GsVehvtGNtnNmyboz4TgeK40B1Kbql/8c5A==
+semver@7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.3.tgz#e4345ce73071c53f336445cfc19efb1c311df2a6"
+  integrity sha512-ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==
 
 semver@^6.0.0, semver@^6.2.0, semver@^6.3.0:
   version "6.3.0"
@@ -8228,18 +8227,6 @@ sisteransi@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
-
-size-limit@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-3.0.1.tgz#568ff0ad0aed486be2839118d84224834af98a35"
-  integrity sha512-WtOoEIA9vYVDswFSOH5mJRKkCJG3Pe04Xy6AHRZ2B3gl4nxMuexoEeFB4XAqmyHDsP/+7dV2UNxceGGjNfBLBw==
-  dependencies:
-    bytes "^3.1.0"
-    chalk "^3.0.0"
-    ci-job-number "^0.3.1"
-    cosmiconfig "^6.0.0"
-    globby "^11.0.0"
-    read-pkg-up "^7.0.1"
 
 size-limit@^4.4.0:
   version "4.4.1"
@@ -9334,7 +9321,7 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-bundle-analyzer@^3.6.0:
+webpack-bundle-analyzer@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-3.6.1.tgz#bdb637c2304424f2fbff9a950c7be42a839ae73b"
   integrity sha512-Nfd8HDwfSx1xBwC+P8QMGvHAOITxNBSvu/J/mCJvOwv+G4VWkU7zir9SSenTtyCi0LnVtmsc7G5SZo1uV+bxRw==
@@ -9361,7 +9348,7 @@ webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.41.5:
+webpack@^4.42.0:
   version "4.42.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.42.0.tgz#b901635dd6179391d90740a63c93f76f39883eb8"
   integrity sha512-EzJRHvwQyBiYrYqhyjW9AqM90dE4+s1/XtCfn7uWg6cS72zH+2VPFAlsnW0+W0cDi0XRjNKUMoJtpSi50+Ph6w==
