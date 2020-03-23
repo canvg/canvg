@@ -162,7 +162,8 @@
 		"issue941.svg": "Issue #941: check ellipse radiuses",
 		"issue747.svg": "Issue #747: check filter size before draw",
 		"issue945.svg": "Issue #945: default currentColor",
-		"issue946.svg": "Issue #946: invalid path tokenizer"
+		"issue946.svg": "Issue #946: invalid path tokenizer",
+		"issue908.svg": "Issue #908: css imports"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

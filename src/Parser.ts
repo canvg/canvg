@@ -43,18 +43,51 @@ export default class Parser {
 
 	parseFromString(xml: string) {
 
+		const parser = new this.DOMParser();
+
 		try {
 
-			const parser = new this.DOMParser();
-
-			return parser.parseFromString(xml, 'image/svg+xml');
+			return this.checkDocument(
+				parser.parseFromString(xml, 'image/svg+xml')
+			);
 
 		} catch (err) {
 
-			const parser = new this.DOMParser();
+			try {
 
-			return parser.parseFromString(xml, 'text/xml');
+				return this.checkDocument(
+					parser.parseFromString(xml, 'text/xml')
+				);
+
+			} catch (err) {
+
+				return this.htmlToSvgDocument(
+					this.checkDocument(
+						parser.parseFromString(xml, 'text/html')
+					)
+				);
+			}
 		}
+	}
+
+	private checkDocument(document: Document) {
+
+		const parserError = document.getElementsByTagName('parsererror')[0];
+
+		if (parserError) {
+			throw new Error(parserError.textContent);
+		}
+
+		return document;
+	}
+
+	private htmlToSvgDocument(document: Document) {
+
+		Reflect.defineProperty(document, 'documentElement', {
+			value: document.getElementsByTagName('svg')[0]
+		});
+
+		return document;
 	}
 
 	async load(url: string) {

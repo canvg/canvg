@@ -27,6 +27,7 @@ export default class StyleElement extends Element {
 				.map((_: any) => _.data)
 				.join('')
 				.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, '') // remove comments;
+				.replace(/@import.*;/g, '') // remove imports
 		);
 		const cssDefs = css.split('}');
 
