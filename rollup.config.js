@@ -2,6 +2,7 @@ import tslint from 'rollup-plugin-tslint';
 import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
+import replace from '@rollup/plugin-replace';
 import babel from 'rollup-plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import {
@@ -24,6 +25,13 @@ function getPlugins(standalone, transpile = true) {
 		commonjs(),
 		standalone && globals(),
 		typescript(),
+		replace({
+			'process.env.NODE_ENV': JSON.stringify(
+				process.env.ROLLUP_WATCH
+					? 'development'
+					: 'production'
+			)
+		}),
 		transpile && babel({
 			extensions: [
 				...DEFAULT_EXTENSIONS,

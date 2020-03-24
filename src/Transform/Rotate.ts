@@ -63,10 +63,6 @@ export default class Rotate {
 		} = this;
 		const rad = angle.getRadians();
 
-		// tslint:disable-next-line: no-console
-		// console.warn('Unknown action:', (this as any).p, this);
-		// ?
-
 		point.applyTransform([
 			1,
 			0,
