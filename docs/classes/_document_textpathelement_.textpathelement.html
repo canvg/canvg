@@ -124,6 +124,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#addchild" class="tsd-kind-icon">add<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_document_textpathelement_.textpathelement.html#addstylesfromstyledefinition" class="tsd-kind-icon">add<wbr>Styles<wbr>From<wbr>Style<wbr>Definition</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#adjustchildcoordinates" class="tsd-kind-icon">adjust<wbr>Child<wbr>Coordinates</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#applyeffects" class="tsd-kind-icon">apply<wbr>Effects</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#buildequidistantcache" class="tsd-kind-icon">build<wbr>Equidistant<wbr>Cache</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#calclength" class="tsd-kind-icon">calc<wbr>Length</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#calculateopacity" class="tsd-kind-icon">calculate<wbr>Opacity</a></li>
@@ -165,10 +166,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#paths" class="tsd-kind-icon">pathS</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#patht" class="tsd-kind-icon">pathT</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#pathv" class="tsd-kind-icon">pathV</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#removestyles" class="tsd-kind-icon">remove<wbr>Styles</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_document_textpathelement_.textpathelement.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#renderchild" class="tsd-kind-icon">render<wbr>Child</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_document_textpathelement_.textpathelement.html#renderchildren" class="tsd-kind-icon">render<wbr>Children</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#rendertelementchildren" class="tsd-kind-icon">renderTElement<wbr>Children</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#restorestyles" class="tsd-kind-icon">restore<wbr>Styles</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_document_textpathelement_.textpathelement.html#setcontext" class="tsd-kind-icon">set<wbr>Context</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="_document_textpathelement_.textpathelement.html#settextdata" class="tsd-kind-icon">set<wbr>Text<wbr>Data</a></li>
 							</ul>
@@ -189,7 +192,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L65">src/Document/TextPathElement.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L65">src/Document/TextPathElement.ts:65</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -216,9 +219,9 @@
 					<h3>animation<wbr>Frozen</h3>
 					<div class="tsd-signature tsd-kind-icon">animation<wbr>Frozen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#animationfrozen">animationFrozen</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#animationfrozen">animationFrozen</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L22">src/Document/Element.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L24">src/Document/Element.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -227,9 +230,9 @@
 					<h3>animation<wbr>Frozen<wbr>Value</h3>
 					<div class="tsd-signature tsd-kind-icon">animation<wbr>Frozen<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;&quot;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#animationfrozenvalue">animationFrozenValue</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#animationfrozenvalue">animationFrozenValue</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L23">src/Document/Element.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L25">src/Document/Element.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -238,9 +241,9 @@
 					<h3>attributes</h3>
 					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_property_.property.html" class="tsd-signature-type">Property</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#attributes">attributes</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#attributes">attributes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L19">src/Document/Element.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L21">src/Document/Element.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -249,9 +252,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> capture<wbr>Text<wbr>Nodes</h3>
 					<div class="tsd-signature tsd-kind-icon">capture<wbr>Text<wbr>Nodes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#capturetextnodes">captureTextNodes</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#capturetextnodes">captureTextNodes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L30">src/Document/Element.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L32">src/Document/Element.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -260,9 +263,9 @@
 					<h3>children</h3>
 					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="_document_element_.element.html" class="tsd-signature-type">Element</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#children">children</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L25">src/Document/Element.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L27">src/Document/Element.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -272,7 +275,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Array<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_document_textpathelement_.ipathcommand.html" class="tsd-signature-type">IPathCommand</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L62">src/Document/TextPathElement.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L62">src/Document/TextPathElement.ts:62</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -281,9 +284,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> document</h3>
 					<div class="tsd-signature tsd-kind-icon">document<span class="tsd-signature-symbol">:</span> <a href="_document_document_.document.html" class="tsd-signature-type">Document</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#document">document</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#document">document</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L28">src/Document/Element.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L30">src/Document/Element.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -293,7 +296,7 @@
 					<div class="tsd-signature tsd-kind-icon">equidistant<wbr>Cache<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_document_textpathelement_.iequidistantcache.html" class="tsd-signature-type">IEquidistantCache</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L64">src/Document/TextPathElement.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L64">src/Document/TextPathElement.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -303,7 +306,7 @@
 					<div class="tsd-signature tsd-kind-icon">glyph<wbr>Info<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_document_textpathelement_.iglyphinfo.html" class="tsd-signature-type">IGlyphInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L60">src/Document/TextPathElement.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L60">src/Document/TextPathElement.ts:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -313,7 +316,7 @@
 					<div class="tsd-signature tsd-kind-icon">letter<wbr>Spacing<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L63">src/Document/TextPathElement.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L63">src/Document/TextPathElement.ts:63</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -323,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">measures<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map&lt;string, number&gt;([[&#x27;&#x27;, 0]])</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L65">src/Document/TextPathElement.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L65">src/Document/TextPathElement.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -332,9 +335,9 @@
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> node</h3>
 					<div class="tsd-signature tsd-kind-icon">node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#node">node</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#node">node</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L29">src/Document/Element.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L31">src/Document/Element.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -343,9 +346,9 @@
 					<h3>parent</h3>
 					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <a href="_document_element_.element.html" class="tsd-signature-type">Element</a><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#parent">parent</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#parent">parent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L24">src/Document/Element.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L26">src/Document/Element.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -355,7 +358,7 @@
 					<div class="tsd-signature tsd-kind-icon">path<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L59">src/Document/TextPathElement.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L59">src/Document/TextPathElement.ts:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -364,9 +367,9 @@
 					<h3>styles</h3>
 					<div class="tsd-signature tsd-kind-icon">styles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_property_.property.html" class="tsd-signature-type">Property</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#styles">styles</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#styles">styles</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L20">src/Document/Element.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L22">src/Document/Element.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -375,9 +378,9 @@
 					<h3>styles<wbr>Specificity</h3>
 					<div class="tsd-signature tsd-kind-icon">styles<wbr>Specificity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#stylesspecificity">stylesSpecificity</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#stylesspecificity">stylesSpecificity</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L21">src/Document/Element.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L23">src/Document/Element.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -387,7 +390,7 @@
 					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L61">src/Document/TextPathElement.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L61">src/Document/TextPathElement.ts:61</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -397,7 +400,7 @@
 					<div class="tsd-signature tsd-kind-icon">text<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L58">src/Document/TextPathElement.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L58">src/Document/TextPathElement.ts:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -407,7 +410,7 @@
 					<div class="tsd-signature tsd-kind-icon">text<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L57">src/Document/TextPathElement.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L57">src/Document/TextPathElement.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -418,7 +421,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L56">src/Document/TextPathElement.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L56">src/Document/TextPathElement.ts:56</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -429,7 +432,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#x">x</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L21">src/Document/TextElement.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L21">src/Document/TextElement.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -440,7 +443,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#y">y</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L22">src/Document/TextElement.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L22">src/Document/TextElement.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -449,9 +452,9 @@
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> ignore<wbr>Child<wbr>Types</h3>
 					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Child<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [&#x27;title&#x27;]</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#ignorechildtypes">ignoreChildTypes</a></p>
+						<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#ignorechildtypes">ignoreChildTypes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L14">src/Document/Element.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L16">src/Document/Element.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -467,9 +470,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#addchild">addChild</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#addchild">addChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L219">src/Document/Element.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L245">src/Document/Element.ts:245</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -491,9 +494,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#addstylesfromstyledefinition">addStylesFromStyleDefinition</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#addstylesfromstyledefinition">addStylesFromStyleDefinition</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L256">src/Document/Element.ts:256</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L282">src/Document/Element.ts:282</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -511,7 +514,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#adjustchildcoordinates">adjustChildCoordinates</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L343">src/Document/TextElement.ts:343</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L343">src/Document/TextElement.ts:343</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -533,6 +536,30 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="applyeffects" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> apply<wbr>Effects</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Effects<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="../modules/_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#applyeffects">applyEffects</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L215">src/Document/Element.ts:215</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ctx: <a href="../modules/_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a name="buildequidistantcache" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build<wbr>Equidistant<wbr>Cache</h3>
@@ -543,7 +570,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1263">src/Document/TextPathElement.ts:1263</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1263">src/Document/TextPathElement.ts:1263</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -569,7 +596,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L825">src/Document/TextPathElement.ts:825</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L825">src/Document/TextPathElement.ts:825</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -600,9 +627,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#calculateopacity">calculateOpacity</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#calculateopacity">calculateOpacity</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/RenderedElement.ts#L18">src/Document/RenderedElement.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/RenderedElement.ts#L16">src/Document/RenderedElement.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -618,10 +645,10 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_useelement_.useelement.html">UseElement</a>.<a href="_document_useelement_.useelement.html#clearcontext">clearContext</a></p>
-								<p>Overrides <a href="_document_clippathelement_.clippathelement.html">ClipPathElement</a>.<a href="_document_clippathelement_.clippathelement.html#clearcontext">clearContext</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#clearcontext">clearContext</a></p>
+								<p>Overrides <a href="_document_markerelement_.markerelement.html">MarkerElement</a>.<a href="_document_markerelement_.markerelement.html#clearcontext">clearContext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/RenderedElement.ts#L240">src/Document/RenderedElement.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/RenderedElement.ts#L223">src/Document/RenderedElement.ts:223</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -644,7 +671,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L259">src/Document/TextPathElement.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L259">src/Document/TextPathElement.ts:259</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -705,7 +732,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#getanchordelta">getAnchorDelta</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L307">src/Document/TextElement.ts:307</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L307">src/Document/TextElement.ts:307</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -733,9 +760,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#getattribute">getAttribute</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#getattribute">getAttribute</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L101">src/Document/Element.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L103">src/Document/Element.ts:103</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -762,7 +789,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#getboundingbox">getBoundingBox</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L71">src/Document/TextElement.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L71">src/Document/TextElement.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -786,7 +813,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#getchildboundingbox">getChildBoundingBox</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L436">src/Document/TextElement.ts:436</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L442">src/Document/TextElement.ts:442</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -818,7 +845,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1308">src/Document/TextPathElement.ts:1308</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1308">src/Document/TextPathElement.ts:1308</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -848,7 +875,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#getfontsize">getFontSize</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L95">src/Document/TextElement.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L95">src/Document/TextElement.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -866,7 +893,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#getglyph">getGlyph</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L119">src/Document/TextElement.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L119">src/Document/TextElement.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -894,9 +921,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#gethrefattribute">getHrefAttribute</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#gethrefattribute">getHrefAttribute</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L117">src/Document/Element.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L119">src/Document/Element.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_property_.property.html" class="tsd-signature-type">Property</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -913,7 +940,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L255">src/Document/TextPathElement.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L255">src/Document/TextPathElement.ts:255</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -936,7 +963,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1172">src/Document/TextPathElement.ts:1172</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1172">src/Document/TextPathElement.ts:1172</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -968,7 +995,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1184">src/Document/TextPathElement.ts:1184</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1184">src/Document/TextPathElement.ts:1184</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -985,7 +1012,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1200">src/Document/TextPathElement.ts:1200</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1200">src/Document/TextPathElement.ts:1200</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1032,7 +1059,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1240">src/Document/TextPathElement.ts:1240</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1240">src/Document/TextPathElement.ts:1240</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1070,7 +1097,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L980">src/Document/TextPathElement.ts:980</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L980">src/Document/TextPathElement.ts:980</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1111,7 +1138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1049">src/Document/TextPathElement.ts:1049</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1049">src/Document/TextPathElement.ts:1049</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1134,7 +1161,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L1221">src/Document/TextPathElement.ts:1221</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L1221">src/Document/TextPathElement.ts:1221</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1174,9 +1201,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#getstyle">getStyle</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#getstyle">getStyle</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L129">src/Document/Element.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L131">src/Document/Element.ts:131</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1206,7 +1233,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#gettelementboundingbox">getTElementBoundingBox</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L107">src/Document/TextElement.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L107">src/Document/TextElement.ts:107</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1230,7 +1257,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#gettext">getText</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L81">src/Document/TextPathElement.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L81">src/Document/TextPathElement.ts:81</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1248,7 +1275,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#gettextfromnode">getTextFromNode</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L171">src/Document/TextElement.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L171">src/Document/TextElement.ts:171</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1272,7 +1299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#initializecoordinates">initializeCoordinates</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L52">src/Document/TextElement.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L52">src/Document/TextElement.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1294,9 +1321,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#matchesselector">matchesSelector</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#matchesselector">matchesSelector</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L232">src/Document/Element.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L258">src/Document/Element.ts:258</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1320,7 +1347,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#measuretargettext">measureTargetText</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L503">src/Document/TextElement.ts:503</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L509">src/Document/TextElement.ts:509</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1347,7 +1374,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#measuretext">measureText</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L298">src/Document/TextPathElement.ts:298</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L298">src/Document/TextPathElement.ts:298</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1374,7 +1401,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#measuretextrecursive">measureTextRecursive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L475">src/Document/TextElement.ts:475</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L481">src/Document/TextElement.ts:481</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1397,7 +1424,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L445">src/Document/TextPathElement.ts:445</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L445">src/Document/TextPathElement.ts:445</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1420,7 +1447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L85">src/Document/TextPathElement.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L85">src/Document/TextPathElement.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1443,7 +1470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L725">src/Document/TextPathElement.ts:725</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L725">src/Document/TextPathElement.ts:725</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1466,7 +1493,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L636">src/Document/TextPathElement.ts:636</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L636">src/Document/TextPathElement.ts:636</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1492,7 +1519,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L586">src/Document/TextPathElement.ts:586</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L586">src/Document/TextPathElement.ts:586</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1518,7 +1545,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L571">src/Document/TextPathElement.ts:571</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L571">src/Document/TextPathElement.ts:571</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1544,7 +1571,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L550">src/Document/TextPathElement.ts:550</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L550">src/Document/TextPathElement.ts:550</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1570,7 +1597,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L682">src/Document/TextPathElement.ts:682</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L682">src/Document/TextPathElement.ts:682</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1596,7 +1623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L658">src/Document/TextPathElement.ts:658</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L658">src/Document/TextPathElement.ts:658</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1622,7 +1649,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L701">src/Document/TextPathElement.ts:701</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L701">src/Document/TextPathElement.ts:701</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1648,7 +1675,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L611">src/Document/TextPathElement.ts:611</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L611">src/Document/TextPathElement.ts:611</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1664,6 +1691,33 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="removestyles" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> remove<wbr>Styles</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Styles<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_document_element_.element.html" class="tsd-signature-type">Element</a>, ignoreStyles<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#removestyles">removeStyles</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L316">src/Document/Element.ts:316</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>element: <a href="_document_element_.element.html" class="tsd-signature-type">Element</a></h5>
+								</li>
+								<li>
+									<h5>ignoreStyles: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
@@ -1673,9 +1727,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="_document_svgelement_.svgelement.html">SVGElement</a>.<a href="_document_svgelement_.svgelement.html#render">render</a></p>
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/Element.ts#L172">src/Document/Element.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L174">src/Document/Element.ts:174</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1699,7 +1753,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#renderchild">renderChild</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L460">src/Document/TextElement.ts:460</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L466">src/Document/TextElement.ts:466</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1732,7 +1786,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#renderchildren">renderChildren</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L185">src/Document/TextPathElement.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L185">src/Document/TextPathElement.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1756,13 +1810,40 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#rendertelementchildren">renderTElementChildren</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L220">src/Document/TextElement.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L220">src/Document/TextElement.ts:220</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>ctx: <a href="../modules/_types_.html#renderingcontext2d" class="tsd-signature-type">RenderingContext2D</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="restorestyles" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> restore<wbr>Styles</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">restore<wbr>Styles<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="_document_element_.element.html" class="tsd-signature-type">Element</a>, styles<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#restorestyles">restoreStyles</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/Element.ts#L339">src/Document/Element.ts:339</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>element: <a href="_document_element_.element.html" class="tsd-signature-type">Element</a></h5>
+								</li>
+								<li>
+									<h5>styles: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1781,7 +1862,7 @@
 								<p>Inherited from <a href="_document_textelement_.textelement.html">TextElement</a>.<a href="_document_textelement_.textelement.html#setcontext">setContext</a></p>
 								<p>Overrides <a href="_document_renderedelement_.renderedelement.html">RenderedElement</a>.<a href="_document_renderedelement_.renderedelement.html#setcontext">setContext</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextElement.ts#L40">src/Document/TextElement.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextElement.ts#L40">src/Document/TextElement.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1807,7 +1888,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/canvg/canvg/blob/cd8ff9b/src/Document/TextPathElement.ts#L322">src/Document/TextPathElement.ts:322</a></li>
+									<li>Defined in <a href="https://github.com/canvg/canvg/blob/51d9022/src/Document/TextPathElement.ts#L322">src/Document/TextPathElement.ts:322</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1828,7 +1909,7 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_document_textpathelement_.html">&quot;<wbr>Document/<wbr>Text<wbr>Path<wbr>Element&quot;</a>
 					</li>
 				</ul>
@@ -1837,7 +1918,7 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
 						<a href="_document_textpathelement_.textpathelement.html" class="tsd-kind-icon">Text<wbr>Path<wbr>Element</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
@@ -1920,6 +2001,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_document_textpathelement_.textpathelement.html#adjustchildcoordinates" class="tsd-kind-icon">adjust<wbr>Child<wbr>Coordinates</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_document_textpathelement_.textpathelement.html#applyeffects" class="tsd-kind-icon">apply<wbr>Effects</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="_document_textpathelement_.textpathelement.html#buildequidistantcache" class="tsd-kind-icon">build<wbr>Equidistant<wbr>Cache</a>
@@ -2044,6 +2128,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="_document_textpathelement_.textpathelement.html#pathv" class="tsd-kind-icon">pathV</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_document_textpathelement_.textpathelement.html#removestyles" class="tsd-kind-icon">remove<wbr>Styles</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_document_textpathelement_.textpathelement.html#render" class="tsd-kind-icon">render</a>
 							</li>
@@ -2056,6 +2143,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_document_textpathelement_.textpathelement.html#rendertelementchildren" class="tsd-kind-icon">renderTElement<wbr>Children</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_document_textpathelement_.textpathelement.html#restorestyles" class="tsd-kind-icon">restore<wbr>Styles</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="_document_textpathelement_.textpathelement.html#setcontext" class="tsd-kind-icon">set<wbr>Context</a>
 							</li>
@@ -2066,19 +2156,19 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_document_textpathelement_.icachedpoint.html" class="tsd-kind-icon">ICached<wbr>Point</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_document_textpathelement_.iequidistantcache.html" class="tsd-kind-icon">IEquidistant<wbr>Cache</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_document_textpathelement_.iglyphinfo.html" class="tsd-kind-icon">IGlyph<wbr>Info</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_document_textpathelement_.ipathcommand.html" class="tsd-kind-icon">IPath<wbr>Command</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_document_textpathelement_.ipoint.html" class="tsd-kind-icon">IPoint</a>
 					</li>
 				</ul>
@@ -2091,57 +2181,30 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
