@@ -66,6 +66,7 @@
     "@babel/node": "^7.6.3",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
+    "@rollup/plugin-replace": "^2.3.1",
     "@size-limit/preset-small-lib": "^4.4.0",
     "@types/jest": "^25.1.0",
     "@types/node-fetch": "^2.5.4",

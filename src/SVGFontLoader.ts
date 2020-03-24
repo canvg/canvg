@@ -29,7 +29,7 @@ export default class SVGFontLoader {
 
 		} catch (err) {
 			// tslint:disable-next-line: no-console
-			console.error(`ERROR: font "${url}" not found`, err);
+			console.error(`Error while loading font "${url}":`, err);
 		}
 
 		this.loaded = true;

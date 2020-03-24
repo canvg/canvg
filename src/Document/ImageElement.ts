@@ -49,7 +49,7 @@ export default class ImageElement extends RenderedElement {
 
 		} catch (err) {
 			// tslint:disable-next-line: no-console
-			console.error(`ERROR: image "${href}" not found`, err);
+			console.error(`Error while loading image "${href}":`, err);
 		}
 
 		this.loaded = true;
@@ -66,7 +66,7 @@ export default class ImageElement extends RenderedElement {
 
 		} catch (err) {
 			// tslint:disable-next-line: no-console
-			console.error(`ERROR: image "${href}" not found`, err);
+			console.error(`Error while loading image "${href}":`, err);
 		}
 
 		this.loaded = true;
