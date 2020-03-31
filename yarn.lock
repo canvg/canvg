@@ -2613,9 +2613,9 @@ class-utils@^0.3.5:
     static-extend "^0.1.1"
 
 clean-publish@^1.1.0:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/clean-publish/-/clean-publish-1.1.6.tgz#c79fa12515db44b94bbee75d9a946cb0fb26e005"
-  integrity sha512-8uX/7qWUFQgSAGJ8lxxvz8PR0J9PI08Kofaq+4+lhoygnquUNChMcSLDUoKyPcJR/1r1OIkMHN5C33l4bv15VA==
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/clean-publish/-/clean-publish-1.1.7.tgz#4e9b2d57c534d3fa2219df790d451f404d6b2125"
+  integrity sha512-qAuEd1UQx8izTRDRUo/ni6qVBKQr5ZxIeiuPTB2jbDSrasnPMRft9s4EUU1R/7PjIDugJ/0bxaC8ho/rYeRa2w==
   dependencies:
     chalk "^2.4.1"
     cosmiconfig "^5.0.7"
