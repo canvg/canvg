@@ -1,0 +1,29 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <clipPath id="c3-1585293535716-clip">
+            <rect width="800" height="396"/>
+        </clipPath>
+        <clipPath id="c3-1585293535716-clip-xaxis">
+            <rect x="-31" y="-20" width="862" height="20"/>
+        </clipPath>
+        <clipPath id="c3-1585293535716-clip-yaxis">
+            <rect x="-29" y="-4" width="20" height="420"/>
+        </clipPath>
+        <clipPath id="c3-1585293535716-clip-grid">
+            <rect width="800" height="396"/>
+        </clipPath>
+        <clipPath id="c3-1585293535716-clip-subchart">
+            <rect width="800" height="0"/>
+        </clipPath>
+    </defs>
+    <g transform="translate(0.5,4.5)">
+		<g transform="translate(304.0078125,198)">
+			<g>
+				<path style="fill:#0065a3;stroke:#fff" d="M97.10352802552742,161.09784245915773A188.1,188.1,0,0,1,-3.141322751558125,188.07376768537006L0,0Z" fill="none"/>
+			</g>
+			<g>
+				<rect style="fill:#0065a3"/>
+			</g>
+		</g>
+    </g>
+</svg>
