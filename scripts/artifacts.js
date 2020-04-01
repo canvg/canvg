@@ -73,8 +73,8 @@ async function sendToFileio() {
 	form.pipe(req);
 }
 
-if (process.env.USE_FILE_IO) {
-	sendToFileio().catch(console.error);
-} else {
+if (process.env.USE_ETHEREAL) {
 	sendToEthereal().catch(console.error);
+} else {
+	sendToFileio().catch(console.error);
 }
