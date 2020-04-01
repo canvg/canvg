@@ -1,7 +1,11 @@
 /* eslint-disable */
 const fs = require('fs');
-const nodemailer = require('nodemailer');
+const {
+	request
+} = require('https');
 const archiver = require('archiver');
+const nodemailer = require('nodemailer');
+const FormData = require('form-data');
 
 const [
 	dir
@@ -18,7 +22,7 @@ const archive = archiver('zip', {
 archive.directory(dir, false);
 archive.finalize();
 
-async function send() {
+async function sendToEthereal() {
 
 	const testAccount = await nodemailer.createTestAccount();
 	const transporter = nodemailer.createTransport({
@@ -41,4 +45,36 @@ async function send() {
 	console.log('Artifacts: %s', nodemailer.getTestMessageUrl(info));
 }
 
-send().catch(console.error);
+async function sendToFileio() {
+
+	const form = new FormData();
+
+	form.append('file', archive, {
+		filename:    'artifacts.zip',
+		contentType: 'application/zip'
+	});
+
+	const req = request('https://file.io/?expires=1d', {
+		method:  'POST',
+		headers: form.getHeaders()
+	}, (response) => {
+
+		const chunks = [];
+
+		response.on('data', _ => chunks.push(_));
+		response.on('end', () => {
+
+			const result = JSON.parse(Buffer.concat(chunks).toString());
+
+			console.log('Artifacts: %s', result.link);
+		});
+	});
+
+	form.pipe(req);
+}
+
+if (process.env.USE_ETHEREAL) {
+	sendToEthereal().catch(console.error);
+} else {
+	sendToFileio().catch(console.error);
+}
