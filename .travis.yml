@@ -7,5 +7,5 @@ cache:
 before_script: npm run build
 after_success: npm run coverage
 after_script:
-  - npm run jest -- -u
-  - USE_FILE_IO=true npm run artifacts
+  # - npm run jest -- -u
+  - npm run artifacts

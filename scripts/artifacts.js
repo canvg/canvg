@@ -50,7 +50,7 @@ async function sendToFileio() {
 	const form = new FormData();
 
 	form.append('file', archive, {
-		filename:    'archive.zip',
+		filename:    'artifacts.zip',
 		contentType: 'application/zip'
 	});
 
