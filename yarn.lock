@@ -1280,31 +1280,31 @@
   dependencies:
     type-detect "4.0.8"
 
-"@size-limit/file@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.4.2.tgz#de645369ccff1e10c0c8c1a38f4483c328b3e838"
-  integrity sha512-7XRBAj63XxiuEjawaTgKIreNZ9qBEbfi4nnX1dbLoPtqtDiSsvMXQvZ1ISGpebfBPM3J1K3n5WofRLXYHNFScw==
+"@size-limit/file@4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-4.4.5.tgz#e32dab2113ebeb33605f126b6079dddd5c4662e0"
+  integrity sha512-1kQu7HEwA57mIeRStYFTFiwCpIAnHdOrxE6H8q/iSnQvCnjtJuMFmW0uBAGnbW4yp8XantVlhCNaFavxkcqCjA==
   dependencies:
     semver "7.1.3"
 
 "@size-limit/preset-small-lib@^4.4.0":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.4.2.tgz#2d2d5139a155df3433212b4b916b23208c6ce064"
-  integrity sha512-iCd68zfOegLN1M+lo75JqHaiOndgQOG3K6mGvV1HMbpRe3rqJ9BWnWOLnJZOYwslbvOho4uReEJgcDgGIGn4vw==
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-small-lib/-/preset-small-lib-4.4.5.tgz#4b5793e8e7830de5aad20284b55c62e8f5cb7b63"
+  integrity sha512-PzmPWA0JzeR4AAOu9dkDfvXdj+8f7Kie2yN5uQDo/kovGyl4lFjtkc29NXH4ExG+Oyh09sQUfYJJHZVf1YV1Fg==
   dependencies:
-    "@size-limit/file" "4.4.2"
-    "@size-limit/webpack" "4.4.2"
+    "@size-limit/file" "4.4.5"
+    "@size-limit/webpack" "4.4.5"
 
-"@size-limit/webpack@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.4.2.tgz#55f61af4b28b38cedaf8a8ab26e3905f2529de3d"
-  integrity sha512-+qBp1mKMTL+1eGixaqX7GcZARXiWAXuX2FJyVrXW+UVz3mkpqJpfB98T5kg1bdxk4Nfmn+B9QxufSNvRkThOJA==
+"@size-limit/webpack@4.4.5":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-4.4.5.tgz#56c704f31806674960adfb6fdc5a0af1e22336f8"
+  integrity sha512-XSej2BQYP0xzDa6V6WUjzVeXSyFSVtT5iyldEVe5kjMcAj2//rzSFs5Tdkpm+yLNnbSyH7wV5QySvOq1bLzMcA==
   dependencies:
     css-loader "^3.4.2"
     escape-string-regexp "^2.0.0"
     file-loader "^6.0.0"
     mkdirp "^1.0.3"
-    nanoid "^3.0.0"
+    nanoid "^3.0.2"
     optimize-css-assets-webpack-plugin "^5.0.3"
     pnp-webpack-plugin "^1.6.4"
     rimraf "^3.0.2"
@@ -2484,6 +2484,14 @@ chalk@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
   integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
+chalk@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -6162,7 +6170,7 @@ nan@^2.12.1, nan@^2.14.0:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
 
-nanoid@^3.0.0:
+nanoid@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.0.2.tgz#37e91e6f5277ce22335be473e2a5db1bd96dd026"
   integrity sha512-WOjyy/xu3199NlQiQWlx7VbspSFlGtOxa1bRX9ebmXOnp1fje4bJfjPs1wLQ8jZbJUfD+yceJmw879ZSaVJkdQ==
@@ -8140,12 +8148,12 @@ sisteransi@^1.0.4:
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
 
 size-limit@^4.4.0:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-4.4.2.tgz#3086c760a012f6d25a45427219ea7d366599bec7"
-  integrity sha512-nSKLvHyaX/jH3popKt6L602py1HoBM6ejPTagZz0D7ky3YKJMMnoBJ5DxhiyYH3JcLCjhd3ipRjtpoUngQGZ7w==
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-4.4.5.tgz#b700621bf2c2ca0814425d78e530722996caf889"
+  integrity sha512-BSczblK8xSm5ErI+8DTYvnIZN23EdlzadAlzaIEBIu+6HzuwM70fbDWUkb5eL0YLIm61vF6BO9uYaO3XLz8vDw==
   dependencies:
     bytes "^3.1.0"
-    chalk "^3.0.0"
+    chalk "^4.0.0"
     chokidar "^3.3.1"
     ci-job-number "^1.2.1"
     cosmiconfig "^6.0.0"
