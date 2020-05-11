@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import {
 	terser
@@ -33,12 +33,15 @@ function getPlugins(standalone, transpile = true) {
 			)
 		}),
 		transpile && babel({
+			babelHelpers: 'runtime',
+			plugins: [
+				'@babel/plugin-transform-runtime'
+			],
 			extensions: [
 				...DEFAULT_EXTENSIONS,
 				'ts',
 				'tsx'
-			],
-			runtimeHelpers: true
+			]
 		}),
 		standalone && resolve({
 			preferBuiltins: false
@@ -73,6 +76,7 @@ export default [{
 }, {
 	input:   'src/index.ts',
 	plugins: getPlugins(true),
+	external: ['@babel/runtime'],
 	output:  {
 		file:      pkg.umd,
 		format:    'umd',
