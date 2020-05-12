@@ -76,7 +76,6 @@ export default [{
 }, {
 	input:   'src/index.ts',
 	plugins: getPlugins(true),
-	external: ['@babel/runtime'],
 	output:  {
 		file:      pkg.umd,
 		format:    'umd',
