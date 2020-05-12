@@ -54,7 +54,6 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.9.6",
-    "@rollup/plugin-babel": "^5.0.0",
     "@types/raf": "^3.4.0",
     "core-js": "3",
     "raf": "^3.4.1",
@@ -65,6 +64,7 @@
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
+    "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-replace": "^2.3.1",
