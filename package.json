@@ -32,8 +32,9 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "eslint": "eslint .",
-    "lint": "tslint -p . -t stylish src/**/*.{ts,tsx}",
+    "lint:js": "eslint .",
+    "lint:ts": "tslint -p . -t stylish src/**/*.{ts,tsx}",
+    "lint": "npm run lint:js && npm run lint:ts",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
