@@ -34,6 +34,9 @@ function getPlugins(standalone, transpile = true) {
 		}),
 		transpile && babel({
 			babelHelpers: 'runtime',
+			plugins: [
+				'@babel/plugin-transform-runtime'
+			],
 			extensions: [
 				...DEFAULT_EXTENSIONS,
 				'ts',
