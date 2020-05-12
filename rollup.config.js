@@ -33,16 +33,16 @@ function getPlugins(standalone, transpile = true) {
 			)
 		}),
 		transpile && babel({
-			babelHelpers:       'runtime',
-			// erring otherwise in attempt to find `@babel/plugin-transform-runtime`
-			//   added by `babel-preset-trigen`; see
-			//   https://github.com/rollup/plugins/issues/381
-			skipPreflightCheck: true,
 			extensions:         [
 				...DEFAULT_EXTENSIONS,
 				'ts',
 				'tsx'
-			]
+			],
+			babelHelpers:       'runtime',
+			// erring otherwise in attempt to find `@babel/plugin-transform-runtime`
+			//   added by `babel-preset-trigen`; see
+			//   https://github.com/rollup/plugins/issues/381
+			skipPreflightCheck: true
 		}),
 		standalone && resolve({
 			preferBuiltins: false
