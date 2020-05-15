@@ -39,7 +39,7 @@ export default class Property<T = any> {
 		private value: T
 	) {}
 
-	hasValue() {
+	hasValue(zeroIsValue?: boolean) {
 
 		const {
 			value
@@ -47,7 +47,7 @@ export default class Property<T = any> {
 
 		return value !== null
 			&& value !== ''
-			&& value !== 0
+			&& ((zeroIsValue && value === 0) || value !== 0)
 			&& typeof value !== 'undefined';
 	}
 

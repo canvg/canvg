@@ -74,9 +74,12 @@ export default class UseElement extends RenderedElement {
 				);
 				tempSvg.children = element.children;
 
-				element.children.forEach((child) => {
-					child.parent = tempSvg;
-				});
+				// element is still the parent of the children
+				element.styles.opacity = new Property(
+					document,
+					'opacity',
+					this.calculateOpacity()
+				);
 			}
 
 			if (tempSvg.type === 'svg') {
