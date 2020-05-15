@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import {
 	terser
@@ -33,12 +33,16 @@ function getPlugins(standalone, transpile = true) {
 			)
 		}),
 		transpile && babel({
-			extensions: [
+			extensions:         [
 				...DEFAULT_EXTENSIONS,
 				'ts',
 				'tsx'
 			],
-			runtimeHelpers: true
+			babelHelpers:       'runtime',
+			// erring otherwise in attempt to find `@babel/plugin-transform-runtime`
+			//   added by `babel-preset-trigen`; see
+			//   https://github.com/rollup/plugins/issues/381
+			skipPreflightCheck: true
 		}),
 		standalone && resolve({
 			preferBuiltins: false
