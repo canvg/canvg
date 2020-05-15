@@ -73,6 +73,10 @@ export default class UseElement extends RenderedElement {
 					element.getAttribute('overflow').getString()
 				);
 				tempSvg.children = element.children;
+
+				element.children.forEach((child) => {
+					child.parent = tempSvg;
+				});
 			}
 
 			if (tempSvg.type === 'svg') {
