@@ -1,18 +1,14 @@
 {
 	"exclude": "node_modules/**",
 	"presets": [
-		"babel-preset-trigen"
+		"babel-preset-trigen/lib"
 	],
 	"env": {
 		"test": {
 			"presets": [
 				[
-					"babel-preset-trigen",
+					"babel-preset-trigen/jest",
 					{
-						"targets": {
-							"node": "current"
-						},
-						"commonjs": true,
 						"typescript": true
 					}
 				]
