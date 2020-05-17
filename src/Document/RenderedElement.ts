@@ -23,7 +23,7 @@ export default abstract class RenderedElement extends Element {
 
 			const opacityStyle = element.getStyle('opacity', false, true); // no ancestors on style call
 
-			if (opacityStyle.hasValue()) {
+			if (opacityStyle.hasValue(true)) {
 				opacity *= opacityStyle.getNumber();
 			}
 
