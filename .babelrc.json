@@ -1,0 +1,21 @@
+{
+	"exclude": "node_modules/**",
+	"presets": [
+		["babel-preset-trigen", {
+			"env": "lib"
+		}]
+	],
+	"env": {
+		"test": {
+			"presets": [
+				[
+					"babel-preset-trigen",
+					{
+						"env": "jest",
+						"typescript": true
+					}
+				]
+			]
+		}
+	}
+}
