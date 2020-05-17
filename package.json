@@ -55,9 +55,8 @@
     "canvas"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.9.6",
+    "@babel/runtime-corejs3": "^7.9.6",
     "@types/raf": "^3.4.0",
-    "core-js": "3",
     "raf": "^3.4.1",
     "rgbcolor": "^1.0.1",
     "stackblur-canvas": "^2.0.0"
@@ -77,7 +76,7 @@
     "@types/xmldom": "^0.1.29",
     "archiver": "^3.1.1",
     "babel-jest": "^26.0.1",
-    "babel-preset-trigen": "^2.2.1",
+    "babel-preset-trigen": "^4.0.0",
     "browserslist-config-trigen": "^1.1.0",
     "builtin-modules": "*",
     "canvas": "^2.1.0",
