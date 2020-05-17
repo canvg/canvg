@@ -104,7 +104,7 @@
     "tslint": "^6.0.0",
     "tslint-config-trigen": "^3.0.7",
     "typedoc": "^0.17.3",
-    "typescript": "3.8.3",
+    "typescript": "3.9.2",
     "xmldom": "^0.3.0"
   },
   "files": [
