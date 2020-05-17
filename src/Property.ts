@@ -47,7 +47,7 @@ export default class Property<T = any> {
 
 		return value !== null
 			&& value !== ''
-			&& ((zeroIsValue && value === 0) || value !== 0)
+			&& (zeroIsValue || value !== 0)
 			&& typeof value !== 'undefined';
 	}
 
