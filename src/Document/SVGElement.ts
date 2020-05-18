@@ -93,7 +93,7 @@ export default class SVGElement extends RenderedElement {
 			? toNumbers(viewBoxAttr.getString())
 			: null;
 		const clip = !this.root
-			&& this.getAttribute('overflow').getValue('hidden') !== 'visible';
+			&& this.getStyle('overflow').getValue('hidden') !== 'visible';
 		let minX = 0;
 		let minY = 0;
 		let clipX = 0;
