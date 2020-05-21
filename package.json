@@ -88,7 +88,7 @@
     "http-server": "^0.12.0",
     "husky": "^4.0.9",
     "jest": "^25.2.4",
-    "jest-image-snapshot": "^3.0.0",
+    "jest-image-snapshot": "^4.0.0",
     "lint-staged": "^10.0.2",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.1",
