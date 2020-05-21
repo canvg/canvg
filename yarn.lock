@@ -2229,9 +2229,9 @@ babel-preset-jest@^26.0.0:
     babel-preset-current-node-syntax "^0.1.2"
 
 babel-preset-trigen@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-trigen/-/babel-preset-trigen-4.0.0.tgz#745452c6c4531238121eee4ad38a5be3b05d30de"
-  integrity sha512-aI1k3GMG+iY6iBzX10sfb3VMse6/3AbjC8S4yDocTbDn7XKw/nBeV8xZX4t7nc+u0fKQpx6Uq+TVtZeoBOH8rg==
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/babel-preset-trigen/-/babel-preset-trigen-4.2.3.tgz#49f686696f95660c9c89bd2880fbd8624bcbde7b"
+  integrity sha512-OKoY0upVpAyO99eBduYvGgxG8mV+c1ZE9gfvfkYiKu2omWogVTyOwa4HXTY9f3uOzs3rqKAjhhn+ftg8OuwlSQ==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-proposal-async-generator-functions" "^7.8.3"
