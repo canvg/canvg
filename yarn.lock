@@ -1003,9 +1003,9 @@
     source-map-support "^0.5.16"
 
 "@babel/runtime-corejs3@^7.8.3", "@babel/runtime-corejs3@^7.9.6":
-  version "7.9.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.9.6.tgz#67aded13fffbbc2cb93247388cf84d77a4be9a71"
-  integrity sha512-6toWAfaALQjt3KMZQc6fABqZwUDDuWzz+cAfPhqyEnzxvdWOAkjwPNxgF8xlmo7OWLsSjaKjsskpKHRLaMArOA==
+  version "7.10.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.10.0.tgz#a1f8498e4b410f15143c01e8bc10b8259ecca7bd"
+  integrity sha512-PB3yRdxniprLsntC6Rm7qIGDb368LWCTNicBXMcTHvrx8MjroYIWkWHng4b7Scbfmn0fDTxiRjiepzw5rDKTFQ==
   dependencies:
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
