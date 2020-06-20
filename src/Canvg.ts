@@ -26,7 +26,7 @@ export interface IOptions extends IParserOptions,
 export default class Canvg {
 
 	/**
-	 * Create Canvg isntance from SVG source string or URL.
+	 * Create Canvg instance from SVG source string or URL.
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string or URL.
 	 * @param options - Rendering options.
@@ -44,7 +44,7 @@ export default class Canvg {
 	}
 
 	/**
-	 * Create Canvg isntance from SVG source string.
+	 * Create Canvg instance from SVG source string.
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string.
 	 * @param options - Rendering options.
@@ -62,7 +62,7 @@ export default class Canvg {
 	}
 
 	/**
-	 * XML/HTML parser isntance.
+	 * XML/HTML parser instance.
 	 */
 	readonly parser: Parser;
 	/**
