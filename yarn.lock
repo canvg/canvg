@@ -300,14 +300,14 @@
     js-tokens "^4.0.0"
 
 "@babel/node@^7.6.3":
-  version "7.8.7"
-  resolved "https://registry.yarnpkg.com/@babel/node/-/node-7.8.7.tgz#4213ea99f0c86cc1cf460e61131e7acbb723e13a"
-  integrity sha512-o8cBT3cfRPLwoPh7VBYonSeZypIawGUeVfOIt1xSDgcDdirRGDPZ7/x+FLhhgQmKp3PKbz5Juh9/BNP4Jzrr9Q==
+  version "7.10.5"
+  resolved "https://registry.yarnpkg.com/@babel/node/-/node-7.10.5.tgz#30866322aa2c0251a9bdd73d07a9167bd1f4ed64"
+  integrity sha512-suosS7zZ2roj+fYVCnDuVezUbRc0sdoyF0Gj/1FzWxD4ebbGiBGtL5qyqHH4NO34B5m4vWWYWgyNhSsrqS8vwA==
   dependencies:
-    "@babel/register" "^7.8.3"
+    "@babel/register" "^7.10.5"
     commander "^4.0.1"
     core-js "^3.2.1"
-    lodash "^4.17.13"
+    lodash "^4.17.19"
     node-environment-flags "^1.0.5"
     regenerator-runtime "^0.13.4"
     resolve "^1.13.1"
@@ -991,13 +991,13 @@
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-transform-typescript" "^7.9.0"
 
-"@babel/register@^7.8.3":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.9.0.tgz#02464ede57548bddbb5e9f705d263b7c3f43d48b"
-  integrity sha512-Tv8Zyi2J2VRR8g7pC5gTeIN8Ihultbmk0ocyNz8H2nEZbmhp1N6q0A1UGsQbDvGP/sNinQKUHf3SqXwqjtFv4Q==
+"@babel/register@^7.10.5":
+  version "7.10.5"
+  resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.10.5.tgz#354f3574895f1307f79efe37a51525e52fd38d89"
+  integrity sha512-eYHdLv43nyvmPn9bfNfrcC4+iYNwdQ8Pxk1MFJuU/U5LpSYl/PH4dFMazCYZDFVi8ueG3shvO+AQfLrxpYulQw==
   dependencies:
     find-cache-dir "^2.0.0"
-    lodash "^4.17.13"
+    lodash "^4.17.19"
     make-dir "^2.1.0"
     pirates "^4.0.0"
     source-map-support "^0.5.16"
@@ -6244,10 +6244,10 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4, lodash@^4.17.5:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-driver@^1.2.7:
   version "1.2.7"
