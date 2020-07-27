@@ -447,6 +447,12 @@ export default class TextElement extends RenderedElement {
 	) {
 
 		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
+
+		// not a text node?
+		if (typeof child.getBoundingBox !== 'function') {
+			return null;
+		}
+
 		const boundingBox = child.getBoundingBox(ctx);
 
 		if (!boundingBox) {
