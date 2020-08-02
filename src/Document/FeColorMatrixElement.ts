@@ -38,7 +38,7 @@ function m(
 
 	const mi = matrix[i];
 
-	return mi * (mi < 0 ? v - 255 : v);
+	return mi * v;
 }
 
 function c(

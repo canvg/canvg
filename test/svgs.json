@@ -168,7 +168,8 @@
 		"issue908.svg": "Issue #908: css imports",
 		"issue1001.svg": "Issue #1001: incorrect rect sizing",
 		"issue1045.svg": "Issue #1045: overflow visible style",
-		"issue1063.svg": "Issue #1063: opacity in use symbol"
+		"issue1063.svg": "Issue #1063: opacity in use symbol",
+		"issue1111.svg": "Issue #1111: unable to darken with feColorMatrix"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
