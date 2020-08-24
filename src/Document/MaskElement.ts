@@ -62,17 +62,12 @@ export default class MaskElement extends Element {
 			}) as any
 		).apply(maskCtx, 0, 0, x + width, y + height);
 
-		const tmpCanvas = document.createCanvas(x + width, y + height);
-		const tmpCtx = tmpCanvas.getContext('2d');
+        //canvas is getting blurred when mask is present in svg,using target scaled up canvas instead of temporary canvas
+		document.screen.setDefaults(ctx);
+		element.render(ctx);
 
-		document.screen.setDefaults(tmpCtx);
-		element.render(tmpCtx);
-
-		tmpCtx.globalCompositeOperation = 'destination-in';
-		tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat');
-		tmpCtx.fillRect(0, 0, x + width, y + height);
-
-		ctx.fillStyle = tmpCtx.createPattern(tmpCanvas, 'no-repeat');
+		ctx.globalCompositeOperation = 'destination-in';
+		ctx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat');
 		ctx.fillRect(0, 0, x + width, y + height);
 
 		// reassign mask
