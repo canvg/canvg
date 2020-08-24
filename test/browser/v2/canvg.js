@@ -3560,16 +3560,12 @@
 	        ]
 	      });
 	      cm.apply(maskCtx, 0, 0, x + width, y + height);
-
-	      var c = createCanvas(x + width, y + height);
-	      var tempCtx = c.getContext('2d');
-	      svg.SetDefaults(tempCtx);
-	      element.render(tempCtx);
-	      tempCtx.globalCompositeOperation = 'destination-in';
-	      tempCtx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
-	      tempCtx.fillRect(0, 0, x + width, y + height);
-
-	      ctx.fillStyle = tempCtx.createPattern(c, 'no-repeat');
+		  
+		  // canvas is getting blurred when mask is present in svg,using target scaled up canvas instead of temporary canvas
+	      svg.SetDefaults(ctx);
+	      element.render(ctx);
+	      ctx.globalCompositeOperation = 'destination-in';
+	      ctx.fillStyle = maskCtx.createPattern(cMask, 'no-repeat');
 	      ctx.fillRect(0, 0, x + width, y + height);
 
 	      // reassign mask
