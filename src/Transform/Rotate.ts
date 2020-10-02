@@ -12,20 +12,24 @@ export default class Rotate {
 
 	type = 'rotate';
 	private readonly angle: Property = null;
+	private readonly originX: Property = null;
+	private readonly originY: Property = null;
 	private readonly cx: number = 0;
 	private readonly cy: number = 0;
 
 	constructor(
 		document: Document,
 		rotate: string,
-		transformOrigin: number[] = []
+		transformOrigin: [string, string]
 	) {
 
 		const numbers = toNumbers(rotate);
 
 		this.angle = new Property(document, 'angle', numbers[0]);
-		this.cx = (numbers[1] || 0) + (transformOrigin[0] || 0);
-		this.cy = (numbers[2] || 0) + (transformOrigin[1] || 0);
+		this.originX = new Property(document, 'originX', transformOrigin[0] || 0);
+		this.originY = new Property(document, 'originY', transformOrigin[1] || 0);
+		this.cx = numbers[1] || 0;
+		this.cy = numbers[2] || 0;
 	}
 
 	apply(ctx: RenderingContext2D) {
@@ -33,12 +37,16 @@ export default class Rotate {
 		const {
 			cx,
 			cy,
+			originX,
+			originY,
 			angle
 		} = this;
+		const x = cx + originX.getPixels('x');
+		const y = cy + originY.getPixels('y');
 
-		ctx.translate(cx, cy);
+		ctx.translate(x, y);
 		ctx.rotate(angle.getRadians());
-		ctx.translate(-cx, -cy);
+		ctx.translate(-x, -y);
 	}
 
 	unapply(ctx: RenderingContext2D) {

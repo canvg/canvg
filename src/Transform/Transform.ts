@@ -2,8 +2,7 @@ import {
 	RenderingContext2D
 } from '../types';
 import {
-	compressSpaces,
-	toNumbers
+	compressSpaces
 } from '../util';
 import Point from '../Point';
 import {
@@ -51,12 +50,25 @@ function parseTransform(transform: string) {
 	];
 }
 
+function parseTransformOrigin(transformOrigin: string): [string, string] {
+
+	const [
+		x,
+		y
+	] = compressSpaces(transformOrigin).trim().split(' ');
+
+	return [
+		x,
+		y
+	];
+}
+
 interface ITransformConstructor {
 	prototype: ITransform;
 	new (
 		document: Document,
 		value: string,
-		transformOrigin?: number[]
+		transformOrigin?: [string, string]
 	): ITransform;
 }
 
@@ -96,9 +108,7 @@ export default class Transform {
 	) {
 
 		const data = parseTransforms(transform);
-		const originCoords = transformOrigin
-			? toNumbers(transformOrigin)
-			: [];
+		const originPosition = parseTransformOrigin(transformOrigin);
 
 		data.forEach((transform) => {
 
@@ -113,7 +123,7 @@ export default class Transform {
 			const TransformType = Transform.transformTypes[type];
 
 			if (typeof TransformType !== 'undefined') {
-				this.transforms.push(new TransformType(this.document, value, originCoords));
+				this.transforms.push(new TransformType(this.document, value, originPosition));
 			}
 		});
 	}
