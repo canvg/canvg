@@ -105,8 +105,9 @@ export default class SVGElement extends RenderedElement {
 
 		screen.viewPort.setCurrent(width, height);
 
-		if (this.getStyle('transform').hasValue()
-			&& !this.getStyle('transform-origin').hasValue()
+		if (this.node // is not temporary SVGElement
+			&& this.getStyle('transform', false, true).hasValue()
+			&& !this.getStyle('transform-origin', false, true).hasValue()
 		) {
 			this.getStyle('transform-origin', true, true).setValue('50% 50%');
 		}
