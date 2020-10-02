@@ -1,6 +1,3 @@
 {
-	"src/**/*.{ts,tsx}": [
-		"yarn lint",
-		"git add"
-	]
+	"src/**/*.{ts,tsx}": "yarn lint"
 }
