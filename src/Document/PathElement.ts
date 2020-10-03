@@ -1,3 +1,4 @@
+// tslint:disable: member-ordering
 import {
 	RenderingContext2D
 } from '../types';
@@ -181,6 +182,17 @@ export default class PathElement extends RenderedElement {
 		}
 	}
 
+	static pathM(pathParser: PathParser) {
+
+		const point = pathParser.getAsCurrentPoint();
+
+		pathParser.start = pathParser.current;
+
+		return {
+			point
+		};
+	}
+
 	protected pathM(
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
@@ -189,13 +201,13 @@ export default class PathElement extends RenderedElement {
 		const {
 			pathParser
 		} = this;
-		const point = pathParser.getAsCurrentPoint();
+		const {
+			point
+		} = PathElement.pathM(pathParser);
 		const {
 			x,
 			y
 		} = point;
-
-		pathParser.start = pathParser.current;
 
 		pathParser.addMarker(point);
 		boundingBox.addPoint(x, y);
@@ -203,6 +215,19 @@ export default class PathElement extends RenderedElement {
 		if (ctx) {
 			ctx.moveTo(x, y);
 		}
+	}
+
+	static pathL(pathParser: PathParser) {
+
+		const {
+			current
+		} = pathParser;
+		const point = pathParser.getAsCurrentPoint();
+
+		return {
+			current,
+			point
+		};
 	}
 
 	protected pathL(
@@ -214,9 +239,9 @@ export default class PathElement extends RenderedElement {
 			pathParser
 		} = this;
 		const {
-			current
-		} = pathParser;
-		const point = pathParser.getAsCurrentPoint();
+			current,
+			point
+		} = PathElement.pathL(pathParser);
 		const {
 			x,
 			y
@@ -230,14 +255,8 @@ export default class PathElement extends RenderedElement {
 		}
 	}
 
-	protected pathH(
-		ctx: RenderingContext2D,
-		boundingBox: BoundingBox
-	) {
+	static pathH(pathParser: PathParser) {
 
-		const {
-			pathParser
-		} = this;
 		const {
 			current,
 			command
@@ -249,12 +268,54 @@ export default class PathElement extends RenderedElement {
 
 		pathParser.current = point;
 
+		return {
+			current,
+			point
+		};
+	}
+
+	protected pathH(
+		ctx: RenderingContext2D,
+		boundingBox: BoundingBox
+	) {
+
+		const {
+			pathParser
+		} = this;
+		const {
+			current,
+			point
+		} = PathElement.pathH(pathParser);
+		const {
+			x,
+			y
+		} = point;
+
 		pathParser.addMarker(point, current);
-		boundingBox.addPoint(point.x, point.y);
+		boundingBox.addPoint(x, y);
 
 		if (ctx) {
-			ctx.lineTo(point.x, point.y);
+			ctx.lineTo(x, y);
 		}
+	}
+
+	static pathV(pathParser: PathParser) {
+
+		const {
+			current,
+			command
+		} = pathParser;
+		const point = new Point(
+			current.x,
+			(command.relative ? current.y : 0) + command.y
+		);
+
+		pathParser.current = point;
+
+		return {
+			current,
+			point
+		};
 	}
 
 	protected pathV(
@@ -267,21 +328,36 @@ export default class PathElement extends RenderedElement {
 		} = this;
 		const {
 			current,
-			command
-		} = pathParser;
-		const point = new Point(
-			current.x,
-			(command.relative ? current.y : 0) + command.y
-		);
-
-		pathParser.current = point;
+			point
+		} = PathElement.pathV(pathParser);
+		const {
+			x,
+			y
+		} = point;
 
 		pathParser.addMarker(point, current);
-		boundingBox.addPoint(point.x, point.y);
+		boundingBox.addPoint(x, y);
 
 		if (ctx) {
-			ctx.lineTo(point.x, point.y);
+			ctx.lineTo(x, y);
 		}
+	}
+
+	static pathC(pathParser: PathParser) {
+
+		const {
+			current
+		} = pathParser;
+		const point = pathParser.getPoint('x1', 'y1');
+		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
+		const currentPoint = pathParser.getAsCurrentPoint();
+
+		return {
+			current,
+			point,
+			controlPoint,
+			currentPoint
+		};
 	}
 
 	protected pathC(
@@ -293,11 +369,11 @@ export default class PathElement extends RenderedElement {
 			pathParser
 		} = this;
 		const {
-			current
-		} = pathParser;
-		const point = pathParser.getPoint('x1', 'y1');
-		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
-		const currentPoint = pathParser.getAsCurrentPoint();
+			current,
+			point,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathC(pathParser);
 
 		pathParser.addMarker(currentPoint, controlPoint, point);
 		boundingBox.addBezierCurve(
@@ -321,6 +397,23 @@ export default class PathElement extends RenderedElement {
 				currentPoint.y
 			);
 		}
+	}
+
+	static pathS(pathParser: PathParser) {
+
+		const {
+			current
+		} = pathParser;
+		const point = pathParser.getReflectedControlPoint();
+		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
+		const currentPoint = pathParser.getAsCurrentPoint();
+
+		return {
+			current,
+			point,
+			controlPoint,
+			currentPoint
+		};
 	}
 
 	protected pathS(
@@ -332,11 +425,11 @@ export default class PathElement extends RenderedElement {
 			pathParser
 		} = this;
 		const {
-			current
-		} = pathParser;
-		const point = pathParser.getReflectedControlPoint();
-		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
-		const currentPoint = pathParser.getAsCurrentPoint();
+			current,
+			point,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathS(pathParser);
 
 		pathParser.addMarker(currentPoint, controlPoint, point);
 		boundingBox.addBezierCurve(
@@ -362,6 +455,21 @@ export default class PathElement extends RenderedElement {
 		}
 	}
 
+	static pathQ(pathParser: PathParser) {
+
+		const {
+			current
+		} = pathParser;
+		const controlPoint = pathParser.getAsControlPoint('x1', 'y1');
+		const currentPoint = pathParser.getAsCurrentPoint();
+
+		return {
+			current,
+			controlPoint,
+			currentPoint
+		};
+	}
+
 	protected pathQ(
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
@@ -371,10 +479,10 @@ export default class PathElement extends RenderedElement {
 			pathParser
 		} = this;
 		const {
-			current
-		} = pathParser;
-		const controlPoint = pathParser.getAsControlPoint('x1', 'y1');
-		const currentPoint = pathParser.getAsCurrentPoint();
+			current,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathQ(pathParser);
 
 		pathParser.addMarker(currentPoint, controlPoint, controlPoint);
 		boundingBox.addQuadraticCurve(
@@ -394,6 +502,24 @@ export default class PathElement extends RenderedElement {
 				currentPoint.y
 			);
 		}
+	}
+
+	static pathT(pathParser: PathParser) {
+
+		const {
+			current
+		} = pathParser;
+		const controlPoint = pathParser.getReflectedControlPoint();
+
+		pathParser.control = controlPoint;
+
+		const currentPoint = pathParser.getAsCurrentPoint();
+
+		return {
+			current,
+			controlPoint,
+			currentPoint
+		};
 	}
 
 	protected pathT(
@@ -405,13 +531,10 @@ export default class PathElement extends RenderedElement {
 			pathParser
 		} = this;
 		const {
-			current
-		} = pathParser;
-		const controlPoint = pathParser.getReflectedControlPoint();
-
-		pathParser.control = controlPoint;
-
-		const currentPoint = pathParser.getAsCurrentPoint();
+			current,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathT(pathParser);
 
 		pathParser.addMarker(currentPoint, controlPoint, controlPoint);
 		boundingBox.addQuadraticCurve(
@@ -433,14 +556,8 @@ export default class PathElement extends RenderedElement {
 		}
 	}
 
-	protected pathA(
-		ctx: RenderingContext2D,
-		boundingBox: BoundingBox
-	) {
+	static pathA(pathParser: PathParser) {
 
-		const {
-			pathParser
-		} = this;
 		const {
 			current,
 			command
@@ -504,7 +621,7 @@ export default class PathElement extends RenderedElement {
 			+ Math.cos(xAxisRotation) * cpp.y
 		);
 		// initial angle
-		const a1 = vectorsAngle([1, 0], [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY]);
+		const a1 = vectorsAngle([1, 0], [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY]); // θ1
 		// angle delta
 		const u = [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY];
 		const v = [(-currp.x - cpp.x) / rX, (-currp.y - cpp.y) / rY];
@@ -517,6 +634,37 @@ export default class PathElement extends RenderedElement {
 		if (vectorsRatio(u, v) >= 1) {
 			ad = 0;
 		}
+
+		return {
+			currentPoint,
+			rX,
+			rY,
+			sweepFlag,
+			xAxisRotation,
+			centp,
+			a1,
+			ad
+		};
+	}
+
+	protected pathA(
+		ctx: RenderingContext2D,
+		boundingBox: BoundingBox
+	) {
+
+		const {
+			pathParser
+		} = this;
+		const {
+			currentPoint,
+			rX,
+			rY,
+			sweepFlag,
+			xAxisRotation,
+			centp,
+			a1,
+			ad
+		} = PathElement.pathA(pathParser);
 
 		// for markers
 		const dir = 1 - sweepFlag ? 1.0 : -1.0;
@@ -546,14 +694,16 @@ export default class PathElement extends RenderedElement {
 		}
 	}
 
+	static pathZ(pathParser: PathParser) {
+		pathParser.current = pathParser.start;
+	}
+
 	protected pathZ(
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
 
-		const {
-			pathParser
-		} = this;
+		PathElement.pathZ(this.pathParser);
 
 		if (ctx) {
 			// only close path if it is not a straight line
@@ -563,7 +713,5 @@ export default class PathElement extends RenderedElement {
 				ctx.closePath();
 			}
 		}
-
-		pathParser.current = pathParser.start;
 	}
 }

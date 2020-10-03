@@ -4,8 +4,6 @@ import {
 import {
 	PSEUDO_ZERO,
 	toNumbers,
-	vectorsRatio,
-	vectorsAngle,
 	CB1,
 	CB2,
 	CB3,
@@ -17,7 +15,6 @@ import {
 import PathParser, {
 	CommandType
 } from '../PathParser';
-import Point from '../Point';
 import Document from './Document';
 import TextElement from './TextElement';
 import PathElement from './PathElement';
@@ -510,7 +507,7 @@ export default class TextPathElement extends TextElement {
 					break;
 
 				case PathParser.CLOSE_PATH:
-					pathParser.current = pathParser.start;
+					PathElement.pathZ(pathParser);
 					break;
 
 				default:
@@ -543,11 +540,12 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const point = pathParser.getAsCurrentPoint();
+		const {
+			x,
+			y
+		} = PathElement.pathM(pathParser).point;
 
-		pathParser.start = pathParser.current;
-
-		points.push(point.x, point.y);
+		points.push(x, y);
 	}
 
 	protected pathL(
@@ -555,9 +553,12 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const point = pathParser.getAsCurrentPoint();
+		const {
+			x,
+			y
+		} = PathElement.pathL(pathParser).point;
 
-		points.push(point.x, point.y);
+		points.push(x, y);
 
 		return PathParser.LINE_TO;
 	}
@@ -568,17 +569,11 @@ export default class TextPathElement extends TextElement {
 	) {
 
 		const {
-			current,
-			command
-		} = pathParser;
-		const point = new Point(
-			(command.relative ? current.x : 0) + command.x,
-			current.y
-		);
+			x,
+			y
+		} = PathElement.pathH(pathParser).point;
 
-		pathParser.current = point;
-
-		points.push(point.x, point.y);
+		points.push(x, y);
 
 		return PathParser.LINE_TO;
 	}
@@ -589,17 +584,11 @@ export default class TextPathElement extends TextElement {
 	) {
 
 		const {
-			current,
-			command
-		} = pathParser;
-		const point = new Point(
-			current.x,
-			(command.relative ? current.y : 0) + command.y
-		);
+			x,
+			y
+		} = PathElement.pathV(pathParser).point;
 
-		pathParser.current = point;
-
-		points.push(point.x, point.y);
+		points.push(x, y);
 
 		return PathParser.LINE_TO;
 	}
@@ -609,9 +598,11 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const point = pathParser.getPoint('x1', 'y1');
-		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
-		const currentPoint = pathParser.getAsCurrentPoint();
+		const {
+			point,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathC(pathParser);
 
 		points.push(
 			point.x,
@@ -628,9 +619,11 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const point = pathParser.getReflectedControlPoint();
-		const controlPoint = pathParser.getAsControlPoint('x2', 'y2');
-		const currentPoint = pathParser.getAsCurrentPoint();
+		const {
+			point,
+			controlPoint,
+			currentPoint
+		} = PathElement.pathS(pathParser);
 
 		points.push(
 			point.x,
@@ -649,8 +642,10 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const controlPoint = pathParser.getAsControlPoint('x1', 'y1');
-		const currentPoint = pathParser.getAsCurrentPoint();
+		const {
+			controlPoint,
+			currentPoint
+		} = PathElement.pathQ(pathParser);
 
 		points.push(
 			controlPoint.x,
@@ -665,11 +660,10 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const controlPoint = pathParser.getReflectedControlPoint();
-
-		pathParser.control = controlPoint;
-
-		const currentPoint = pathParser.getAsCurrentPoint();
+		const {
+			controlPoint,
+			currentPoint
+		} = PathElement.pathT(pathParser);
 
 		points.push(
 			controlPoint.x,
@@ -685,82 +679,15 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser
 	) {
 
-		const {
-			current,
-			command
-		} = pathParser;
 		let {
 			rX,
 			rY,
-			xRot,
-			lArcFlag,
-			sweepFlag
-		} = command;
-		const xAxisRotation = xRot * (Math.PI / 180.0);
-		const currentPoint = pathParser.getAsCurrentPoint();
-		// Conversion from endpoint to center parameterization
-		// http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
-		// x1', y1'
-		const currp = new Point(
-			Math.cos(xAxisRotation) * (current.x - currentPoint.x) / 2.0
-			+ Math.sin(xAxisRotation) * (current.y - currentPoint.y) / 2.0,
-			-Math.sin(xAxisRotation) * (current.x - currentPoint.x) / 2.0
-			+ Math.cos(xAxisRotation) * (current.y - currentPoint.y) / 2.0
-		);
-		// adjust radii
-		const l = (
-			Math.pow(currp.x, 2) / Math.pow(rX, 2)
-			+ Math.pow(currp.y, 2) / Math.pow(rY, 2)
-		);
-
-		if (l > 1) {
-			rX *= Math.sqrt(l);
-			rY *= Math.sqrt(l);
-		}
-
-		// cx', cy'
-		let s = (lArcFlag === sweepFlag ? -1 : 1) * Math.sqrt(
-			(
-				(Math.pow(rX, 2) * Math.pow(rY, 2))
-				- (Math.pow(rX, 2) * Math.pow(currp.y, 2))
-				- (Math.pow(rY, 2) * Math.pow(currp.x, 2))
-			) / (
-				Math.pow(rX, 2) * Math.pow(currp.y, 2)
-				+ Math.pow(rY, 2) * Math.pow(currp.x, 2)
-			)
-		);
-
-		if (isNaN(s)) {
-			s = 0;
-		}
-
-		const cpp = new Point(
-			s * rX * currp.y / rY,
-			s * -rY * currp.x / rX
-		);
-		// cx, cy
-		const centp = new Point(
-			(current.x + currentPoint.x) / 2.0
-			+ Math.cos(xAxisRotation) * cpp.x
-			- Math.sin(xAxisRotation) * cpp.y,
-			(current.y + currentPoint.y) / 2.0
-			+ Math.sin(xAxisRotation) * cpp.x
-			+ Math.cos(xAxisRotation) * cpp.y
-		);
-		// initial angle
-		const a1 = vectorsAngle([1, 0], [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY]); // θ1
-		// angle delta
-		const u = [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY];
-		const v = [(-currp.x - cpp.x) / rX, (-currp.y - cpp.y) / rY];
-		let ad = vectorsAngle(u, v); // Δθ
-
-		if (vectorsRatio(u, v) <= -1) {
-			ad = Math.PI;
-		}
-
-		if (vectorsRatio(u, v) >= 1) {
-			ad = 0;
-		}
+			sweepFlag,
+			xAxisRotation,
+			centp,
+			a1,
+			ad
+		} = PathElement.pathA(pathParser);
 
 		if (sweepFlag === 0 && ad > 0) {
 			ad = ad - 2 * Math.PI;
