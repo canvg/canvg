@@ -35,7 +35,7 @@ export default class PathParser extends SVGPathData {
 	start: Point = null;
 	current: Point = null;
 	command: Command = null;
-	readonly commands: Command[];
+	readonly commands: Command[] /* Babel fix: */ = this.commands;
 	private i = -1;
 	private previousCommand: Command = null;
 	private points: Point[] = [];
