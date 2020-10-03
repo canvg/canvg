@@ -518,14 +518,6 @@ export default class PathElement extends RenderedElement {
 			ad = 0;
 		}
 
-		if (sweepFlag === 0 && ad > 0) {
-			ad = ad - 2 * Math.PI;
-		}
-
-		if (sweepFlag === 1 && ad < 0) {
-			ad = ad + 2 * Math.PI;
-		}
-
 		// for markers
 		const dir = 1 - sweepFlag ? 1.0 : -1.0;
 		const ah = a1 + dir * (ad / 2.0);
