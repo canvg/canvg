@@ -74,7 +74,7 @@
     "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^3.0.0",
     "@types/xmldom": "^0.1.29",
-    "archiver": "^4.0.1",
+    "archiver": "^5.0.2",
     "babel-jest": "^26.0.1",
     "babel-preset-trigen": "^4.0.0",
     "browserslist-config-trigen": "^1.1.0",
