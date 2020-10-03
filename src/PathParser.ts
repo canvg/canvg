@@ -41,6 +41,16 @@ export default class PathParser extends SVGPathData {
 	private points: Point[] = [];
 	private angles: number[] = [];
 
+	constructor(path: string) {
+		super(
+			path
+				// Fix spaces after signs.
+				.replace(/[+-.]\s+/g, '-')
+				// Remove invalid part.
+				.replace(/[^MmZzLlHhVvCcSsQqTtAa\d\s.,+-].*/g, '')
+		);
+	}
+
 	reset() {
 		this.i = -1;
 		this.command = null;
