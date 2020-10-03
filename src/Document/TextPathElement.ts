@@ -543,11 +543,11 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const p = pathParser.getAsCurrentPoint();
-		// pathParser.addMarker(p);
-		points.push(p.x, p.y);
+		const point = pathParser.getAsCurrentPoint();
 
 		pathParser.start = pathParser.current;
+
+		points.push(point.x, point.y);
 	}
 
 	protected pathL(
@@ -555,9 +555,9 @@ export default class TextPathElement extends TextElement {
 		points: number[]
 	) {
 
-		const p = pathParser.getAsCurrentPoint();
+		const point = pathParser.getAsCurrentPoint();
 
-		points.push(p.x, p.y);
+		points.push(point.x, point.y);
 
 		return PathParser.LINE_TO;
 	}
@@ -576,8 +576,9 @@ export default class TextPathElement extends TextElement {
 			current.y
 		);
 
-		points.push(point.x, point.y);
 		pathParser.current = point;
+
+		points.push(point.x, point.y);
 
 		return PathParser.LINE_TO;
 	}
@@ -596,8 +597,9 @@ export default class TextPathElement extends TextElement {
 			(command.relative ? current.y : 0) + command.y
 		);
 
-		points.push(point.x, point.y);
 		pathParser.current = point;
+
+		points.push(point.x, point.y);
 
 		return PathParser.LINE_TO;
 	}

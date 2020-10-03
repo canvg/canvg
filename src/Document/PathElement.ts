@@ -195,14 +195,14 @@ export default class PathElement extends RenderedElement {
 			y
 		} = point;
 
+		pathParser.start = pathParser.current;
+
 		pathParser.addMarker(point);
 		boundingBox.addPoint(x, y);
 
 		if (ctx) {
 			ctx.moveTo(x, y);
 		}
-
-		pathParser.start = pathParser.current;
 	}
 
 	protected pathL(
@@ -247,8 +247,9 @@ export default class PathElement extends RenderedElement {
 			current.y
 		);
 
-		pathParser.addMarker(point, current);
 		pathParser.current = point;
+
+		pathParser.addMarker(point, current);
 		boundingBox.addPoint(point.x, point.y);
 
 		if (ctx) {
@@ -273,8 +274,9 @@ export default class PathElement extends RenderedElement {
 			(command.relative ? current.y : 0) + command.y
 		);
 
-		pathParser.addMarker(point, current);
 		pathParser.current = point;
+
+		pathParser.addMarker(point, current);
 		boundingBox.addPoint(point.x, point.y);
 
 		if (ctx) {
@@ -452,7 +454,6 @@ export default class PathElement extends RenderedElement {
 		} = command;
 		const xAxisRotation = xRot * (Math.PI / 180.0);
 		const currentPoint = pathParser.getAsCurrentPoint();
-
 		// Conversion from endpoint to center parameterization
 		// http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
 		// x1', y1'
@@ -463,12 +464,16 @@ export default class PathElement extends RenderedElement {
 			+ Math.cos(xAxisRotation) * (current.y - currentPoint.y) / 2.0
 		);
 		// adjust radii
-		const l = Math.pow(currp.x, 2) / Math.pow(rX, 2) + Math.pow(currp.y, 2) / Math.pow(rY, 2);
+		const l = (
+			Math.pow(currp.x, 2) / Math.pow(rX, 2)
+			+ Math.pow(currp.y, 2) / Math.pow(rY, 2)
+		);
 
 		if (l > 1) {
 			rX *= Math.sqrt(l);
 			rY *= Math.sqrt(l);
 		}
+
 		// cx', cy'
 		let s = (lArcFlag === sweepFlag ? -1 : 1) * Math.sqrt(
 			(
@@ -503,7 +508,7 @@ export default class PathElement extends RenderedElement {
 		// angle delta
 		const u = [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY];
 		const v = [(-currp.x - cpp.x) / rX, (-currp.y - cpp.y) / rY];
-		let ad = vectorsAngle(u, v);
+		let ad = vectorsAngle(u, v); // Δθ
 
 		if (vectorsRatio(u, v) <= -1) {
 			ad = Math.PI;
@@ -513,6 +518,14 @@ export default class PathElement extends RenderedElement {
 			ad = 0;
 		}
 
+		if (sweepFlag === 0 && ad > 0) {
+			ad = ad - 2 * Math.PI;
+		}
+
+		if (sweepFlag === 1 && ad < 0) {
+			ad = ad + 2 * Math.PI;
+		}
+
 		// for markers
 		const dir = 1 - sweepFlag ? 1.0 : -1.0;
 		const ah = a1 + dir * (ad / 2.0);
@@ -520,9 +533,9 @@ export default class PathElement extends RenderedElement {
 			centp.x + rX * Math.cos(ah),
 			centp.y + rY * Math.sin(ah)
 		);
+
 		pathParser.addMarkerAngle(halfWay, ah - dir * Math.PI / 2);
 		pathParser.addMarkerAngle(currentPoint, ah - dir * Math.PI);
-
 		boundingBox.addPoint(currentPoint.x, currentPoint.y); // TODO: this is too naive, make it better
 
 		if (ctx && !isNaN(a1) && !isNaN(ad)) {
