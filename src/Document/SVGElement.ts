@@ -13,13 +13,6 @@ export default class SVGElement extends RenderedElement {
 	type = 'svg';
 	root = false;
 
-	clearContext(ctx: RenderingContext2D) {
-
-		super.clearContext(ctx);
-
-		this.document.screen.viewPort.removeCurrent();
-	}
-
 	setContext(ctx: RenderingContext2D) {
 
 		const {
@@ -53,8 +46,6 @@ export default class SVGElement extends RenderedElement {
 			}
 		}
 
-		super.setContext(ctx);
-
 		// create new view port
 		if (!this.getAttribute('x').hasValue()) {
 			this.getAttribute('x', true).setValue(0);
@@ -63,11 +54,6 @@ export default class SVGElement extends RenderedElement {
 		if (!this.getAttribute('y').hasValue()) {
 			this.getAttribute('y', true).setValue(0);
 		}
-
-		ctx.translate(
-			this.getAttribute('x').getPixels('x'),
-			this.getAttribute('y').getPixels('y')
-		);
 
 		let {
 			width,
@@ -119,6 +105,20 @@ export default class SVGElement extends RenderedElement {
 
 		screen.viewPort.setCurrent(width, height);
 
+		if (this.node // is not temporary SVGElement
+			&& this.getStyle('transform', false, true).hasValue()
+			&& !this.getStyle('transform-origin', false, true).hasValue()
+		) {
+			this.getStyle('transform-origin', true, true).setValue('50% 50%');
+		}
+
+		super.setContext(ctx);
+
+		ctx.translate(
+			this.getAttribute('x').getPixels('x'),
+			this.getAttribute('y').getPixels('y')
+		);
+
 		if (viewBox) {
 			width = viewBox[2];
 			height = viewBox[3];
@@ -144,6 +144,13 @@ export default class SVGElement extends RenderedElement {
 			screen.viewPort.removeCurrent();
 			screen.viewPort.setCurrent(width, height);
 		}
+	}
+
+	clearContext(ctx: RenderingContext2D) {
+
+		super.clearContext(ctx);
+
+		this.document.screen.viewPort.removeCurrent();
 	}
 
 	/**
