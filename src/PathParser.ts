@@ -1,48 +1,60 @@
 import {
-	compressSpaces
-} from './util';
+	SVGCommand,
+	CommandM,
+	CommandL,
+	CommandH,
+	CommandV,
+	CommandZ,
+	CommandQ,
+	CommandT,
+	CommandC,
+	CommandS,
+	CommandA
+} from 'svg-pathdata/lib/types';
+import {
+	SVGPathData
+} from 'svg-pathdata';
 import Point from './Point';
 
-function preparePath(path: string) {
+export type CommandType = SVGCommand['type'];
+export type Command = { type: CommandType }
+	& Omit<CommandM, 'type'>
+	& Omit<CommandL, 'type'>
+	& Omit<CommandH, 'type'>
+	& Omit<CommandV, 'type'>
+	& Omit<CommandZ, 'type'>
+	& Omit<CommandQ, 'type'>
+	& Omit<CommandT, 'type'>
+	& Omit<CommandC, 'type'>
+	& Omit<CommandS, 'type'>
+	& Omit<CommandA, 'type'>;
 
-	const d = path
-		.replace(/,/gm, ' ') // get rid of all commas
-		// As the end of a match can also be the start of the next match, we need to run this replace twice.
-		.replace(/([MmZzLlHhVvCcSsQqTtAa])([^\s])/gm, '$1 $2') // suffix commands with spaces
-		.replace(/([MmZzLlHhVvCcSsQqTtAa])([^\s])/gm, '$1 $2') // suffix commands with spaces
-		.replace(/([^\s])([MmZzLlHhVvCcSsQqTtAa])/gm, '$1 $2') // prefix commands with spaces
-		.replace(/([0-9])([+\-])/gm, '$1 $2') // separate digits on +- signs
-		// Again, we need to run this twice to find all occurances
-		.replace(/(\.[0-9]*)(\.)/gm, '$1 $2') // separate digits when they start with a comma
-		.replace(/(\.[0-9]*)(\.)/gm, '$1 $2') // separate digits when they start with a comma
-		.replace(
-			/([Aa](?:\s+(?:[0-9]*\.)?[0-9]+){3})\s+([01])\s*([01])/gm,
-			'$1 $2 $3 '
-		); // shorthand elliptical arc path syntax
-
-	return compressSpaces(d).trim();
-}
-
-export default class PathParser {
+export default class PathParser extends SVGPathData {
 
 	control: Point = null;
 	start: Point = null;
 	current: Point = null;
-	command = '';
-	private readonly tokens: string[] = [];
+	command: Command = null;
+	readonly commands: Command[] /* Babel fix: */ = this.commands;
 	private i = -1;
-	private previousCommand = '';
+	private previousCommand: Command = null;
 	private points: Point[] = [];
 	private angles: number[] = [];
 
 	constructor(path: string) {
-		this.tokens = preparePath(path).split(' ');
+		super(
+			path
+				// Fix spaces after signs.
+				.replace(/[+-.]\s+/g, '-')
+				// Remove invalid part.
+				.replace(/[^MmZzLlHhVvCcSsQqTtAae\d\s.,+-].*/g, '')
+		);
 	}
 
 	reset() {
 		this.i = -1;
-		this.command = '';
-		this.previousCommand = '';
+		this.command = null;
+		this.previousCommand = null;
 		this.start = new Point(0, 0);
 		this.control = new Point(0, 0);
 		this.current = new Point(0, 0);
@@ -54,82 +66,44 @@ export default class PathParser {
 
 		const {
 			i,
-			tokens
+			commands
 		} = this;
 
-		return i >= tokens.length - 1;
+		return i >= commands.length - 1;
 	}
 
-	isCommandOrEnd() {
+	next() {
 
-		if (this.isEnd()) {
-			return true;
-		}
+		const command = this.commands[++this.i];
 
-		const {
-			i,
-			tokens
-		} = this;
-
-		return /^[A-Za-z]$/.test(tokens[i + 1]);
-	}
-
-	isRelativeCommand() {
-
-		switch (this.command) {
-			case 'm':
-			case 'l':
-			case 'h':
-			case 'v':
-			case 'c':
-			case 's':
-			case 'q':
-			case 't':
-			case 'a':
-			case 'z':
-				return true;
-
-			default:
-				return false;
-		}
-	}
-
-	getToken() {
-		this.i++;
-		return this.tokens[this.i];
-	}
-
-	getScalar() {
-		return parseFloat(this.getToken());
-	}
-
-	nextCommand() {
 		this.previousCommand = this.command;
-		this.command = this.getToken();
+		this.command = command;
+
+		return command;
 	}
 
-	getPoint() {
+	getPoint(xProp = 'x', yProp = 'y') {
 
 		const point = new Point(
-			this.getScalar(),
-			this.getScalar()
+			this.command[xProp],
+			this.command[yProp]
 		);
 
 		return this.makeAbsolute(point);
 	}
 
-	getAsControlPoint() {
+	getAsControlPoint(xProp?: string, yProp?: string) {
 
-		const point = this.getPoint();
+		const point = this.getPoint(xProp, yProp);
 
 		this.control = point;
 
 		return point;
 	}
 
-	getAsCurrentPoint() {
+	getAsCurrentPoint(xProp?: string, yProp?: string) {
 
-		const point = this.getPoint();
+		const point = this.getPoint(xProp, yProp);
 
 		this.current = point;
 
@@ -138,12 +112,12 @@ export default class PathParser {
 
 	getReflectedControlPoint() {
 
-		const previousCommand = this.previousCommand.toLowerCase();
+		const previousCommand = this.previousCommand.type;
 
-		if (previousCommand !== 'c'
-			&& previousCommand !== 's'
-			&& previousCommand !== 'q'
-			&& previousCommand !== 't'
+		if (previousCommand !== SVGPathData.CURVE_TO
+			&& previousCommand !== SVGPathData.SMOOTH_CURVE_TO
+			&& previousCommand !== SVGPathData.QUAD_TO
+			&& previousCommand !== SVGPathData.SMOOTH_QUAD_TO
 		) {
 			return this.current;
 		}
@@ -166,7 +140,7 @@ export default class PathParser {
 
 	makeAbsolute(point: Point) {
 
-		if (this.isRelativeCommand()) {
+		if (this.command.relative) {
 
 			const {
 				x,

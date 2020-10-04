@@ -170,7 +170,8 @@
 		"issue1045.svg": "Issue #1045: overflow visible style",
 		"issue1063.svg": "Issue #1063: opacity in use symbol",
 		"issue1111.svg": "Issue #1111: unable to darken with feColorMatrix",
-		"issue977.svg": "Issue #977: transform origin"
+		"issue977.svg": "Issue #977: transform origin",
+		"issue1196.svg": "Issue #1196: path parser"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
