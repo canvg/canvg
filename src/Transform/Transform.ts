@@ -76,12 +76,14 @@ export default class Transform {
 		const transformStyle = element.getStyle('transform', false, true);
 		const [
 			transformOriginXProperty,
-			transformOriginYProperty
+			transformOriginYProperty = transformOriginXProperty
 		] = element.getStyle('transform-origin', false, true).split();
 		const transformOrigin = [
 			transformOriginXProperty,
 			transformOriginYProperty
 		] as const;
+
+		console.log(transformOrigin);
 
 		if (transformStyle.hasValue()) {
 			return new Transform(
