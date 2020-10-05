@@ -108,6 +108,8 @@ self.onmessage = async (event) => {
 };
 ```
 
+[`OffscreenCanvas` browsers compatibility.](https://caniuse.com/offscreencanvas)
+
 </details>
 
 <details>
