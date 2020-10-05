@@ -3,7 +3,6 @@ import {
 } from '../types';
 import {
 	PSEUDO_ZERO,
-	toNumbers,
 	CB1,
 	CB2,
 	CB3,
@@ -42,8 +41,8 @@ interface IEquidistantCache {
 }
 
 interface IGlyphInfo {
-	transposeX: number;
-	transposeY: number;
+	// transposeX: number;
+	// transposeY: number;
 	text: string;
 	rotation: number;
 	p0: ICachedPoint;
@@ -204,12 +203,13 @@ export default class TextPathElement extends TextElement {
 			const {
 				p0,
 				p1,
+				rotation,
 				text: partialText
 			} = glyph;
 
 			ctx.save();
 			ctx.translate(p0.x, p0.y);
-			ctx.rotate(glyphInfo[i].rotation);
+			ctx.rotate(rotation);
 
 			if (ctx.fillStyle) {
 				ctx.fillText(partialText, 0, 0);
@@ -264,6 +264,7 @@ export default class TextPathElement extends TextElement {
 		fullPathWidth: number,
 		spacesNumber: number,
 		inputOffset: number,
+		dy: number,
 		c: string,
 		charI: number
 	) {
@@ -283,16 +284,42 @@ export default class TextPathElement extends TextElement {
 		}
 
 		const splineStep = this.textHeight / 20;
+		const p0 = this.getEquidistantPointOnPath(offset, splineStep, 0);
+		const p1 = this.getEquidistantPointOnPath(offset + glyphWidth, splineStep, 0);
 		const segment = {
-			p0: this.getEquidistantPointOnPath(offset, splineStep),
-			p1: this.getEquidistantPointOnPath(offset + glyphWidth, splineStep)
+			p0,
+			p1
 		};
+		const rotation = p0 && p1
+			? Math.atan2(
+				(p1.y - p0.y),
+				(p1.x - p0.x)
+			)
+			: 0;
+
+		if (dy) {
+
+			const dyX = Math.cos(Math.PI / 2 + rotation) * dy;
+			const dyY = Math.cos(-rotation) * dy;
+
+			segment.p0 = {
+				...p0,
+				x: p0.x + dyX,
+				y: p0.y + dyY
+			};
+			segment.p1 = {
+				...p1,
+				x: p1.x + dyX,
+				y: p1.y + dyY
+			};
+		}
 
 		offset += glyphWidth;
 
 		return {
 			offset,
-			segment
+			segment,
+			rotation
 		};
 	}
 
@@ -329,7 +356,8 @@ export default class TextPathElement extends TextElement {
 		const renderText = this.getText();
 		const chars = renderText.split('');
 		const spacesNumber = renderText.split(' ').length - 1;
-		const dx = toNumbers(this.parent.getAttribute('dx').getString('0'));
+		const dx = this.parent.getAttribute('dx').split().map(_ => _.getPixels('x'));
+		const dy = this.parent.getAttribute('dy').getPixels('y');
 		const anchor = this.parent.getStyle('text-anchor').getString('start');
 		const thisSpacing = this.getStyle('letter-spacing');
 		const parentSpacing = this.parent.getStyle('letter-spacing');
@@ -363,13 +391,19 @@ export default class TextPathElement extends TextElement {
 			);
 		}
 
-		const dxSum = letterSpacingCache.reduce((acc, cur) => acc + cur || 0, 0);
+		const dxSum = letterSpacingCache.reduce(
+			(acc, cur, i) => (
+				i === 0
+					? 0
+					: (acc + cur || 0)
+			),
+			0
+		);
+		const textWidth = this.measureText(ctx);
+		const textFullWidth = Math.max(textWidth + dxSum, 0);
 
-		this.textWidth = this.measureText(ctx);
+		this.textWidth = textWidth;
 		this.textHeight = this.getFontSize();
-
-		const textFullWidth = Math.max(this.textWidth + dxSum, 0);
-
 		this.glyphInfo = [];
 
 		const fullPathWidth = this.getPathLength();
@@ -395,7 +429,8 @@ export default class TextPathElement extends TextElement {
 			// Find such segment what distance between p0 and p1 is approx. width of glyph
 			const {
 				offset: nextOffset,
-				segment
+				segment,
+				rotation
 			} = this.findSegmentToFitChar(
 				ctx,
 				anchor,
@@ -403,6 +438,7 @@ export default class TextPathElement extends TextElement {
 				fullPathWidth,
 				spacesNumber,
 				offset,
+				dy,
 				char,
 				i
 			);
@@ -413,28 +449,25 @@ export default class TextPathElement extends TextElement {
 				return;
 			}
 
-			const width = this.getLineLength(
-				segment.p0.x,
-				segment.p0.y,
-				segment.p1.x,
-				segment.p1.y
-			);
+			// const width = this.getLineLength(
+			// 	segment.p0.x,
+			// 	segment.p0.y,
+			// 	segment.p1.x,
+			// 	segment.p1.y
+			// );
 			// Note: Since glyphs are rendered one at a time, any kerning pair data built into the font will not be used.
 			// Can foresee having a rough pair table built in that the developer can override as needed.
 			// Or use "dx" attribute of the <text> node as a naive replacement
-			const kern = 0;
+			// const kern = 0;
 			// placeholder for future implementation
-			const midpoint = this.getPointOnLine(
-				kern + width / 2.0,
-				segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y);
-			const rotation = Math.atan2(
-				(segment.p1.y - segment.p0.y),
-				(segment.p1.x - segment.p0.x)
-			);
+			// const midpoint = this.getPointOnLine(
+			// 	kern + width / 2.0,
+			// 	segment.p0.x, segment.p0.y, segment.p1.x, segment.p1.y
+			// );
 
 			this.glyphInfo.push({
-				transposeX: midpoint.x,
-				transposeY: midpoint.y,
+				// transposeX: midpoint.x,
+				// transposeY: midpoint.y,
 				text:      chars[i],
 				p0:        segment.p0,
 				p1:        segment.p1,

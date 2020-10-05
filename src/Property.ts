@@ -1,5 +1,6 @@
 import RGBColor from 'rgbcolor';
 import {
+	compressSpaces,
 	normalizeColor
 } from './util';
 import {
@@ -38,6 +39,19 @@ export default class Property<T = any> {
 		private readonly name: string,
 		private value: T
 	) {}
+
+	split(separator = ' ') {
+
+		const {
+			document,
+			name
+		} = this;
+
+		return compressSpaces(this.getString())
+			.trim()
+			.split(separator)
+			.map(value => new Property<string>(document, name, value));
+	}
 
 	hasValue(zeroIsValue?: boolean) {
 
