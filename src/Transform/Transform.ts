@@ -83,8 +83,6 @@ export default class Transform {
 			transformOriginYProperty
 		] as const;
 
-		console.log(transformOrigin);
-
 		if (transformStyle.hasValue()) {
 			return new Transform(
 				document,
