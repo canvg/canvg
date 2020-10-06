@@ -171,7 +171,8 @@
 		"issue1063.svg": "Issue #1063: opacity in use symbol",
 		"issue1111.svg": "Issue #1111: unable to darken with feColorMatrix",
 		"issue977.svg": "Issue #977: transform origin",
-		"issue1196.svg": "Issue #1196: path parser"
+		"issue1196.svg": "Issue #1196: path parser",
+		"issue1161.svg": "Issue #1161: textPath with dx and dy"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

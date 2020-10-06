@@ -4,6 +4,7 @@ import {
 import {
 	compressSpaces
 } from '../util';
+import Property from '../Property';
 import Point from '../Point';
 import {
 	ITransform
@@ -50,25 +51,12 @@ function parseTransform(transform: string) {
 	];
 }
 
-function parseTransformOrigin(transformOrigin: string): [string, string] {
-
-	const [
-		x,
-		y
-	] = compressSpaces(transformOrigin).trim().split(' ');
-
-	return [
-		x,
-		y
-	];
-}
-
 interface ITransformConstructor {
 	prototype: ITransform;
 	new (
 		document: Document,
 		value: string,
-		transformOrigin?: [string, string]
+		transformOrigin?: readonly [Property<string>, Property<string>]
 	): ITransform;
 }
 
@@ -86,13 +74,20 @@ export default class Transform {
 	static fromElement(document: Document, element: Element) {
 
 		const transformStyle = element.getStyle('transform', false, true);
-		const transformOriginStyle = element.getStyle('transform-origin', false, true);
+		const [
+			transformOriginXProperty,
+			transformOriginYProperty = transformOriginXProperty
+		] = element.getStyle('transform-origin', false, true).split();
+		const transformOrigin = [
+			transformOriginXProperty,
+			transformOriginYProperty
+		] as const;
 
 		if (transformStyle.hasValue()) {
 			return new Transform(
 				document,
 				transformStyle.getString(),
-				transformOriginStyle.getString()
+				transformOrigin
 			);
 		}
 
@@ -104,11 +99,10 @@ export default class Transform {
 	constructor(
 		private readonly document: Document,
 		transform: string,
-		transformOrigin?: string
+		transformOrigin?: readonly [Property<string>, Property<string>]
 	) {
 
 		const data = parseTransforms(transform);
-		const originPosition = parseTransformOrigin(transformOrigin);
 
 		data.forEach((transform) => {
 
@@ -123,7 +117,7 @@ export default class Transform {
 			const TransformType = Transform.transformTypes[type];
 
 			if (typeof TransformType !== 'undefined') {
-				this.transforms.push(new TransformType(this.document, value, originPosition));
+				this.transforms.push(new TransformType(this.document, value, transformOrigin));
 			}
 		});
 	}

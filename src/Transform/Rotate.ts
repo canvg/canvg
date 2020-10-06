@@ -20,14 +20,14 @@ export default class Rotate {
 	constructor(
 		document: Document,
 		rotate: string,
-		transformOrigin: [string, string]
+		transformOrigin: [Property<string>, Property<string>]
 	) {
 
 		const numbers = toNumbers(rotate);
 
 		this.angle = new Property(document, 'angle', numbers[0]);
-		this.originX = new Property(document, 'originX', transformOrigin[0] || 0);
-		this.originY = new Property(document, 'originY', transformOrigin[1] || 0);
+		this.originX = transformOrigin[0];
+		this.originY = transformOrigin[1];
 		this.cx = numbers[1] || 0;
 		this.cy = numbers[2] || 0;
 	}
