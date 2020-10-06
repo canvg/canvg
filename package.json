@@ -93,7 +93,7 @@
     "lint-staged": "^10.0.2",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.1",
-    "puppeteer": "^3.0.4",
+    "puppeteer": "^5.3.1",
     "rollup": "^2.10.5",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-terser": "^6.1.0",
