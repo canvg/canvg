@@ -71,7 +71,7 @@
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-replace": "^2.3.1",
     "@size-limit/preset-small-lib": "^4.4.0",
-    "@types/jest": "^25.1.0",
+    "@types/jest": "^26.0.14",
     "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^3.0.0",
     "@types/xmldom": "^0.1.29",
