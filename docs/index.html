@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>canvg</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for canvg">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -92,22 +92,22 @@ yarn add canvg</code></pre>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h3>Example</h3>
 				</a>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg <span class="hljs-keyword">from</span> <span class="hljs-string">'canvg'</span>;
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
 
 <span class="hljs-keyword">let</span> v = <span class="hljs-literal">null</span>;
 
 <span class="hljs-built_in">window</span>.onload = <span class="hljs-keyword">async</span> () =&gt; {
 
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'canvas'</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;canvas&#x27;</span>);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
 
-    v = <span class="hljs-keyword">await</span> Canvg.from(ctx, <span class="hljs-string">'./svgs/1.svg'</span>);
+    v = <span class="hljs-keyword">await</span> Canvg.from(ctx, <span class="hljs-string">&#x27;./svgs/1.svg&#x27;</span>);
 
     <span class="hljs-comment">// Start SVG rendering with animations and mouse handling.</span>
     v.start();
 };
 
-<span class="hljs-built_in">window</span>.onbeforeunload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-built_in">window</span>.onbeforeunload = <span class="hljs-function">() =&gt;</span> {
     v.stop();
 };</code></pre>
 				<details>
@@ -116,7 +116,7 @@ yarn add canvg</code></pre>
 					</summary>
 					<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg, {
     presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'canvg'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
 
 self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 
@@ -126,7 +126,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
         svg
     } = event.data;
     <span class="hljs-keyword">const</span> canvas = <span class="hljs-keyword">new</span> OffscreenCanvas(width, height);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
     <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> Canvg.from(ctx, svg, presets.offscreen());
 
     <span class="hljs-comment">// Render only first frame, ignoring animations and mouse.</span>
@@ -139,6 +139,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
         pngUrl
     });
 };</code></pre>
+					<p><a href="https://caniuse.com/offscreencanvas"><code>OffscreenCanvas</code> browsers compatibility.</a></p>
 				</details>
 				<details>
 					<summary>
@@ -146,15 +147,15 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 					</summary>
 					<pre><code class="language-js"><span class="hljs-keyword">import</span> {
     promises <span class="hljs-keyword">as</span> fs
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 <span class="hljs-keyword">import</span> {
     DOMParser
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'xmldom'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> canvas <span class="hljs-keyword">from</span> <span class="hljs-string">'canvas'</span>;
-<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">'node-fetch'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;xmldom&#x27;</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> canvas <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvas&#x27;</span>;
+<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node-fetch&#x27;</span>;
 <span class="hljs-keyword">import</span> Canvg, {
     presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'canvg'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
 
 <span class="hljs-keyword">const</span> preset = presets.node({
     DOMParser,
@@ -162,11 +163,11 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
     fetch
 });
 
-<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (output, input</span>) =&gt;</span> {
+(<span class="hljs-keyword">async</span> (output, input) =&gt; {
 
-    <span class="hljs-keyword">const</span> svg = <span class="hljs-keyword">await</span> fs.readFile(input, <span class="hljs-string">'utf8'</span>);
+    <span class="hljs-keyword">const</span> svg = <span class="hljs-keyword">await</span> fs.readFile(input, <span class="hljs-string">&#x27;utf8&#x27;</span>);
     <span class="hljs-keyword">const</span> canvas = preset.createCanvas(<span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
     <span class="hljs-keyword">const</span> v = Canvg.fromString(ctx, svg, preset);
 
     <span class="hljs-comment">// Render only first frame, ignoring animations.</span>
@@ -187,7 +188,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 					</summary>
 					<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg, {
     presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'canvg'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
 
 self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 
@@ -197,7 +198,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
         svg
     } = event.data;
     <span class="hljs-keyword">const</span> canvas = <span class="hljs-keyword">new</span> OffscreenCanvas(width, height);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
     <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> Canvg.from(ctx, svg, presets.offscreen());
 
     <span class="hljs-comment">/**
@@ -206,7 +207,7 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
      * @param height
      * @param preserveAspectRatio
      */</span>
-    v.resize(width, height, <span class="hljs-string">'xMidYMid meet'</span>);
+    v.resize(width, height, <span class="hljs-string">&#x27;xMidYMid meet&#x27;</span>);
 
     <span class="hljs-comment">// Render only first frame, ignoring animations and mouse.</span>
     <span class="hljs-keyword">await</span> v.render();
@@ -223,14 +224,14 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 					<summary>
 						<b>Browser</b>
 					</summary>
-					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/canvg@3.0.4/lib/umd.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
-<span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/canvg@3.0.4/lib/umd.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
+<span class="hljs-built_in">window</span>.onload = <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'canvas'</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;canvas&#x27;</span>);
+    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
 
-    v = canvg.Canvg.fromString(ctx, <span class="hljs-string">'&lt;svg width="600" height="600"&gt;&lt;text x="50" y="50"&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;'</span>);
+    v = canvg.Canvg.fromString(ctx, <span class="hljs-string">&#x27;&lt;svg width=&quot;600&quot; height=&quot;600&quot;&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;&#x27;</span>);
 
     <span class="hljs-comment">// Start SVG rendering with animations and mouse handling.</span>
     v.start();
@@ -338,247 +339,247 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_boundingbox_.html">&quot;<wbr>Bounding<wbr>Box&quot;</a>
+						<a href="modules/_src_boundingbox_.html">&quot;src/<wbr>Bounding<wbr>Box&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_canvg_.html">&quot;<wbr>Canvg&quot;</a>
+						<a href="modules/_src_canvg_.html">&quot;src/<wbr>Canvg&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_aelement_.html">&quot;<wbr>Document/AElement&quot;</a>
+						<a href="modules/_src_document_aelement_.html">&quot;src/<wbr>Document/AElement&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_animatecolorelement_.html">&quot;<wbr>Document/<wbr>Animate<wbr>Color<wbr>Element&quot;</a>
+						<a href="modules/_src_document_animatecolorelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Color<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_animateelement_.html">&quot;<wbr>Document/<wbr>Animate<wbr>Element&quot;</a>
+						<a href="modules/_src_document_animateelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_animatetransformelement_.html">&quot;<wbr>Document/<wbr>Animate<wbr>Transform<wbr>Element&quot;</a>
+						<a href="modules/_src_document_animatetransformelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Transform<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_circleelement_.html">&quot;<wbr>Document/<wbr>Circle<wbr>Element&quot;</a>
+						<a href="modules/_src_document_circleelement_.html">&quot;src/<wbr>Document/<wbr>Circle<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_clippathelement_.html">&quot;<wbr>Document/<wbr>Clip<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/_src_document_clippathelement_.html">&quot;src/<wbr>Document/<wbr>Clip<wbr>Path<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_defselement_.html">&quot;<wbr>Document/<wbr>Defs<wbr>Element&quot;</a>
+						<a href="modules/_src_document_defselement_.html">&quot;src/<wbr>Document/<wbr>Defs<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_descelement_.html">&quot;<wbr>Document/<wbr>Desc<wbr>Element&quot;</a>
+						<a href="modules/_src_document_descelement_.html">&quot;src/<wbr>Document/<wbr>Desc<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_document_.html">&quot;<wbr>Document/<wbr>Document&quot;</a>
+						<a href="modules/_src_document_document_.html">&quot;src/<wbr>Document/<wbr>Document&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_element_.html">&quot;<wbr>Document/<wbr>Element&quot;</a>
+						<a href="modules/_src_document_element_.html">&quot;src/<wbr>Document/<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_ellipseelement_.html">&quot;<wbr>Document/<wbr>Ellipse<wbr>Element&quot;</a>
+						<a href="modules/_src_document_ellipseelement_.html">&quot;src/<wbr>Document/<wbr>Ellipse<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fecolormatrixelement_.html">&quot;<wbr>Document/<wbr>FeColor<wbr>Matrix<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fecolormatrixelement_.html">&quot;src/<wbr>Document/<wbr>FeColor<wbr>Matrix<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fecompositeelement_.html">&quot;<wbr>Document/<wbr>FeComposite<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fecompositeelement_.html">&quot;src/<wbr>Document/<wbr>FeComposite<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fedropshadowelement_.html">&quot;<wbr>Document/<wbr>FeDrop<wbr>Shadow<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fedropshadowelement_.html">&quot;src/<wbr>Document/<wbr>FeDrop<wbr>Shadow<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fegaussianblurelement_.html">&quot;<wbr>Document/<wbr>FeGaussian<wbr>Blur<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fegaussianblurelement_.html">&quot;src/<wbr>Document/<wbr>FeGaussian<wbr>Blur<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_femorphologyelement_.html">&quot;<wbr>Document/<wbr>FeMorphology<wbr>Element&quot;</a>
+						<a href="modules/_src_document_femorphologyelement_.html">&quot;src/<wbr>Document/<wbr>FeMorphology<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_filterelement_.html">&quot;<wbr>Document/<wbr>Filter<wbr>Element&quot;</a>
+						<a href="modules/_src_document_filterelement_.html">&quot;src/<wbr>Document/<wbr>Filter<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fontelement_.html">&quot;<wbr>Document/<wbr>Font<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fontelement_.html">&quot;src/<wbr>Document/<wbr>Font<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_fontfaceelement_.html">&quot;<wbr>Document/<wbr>Font<wbr>Face<wbr>Element&quot;</a>
+						<a href="modules/_src_document_fontfaceelement_.html">&quot;src/<wbr>Document/<wbr>Font<wbr>Face<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_gelement_.html">&quot;<wbr>Document/GElement&quot;</a>
+						<a href="modules/_src_document_gelement_.html">&quot;src/<wbr>Document/GElement&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_glyphelement_.html">&quot;<wbr>Document/<wbr>Glyph<wbr>Element&quot;</a>
+						<a href="modules/_src_document_glyphelement_.html">&quot;src/<wbr>Document/<wbr>Glyph<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_gradientelement_.html">&quot;<wbr>Document/<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/_src_document_gradientelement_.html">&quot;src/<wbr>Document/<wbr>Gradient<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_imageelement_.html">&quot;<wbr>Document/<wbr>Image<wbr>Element&quot;</a>
+						<a href="modules/_src_document_imageelement_.html">&quot;src/<wbr>Document/<wbr>Image<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_lineelement_.html">&quot;<wbr>Document/<wbr>Line<wbr>Element&quot;</a>
+						<a href="modules/_src_document_lineelement_.html">&quot;src/<wbr>Document/<wbr>Line<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_lineargradientelement_.html">&quot;<wbr>Document/<wbr>Linear<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/_src_document_lineargradientelement_.html">&quot;src/<wbr>Document/<wbr>Linear<wbr>Gradient<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_markerelement_.html">&quot;<wbr>Document/<wbr>Marker<wbr>Element&quot;</a>
+						<a href="modules/_src_document_markerelement_.html">&quot;src/<wbr>Document/<wbr>Marker<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_maskelement_.html">&quot;<wbr>Document/<wbr>Mask<wbr>Element&quot;</a>
+						<a href="modules/_src_document_maskelement_.html">&quot;src/<wbr>Document/<wbr>Mask<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_missingglyphelement_.html">&quot;<wbr>Document/<wbr>Missing<wbr>Glyph<wbr>Element&quot;</a>
+						<a href="modules/_src_document_missingglyphelement_.html">&quot;src/<wbr>Document/<wbr>Missing<wbr>Glyph<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_pathelement_.html">&quot;<wbr>Document/<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/_src_document_pathelement_.html">&quot;src/<wbr>Document/<wbr>Path<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_patternelement_.html">&quot;<wbr>Document/<wbr>Pattern<wbr>Element&quot;</a>
+						<a href="modules/_src_document_patternelement_.html">&quot;src/<wbr>Document/<wbr>Pattern<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_polygonelement_.html">&quot;<wbr>Document/<wbr>Polygon<wbr>Element&quot;</a>
+						<a href="modules/_src_document_polygonelement_.html">&quot;src/<wbr>Document/<wbr>Polygon<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_polylineelement_.html">&quot;<wbr>Document/<wbr>Polyline<wbr>Element&quot;</a>
+						<a href="modules/_src_document_polylineelement_.html">&quot;src/<wbr>Document/<wbr>Polyline<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_radialgradientelement_.html">&quot;<wbr>Document/<wbr>Radial<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/_src_document_radialgradientelement_.html">&quot;src/<wbr>Document/<wbr>Radial<wbr>Gradient<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_rectelement_.html">&quot;<wbr>Document/<wbr>Rect<wbr>Element&quot;</a>
+						<a href="modules/_src_document_rectelement_.html">&quot;src/<wbr>Document/<wbr>Rect<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_renderedelement_.html">&quot;<wbr>Document/<wbr>Rendered<wbr>Element&quot;</a>
+						<a href="modules/_src_document_renderedelement_.html">&quot;src/<wbr>Document/<wbr>Rendered<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_svgelement_.html">&quot;<wbr>Document/SVGElement&quot;</a>
+						<a href="modules/_src_document_svgelement_.html">&quot;src/<wbr>Document/SVGElement&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_stopelement_.html">&quot;<wbr>Document/<wbr>Stop<wbr>Element&quot;</a>
+						<a href="modules/_src_document_stopelement_.html">&quot;src/<wbr>Document/<wbr>Stop<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_styleelement_.html">&quot;<wbr>Document/<wbr>Style<wbr>Element&quot;</a>
+						<a href="modules/_src_document_styleelement_.html">&quot;src/<wbr>Document/<wbr>Style<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_symbolelement_.html">&quot;<wbr>Document/<wbr>Symbol<wbr>Element&quot;</a>
+						<a href="modules/_src_document_symbolelement_.html">&quot;src/<wbr>Document/<wbr>Symbol<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_trefelement_.html">&quot;<wbr>Document/TRef<wbr>Element&quot;</a>
+						<a href="modules/_src_document_trefelement_.html">&quot;src/<wbr>Document/TRef<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_tspanelement_.html">&quot;<wbr>Document/TSpan<wbr>Element&quot;</a>
+						<a href="modules/_src_document_tspanelement_.html">&quot;src/<wbr>Document/TSpan<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_textelement_.html">&quot;<wbr>Document/<wbr>Text<wbr>Element&quot;</a>
+						<a href="modules/_src_document_textelement_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_textnode_.html">&quot;<wbr>Document/<wbr>Text<wbr>Node&quot;</a>
+						<a href="modules/_src_document_textnode_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Node&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_textpathelement_.html">&quot;<wbr>Document/<wbr>Text<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/_src_document_textpathelement_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Path<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_titleelement_.html">&quot;<wbr>Document/<wbr>Title<wbr>Element&quot;</a>
+						<a href="modules/_src_document_titleelement_.html">&quot;src/<wbr>Document/<wbr>Title<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_unknownelement_.html">&quot;<wbr>Document/<wbr>Unknown<wbr>Element&quot;</a>
+						<a href="modules/_src_document_unknownelement_.html">&quot;src/<wbr>Document/<wbr>Unknown<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_useelement_.html">&quot;<wbr>Document/<wbr>Use<wbr>Element&quot;</a>
+						<a href="modules/_src_document_useelement_.html">&quot;src/<wbr>Document/<wbr>Use<wbr>Element&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_elements_.html">&quot;<wbr>Document/elements&quot;</a>
+						<a href="modules/_src_document_elements_.html">&quot;src/<wbr>Document/elements&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_document_index_.html">&quot;<wbr>Document/index&quot;</a>
+						<a href="modules/_src_document_index_.html">&quot;src/<wbr>Document/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_font_.html">&quot;<wbr>Font&quot;</a>
+						<a href="modules/_src_font_.html">&quot;src/<wbr>Font&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_mouse_.html">&quot;<wbr>Mouse&quot;</a>
+						<a href="modules/_src_mouse_.html">&quot;src/<wbr>Mouse&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_parser_.html">&quot;<wbr>Parser&quot;</a>
+						<a href="modules/_src_parser_.html">&quot;src/<wbr>Parser&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_pathparser_.html">&quot;<wbr>Path<wbr>Parser&quot;</a>
+						<a href="modules/_src_pathparser_.html">&quot;src/<wbr>Path<wbr>Parser&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_point_.html">&quot;<wbr>Point&quot;</a>
+						<a href="modules/_src_point_.html">&quot;src/<wbr>Point&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_property_.html">&quot;<wbr>Property&quot;</a>
+						<a href="modules/_src_property_.html">&quot;src/<wbr>Property&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_svgfontloader_.html">&quot;SVGFont<wbr>Loader&quot;</a>
+						<a href="modules/_src_svgfontloader_.html">&quot;src/SVGFont<wbr>Loader&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_screen_.html">&quot;<wbr>Screen&quot;</a>
+						<a href="modules/_src_screen_.html">&quot;src/<wbr>Screen&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_matrix_.html">&quot;<wbr>Transform/<wbr>Matrix&quot;</a>
+						<a href="modules/_src_transform_matrix_.html">&quot;src/<wbr>Transform/<wbr>Matrix&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_rotate_.html">&quot;<wbr>Transform/<wbr>Rotate&quot;</a>
+						<a href="modules/_src_transform_rotate_.html">&quot;src/<wbr>Transform/<wbr>Rotate&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_scale_.html">&quot;<wbr>Transform/<wbr>Scale&quot;</a>
+						<a href="modules/_src_transform_scale_.html">&quot;src/<wbr>Transform/<wbr>Scale&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_skew_.html">&quot;<wbr>Transform/<wbr>Skew&quot;</a>
+						<a href="modules/_src_transform_skew_.html">&quot;src/<wbr>Transform/<wbr>Skew&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_skewx_.html">&quot;<wbr>Transform/<wbr>Skew<wbr>X&quot;</a>
+						<a href="modules/_src_transform_skewx_.html">&quot;src/<wbr>Transform/<wbr>Skew<wbr>X&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_skewy_.html">&quot;<wbr>Transform/<wbr>Skew<wbr>Y&quot;</a>
+						<a href="modules/_src_transform_skewy_.html">&quot;src/<wbr>Transform/<wbr>Skew<wbr>Y&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_transform_.html">&quot;<wbr>Transform/<wbr>Transform&quot;</a>
+						<a href="modules/_src_transform_transform_.html">&quot;src/<wbr>Transform/<wbr>Transform&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_translate_.html">&quot;<wbr>Transform/<wbr>Translate&quot;</a>
+						<a href="modules/_src_transform_translate_.html">&quot;src/<wbr>Transform/<wbr>Translate&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_index_.html">&quot;<wbr>Transform/index&quot;</a>
+						<a href="modules/_src_transform_index_.html">&quot;src/<wbr>Transform/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_transform_types_.html">&quot;<wbr>Transform/types&quot;</a>
+						<a href="modules/_src_transform_types_.html">&quot;src/<wbr>Transform/types&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_viewport_.html">&quot;<wbr>View<wbr>Port&quot;</a>
+						<a href="modules/_src_viewport_.html">&quot;src/<wbr>View<wbr>Port&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_index_.html">&quot;index&quot;</a>
+						<a href="modules/_src_index_.html">&quot;src/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_presets_index_.html">&quot;presets/index&quot;</a>
+						<a href="modules/_src_presets_index_.html">&quot;src/presets/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_presets_node_.html">&quot;presets/node&quot;</a>
+						<a href="modules/_src_presets_node_.html">&quot;src/presets/node&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_presets_offscreen_.html">&quot;presets/offscreen&quot;</a>
+						<a href="modules/_src_presets_offscreen_.html">&quot;src/presets/offscreen&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_presets_types_.html">&quot;presets/types&quot;</a>
+						<a href="modules/_src_presets_types_.html">&quot;src/presets/types&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_types_.html">&quot;types&quot;</a>
+						<a href="modules/_src_types_.html">&quot;src/types&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_util_debug_.html">&quot;util/debug&quot;</a>
+						<a href="modules/_src_util_debug_.html">&quot;src/util/debug&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_util_index_.html">&quot;util/index&quot;</a>
+						<a href="modules/_src_util_index_.html">&quot;src/util/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_util_math_.html">&quot;util/math&quot;</a>
+						<a href="modules/_src_util_math_.html">&quot;src/util/math&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_util_string_.html">&quot;util/string&quot;</a>
+						<a href="modules/_src_util_string_.html">&quot;src/util/string&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_util_styles_.html">&quot;util/styles&quot;</a>
+						<a href="modules/_src_util_styles_.html">&quot;src/util/styles&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -613,6 +614,5 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
