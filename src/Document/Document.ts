@@ -211,6 +211,23 @@ export default class Document {
 		return new TextNode(this, node);
 	}
 
+	createTmpCanvas(width: number, height: number, withPixelRatio = true) {
+
+		const {
+			screen
+		} = this;
+		const canvas = this.createCanvas(width, height);
+		const ctx = canvas.getContext('2d');
+
+		if (withPixelRatio) {
+			screen.setPixelRatio(ctx);
+		}
+
+		screen.setDefaults(ctx);
+
+		return [canvas, ctx] as const;
+	}
+
 	setViewBox(config: IViewBoxConfig) {
 		this.screen.setViewBox({
 			document: this,

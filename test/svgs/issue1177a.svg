@@ -1,0 +1,58 @@
+<svg width="100%" height="100%">
+	<defs>
+		<clipPath id="cp142">
+			<rect x="0" y="0" width="75" height="99"></rect>
+		</clipPath>
+		<mask id="mask157">
+			<rect x="0" y="0" width="75" height="99" fill="url(#Gr52)"></rect>
+		</mask>
+		<linearGradient id="Gr52" x1="0%" y1="100%" x2="0%" y2="0%">
+			<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"></stop>
+			<stop offset="80%" stop-color="#FFFFFF"></stop>
+		</linearGradient>
+	</defs>
+	<g cursor="default" font-size="12px"
+		font-family="-apple-system,system-ui,'Segoe UI','Helvetica Neue',Arial,sans-serif" font-weight="400">
+		<g>
+			<g>
+				<rect width="75" height="99" fill="rgba(0,0,0,0)"></rect>
+				<g mask="url(#mask157)">
+					<g clip-path="url(#cp142)">
+						<g><text dominant-baseline="text-before-edge" x="3" y="3"
+								fill="rgb(128, 128, 128)">Cluster</text><text dominant-baseline="text-before-edge"
+								fill="rgb(51, 51, 51)" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+								x="20" y="26">Cluster 1</text>
+							<path d="M3,28H13V38H3Z" fill="#41727e" shape-rendering="crispEdges"></path>
+							<rect x="1" y="24" width="73" height="18" fill="rgba(0,0,0,0)"></rect><text
+								dominant-baseline="text-before-edge" fill="rgb(51, 51, 51)"
+								font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="20" y="44">Cluster
+								2</text>
+							<path d="M3,46H13V56H3Z" fill="#90b288" shape-rendering="crispEdges"></path>
+							<rect x="1" y="42" width="73" height="18" fill="rgba(0,0,0,0)"></rect><text
+								dominant-baseline="text-before-edge" fill="rgb(51, 51, 51)"
+								font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="20" y="62">Cluster
+								3</text>
+							<path d="M3,64H13V74H3Z" fill="#e6ac58" shape-rendering="crispEdges"></path>
+							<rect x="1" y="60" width="73" height="18" fill="rgba(0,0,0,0)"></rect><text
+								dominant-baseline="text-before-edge" fill="rgb(51, 51, 51)"
+								font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="20" y="80">Cluster
+								4</text>
+							<path d="M3,82H13V92H3Z" fill="#4f3a58" shape-rendering="crispEdges"></path>
+							<rect x="1" y="78" width="73" height="18" fill="rgba(0,0,0,0)"></rect><text
+								dominant-baseline="text-before-edge" fill="rgb(51, 51, 51)"
+								font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" x="20" y="98">Cluster
+								5</text>
+							<path d="M3,100H13V110H3Z" fill="#b54030" shape-rendering="crispEdges"></path>
+							<rect x="1" y="96" width="73" height="18" fill="rgba(0,0,0,0)"></rect>
+						</g>
+					</g>
+				</g>
+				<g transform="matrix(1,0,0,1,70,2)" opacity="0">
+					<rect width="3" height="95" fill="#F0F0F0" shape-rendering="crispEdges"></rect>
+					<rect width="3" height="80.38461538461539" fill="#9E9E9E" shape-rendering="crispEdges"></rect>
+					<rect x="-4" y="-4" width="11" height="103" fill="rgba(0,0,0,0)"></rect>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

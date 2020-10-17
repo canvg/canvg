@@ -55,6 +55,11 @@ export interface IScreenStartOptions {
 	 */
 	scaleHeight?: number;
 	/**
+	 * 1. Scales using ratio instead of scaleWidth and scaleHeight.
+	 * 2. Sets canvas style to original size.
+	 */
+	pixelRatio?: number;
+	/**
 	 * Draws at a x offset.
 	 */
 	offsetX?: number;
@@ -101,6 +106,7 @@ export default class Screen {
 	MAX_VIRTUAL_PIXELS = 30000;
 	CLIENT_WIDTH = 800;
 	CLIENT_HEIGHT = 600;
+	pixelRatio = 1;
 	readonly window?: Window;
 	readonly fetch: typeof defaultFetch;
 	readonly viewPort = new ViewPort();
@@ -166,6 +172,44 @@ export default class Screen {
 		ctx.lineCap = 'butt';
 		ctx.lineJoin = 'miter';
 		ctx.miterLimit = 4;
+	}
+
+	setPixelRatio(ctx: RenderingContext2D, scale = true) {
+
+		const {
+			pixelRatio
+		} = this;
+		const canvas = ctx.canvas as HTMLCanvasElement;
+
+		if (canvas.style) {
+			canvas.style.width = `${canvas.width}px`;
+			canvas.style.height = `${canvas.height}px`;
+		}
+
+		canvas.width *= pixelRatio;
+		canvas.height *= pixelRatio;
+
+		if (scale) {
+			this.scalePixelRatio(ctx);
+		}
+	}
+
+	scalePixelRatio(ctx: RenderingContext2D) {
+
+		const {
+			pixelRatio
+		} = this;
+
+		ctx.scale(pixelRatio, pixelRatio);
+	}
+
+	unscalePixelRatio(ctx: RenderingContext2D) {
+
+		const {
+			pixelRatio
+		} = this;
+
+		ctx.scale(1 / pixelRatio, 1 / pixelRatio);
 	}
 
 	setViewBox({
@@ -300,6 +344,7 @@ export default class Screen {
 			forceRedraw,
 			scaleWidth,
 			scaleHeight,
+			pixelRatio,
 			offsetX,
 			offsetY
 		}: IScreenStartOptions = {}
@@ -312,6 +357,7 @@ export default class Screen {
 		const frameDuration = 1000 / FRAMERATE;
 
 		this.frameDuration = frameDuration;
+		this.pixelRatio = pixelRatio;
 		this.readyPromise = new Promise((resolve) => {
 			this.resolveReady = resolve;
 		});
@@ -434,7 +480,8 @@ export default class Screen {
 			CLIENT_HEIGHT,
 			viewPort,
 			ctx,
-			isFirstRender
+			isFirstRender,
+			pixelRatio
 		} = this;
 		const canvas = ctx.canvas as HTMLCanvasElement;
 
@@ -449,27 +496,34 @@ export default class Screen {
 		const widthStyle = element.getStyle('width');
 		const heightStyle = element.getStyle('height');
 
-		if (!ignoreDimensions && (
+		if (
 			isFirstRender
 			|| typeof scaleWidth !== 'number' && typeof scaleHeight !== 'number'
-		)) {
-			// set canvas size
-			if (widthStyle.hasValue()) {
+		) {
 
-				canvas.width = widthStyle.getPixels('x');
+			if (!ignoreDimensions) {
+				// set canvas size
+				if (widthStyle.hasValue()) {
 
-				if (canvas.style) {
-					canvas.style.width = `${canvas.width}px`;
+					canvas.width = widthStyle.getPixels('x');
+
+					if (canvas.style) {
+						canvas.style.width = `${canvas.width}px`;
+					}
+				}
+
+				if (heightStyle.hasValue()) {
+
+					canvas.height = heightStyle.getPixels('y');
+
+					if (canvas.style) {
+						canvas.style.height = `${canvas.height}px`;
+					}
 				}
 			}
 
-			if (heightStyle.hasValue()) {
-
-				canvas.height = heightStyle.getPixels('y');
-
-				if (canvas.style) {
-					canvas.style.height = `${canvas.height}px`;
-				}
+			if (pixelRatio) {
+				this.setPixelRatio(ctx, isFirstRender);
 			}
 		}
 

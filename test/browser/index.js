@@ -33,6 +33,10 @@ function main() {
 		options.redraw.checked = JSON.parse(search.get('redraw'));
 	}
 
+	if (search.has('useDevicePixelRatio')) {
+		options.useDevicePixelRatio.checked = JSON.parse(search.get('useDevicePixelRatio'));
+	}
+
 	if (search.has('render')) {
 		options.render.value = search.get('render');
 	}
@@ -102,7 +106,11 @@ async function render(svg, width, height) {
 		height || DEFAULT_HEIGHT
 	);
 	const ctx = c.getContext('2d');
-	const v = await Canvg.from(ctx, svg);
+	const v = await Canvg.from(ctx, svg, {
+		pixelRatio: options.useDevicePixelRatio.checked
+			? window.devicePixelRatio || 1
+			: 1
+	});
 
 	if (custom.resize.checked) {
 		v.resize(width, height, custom.preserveAspectRatio.value);
@@ -180,7 +188,7 @@ async function renderSource(svg) {
 		svgText = await response.text();
 	}
 
-	if (!/ xmlns="/.test(svgText)) {
+	if (!/xmlns="/.test(svgText)) {
 		svgText = svgText.replace(/(<svg)/, '$1 xmlns="http://www.w3.org/2000/svg"');
 	}
 

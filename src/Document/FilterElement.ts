@@ -40,20 +40,23 @@ export default class FilterElement extends Element {
 
 		const width = Math.floor(boundingBox.width);
 		const height = Math.floor(boundingBox.height);
-		const tmpCanvasWidth = width + 2 * px;
-		const tmpCanvasHeight = height + 2 * py;
+		const targetWidth = width + 2 * px;
+		const targetHeight = height + 2 * py;
 
-		if (tmpCanvasWidth < 1 || tmpCanvasHeight < 1) {
+		if (targetWidth < 1 || targetHeight < 1) {
 			return;
 		}
 
 		const x = Math.floor(boundingBox.x);
 		const y = Math.floor(boundingBox.y);
 		const ignoredStyles = this.removeStyles(element, FilterElement.ignoreStyles);
-		const tmpCanvas = document.createCanvas(tmpCanvasWidth, tmpCanvasHeight);
-		const tmpCtx = tmpCanvas.getContext('2d');
+		const [
+			tmpCanvas,
+			tmpCtx
+		] = document.createTmpCanvas(targetWidth, targetHeight);
+		const tmpCanvasWidth = tmpCanvas.width;
+		const tmpCanvasHeight = tmpCanvas.height;
 
-		document.screen.setDefaults(tmpCtx);
 		tmpCtx.translate(-x + px, -y + py);
 		element.render(tmpCtx);
 
@@ -80,8 +83,8 @@ export default class FilterElement extends Element {
 			tmpCanvasHeight,
 			x - px,
 			y - py,
-			tmpCanvasWidth,
-			tmpCanvasHeight
+			targetWidth,
+			targetHeight
 		);
 
 		this.restoreStyles(element, ignoredStyles);
