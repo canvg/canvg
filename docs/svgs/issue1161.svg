@@ -1,0 +1,27 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 1000 500">
+   <!-- Path Definition -->
+   <defs>
+      <path id="CurvePath" d="M 100 300 C 200 150 150  50 300 150 C 500 300 600 300 700 200 C 800 100 900 100 900 100"></path>
+   </defs>
+
+   <!-- Path Text Examples -->
+   <use xlink:href="#CurvePath" fill="none" stroke="red"></use>
+   <text text-anchor="middle">
+      <textPath xlink:href="#CurvePath" startOffset="50%">nothing</textPath>
+   </text>
+   <text text-anchor="middle" dx="200">
+      <textPath xlink:href="#CurvePath" startOffset="50%">dx 200</textPath>
+   </text>
+   <text text-anchor="middle" dy="200">
+      <textPath xlink:href="#CurvePath" startOffset="50%">dy 200</textPath>
+   </text>
+   <text text-anchor="middle" dx="200" dy="200">
+      <textPath xlink:href="#CurvePath" startOffset="50%">dx/dy 200</textPath>
+   </text>
+
+   <!-- Text Examples -->
+   <text>nothing</text>
+   <text dx="100">dx 100</text>
+   <text dy="100">dy 100</text>
+   <text dx="100" dy="100">dx/dy 100</text>
+</svg>

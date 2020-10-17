@@ -24,6 +24,15 @@ DO NOT TOUCH. SAVE IT ON TOP.
 
 -->
 
+## [3.0.7] - 2020-10-17
+### Fixed
+- [#1133](https://github.com/canvg/canvg/issues/1133)
+- [#1001](https://github.com/canvg/canvg/issues/1001)
+- [#977](https://github.com/canvg/canvg/issues/977)
+- [#1196](https://github.com/canvg/canvg/issues/1196)
+- [#1111](https://github.com/canvg/canvg/issues/1111)
+- [#1161](https://github.com/canvg/canvg/issues/1161)
+
 ## [3.0.6] - 2020-03-25
 ### Fixed
 - [#747](https://github.com/canvg/canvg/issues/747)
