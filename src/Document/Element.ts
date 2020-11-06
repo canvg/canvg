@@ -171,11 +171,11 @@ export default abstract class Element {
 		return style || Property.empty(this.document);
 	}
 
-	render(ctx: RenderingContext2D) {
+	render(ctx: RenderingContext2D, skipAncestors = false) {
 		// don't render display=none
 		// don't render visibility=hidden
-		if (this.getStyle('display').getString() === 'none'
-			|| this.getStyle('visibility').getString() === 'hidden'
+		if (this.getStyle('display', false, skipAncestors).getString() === 'none'
+			|| this.getStyle('visibility', false, skipAncestors).getString() === 'hidden'
 		) {
 			return;
 		}
@@ -238,7 +238,7 @@ export default abstract class Element {
 
 	renderChildren(ctx: RenderingContext2D) {
 		this.children.forEach((child) => {
-			child.render(ctx);
+			child.render(ctx, true);
 		});
 	}
 
