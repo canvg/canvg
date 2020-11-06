@@ -500,9 +500,6 @@ export default class Screen {
 			let yRatio = 0;
 
 			if (typeof scaleWidth === 'number') {
-
-				const widthStyle = element.getStyle('width');
-
 				if (widthStyle.hasValue()) {
 					xRatio = widthStyle.getPixels('x') / scaleWidth;
 				} else
@@ -512,9 +509,6 @@ export default class Screen {
 			}
 
 			if (typeof scaleHeight === 'number') {
-
-				const heightStyle = element.getStyle('height');
-
 				if (heightStyle.hasValue()) {
 					yRatio = heightStyle.getPixels('y') / scaleHeight;
 				} else
