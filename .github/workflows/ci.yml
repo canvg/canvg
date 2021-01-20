@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Image snapshots
+          name: Image snapshots (Node.js 10 base test)
           path: test/__image_snapshots__/
   matrix-test:
     runs-on: ubuntu-latest
@@ -56,3 +56,9 @@ jobs:
         run: yarn build
       - name: Run tests
         run: yarn test
+      - name: Collect artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Image snapshots (Node.js ${{ matrix.node-version }} matrix test)
+          path: test/__image_snapshots__/
