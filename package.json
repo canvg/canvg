@@ -29,7 +29,7 @@
   "umd": "lib/umd.js",
   "types": "lib/index.d.ts",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "scripts": {
     "lint:js": "eslint .",
@@ -39,13 +39,11 @@
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
     "test": "yarn typecheck && yarn lint && yarn jest && yarn build && yarn checkSize",
-    "artifacts": "node ./scripts/artifacts.js test/__image_snapshots__",
     "build:docs": "./scripts/buildDocs.sh",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
     "start:node": "ts-node -P ./tsconfig.dev.json -T test/node/index.ts",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "cleanPublish": "yarn test && clean-publish",
-    "coverage": "cat ./coverage/lcov.info | coveralls"
+    "cleanPublish": "yarn test && clean-publish"
   },
   "keywords": [
     "javascript",
@@ -75,14 +73,12 @@
     "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^3.0.0",
     "@types/xmldom": "^0.1.29",
-    "archiver": "^5.0.2",
     "babel-jest": "^26.0.1",
     "babel-preset-trigen": "^4.0.0",
     "browserslist-config-trigen": "^1.1.0",
     "builtin-modules": "*",
     "canvas": "^2.1.0",
     "clean-publish": "^1.1.0",
-    "coveralls": "^3.0.7",
     "cross-env": "^7.0.0",
     "eslint": "^7.0.0",
     "eslint-config-trigen": "^3.4.2",
@@ -92,7 +88,6 @@
     "jest-image-snapshot": "^4.0.0",
     "lint-staged": "^10.0.2",
     "node-fetch": "^2.6.0",
-    "nodemailer": "^6.3.1",
     "puppeteer": "^5.3.1",
     "rollup": "^2.10.5",
     "rollup-plugin-node-globals": "^1.4.0",
