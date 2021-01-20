@@ -43,8 +43,7 @@
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
     "start:node": "ts-node -P ./tsconfig.dev.json -T test/node/index.ts",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "cleanPublish": "yarn test && clean-publish",
-    "coverage": "cat ./coverage/lcov.info | coveralls"
+    "cleanPublish": "yarn test && clean-publish"
   },
   "keywords": [
     "javascript",
@@ -80,7 +79,6 @@
     "builtin-modules": "*",
     "canvas": "^2.1.0",
     "clean-publish": "^1.1.0",
-    "coveralls": "^3.0.7",
     "cross-env": "^7.0.0",
     "eslint": "^7.0.0",
     "eslint-config-trigen": "^3.4.2",

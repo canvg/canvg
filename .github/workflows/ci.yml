@@ -21,8 +21,10 @@ jobs:
       - name: Run tests
         run: yarn test
       - name: Collect coverage
-        run: yarn coverage
+        uses: coverallsapp/github-action@master
         if: success()
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update snapshots
         run: yarn jest -u
         if: "always() && contains(github.event.head_commit.message, '[ci update snapshots]')"
