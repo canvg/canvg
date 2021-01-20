@@ -18,13 +18,6 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Build
         run: yarn build
-      - name: Debug
-        run: "echo 'IS UPDATE'"
-        if: "contains(github.event.head_commit.message, '[ci update snapshots]')"
-      - name: Debug 2
-        run: echo ${{ contains(github.event.head_commit.message, '[ci update snapshots]') }}
-      - name: Debug 3
-        run: echo ${{ github.event.head_commit.message }}
       - name: Run tests
         run: yarn test
       - name: Collect coverage
