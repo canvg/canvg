@@ -32,7 +32,7 @@ jobs:
         if: success()
       - name: Update snapshots
         run: yarn jest -u
-        if: "contains(github.event.head_commit.message, '[ci update snapshots]')"
+        if: "always() && contains(github.event.head_commit.message, '[ci update snapshots]')"
       - name: Collect artifacts
         uses: actions/upload-artifact@v2
         if: always()
