@@ -1,4 +1,4 @@
-import tslint from 'rollup-plugin-tslint';
+import eslint from '@rollup/plugin-eslint';
 import commonjs from '@rollup/plugin-commonjs';
 import globals from 'rollup-plugin-node-globals';
 import typescript from 'rollup-plugin-typescript2';
@@ -18,9 +18,9 @@ import pkg from './package.json';
 
 function getPlugins(standalone, transpile = true) {
 	return [
-		tslint({
+		eslint({
 			exclude:    ['**/*.json', 'node_modules/**'],
-			throwError: true
+			throwOnError: true
 		}),
 		commonjs(),
 		standalone && globals(),

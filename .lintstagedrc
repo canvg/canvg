@@ -1,3 +1,4 @@
 {
-	"src/**/*.{ts,tsx}": "yarn lint"
+	"src/**/*.ts": "eslint --cache --fix",
+	"test/**/*.{js,ts}": "eslint --cache --fix"
 }

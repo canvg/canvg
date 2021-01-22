@@ -1,3 +1,15 @@
 {
-	"extends": "trigen/base"
+	"extends": [
+		"@trigen/eslint-config",
+		"@trigen/eslint-config/typescript",
+		"@trigen/eslint-config/typescript-requiring-type-checking",
+		"@trigen/eslint-config/jest"
+	],
+	"env": {
+		"node": true
+	},
+	"parserOptions": {
+	  "tsconfigRootDir": "./",
+	  "project": ["./tsconfig.json"]
+	}
 }
