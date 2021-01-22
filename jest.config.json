@@ -1,4 +1,5 @@
 {
+	"testRunner": "jest-circus/runner",
 	"testEnvironment": "node",
 	"testRegex": "/test/.*\\.spec\\.(jsx?|tsx?)$",
 	"transform": {

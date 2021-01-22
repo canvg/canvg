@@ -30,11 +30,14 @@ describe('canvg', () => {
 
 		for (const type in svgs) {
 
+			const shouldPassing = type === 'passing'
 			const svgsOfType = svgs[type];
-			const threshold = type === 'passing' ? {} : {
+			const threshold = shouldPassing ? {} : {
 				failureThresholdType: 'percent',
 				failureThreshold:     .03
 			};
+
+			jest.retryTimes(shouldPassing ? 0 : 3)
 
 			for (const svg in svgsOfType) {
 
