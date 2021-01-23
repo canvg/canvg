@@ -42,10 +42,15 @@ export default class MaskElement extends Element {
 		}
 
 		const ignoredStyles = this.removeStyles(element, MaskElement.ignoreStyles);
-		const maskCanvas = document.createCanvas(x + width, y + height);
-		const maskCtx = maskCanvas.getContext('2d');
+		const targetWidth = x + width;
+		const targetHeight = y + height;
+		const [
+			maskCanvas,
+			maskCtx
+		] = document.createTmpCanvas(targetWidth, targetHeight);
+		const tmpCanvasWidth = maskCanvas.width;
+		const tmpCanvasHeight = maskCanvas.height;
 
-		document.screen.setDefaults(maskCtx);
 		this.renderChildren(maskCtx);
 
 		// convert mask to alpha with a fake node
@@ -60,20 +65,31 @@ export default class MaskElement extends Element {
 					{ nodeName: 'includeOpacity', value: 'true' }
 				]
 			}) as any
-		).apply(maskCtx, 0, 0, x + width, y + height);
+		).apply(maskCtx, 0, 0, tmpCanvasWidth, tmpCanvasHeight);
 
-		const tmpCanvas = document.createCanvas(x + width, y + height);
-		const tmpCtx = tmpCanvas.getContext('2d');
+		// const [
+		// 	tmpCanvas,
+		// 	tmpCtx
+		// ] = document.createTmpCanvas(targetWidth, targetHeight);
 
-		document.screen.setDefaults(tmpCtx);
-		element.render(tmpCtx);
+		element.render(ctx);
 
-		tmpCtx.globalCompositeOperation = 'destination-in';
-		tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat');
-		tmpCtx.fillRect(0, 0, x + width, y + height);
+		// document.screen.unscalePixelRatio(tmpCtx);
 
-		ctx.fillStyle = tmpCtx.createPattern(tmpCanvas, 'no-repeat');
-		ctx.fillRect(0, 0, x + width, y + height);
+		// tmpCtx.globalCompositeOperation = 'destination-in';
+		// tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat');
+		// tmpCtx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight);
+
+		// document.screen.scalePixelRatio(tmpCtx);
+
+		// window.document.body.appendChild(tmpCanvas as any);
+
+		// document.screen.unscalePixelRatio(ctx);
+
+		// ctx.fillStyle = tmpCtx.createPattern(tmpCanvas, 'no-repeat');
+		// ctx.fillRect(0, 0, tmpCanvasWidth, tmpCanvasHeight);
+
+		// document.screen.scalePixelRatio(ctx);
 
 		// reassign mask
 		this.restoreStyles(element, ignoredStyles);
