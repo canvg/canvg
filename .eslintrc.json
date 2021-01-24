@@ -11,5 +11,33 @@
 	"parserOptions": {
 	  "tsconfigRootDir": "./",
 	  "project": ["./tsconfig.json"]
-	}
+	},
+	"rules": {
+		"no-magic-numbers": "off",
+		"max-params": "off"
+	},
+	"overrides": [{
+		"files": ["*.ts"],
+		"rules": {
+			"@typescript-eslint/no-magic-numbers": "off",
+			"@typescript-eslint/naming-convention": ["error", {
+				"selector": "default",
+				"format": ["camelCase", "PascalCase", "UPPER_CASE"]
+			}, {
+				"selector": "function",
+				"format": ["camelCase", "PascalCase"]
+			}, {
+				"selector": "parameter",
+				"format": ["camelCase", "PascalCase"],
+				"leadingUnderscore": "allow"
+			}, {
+				"selector": "typeLike",
+				"format": ["PascalCase"]
+			}, {
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"prefix": ["I"]
+			}]
+		}
+	}]
 }

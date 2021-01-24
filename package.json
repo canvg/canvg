@@ -68,7 +68,7 @@
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@rollup/plugin-replace": "^2.3.1",
     "@size-limit/preset-small-lib": "^4.4.0",
-    "@trigen/eslint-config": "^7.0.2",
+    "@trigen/eslint-config": "^7.0.6",
     "@types/jest": "^26.0.20",
     "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^5.4.2",
