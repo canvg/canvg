@@ -10,7 +10,7 @@
 	},
 	"parserOptions": {
 	  "tsconfigRootDir": "./",
-	  "project": ["./tsconfig.json"]
+	  "project": ["./tsconfig.json", "./test/tsconfig.json"]
 	},
 	"rules": {
 		"no-magic-numbers": "off",
