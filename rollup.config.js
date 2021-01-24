@@ -19,7 +19,7 @@ import pkg from './package.json';
 function getPlugins(standalone, transpile = true) {
 	return [
 		eslint({
-			exclude:    ['**/*.json', 'node_modules/**'],
+			exclude: ['**/*.json', 'node_modules/**'],
 			throwOnError: true
 		}),
 		commonjs(),
@@ -33,12 +33,12 @@ function getPlugins(standalone, transpile = true) {
 			)
 		}),
 		transpile && babel({
-			extensions:         [
+			extensions: [
 				...DEFAULT_EXTENSIONS,
 				'ts',
 				'tsx'
 			],
-			babelHelpers:       'runtime',
+			babelHelpers: 'runtime',
 			// erring otherwise in attempt to find `@babel/plugin-transform-runtime`
 			//   added by `babel-preset-trigen`; see
 			//   https://github.com/rollup/plugins/issues/381
@@ -52,36 +52,36 @@ function getPlugins(standalone, transpile = true) {
 }
 
 export default [{
-	input:    'src/index.ts',
-	plugins:  getPlugins(),
+	input: 'src/index.ts',
+	plugins: getPlugins(),
 	external: external(pkg, true),
-	output:   [{
-		file:      pkg.main,
-		format:    'cjs',
-		exports:   'named',
+	output: [{
+		file: pkg.main,
+		format: 'cjs',
+		exports: 'named',
 		sourcemap: 'inline'
 	}, {
-		file:      pkg.module,
-		format:    'es',
+		file: pkg.module,
+		format: 'es',
 		sourcemap: 'inline'
 	}]
 }, {
-	input:    'src/index.ts',
-	plugins:  getPlugins(false, false),
+	input: 'src/index.ts',
+	plugins: getPlugins(false, false),
 	external: external(pkg, true),
-	output:   {
-		file:      pkg.raw,
-		format:    'es',
+	output: {
+		file: pkg.raw,
+		format: 'es',
 		sourcemap: 'inline'
 	}
 }, {
-	input:   'src/index.ts',
+	input: 'src/index.ts',
 	plugins: getPlugins(true),
-	output:  {
-		file:      pkg.umd,
-		format:    'umd',
-		exports:   'named',
-		name:      'canvg',
+	output: {
+		file: pkg.umd,
+		format: 'umd',
+		exports: 'named',
+		name: 'canvg',
 		sourcemap: true
 	}
 }];
