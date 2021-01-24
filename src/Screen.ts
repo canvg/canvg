@@ -88,8 +88,8 @@ export interface IScreenViewBoxConfig {
 const defaultWindow = typeof window !== 'undefined'
 	? window
 	: null;
-const defaultFetch: typeof fetch = typeof fetch !== 'undefined'
-	? fetch.bind(void 0) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
+const defaultFetch = typeof fetch !== 'undefined'
+	? fetch.bind(undefined) as typeof fetch // `fetch` depends on context: `someObject.fetch(...)` will throw error.
 	: null;
 
 export default class Screen {
@@ -111,7 +111,7 @@ export default class Screen {
 	private frameDuration = 0;
 	private isReadyLock = false;
 	private isFirstRender = true;
-	private intervalId: any = null;
+	private intervalId: number = null;
 
 	constructor(
 		readonly ctx: RenderingContext2D,
@@ -129,6 +129,7 @@ export default class Screen {
 	}
 
 	ready() {
+		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		if (!this.readyPromise) {
 			return Promise.resolve();
 		}

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import {
 	RenderingContext2D
 } from '../types';
@@ -469,7 +470,9 @@ export default class TextPathElement extends TextElement {
 		}
 
 		const pathCommands: IPathCommand[] = [];
-		const pathParser = path.pathParser;
+		const {
+			pathParser
+		} = path;
 
 		pathParser.reset();
 
@@ -797,7 +800,7 @@ export default class TextPathElement extends TextElement {
 
 				return len;
 
-			case PathParser.ARC:
+			case PathParser.ARC: {
 				// Approximates by breaking curve into line segments
 				len = 0.0;
 
@@ -861,6 +864,7 @@ export default class TextPathElement extends TextElement {
 				len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
 
 				return len;
+			}
 
 			default:
 		}
@@ -870,30 +874,30 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnLine(
 		dist: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		fromX = P1x,
-		fromY = P1y
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		fromX = p1x,
+		fromY = p1y
 	) {
-		const m = (P2y - P1y) / ((P2x - P1x) + PSEUDO_ZERO);
+		const m = (p2y - p1y) / ((p2x - p1x) + PSEUDO_ZERO);
 		let run = Math.sqrt(dist * dist / (1 + m * m));
 
-		if (P2x < P1x) {
+		if (p2x < p1x) {
 			run *= -1;
 		}
 
 		let rise = m * run;
 		let pt: IPoint = null;
 
-		if (P2x === P1x) { // vertical line
+		if (p2x === p1x) { // vertical line
 			pt = {
 				x: fromX,
 				y: fromY + rise
 			};
 		} else
-		if ((fromY - P1y) / ((fromX - P1x) + PSEUDO_ZERO) === m) {
+		if ((fromY - p1y) / ((fromX - p1x) + PSEUDO_ZERO) === m) {
 			pt = {
 				x: fromX + run,
 				y: fromY + rise
@@ -901,26 +905,26 @@ export default class TextPathElement extends TextElement {
 		} else {
 			let ix = 0;
 			let iy = 0;
-			const len = this.getLineLength(P1x, P1y, P2x, P2y);
+			const len = this.getLineLength(p1x, p1y, p2x, p2y);
 
 			if (len < PSEUDO_ZERO) {
 				return null;
 			}
 
 			let u =
-				((fromX - P1x) * (P2x - P1x))
-				+ ((fromY - P1y) * (P2y - P1y));
+				((fromX - p1x) * (p2x - p1x))
+				+ ((fromY - p1y) * (p2y - p1y));
 
 			u /= len * len;
-			ix = P1x + u * (P2x - P1x);
-			iy = P1y + u * (P2y - P1y);
+			ix = p1x + u * (p2x - p1x);
+			iy = p1y + u * (p2y - p1y);
 
 			const pRise = this.getLineLength(fromX, fromY, ix, iy);
 			const pRun = Math.sqrt(dist * dist - pRise * pRise);
 
 			run = Math.sqrt(pRun * pRun / (1 + m * m));
 
-			if (P2x < P1x) {
+			if (p2x < p1x) {
 				run *= -1;
 			}
 
@@ -976,7 +980,7 @@ export default class TextPathElement extends TextElement {
 					);
 					break;
 
-				case PathParser.ARC:
+				case PathParser.ARC: {
 					const start = command.points[4];
 					// 4 = theta
 					const dTheta = command.points[5];
@@ -1000,6 +1004,7 @@ export default class TextPathElement extends TextElement {
 						command.points[6]
 					);
 					break;
+				}
 
 				case PathParser.CURVE_TO:
 
@@ -1083,17 +1088,17 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnCubicBezier(
 		pct: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		P3x: number,
-		P3y: number,
-		P4x: number,
-		P4y: number
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		p3x: number,
+		p3y: number,
+		p4x: number,
+		p4y: number
 	): IPoint {
-		const x = P4x * CB1(pct) + P3x * CB2(pct) + P2x * CB3(pct) + P1x * CB4(pct);
-		const y = P4y * CB1(pct) + P3y * CB2(pct) + P2y * CB3(pct) + P1y * CB4(pct);
+		const x = p4x * CB1(pct) + p3x * CB2(pct) + p2x * CB3(pct) + p1x * CB4(pct);
+		const y = p4y * CB1(pct) + p3y * CB2(pct) + p2y * CB3(pct) + p1y * CB4(pct);
 
 		return {
 			x,
@@ -1103,15 +1108,15 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnQuadraticBezier(
 		pct: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		P3x: number,
-		P3y: number
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		p3x: number,
+		p3y: number
 	): IPoint {
-		const x = P3x * QB1(pct) + P2x * QB2(pct) + P1x * QB3(pct);
-		const y = P3y * QB1(pct) + P2y * QB2(pct) + P1y * QB3(pct);
+		const x = p3x * QB1(pct) + p2x * QB2(pct) + p1x * QB3(pct);
+		const y = p3y * QB1(pct) + p2y * QB2(pct) + p1y * QB3(pct);
 
 		return {
 			x,

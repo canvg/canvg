@@ -42,7 +42,7 @@ export default class TextElement extends RenderedElement {
 			|| this.getStyle('alignment-baseline').getTextBaseline();
 
 		if (textBaseline) {
-			ctx.textBaseline = textBaseline as any;
+			ctx.textBaseline = textBaseline as CanvasTextBaseline;
 		}
 	}
 
@@ -135,11 +135,12 @@ export default class TextElement extends RenderedElement {
 			}
 
 			if (typeof font.glyphs[char] !== 'undefined') {
-				glyph = font.glyphs[char][arabicForm];
+				// NEED TEST
+				const maybeGlyph = font.glyphs[char];
 
-				if (!glyph && font.glyphs[char].type === 'glyph') {
-					glyph = font.glyphs[char] as GlyphElement;
-				}
+				glyph = maybeGlyph instanceof GlyphElement
+					? maybeGlyph
+					: maybeGlyph[arabicForm];
 			}
 		} else {
 			glyph = font.glyphs[char] as GlyphElement;
@@ -162,9 +163,9 @@ export default class TextElement extends RenderedElement {
 		const index = childNodes.indexOf(textNode);
 		const lastIndex = childNodes.length - 1;
 		let text = compressSpaces(
-			(textNode as any).value
-			|| (textNode as any).text
-			|| textNode.textContent
+			// textNode.value
+			// || textNode.text
+			textNode.textContent
 			|| ''
 		);
 
@@ -264,23 +265,24 @@ export default class TextElement extends RenderedElement {
 			y
 		} = this;
 
-		if ((ctx as any).paintOrder === 'stroke') {
-			if (ctx.strokeStyle) {
-				ctx.strokeText(renderText, x, y);
-			}
+		// NEED TEST
+		// if (ctx.paintOrder === 'stroke') {
+		// 	if (ctx.strokeStyle) {
+		// 		ctx.strokeText(renderText, x, y);
+		// 	}
 
-			if (ctx.fillStyle) {
-				ctx.fillText(renderText, x, y);
-			}
-		} else {
-			if (ctx.fillStyle) {
-				ctx.fillText(renderText, x, y);
-			}
-
-			if (ctx.strokeStyle) {
-				ctx.strokeText(renderText, x, y);
-			}
+		// 	if (ctx.fillStyle) {
+		// 		ctx.fillText(renderText, x, y);
+		// 	}
+		// } else {
+		if (ctx.fillStyle) {
+			ctx.fillText(renderText, x, y);
 		}
+
+		if (ctx.strokeStyle) {
+			ctx.strokeText(renderText, x, y);
+		}
+		// }
 	}
 
 	protected getAnchorDelta(

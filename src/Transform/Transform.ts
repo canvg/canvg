@@ -60,15 +60,6 @@ interface ITransformConstructor {
 }
 
 export default class Transform {
-	static transformTypes: Record<string, ITransformConstructor> = {
-		translate: Translate,
-		rotate: Rotate,
-		scale: Scale,
-		matrix: Matrix,
-		skewX: SkewX,
-		skewY: SkewY
-	};
-
 	static fromElement(document: Document, element: Element) {
 		const transformStyle = element.getStyle('transform', false, true);
 		const [
@@ -90,6 +81,15 @@ export default class Transform {
 
 		return null;
 	}
+
+	static transformTypes: Record<string, ITransformConstructor> = {
+		translate: Translate,
+		rotate: Rotate,
+		scale: Scale,
+		matrix: Matrix,
+		skewX: SkewX,
+		skewY: SkewY
+	};
 
 	private readonly transforms: ITransform[] = [];
 

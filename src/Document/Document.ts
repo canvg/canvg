@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import Canvg from '../Canvg';
 import Screen, {
 	IScreenViewBoxConfig
@@ -9,7 +10,9 @@ import UnknownElement from './UnknownElement';
 import TextNode from './TextNode';
 import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
-import elementTypes from './elements';
+import elementTypes, {
+	AnyElement
+} from './elements';
 
 /**
  * Function to create new canvas.
@@ -69,8 +72,8 @@ async function createImage(src: string, anonymousCrossOrigin = false) {
 			resolve(image);
 		};
 
-		image.onerror = () => {
-			reject();
+		image.onerror = (_event, _source, _lineno, _colno, error) => {
+			reject(error);
 		};
 		image.src = src;
 	});
@@ -188,7 +191,7 @@ export default class Document {
 
 	createElement<T extends Element>(node: HTMLElement) {
 		const elementType = node.nodeName.replace(/^[^:]+:/, '');
-		const ElementType = Document.elementTypes[elementType];
+		const ElementType = Document.elementTypes[elementType] as AnyElement;
 
 		if (typeof ElementType !== 'undefined') {
 			return new ElementType(this, node) as T;

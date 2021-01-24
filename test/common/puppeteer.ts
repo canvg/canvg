@@ -23,13 +23,10 @@ export async function createPage(browser: Browser) {
 		goto
 	} = page;
 
-	page.goto = (url, options) => Reflect.apply(goto, page, [
-		url,
-		{
-			waitUntil: 'networkidle0',
-			...options
-		}
-	]);
+	page.goto = (url, options) => goto.call(page, url, {
+		waitUntil: 'networkidle0',
+		...options
+	}) as ReturnType<typeof goto>;
 
 	await page.setViewport({
 		width: 1280,

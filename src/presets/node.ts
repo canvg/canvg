@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
 	DOMParser
 } from './types';
@@ -36,6 +37,7 @@ interface IConfig {
  * @param config.DOMParser - XML/HTML parser from string into DOM Document.
  * @param config.canvas - `node-canvas` exports.
  * @param config.fetch - WHATWG-compatible `fetch` function.
+ * @returns Preset object.
  */
 export function node({
 	DOMParser,

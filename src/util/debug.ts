@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
 	RenderingContext2D
 } from '../types';
@@ -5,6 +8,7 @@ import {
 /**
  * Wrap rendering context to log every action.
  * @param ctx - Rendering context.
+ * @returns Proxy logger.
  */
 export function ctxLogger(ctx: RenderingContext2D) {
 	return new Proxy(ctx, {
@@ -75,7 +79,6 @@ export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
  * @param ctx - Rendering context.
  * @param x - Angle x.
  * @param y - Angle y.
- * @param size - Triangle size.
  * @param width
  * @param height
  */

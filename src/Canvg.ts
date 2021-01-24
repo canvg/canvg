@@ -29,6 +29,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string or URL.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	static async from(
 		ctx: RenderingContext2D,
@@ -46,6 +47,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	static fromString(
 		ctx: RenderingContext2D,
@@ -100,6 +102,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string or URL.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	fork(
 		ctx: RenderingContext2D,
@@ -117,6 +120,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	forkString(
 		ctx: RenderingContext2D,
@@ -131,6 +135,7 @@ export default class Canvg {
 
 	/**
 	 * Document is ready promise.
+	 * @returns Ready promise.
 	 */
 	ready() {
 		return this.screen.ready();
@@ -138,6 +143,7 @@ export default class Canvg {
 
 	/**
 	 * Document is ready value.
+	 * @returns Is ready or not.
 	 */
 	isReady() {
 		return this.screen.isReady();

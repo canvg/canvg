@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
 	HttpServer
 } from 'http-server';
@@ -25,5 +28,5 @@ export class Server extends HttpServer {
 const maybeRunIndex = process.argv.indexOf(__filename);
 
 if (~maybeRunIndex && maybeRunIndex === process.argv.length - 1) {
-	new Server().listen();
+	void new Server().listen();
 }

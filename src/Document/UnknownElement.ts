@@ -10,7 +10,6 @@ export default class UnknownElement extends Element {
 		super(document, node, captureTextNodes);
 
 		if (process.env.NODE_ENV !== 'production') {
-			// tslint:disable-next-line: no-console
 			console.warn(`Element ${node.nodeName} not yet implemented.`);
 		}
 	}

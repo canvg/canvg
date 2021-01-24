@@ -14,7 +14,7 @@ export default abstract class RenderedElement extends Element {
 
 	protected calculateOpacity() {
 		let opacity = 1.0;
-		// tslint:disable-next-line: no-this-assignment
+		// eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
 		let element: Element = this;
 
 		while (element) {
@@ -110,26 +110,28 @@ export default abstract class RenderedElement extends Element {
 			const strokeLinecapStyleProp = this.getStyle('stroke-linecap');
 			const strokeLinejoinStyleProp = this.getStyle('stroke-linejoin');
 			const strokeMiterlimitProp = this.getStyle('stroke-miterlimit');
-			const pointOrderStyleProp = this.getStyle('paint-order');
+			// NEED TEST
+			// const pointOrderStyleProp = this.getStyle('paint-order');
 			const strokeDasharrayStyleProp = this.getStyle('stroke-dasharray');
 			const strokeDashoffsetProp = this.getStyle('stroke-dashoffset');
 
 			if (strokeLinecapStyleProp.hasValue()) {
-				ctx.lineCap = strokeLinecapStyleProp.getString() as any;
+				ctx.lineCap = strokeLinecapStyleProp.getString() as CanvasLineCap;
 			}
 
 			if (strokeLinejoinStyleProp.hasValue()) {
-				ctx.lineJoin = strokeLinejoinStyleProp.getString() as any;
+				ctx.lineJoin = strokeLinejoinStyleProp.getString() as CanvasLineJoin;
 			}
 
 			if (strokeMiterlimitProp.hasValue()) {
 				ctx.miterLimit = strokeMiterlimitProp.getNumber();
 			}
 
-			if (pointOrderStyleProp.hasValue()) {
-				// ?
-				(ctx as any).paintOrder = pointOrderStyleProp.getValue();
-			}
+			// NEED TEST
+			// if (pointOrderStyleProp.hasValue()) {
+			// 	// ?
+			// 	ctx.paintOrder = pointOrderStyleProp.getValue();
+			// }
 
 			if (strokeDasharrayStyleProp.hasValue() && strokeDasharrayStyleProp.getString() !== 'none') {
 				const gaps = toNumbers(strokeDasharrayStyleProp.getString());
@@ -137,11 +139,15 @@ export default abstract class RenderedElement extends Element {
 				if (typeof ctx.setLineDash !== 'undefined') {
 					ctx.setLineDash(gaps);
 				} else
-				if (typeof (ctx as any).webkitLineDash !== 'undefined') {
-					(ctx as any).webkitLineDash = gaps;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.webkitLineDash !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.webkitLineDash = gaps;
 				} else
-				if (typeof (ctx as any).mozDash !== 'undefined' && !(gaps.length === 1 && gaps[0] === 0)) {
-					(ctx as any).mozDash = gaps;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.mozDash !== 'undefined' && !(gaps.length === 1 && gaps[0] === 0)) {
+					// @ts-expect-error Handle browser prefix.
+					ctx.mozDash = gaps;
 				}
 
 				const offset = strokeDashoffsetProp.getPixels();
@@ -149,11 +155,15 @@ export default abstract class RenderedElement extends Element {
 				if (typeof ctx.lineDashOffset !== 'undefined') {
 					ctx.lineDashOffset = offset;
 				} else
-				if (typeof (ctx as any).webkitLineDashOffset !== 'undefined') {
-					(ctx as any).webkitLineDashOffset = offset;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.webkitLineDashOffset !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.webkitLineDashOffset = offset;
 				} else
-				if (typeof (ctx as any).mozDashOffset !== 'undefined') {
-					(ctx as any).mozDashOffset = offset;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.mozDashOffset !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.mozDashOffset = offset;
 				}
 			}
 		}

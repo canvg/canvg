@@ -13,6 +13,7 @@ interface IConfig {
  * Options preset for `OffscreenCanvas`.
  * @param config - Preset requirements.
  * @param config.DOMParser - XML/HTML parser from string into DOM Document.
+ * @returns Preset object.
  */
 export function offscreen({
 	DOMParser: DOMParserFallback

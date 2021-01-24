@@ -12,7 +12,7 @@ function imGet(
 	x: number,
 	y: number,
 	width: number,
-	_: number,
+	_height: number,
 	rgba: number
 ) {
 	return img[y * width * 4 + x * 4 + rgba];
@@ -23,7 +23,7 @@ function imSet(
 	x: number,
 	y: number,
 	width: number,
-	_: number,
+	_height: number,
 	rgba: number,
 	val: number
 ) {
@@ -169,8 +169,8 @@ export default class FeColorMatrixElement extends Element {
 
 	apply(
 		ctx: RenderingContext2D,
-		_: number,
-		__: number,
+		_x: number,
+		_y: number,
 		width: number,
 		height: number
 	) {
@@ -193,7 +193,9 @@ export default class FeColorMatrixElement extends Element {
 				let na = m(matrix, 15, r) + m(matrix, 16, g) + m(matrix, 17, b) + m(matrix, 18, a) + m(matrix, 19, 1);
 
 				if (includeOpacity) {
-					nr = ng = nb = 0;
+					nr = 0;
+					ng = 0;
+					nb = 0;
 					na *= a / 255;
 				}
 

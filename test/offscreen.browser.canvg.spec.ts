@@ -93,7 +93,7 @@ describe('canvg', () => {
 				const svgsOfType = svgs[type];
 
 				for (const svg in svgsOfType) {
-					const description = svgsOfType[svg];
+					const description: string = svgsOfType[svg];
 
 					it(`should render ${description}`, async () => {
 						expect(

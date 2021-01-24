@@ -29,9 +29,9 @@ export default class ImageElement extends RenderedElement {
 		document.images.push(this);
 
 		if (!isSvg) {
-			this.loadImage(href);
+			void this.loadImage(href);
 		} else {
-			this.loadSvg(href);
+			void this.loadSvg(href);
 		}
 
 		this.isSvg = isSvg;
@@ -43,7 +43,6 @@ export default class ImageElement extends RenderedElement {
 
 			this.image = image;
 		} catch (err) {
-			// tslint:disable-next-line: no-console
 			console.error(`Error while loading image "${href}":`, err);
 		}
 
@@ -57,7 +56,6 @@ export default class ImageElement extends RenderedElement {
 
 			this.image = svg;
 		} catch (err) {
-			// tslint:disable-next-line: no-console
 			console.error(`Error while loading image "${href}":`, err);
 		}
 
@@ -84,7 +82,7 @@ export default class ImageElement extends RenderedElement {
 		ctx.save();
 
 		if (this.isSvg) {
-			document.canvg.forkString(
+			void document.canvg.forkString(
 				ctx,
 				this.image as string,
 				{
@@ -112,7 +110,7 @@ export default class ImageElement extends RenderedElement {
 			});
 
 			if (this.loaded) {
-				if (typeof (image as any).complete === 'undefined' || (image as any).complete) {
+				if (typeof (image as HTMLImageElement).complete === 'undefined' || (image as HTMLImageElement).complete) {
 					ctx.drawImage(image, 0, 0);
 				}
 			}

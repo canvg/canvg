@@ -5,7 +5,9 @@ import Transform from '../Transform';
 import Element from './Element';
 import UseElement from './UseElement';
 
-const noop = () => {};
+const noop = () => {
+	// NOOP
+};
 
 export default class ClipPathElement extends Element {
 	type = 'clipPath';

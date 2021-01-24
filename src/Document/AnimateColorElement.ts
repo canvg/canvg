@@ -21,11 +21,11 @@ export default class AnimateColorElement extends AnimateElement {
 
 			// ? alpha
 			return `rgb(${
-				parseInt(r as any, 10)
+				Math.floor(r)
 			}, ${
-				parseInt(g as any, 10)
+				Math.floor(g)
 			}, ${
-				parseInt(b as any, 10)
+				Math.floor(b)
 			})`;
 		}
 

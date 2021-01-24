@@ -14,7 +14,7 @@ export default class AnimateElement extends Element {
 	protected readonly maxDuration: number;
 	protected readonly from: Property;
 	protected readonly to: Property;
-	protected readonly values: Property;
+	protected readonly values: Property<string[]>;
 	protected duration = 0;
 	protected initialValue: string = null;
 	protected initialUnits = '';
@@ -34,10 +34,12 @@ export default class AnimateElement extends Element {
 		this.maxDuration = this.begin + this.getAttribute('dur').getMilliseconds();
 		this.from = this.getAttribute('from');
 		this.to = this.getAttribute('to');
-		this.values = this.getAttribute('values');
+		this.values = new Property(document, 'values', [] as string[]);
 
-		if (this.values.hasValue()) {
-			this.values.setValue(this.values.getString().split(';'));
+		const valuesAttr = this.getAttribute('values');
+
+		if (valuesAttr.hasValue()) {
+			this.values.setValue(valuesAttr.getString().split(';'));
 		}
 	}
 

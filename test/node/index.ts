@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import path from 'path';
 import {
 	promises as fs,
@@ -57,7 +61,7 @@ export default async function render(
 const maybeRunIndex = process.argv.indexOf(__filename);
 
 if (~maybeRunIndex && maybeRunIndex === process.argv.length - 3) {
-	(async () => {
+	void (async () => {
 		const output = process.argv.pop();
 		const input = process.argv.pop();
 		const image = await render(input);

@@ -23,6 +23,7 @@ function prepareFontFamily(fontFamily: string) {
 /**
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
  * @param fontStyle
+ * @returns CSS font style.
  */
 function prepareFontStyle(fontStyle: string) {
 	if (!fontStyle) {
@@ -53,6 +54,7 @@ function prepareFontStyle(fontStyle: string) {
 /**
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
  * @param fontWeight
+ * @returns CSS font weight.
  */
 function prepareFontWeight(fontWeight: string) {
 	if (!fontWeight) {
@@ -82,10 +84,6 @@ function prepareFontWeight(fontWeight: string) {
 }
 
 export default class Font {
-	static readonly styles = 'normal|italic|oblique|inherit';
-	static readonly variants = 'normal|small-caps|inherit';
-	static readonly weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
-
 	static parse(
 		font = '',
 		inherit?: string | Font
@@ -165,6 +163,10 @@ export default class Font {
 		);
 	}
 
+	static readonly styles = 'normal|italic|oblique|inherit';
+	static readonly variants = 'normal|small-caps|inherit';
+	static readonly weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
+
 	readonly fontFamily: string;
 	readonly fontSize: string;
 	readonly fontStyle: string;
@@ -183,7 +185,7 @@ export default class Font {
 			? typeof inherit === 'string'
 				? Font.parse(inherit)
 				: inherit
-			: {} as any;
+			: {} as Font;
 
 		this.fontFamily = fontFamily || inheritFont.fontFamily;
 		this.fontSize = fontSize || inheritFont.fontSize;

@@ -129,8 +129,8 @@ export default class SVGElement extends RenderedElement {
 			desiredHeight: height,
 			minX,
 			minY,
-			refX: refXAttr.getValue(),
-			refY: refYAttr.getValue(),
+			refX: refXAttr.getNumber(),
+			refY: refYAttr.getNumber(),
 			clip,
 			clipX,
 			clipY

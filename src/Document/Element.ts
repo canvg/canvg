@@ -10,6 +10,7 @@ import Document from './Document';
 import ClipPathElement from './ClipPathElement';
 import MaskElement from './MaskElement';
 import FilterElement from './FilterElement';
+import PathElement from './PathElement';
 
 export default abstract class Element {
 	static readonly ignoreChildTypes = [
@@ -71,8 +72,8 @@ export default abstract class Element {
 
 		// add id
 		if (id.hasValue()) {
-			if (!definitions[id.getValue()]) {
-				definitions[id.getValue()] = this;
+			if (!definitions[id.getString()]) {
+				definitions[id.getString()] = this;
 			}
 		}
 
@@ -126,7 +127,7 @@ export default abstract class Element {
 
 		const attr = this.getAttribute(name);
 
-		if (attr && attr.hasValue()) {
+		if (attr?.hasValue()) {
 			this.styles[name] = attr; // move up to me to cache
 			return attr;
 		}
@@ -139,7 +140,7 @@ export default abstract class Element {
 			if (parent) {
 				const parentStyle = parent.getStyle(name);
 
-				if (parentStyle && parentStyle.hasValue()) {
+				if (parentStyle?.hasValue()) {
 					return parentStyle;
 				}
 			}
@@ -180,7 +181,7 @@ export default abstract class Element {
 
 			if (filter) {
 				this.applyEffects(ctx);
-				filter.apply(ctx, this as any);
+				filter.apply(ctx, this as unknown as PathElement);
 			}
 		} else {
 			this.setContext(ctx);
@@ -191,7 +192,9 @@ export default abstract class Element {
 		ctx.restore();
 	}
 
-	setContext(_: RenderingContext2D) {}
+	setContext(_: RenderingContext2D) {
+		// NO RENDER
+	}
 
 	protected applyEffects(ctx: RenderingContext2D) {
 		// transform
@@ -213,7 +216,9 @@ export default abstract class Element {
 		}
 	}
 
-	clearContext(_: RenderingContext2D) {}
+	clearContext(_: RenderingContext2D) {
+		// NO RENDER
+	}
 
 	renderChildren(ctx: RenderingContext2D) {
 		this.children.forEach((child) => {
@@ -248,11 +253,7 @@ export default abstract class Element {
 			return false;
 		}
 
-		return styleClasses.split(' ').some((styleClass) => {
-			if (`.${styleClass}` === selector) {
-				return true;
-			}
-		});
+		return styleClasses.split(' ').some(styleClass => `.${styleClass}` === selector);
 	}
 
 	addStylesFromStyleDefinition() {

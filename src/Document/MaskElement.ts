@@ -62,7 +62,7 @@ export default class MaskElement extends Element {
 						value: 'true'
 					}
 				]
-			}) as any
+			}) as unknown as HTMLElement
 		).apply(maskCtx, 0, 0, x + width, y + height);
 
 		const tmpCanvas = document.createCanvas(x + width, y + height);

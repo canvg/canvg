@@ -1,4 +1,4 @@
-// tslint:disable: member-ordering
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
 	RenderingContext2D
 } from '../types';
@@ -116,7 +116,7 @@ export default class PathElement extends RenderedElement {
 
 		if (ctx.fillStyle !== '') {
 			if (fillRuleStyleProp.getString('inherit') !== 'inherit') {
-				ctx.fill(fillRuleStyleProp.getString() as any);
+				ctx.fill(fillRuleStyleProp.getString() as CanvasFillRule);
 			} else {
 				ctx.fill();
 			}

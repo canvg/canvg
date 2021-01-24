@@ -18,8 +18,8 @@ export default class MarkerElement extends Element {
 			x,
 			y
 		} = point;
-		const orient = this.getAttribute('orient').getValue('auto');
-		const markerUnits = this.getAttribute('markerUnits').getValue('strokeWidth');
+		const orient = this.getAttribute('orient').getString('auto');
+		const markerUnits = this.getAttribute('markerUnits').getString('strokeWidth');
 
 		ctx.translate(x, y);
 

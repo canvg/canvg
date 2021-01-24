@@ -47,7 +47,7 @@ export default abstract class GradientElement extends Element {
 		element,
 		parentOpacityProp: Property
 	) {
-		// tslint:disable-next-line: no-this-assignment
+		// eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
 		let stopsContainer = this;
 
 		if (this.getHrefAttribute().hasValue()) {

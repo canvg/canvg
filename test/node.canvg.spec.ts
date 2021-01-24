@@ -37,7 +37,7 @@ describe('canvg', () => {
 			jest.retryTimes(shouldPassing ? 0 : 3);
 
 			for (const svg in svgsOfType) {
-				const description = svgsOfType[svg];
+				const description: string = svgsOfType[svg];
 
 				it(`should render ${description}`, async () => {
 					expect(

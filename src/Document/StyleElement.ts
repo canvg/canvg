@@ -22,9 +22,10 @@ export default class StyleElement extends Element {
 
 		const css = compressSpaces(
 			Array.from(node.childNodes)
-				.map((_: any) => _.data)
+				// NEED TEST
+				.map(_ => _.textContent)
 				.join('')
-				.replace(/(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, '') // remove comments
+				.replace(/(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, '') // remove comments
 				.replace(/@import.*;/g, '') // remove imports
 		);
 		const cssDefs = css.split('}');
@@ -71,7 +72,7 @@ export default class StyleElement extends Element {
 							const url = parseExternalUrl(src);
 
 							if (url) {
-								new SVGFontLoader(document).load(fontFamily, url);
+								void new SVGFontLoader(document).load(fontFamily, url);
 							}
 						}
 					});

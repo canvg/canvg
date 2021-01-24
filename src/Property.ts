@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import RGBColor from 'rgbcolor';
 import {
 	compressSpaces,
@@ -13,6 +15,10 @@ import Document, {
 } from './Document';
 
 export default class Property<T = any> {
+	static empty(document: Document) {
+		return new Property(document, 'EMPTY', '');
+	}
+
 	static readonly textBaselineMapping = {
 		'baseline': 'alphabetic',
 		'before-edge': 'top',
@@ -26,10 +32,6 @@ export default class Property<T = any> {
 		'hanging': 'hanging',
 		'mathematical': 'alphabetic'
 	};
-
-	static empty(document: Document) {
-		return new Property(document, 'EMPTY', '');
-	}
 
 	private isNormalizedColor = false;
 
@@ -167,7 +169,7 @@ export default class Property<T = any> {
 	}
 
 	getUnits() {
-		return this.getString().replace(/[0-9\.\-]/g, '');
+		return this.getString().replace(/[0-9.-]/g, '');
 	}
 
 	getPixels(axis?: Axis, processPercent?: boolean): number;
@@ -293,7 +295,7 @@ export default class Property<T = any> {
 
 	getDefinition<T extends Element>() {
 		const asString = this.getString();
-		let name: string | RegExpMatchArray = asString.match(/#([^\)'"]+)/);
+		let name: string | RegExpMatchArray = /#([^)'"]+)/.exec(asString);
 
 		if (name) {
 			name = name[1];
@@ -336,12 +338,12 @@ export default class Property<T = any> {
 		return null;
 	}
 
-	getTextBaseline(): string {
+	getTextBaseline() {
 		if (!this.hasValue()) {
 			return null;
 		}
 
-		return Property.textBaselineMapping[this.getString()];
+		return Property.textBaselineMapping[this.getString()] as string;
 	}
 
 	addOpacity(opacity: Property) {

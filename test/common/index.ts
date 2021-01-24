@@ -7,7 +7,7 @@ export const ignoreErrors = [
 	/SameSite/
 ];
 
-export function filterConsoleWarn(): () => void {
+export function filterConsoleWarn() {
 	const {
 		warn
 	} = console;
@@ -19,10 +19,10 @@ export function filterConsoleWarn(): () => void {
 		}
 	});
 
-	return mockWarn.mockRestore.bind(mockWarn);
+	return mockWarn.mockRestore.bind(mockWarn) as () => void;
 }
 
-export function filterConsoleError(): () => void {
+export function filterConsoleError() {
 	const {
 		error
 	} = console;
@@ -34,7 +34,7 @@ export function filterConsoleError(): () => void {
 		}
 	});
 
-	return mockError.mockRestore.bind(mockError);
+	return mockError.mockRestore.bind(mockError) as () => void;
 }
 
 export function base64ToBuffer(base64: string, type = 'image') {

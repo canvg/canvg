@@ -4,6 +4,7 @@ export const PSEUDO_ZERO = .00000001;
 /**
  * Vector magnitude.
  * @param v
+ * @returns Number result.
  */
 export function vectorMagnitude(v: number[]) {
 	return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2));
@@ -13,6 +14,7 @@ export function vectorMagnitude(v: number[]) {
  * Ratio between two vectors.
  * @param u
  * @param v
+ * @returns Number result.
  */
 export function vectorsRatio(u: number[], v: number[]) {
 	return (u[0] * v[0] + u[1] * v[1]) / (vectorMagnitude(u) * vectorMagnitude(v));
@@ -22,6 +24,7 @@ export function vectorsRatio(u: number[], v: number[]) {
  * Angle between two vectors.
  * @param u
  * @param v
+ * @returns Number result.
  */
 export function vectorsAngle(u: number[], v: number[]) {
 	return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(vectorsRatio(u, v));

@@ -1,4 +1,3 @@
-// tslint:disable: variable-name
 import {
 	RenderingContext2D
 } from '../types';
@@ -10,7 +9,7 @@ import SVGElement from './SVGElement';
 
 export default class UseElement extends RenderedElement {
 	type = 'use';
-	private _element: PathElement;
+	private cachedElement: PathElement;
 
 	setContext(ctx: RenderingContext2D) {
 		super.setContext(ctx);
@@ -129,10 +128,10 @@ export default class UseElement extends RenderedElement {
 	}
 
 	protected get element() {
-		if (!this._element) {
-			this._element = this.getHrefAttribute().getDefinition();
+		if (!this.cachedElement) {
+			this.cachedElement = this.getHrefAttribute().getDefinition();
 		}
 
-		return this._element;
+		return this.cachedElement;
 	}
 }

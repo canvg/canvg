@@ -44,7 +44,7 @@ import FeGaussianBlurElement from './FeGaussianBlurElement';
 import TitleElement from './TitleElement';
 import DescElement from './DescElement';
 
-export default {
+const elements = {
 	'svg': SVGElement,
 	'rect': RectElement,
 	'circle': CircleElement,
@@ -87,6 +87,12 @@ export default {
 	'title': TitleElement,
 	'desc': DescElement
 };
+
+export default elements;
+
+type Elements = typeof elements;
+
+export type AnyElement = Elements[keyof Elements];
 
 export {
 	Element,

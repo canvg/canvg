@@ -23,7 +23,6 @@ export default class SVGFontLoader {
 				document.definitions[fontFamily] = font;
 			});
 		} catch (err) {
-			// tslint:disable-next-line: no-console
 			console.error(`Error while loading font "${url}":`, err);
 		}
 
