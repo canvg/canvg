@@ -34,7 +34,7 @@ export default class AnimateElement extends Element {
 		this.maxDuration = this.begin + this.getAttribute('dur').getMilliseconds();
 		this.from = this.getAttribute('from');
 		this.to = this.getAttribute('to');
-		this.values = new Property(document, 'values', [] as string[]);
+		this.values = new Property<string[]>(document, 'values', null);
 
 		const valuesAttr = this.getAttribute('values');
 
