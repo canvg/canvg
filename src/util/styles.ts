@@ -4,7 +4,7 @@ const attributeRegex = /(\[[^\]]+\])/g;
 const idRegex = /(#[^\s+>~.[:]+)/g;
 const classRegex = /(\.[^\s+>~.[:]+)/g;
 const pseudoElementRegex = /(::[^\s+>~.[:]+|:first-line|:first-letter|:before|:after)/gi;
-const pseudoClassWithBracketsRegex = /(:[\w-]+\([^)]*))/gi;
+const pseudoClassWithBracketsRegex = /(:[\w-]+\([^)]*\))/gi;
 const pseudoClassRegex = /(:[^\s+>~.[:]+)/g;
 const elementRegex = /([^\s+>~.[:]+)/g;
 
@@ -32,7 +32,7 @@ function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
 export function getSelectorSpecificity(selector: string) {
 	const specificity = [0, 0, 0];
 	let currentSelector = selector
-		.replace(/:not\(([^)]*))/g, '     $1 ')
+		.replace(/:not\(([^)]*)\)/g, '     $1 ')
 		.replace(/{[\s\S]*/gm, ' ');
 	let delta = 0;
 
