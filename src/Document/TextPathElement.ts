@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import {
 	RenderingContext2D
 } from '../types';
