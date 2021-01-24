@@ -1,2 +1,4 @@
-export { default } from './Transform';
+export {
+	default
+} from './Transform';
 export * from './Transform';

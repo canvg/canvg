@@ -7,11 +7,9 @@ import Element from './Element';
 import SVGElement from './SVGElement';
 
 export default class MarkerElement extends Element {
-
 	type = 'marker';
 
 	render(ctx: RenderingContext2D, point?: Point, angle?: number) {
-
 		if (!point) {
 			return;
 		}

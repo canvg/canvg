@@ -8,11 +8,9 @@ import UseElement from './UseElement';
 const noop = () => {};
 
 export default class ClipPathElement extends Element {
-
 	type = 'clipPath';
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			document
 		} = this;
@@ -30,7 +28,6 @@ export default class ClipPathElement extends Element {
 		Reflect.apply(beginPath, ctx, []);
 
 		this.children.forEach((child: UseElement) => {
-
 			if (typeof child.path === 'undefined') {
 				return;
 			}

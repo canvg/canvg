@@ -7,9 +7,7 @@ import render from './node';
 import svgs from './svgs.json';
 
 describe('canvg', () => {
-
 	describe('node', () => {
-
 		if (process.platform !== 'linux') {
 			it('should run screenshots testing only on CI (linux)', () => {});
 			return;
@@ -29,22 +27,19 @@ describe('canvg', () => {
 		});
 
 		for (const type in svgs) {
-
-			const shouldPassing = type === 'passing'
+			const shouldPassing = type === 'passing';
 			const svgsOfType = svgs[type];
 			const threshold = shouldPassing ? {} : {
 				failureThresholdType: 'percent',
-				failureThreshold:     .03
+				failureThreshold: .03
 			};
 
-			jest.retryTimes(shouldPassing ? 0 : 3)
+			jest.retryTimes(shouldPassing ? 0 : 3);
 
 			for (const svg in svgsOfType) {
-
 				const description = svgsOfType[svg];
 
 				it(`should render ${description}`, async () => {
-
 					expect(
 						await render(svg)
 					).toMatchImageSnapshot({
@@ -56,7 +51,6 @@ describe('canvg', () => {
 		}
 
 		it('should resize SVG', async () => {
-
 			expect(
 				await render('../svgs/favicon.svg', 64, 64, 'xMidYMid meet')
 			).toMatchImageSnapshot({

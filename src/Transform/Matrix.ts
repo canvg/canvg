@@ -11,7 +11,6 @@ import {
 } from './types';
 
 export default class Matrix implements ITransform {
-
 	type = 'matrix';
 	protected matrix: number[] = [];
 
@@ -23,7 +22,6 @@ export default class Matrix implements ITransform {
 	}
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			matrix
 		} = this;
@@ -39,7 +37,6 @@ export default class Matrix implements ITransform {
 	}
 
 	unapply(ctx: RenderingContext2D) {
-
 		const {
 			matrix
 		} = this;

@@ -14,13 +14,11 @@ export interface IParserOptions {
 const {
 	defaultFetch
 } = Screen;
-
 const DefaultDOMParser = typeof DOMParser !== 'undefined'
 	? DOMParser
 	: null;
 
 export default class Parser {
-
 	private readonly fetch: typeof defaultFetch;
 	private readonly DOMParser: typeof DefaultDOMParser;
 
@@ -33,8 +31,7 @@ export default class Parser {
 	}
 
 	async parse(resource: string) {
-
-		if (/^</.test(resource)) {
+		if (resource.startsWith('<')) {
 			return this.parseFromString(resource);
 		}
 
@@ -42,17 +39,13 @@ export default class Parser {
 	}
 
 	parseFromString(xml: string) {
-
 		const parser = new this.DOMParser();
 
 		try {
-
 			return this.checkDocument(
 				parser.parseFromString(xml, 'image/svg+xml')
 			);
-
 		} catch (err) {
-
 			return this.checkDocument(
 				parser.parseFromString(xml, 'text/xml')
 			);
@@ -60,7 +53,6 @@ export default class Parser {
 	}
 
 	private checkDocument(document: Document) {
-
 		const parserError = document.getElementsByTagName('parsererror')[0];
 
 		if (parserError) {
@@ -71,7 +63,6 @@ export default class Parser {
 	}
 
 	async load(url: string) {
-
 		const response = await this.fetch(url);
 		const xml = await response.text();
 

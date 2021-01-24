@@ -8,12 +8,10 @@ export const ignoreErrors = [
 ];
 
 export function filterConsoleWarn(): () => void {
-
 	const {
 		warn
 	} = console;
 	const mockWarn = jest.spyOn(console, 'warn').mockImplementation((first, ...args) => {
-
 		if (typeof first !== 'string'
 			|| ignoreErrors.every(_ => !_.test(first))
 		) {
@@ -25,12 +23,10 @@ export function filterConsoleWarn(): () => void {
 }
 
 export function filterConsoleError(): () => void {
-
 	const {
 		error
 	} = console;
 	const mockError = jest.spyOn(console, 'error').mockImplementation((first, ...args) => {
-
 		if (typeof first !== 'string'
 			|| ignoreErrors.every(_ => !_.test(first))
 		) {
@@ -42,7 +38,6 @@ export function filterConsoleError(): () => void {
 }
 
 export function base64ToBuffer(base64: string, type = 'image') {
-
 	let [
 		extname,
 		data

@@ -9,7 +9,6 @@ const pseudoClassRegex = /(:[^\s\+>~\.\[:]+)/g;
 const elementRegex = /([^\s\+>~\.\[:]+)/g;
 
 function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
-
 	const matches = selector.match(regex);
 
 	if (!matches) {
@@ -30,7 +29,6 @@ function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
  * @param selector - Selector to measure.
  */
 export function getSelectorSpecificity(selector: string) {
-
 	const specificity = [0, 0, 0];
 	let currentSelector = selector
 		.replace(/:not\(([^\)]*)\)/g, '     $1 ')

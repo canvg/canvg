@@ -16,7 +16,6 @@ export interface IEvent {
 }
 
 export default class Mouse {
-
 	private working = false;
 	private events: IEvent[] = [];
 	private eventElements: Element[] = [];
@@ -33,7 +32,6 @@ export default class Mouse {
 	}
 
 	start() {
-
 		if (this.working) {
 			return;
 		}
@@ -51,7 +49,6 @@ export default class Mouse {
 	}
 
 	stop() {
-
 		if (!this.working) {
 			return;
 		}
@@ -68,7 +65,6 @@ export default class Mouse {
 	}
 
 	runEvents() {
-
 		if (!this.working) {
 			return;
 		}
@@ -86,8 +82,9 @@ export default class Mouse {
 			style.cursor = '';
 		}
 
-		events.forEach(({ run }, i) => {
-
+		events.forEach(({
+			run
+		}, i) => {
 			let element = eventElements[i];
 
 			while (element) {
@@ -102,7 +99,6 @@ export default class Mouse {
 	}
 
 	checkPath(element: Element, ctx: RenderingContext2D) {
-
 		if (!this.working || !ctx) {
 			return;
 		}
@@ -112,8 +108,9 @@ export default class Mouse {
 			eventElements
 		} = this;
 
-		events.forEach(({ x, y }, i) => {
-
+		events.forEach(({
+			x, y
+		}, i) => {
 			if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
 				eventElements[i] = element;
 			}
@@ -121,7 +118,6 @@ export default class Mouse {
 	}
 
 	checkBoundingBox(element: Element, boundingBox: BoundingBox) {
-
 		if (!this.working || !boundingBox) {
 			return;
 		}
@@ -131,8 +127,9 @@ export default class Mouse {
 			eventElements
 		} = this;
 
-		events.forEach(({ x, y }, i) => {
-
+		events.forEach(({
+			x, y
+		}, i) => {
 			if (!eventElements[i] && boundingBox.isPointInBox(x, y)) {
 				eventElements[i] = element;
 			}
@@ -140,7 +137,6 @@ export default class Mouse {
 	}
 
 	private mapXY(x: number, y: number) {
-
 		const {
 			window,
 			ctx
@@ -166,7 +162,6 @@ export default class Mouse {
 	}
 
 	private onClick(evt: MouseEvent) {
-
 		const {
 			x,
 			y
@@ -188,7 +183,6 @@ export default class Mouse {
 	}
 
 	private onMouseMove(evt: MouseEvent) {
-
 		const {
 			x,
 			y

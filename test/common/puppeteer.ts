@@ -4,7 +4,7 @@ import puppeteer, {
 } from 'puppeteer';
 import {
 	ignoreErrors
-} from './';
+} from '.';
 
 export function launch() {
 	return puppeteer.launch({
@@ -18,7 +18,6 @@ export function launch() {
 }
 
 export async function createPage(browser: Browser) {
-
 	const page = await browser.newPage();
 	const {
 		goto
@@ -33,7 +32,7 @@ export async function createPage(browser: Browser) {
 	]);
 
 	await page.setViewport({
-		width:  1280,
+		width: 1280,
 		height: 720
 	});
 
@@ -42,11 +41,9 @@ export async function createPage(browser: Browser) {
 
 export function onPageError(page: Page, listener: (error: Error) => void) {
 	page.on('console', (message) => {
-
 		if (message.type() === 'error'
 			|| message.type() === 'warning'
 		) {
-
 			const text = message.text();
 
 			if (ignoreErrors.every(_ => !_.test(text))) {

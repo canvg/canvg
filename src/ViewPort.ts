@@ -7,7 +7,6 @@ export interface IViewPortSize {
 export type Axis = 'x' | 'y';
 
 export default class ViewPort {
-
 	viewPorts: IViewPortSize[] = [];
 
 	clear() {
@@ -26,7 +25,6 @@ export default class ViewPort {
 	}
 
 	getCurrent() {
-
 		const {
 			viewPorts
 		} = this;
@@ -43,7 +41,6 @@ export default class ViewPort {
 	}
 
 	computeSize(d?: number|Axis) {
-
 		if (typeof d === 'number') {
 			return d;
 		}

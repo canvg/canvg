@@ -9,7 +9,6 @@ import Property from '../Property';
 import Point from '../Point';
 
 export default class Rotate {
-
 	type = 'rotate';
 	private readonly angle: Property = null;
 	private readonly originX: Property = null;
@@ -22,7 +21,6 @@ export default class Rotate {
 		rotate: string,
 		transformOrigin: [Property<string>, Property<string>]
 	) {
-
 		const numbers = toNumbers(rotate);
 
 		this.angle = new Property(document, 'angle', numbers[0]);
@@ -33,7 +31,6 @@ export default class Rotate {
 	}
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			cx,
 			cy,
@@ -50,7 +47,6 @@ export default class Rotate {
 	}
 
 	unapply(ctx: RenderingContext2D) {
-
 		const {
 			cx,
 			cy,
@@ -63,7 +59,6 @@ export default class Rotate {
 	}
 
 	applyToPoint(point: Point) {
-
 		const {
 			cx,
 			cy,

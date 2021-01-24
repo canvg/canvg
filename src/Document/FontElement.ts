@@ -5,7 +5,6 @@ import MissingGlyphElement from './MissingGlyphElement';
 import GlyphElement from './GlyphElement';
 
 export default class FontElement extends Element {
-
 	type = 'font';
 	readonly isArabic: boolean;
 	readonly missingGlyph: MissingGlyphElement;
@@ -19,7 +18,6 @@ export default class FontElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.horizAdvX = this.getAttribute('horiz-adv-x').getNumber();
@@ -32,11 +30,8 @@ export default class FontElement extends Element {
 		} = this;
 
 		for (const child of children) {
-
 			switch (child.type) {
-
 				case 'font-face': {
-
 					this.fontFace = child as FontFaceElement;
 
 					const fontFamilyStyle = child.getStyle('font-family');
@@ -53,11 +48,9 @@ export default class FontElement extends Element {
 					break;
 
 				case 'glyph': {
-
 					const glyph = child as GlyphElement;
 
 					if (glyph.arabicForm) {
-
 						this.isRTL = true;
 						this.isArabic = true;
 

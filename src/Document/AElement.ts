@@ -9,7 +9,6 @@ import TextElement from './TextElement';
 import GElement from './GElement';
 
 export default class AElement extends TextElement {
-
 	type = 'a';
 	protected readonly hasText: boolean;
 	protected readonly text: string;
@@ -19,7 +18,6 @@ export default class AElement extends TextElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		const {
@@ -40,7 +38,6 @@ export default class AElement extends TextElement {
 	}
 
 	renderChildren(ctx: RenderingContext2D) {
-
 		if (this.hasText) {
 			// render as text element
 			super.renderChildren(ctx);
@@ -71,7 +68,6 @@ export default class AElement extends TextElement {
 					)
 				);
 			}
-
 		} else
 		if (this.children.length > 0) {
 			// render as temporary group
@@ -87,7 +83,6 @@ export default class AElement extends TextElement {
 	}
 
 	onClick() {
-
 		const {
 			window
 		} = this.document;
@@ -98,7 +93,6 @@ export default class AElement extends TextElement {
 	}
 
 	onMouseMove() {
-
 		const ctx = this.document.ctx as CanvasRenderingContext2D;
 
 		ctx.canvas.style.cursor = 'pointer';

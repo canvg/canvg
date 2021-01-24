@@ -22,7 +22,6 @@ let overrideTextBox = false;
 main();
 
 function main() {
-
 	if (search.has('no-ui')) {
 		document.body.classList.add('no-ui');
 		DEFAULT_WIDTH = 1280;
@@ -53,7 +52,6 @@ function main() {
 }
 
 function onGalleryChange(event) {
-
 	const {
 		value
 	} = event.target;
@@ -65,7 +63,6 @@ function onGalleryChange(event) {
 }
 
 function onCustomRenderSubmit(event) {
-
 	event.preventDefault();
 
 	render(
@@ -76,7 +73,6 @@ function onCustomRenderSubmit(event) {
 }
 
 function onOptionChange() {
-
 	if (currentSvg) {
 		overrideTextBox = true;
 		render(currentSvg);
@@ -84,7 +80,6 @@ function onOptionChange() {
 }
 
 async function render(svg, width, height) {
-
 	currentSvg = svg;
 
 	if (options.render.value === 'offscreen') {
@@ -122,7 +117,6 @@ async function render(svg, width, height) {
 }
 
 async function offscreenRender(svg, width, height) {
-
 	const c = new OffscreenCanvas(
 		width || DEFAULT_WIDTH,
 		height || DEFAULT_HEIGHT
@@ -145,7 +139,6 @@ async function offscreenRender(svg, width, height) {
 }
 
 function v2Render(svg, width, height) {
-
 	const freeze = !options.redraw.checked;
 	const c = Document.createCanvas(
 		width || DEFAULT_WIDTH,
@@ -157,7 +150,7 @@ function v2Render(svg, width, height) {
 
 	canvgv2(c, svg, {
 		ignoreAnimation: freeze,
-		ignoreMouse:     freeze,
+		ignoreMouse: freeze,
 		renderCallback() {
 			renderSource(svg);
 		}
@@ -165,7 +158,6 @@ function v2Render(svg, width, height) {
 }
 
 async function renderSource(svg) {
-
 	if (search.has('no-svg')) {
 		svgOutput.innerHTML = '<svg>';
 		return;
@@ -174,7 +166,6 @@ async function renderSource(svg) {
 	let svgText = svg;
 
 	if (!/^</.test(svg)) {
-
 		const response = await fetch(svg);
 
 		svgText = await response.text();
@@ -197,7 +188,6 @@ async function renderSource(svg) {
 }
 
 function resizeSvg(canvgDocumentElement) {
-
 	const svg = svgOutput.firstElementChild;
 	const attributes = [
 		'width',
@@ -208,7 +198,6 @@ function resizeSvg(canvgDocumentElement) {
 	];
 
 	attributes.forEach((name) => {
-
 		const attr = canvgDocumentElement.getAttribute(name);
 
 		if (attr.hasValue()) {
@@ -222,12 +211,10 @@ function contextLogger(ctx) {
 	return new Proxy(ctx, {
 
 		get(target, key) {
-
 			const value = target[key];
 
 			if (typeof value === 'function') {
 				return (...args) => {
-
 					const result = Reflect.apply(value, target, args);
 
 					console.log('Call:', key, '()', args, '=>', result);
@@ -242,7 +229,6 @@ function contextLogger(ctx) {
 		},
 
 		set(target, key, value) {
-
 			console.log('Set:', key, ':', value);
 
 			target[key] = value;

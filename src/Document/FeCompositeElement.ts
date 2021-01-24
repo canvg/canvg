@@ -4,7 +4,6 @@ import {
 import Element from './Element';
 
 export default class FeCompositeElement extends Element {
-
 	type = 'feComposite';
 
 	apply(

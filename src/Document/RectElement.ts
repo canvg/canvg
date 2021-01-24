@@ -5,11 +5,9 @@ import BoundingBox from '../BoundingBox';
 import PathElement from './PathElement';
 
 export default class RectElement extends PathElement {
-
 	type = 'rect';
 
 	path(ctx: RenderingContext2D) {
-
 		const x = this.getAttribute('x').getPixels('x');
 		const y = this.getAttribute('y').getPixels('y');
 		const width = this.getStyle('width', false, true).getPixels('x');
@@ -31,7 +29,6 @@ export default class RectElement extends PathElement {
 		ry = Math.min(ry, height / 2.0);
 
 		if (ctx) {
-
 			const KAPPA = 4 * ((Math.sqrt(2) - 1) / 3);
 
 			ctx.beginPath(); // always start the path so we don't fill prior paths

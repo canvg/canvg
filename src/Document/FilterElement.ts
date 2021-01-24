@@ -6,7 +6,6 @@ import PathElement from './PathElement';
 import FeGaussianBlurElement from './FeGaussianBlurElement';
 
 export default class FilterElement extends Element {
-
 	static ignoreStyles = [
 		'filter',
 		'transform',
@@ -31,7 +30,6 @@ export default class FilterElement extends Element {
 		let py = 0;
 
 		children.forEach((child: FeGaussianBlurElement) => {
-
 			const efd = child.extraFilterDistance || 0;
 
 			px = Math.max(px, efd);
@@ -59,7 +57,6 @@ export default class FilterElement extends Element {
 
 		// apply filters
 		children.forEach((child: FeGaussianBlurElement) => {
-
 			if (typeof child.apply === 'function') {
 				child.apply(
 					tmpCtx,

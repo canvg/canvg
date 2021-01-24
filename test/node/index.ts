@@ -18,9 +18,7 @@ const preset = presets.node({
 	DOMParser,
 	canvas,
 	fetch(input) {
-
-		if (typeof input === 'string' && !/^http/.test(input)) {
-
+		if (typeof input === 'string' && !input.startsWith('http')) {
 			const stream = createReadStream(
 				path.join(__dirname, '..', 'svgs', input)
 			);
@@ -39,7 +37,6 @@ export default async function render(
 	height?: number,
 	preserveAspectRatio?: string
 ) {
-
 	const svg = await fs.readFile(
 		path.join(__dirname, '..', 'svgs', file),
 		'utf8'
@@ -61,7 +58,6 @@ const maybeRunIndex = process.argv.indexOf(__filename);
 
 if (~maybeRunIndex && maybeRunIndex === process.argv.length - 3) {
 	(async () => {
-
 		const output = process.argv.pop();
 		const input = process.argv.pop();
 		const image = await render(input);

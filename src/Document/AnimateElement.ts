@@ -9,7 +9,6 @@ export interface IProgress {
 }
 
 export default class AnimateElement extends Element {
-
 	type = 'animate';
 	protected readonly begin: number;
 	protected readonly maxDuration: number;
@@ -27,7 +26,6 @@ export default class AnimateElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		document.screen.animations.push(this);
@@ -44,7 +42,6 @@ export default class AnimateElement extends Element {
 	}
 
 	protected getProperty() {
-
 		const attributeType = this.getAttribute('attributeType').getString();
 		const attributeName = this.getAttribute('attributeName').getString();
 
@@ -56,7 +53,6 @@ export default class AnimateElement extends Element {
 	}
 
 	calcValue() {
-
 		const {
 			initialUnits
 		} = this;
@@ -76,7 +72,6 @@ export default class AnimateElement extends Element {
 	}
 
 	update(delta: number) {
-
 		const {
 			parent
 		} = this;
@@ -90,7 +85,6 @@ export default class AnimateElement extends Element {
 
 		// if we're past the end time
 		if (this.duration > this.maxDuration) {
-
 			const fill = this.getAttribute('fill').getString('remove');
 
 			// loop for indefinitely repeating animations
@@ -123,7 +117,6 @@ export default class AnimateElement extends Element {
 		let updated = false;
 
 		if (this.begin < this.duration) {
-
 			let newValue = this.calcValue(); // tween
 			const typeAttr = this.getAttribute('type');
 
@@ -142,7 +135,6 @@ export default class AnimateElement extends Element {
 	}
 
 	getProgress() {
-
 		const {
 			document,
 			values
@@ -152,7 +144,6 @@ export default class AnimateElement extends Element {
 		};
 
 		if (values.hasValue()) {
-
 			const p = result.progress * (values.getValue().length - 1);
 			const lb = Math.floor(p);
 			const ub = Math.ceil(p);

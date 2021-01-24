@@ -43,12 +43,12 @@ export function node({
 	fetch
 }: IConfig) {
 	return {
-		window:          null as null,
+		window: null as null,
 		ignoreAnimation: true,
-		ignoreMouse:     true,
+		ignoreMouse: true,
 		DOMParser,
 		fetch,
-		createCanvas:    canvas.createCanvas,
-		createImage:     canvas.loadImage
+		createCanvas: canvas.createCanvas,
+		createImage: canvas.loadImage
 	};
 }

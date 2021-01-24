@@ -4,7 +4,6 @@ import {
 import Element from './Element';
 
 export default class FeMorphologyElement extends Element {
-
 	type = 'feMorphology';
 
 	apply(

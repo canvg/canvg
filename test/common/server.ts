@@ -3,7 +3,6 @@ import {
 } from 'http-server';
 
 export class Server extends HttpServer {
-
 	static readonly defaultPort = 3000;
 
 	constructor(options: any = {

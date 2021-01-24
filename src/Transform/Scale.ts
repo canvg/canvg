@@ -8,7 +8,6 @@ import Document from '../Document';
 import Point from '../Point';
 
 export default class Scale {
-
 	type = 'scale';
 	private readonly scale: Point = null;
 
@@ -16,7 +15,6 @@ export default class Scale {
 		_: Document,
 		scale: string
 	) {
-
 		const scaleSize = Point.parseScale(scale);
 
 		// Workaround for node-canvas
@@ -31,7 +29,6 @@ export default class Scale {
 	}
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			x,
 			y
@@ -41,7 +38,6 @@ export default class Scale {
 	}
 
 	unapply(ctx: RenderingContext2D) {
-
 		const {
 			x,
 			y
@@ -51,7 +47,6 @@ export default class Scale {
 	}
 
 	applyToPoint(point: Point) {
-
 		const {
 			x,
 			y

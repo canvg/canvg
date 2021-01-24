@@ -9,7 +9,6 @@ import PathElement, {
 } from './PathElement';
 
 export default class PolylineElement extends PathElement {
-
 	type = 'polyline';
 	protected readonly points: Point[] = [];
 
@@ -18,7 +17,6 @@ export default class PolylineElement extends PathElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.points = Point.parsePath(
@@ -27,7 +25,6 @@ export default class PolylineElement extends PathElement {
 	}
 
 	path(ctx: RenderingContext2D) {
-
 		const {
 			points
 		} = this;
@@ -46,7 +43,6 @@ export default class PolylineElement extends PathElement {
 			x,
 			y
 		}) => {
-
 			boundingBox.addPoint(x, y);
 
 			if (ctx) {
@@ -58,7 +54,6 @@ export default class PolylineElement extends PathElement {
 	}
 
 	getMarkers() {
-
 		const {
 			points
 		} = this;
@@ -66,7 +61,6 @@ export default class PolylineElement extends PathElement {
 		const markers: Marker[] = [];
 
 		points.forEach((point, i) => {
-
 			if (i === lastIndex) {
 				return;
 			}

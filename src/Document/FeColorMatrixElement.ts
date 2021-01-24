@@ -35,7 +35,6 @@ function m(
 	i: number,
 	v: number
 ) {
-
 	const mi = matrix[i];
 
 	return mi * v;
@@ -51,7 +50,6 @@ function c(
 }
 
 export default class FeColorMatrixElement extends Element {
-
 	type = 'feColorMatrix';
 	protected readonly matrix: number[];
 	protected readonly includeOpacity: boolean;
@@ -61,48 +59,104 @@ export default class FeColorMatrixElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		let matrix = toNumbers(this.getAttribute('values').getString());
 
 		switch (this.getAttribute('type').getString('matrix')) { // http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
-
 			case 'saturate': {
-
 				const s = matrix[0];
 
 				matrix = [
-					0.213 + 0.787 * s, 0.715 - 0.715 * s, 0.072 - 0.072 * s, 0, 0,
-					0.213 - 0.213 * s, 0.715 + 0.285 * s, 0.072 - 0.072 * s, 0, 0,
-					0.213 - 0.213 * s, 0.715 - 0.715 * s, 0.072 + 0.928 * s, 0, 0,
-					0, 0, 0, 1, 0,
-					0, 0, 0, 0, 1
+					0.213 + 0.787 * s,
+					0.715 - 0.715 * s,
+					0.072 - 0.072 * s,
+					0,
+					0,
+					0.213 - 0.213 * s,
+					0.715 + 0.285 * s,
+					0.072 - 0.072 * s,
+					0,
+					0,
+					0.213 - 0.213 * s,
+					0.715 - 0.715 * s,
+					0.072 + 0.928 * s,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1
 				];
 				break;
 			}
 
 			case 'hueRotate': {
-
 				const a = matrix[0] * Math.PI / 180.0;
 
 				matrix = [
-					c(a, 0.213, 0.787, -0.213), c(a, 0.715, -0.715, -0.715), c(a, 0.072, -0.072, 0.928), 0, 0,
-					c(a, 0.213, -0.213, 0.143), c(a, 0.715, 0.285, 0.140), c(a, 0.072, -0.072, -0.283), 0, 0,
-					c(a, 0.213, -0.213, -0.787), c(a, 0.715, -0.715, 0.715), c(a, 0.072, 0.928, 0.072), 0, 0,
-					0, 0, 0, 1, 0,
-					0, 0, 0, 0, 1
+					c(a, 0.213, 0.787, -0.213),
+					c(a, 0.715, -0.715, -0.715),
+					c(a, 0.072, -0.072, 0.928),
+					0,
+					0,
+					c(a, 0.213, -0.213, 0.143),
+					c(a, 0.715, 0.285, 0.140),
+					c(a, 0.072, -0.072, -0.283),
+					0,
+					0,
+					c(a, 0.213, -0.213, -0.787),
+					c(a, 0.715, -0.715, 0.715),
+					c(a, 0.072, 0.928, 0.072),
+					0,
+					0,
+					0,
+					0,
+					0,
+					1,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1
 				];
 				break;
 			}
 
 			case 'luminanceToAlpha':
 				matrix = [
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0.2125, 0.7154, 0.0721, 0, 0,
-					0, 0, 0, 0, 1
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0.2125,
+					0.7154,
+					0.0721,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1
 				];
 				break;
 
@@ -128,9 +182,7 @@ export default class FeColorMatrixElement extends Element {
 		const srcData = ctx.getImageData(0, 0, width, height);
 
 		for (let y = 0; y < height; y++) {
-
 			for (let x = 0; x < width; x++) {
-
 				const r = imGet(srcData.data, x, y, width, height, 0);
 				const g = imGet(srcData.data, x, y, width, height, 1);
 				const b = imGet(srcData.data, x, y, width, height, 2);

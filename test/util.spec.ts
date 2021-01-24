@@ -5,11 +5,8 @@ import {
 } from '../src/util';
 
 describe('util', () => {
-
 	describe('toNumbers', () => {
-
 		it('should parse mixed-separator lists of integers and real numbers', () => {
-
 			expect(
 				toNumbers('.5')
 			).toEqual(
@@ -38,7 +35,6 @@ describe('util', () => {
 		});
 
 		it('should support the omission of superfluous separators', () => {
-
 			expect(
 				toNumbers('5.5.5')
 			).toEqual(
@@ -58,9 +54,7 @@ describe('util', () => {
 	});
 
 	describe('parseExternalUrl', () => {
-
 		it('should ignore not urls', () => {
-
 			expect(
 				parseExternalUrl('')
 			).toBeFalsy();
@@ -79,7 +73,6 @@ describe('util', () => {
 		});
 
 		it('should parse urls', () => {
-
 			expect(
 				parseExternalUrl('url(foo)')
 			).toBe('foo');
@@ -93,9 +86,7 @@ describe('util', () => {
 	});
 
 	describe('normalizeColor', () => {
-
 		it('should normalize rgb', () => {
-
 			expect(
 				normalizeColor('rgb(123.32, 32.9, 54.21)')
 			).toBe(
@@ -110,7 +101,6 @@ describe('util', () => {
 		});
 
 		it('should normalize rgba', () => {
-
 			expect(
 				normalizeColor('rgba(123.32, 32.9, 54.21, 0.2)')
 			).toBe(
@@ -125,7 +115,6 @@ describe('util', () => {
 		});
 
 		it('should not change color', () => {
-
 			expect(
 				normalizeColor('rgb(255, 255, 255)')
 			).toBe(

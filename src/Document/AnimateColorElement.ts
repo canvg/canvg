@@ -2,11 +2,9 @@ import RGBColor from 'rgbcolor';
 import AnimateElement from './AnimateElement';
 
 export default class AnimateColorElement extends AnimateElement {
-
 	type = 'animateColor';
 
 	calcValue() {
-
 		const {
 			progress,
 			from,
@@ -20,6 +18,7 @@ export default class AnimateColorElement extends AnimateElement {
 			const r = colorFrom.r + (colorTo.r - colorFrom.r) * progress;
 			const g = colorFrom.g + (colorTo.g - colorFrom.g) * progress;
 			const b = colorFrom.b + (colorTo.b - colorFrom.b) * progress;
+
 			// ? alpha
 			return `rgb(${
 				parseInt(r as any, 10)

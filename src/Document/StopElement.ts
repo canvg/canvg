@@ -2,7 +2,6 @@ import Document from './Document';
 import Element from './Element';
 
 export default class StopElement extends Element {
-
 	type = 'stop';
 	readonly offset: number;
 	readonly color: string;
@@ -12,7 +11,6 @@ export default class StopElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		const offset = Math.max(0, Math.min(1, this.getAttribute('offset').getNumber()));

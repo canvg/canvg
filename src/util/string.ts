@@ -27,7 +27,6 @@ export function trimRight(str: string) {
  * @param str - Numbers string.
  */
 export function toNumbers(str: string) {
-
 	const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];
 
 	return matches.map(parseFloat);
@@ -41,7 +40,6 @@ const allUppercase = /^[A-Z-]+$/;
  * @param name - Attribute name.
  */
 export function normalizeAttributeName(name: string) {
-
 	if (allUppercase.test(name)) {
 		return name.toLowerCase();
 	}
@@ -68,7 +66,6 @@ export function parseExternalUrl(url: string): string {
  * @param color - Color to normalize.
  */
 export function normalizeColor(color: string) {
-
 	if (!color.startsWith('rgb')) {
 		return color;
 	}
@@ -76,9 +73,9 @@ export function normalizeColor(color: string) {
 	let rgbParts = 3;
 	const normalizedColor = color.replace(
 		/\d+(\.\d+)?/g,
-		(num, isFloat) => rgbParts-- && isFloat
+		(num, isFloat) => (rgbParts-- && isFloat
 			? String(Math.round(parseFloat(num)))
-			: num
+			: num)
 	);
 
 	return normalizedColor;

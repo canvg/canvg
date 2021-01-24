@@ -10,17 +10,14 @@ import Property from '../Property';
 import Element from './Element';
 
 export default abstract class RenderedElement extends Element {
-
 	private modifiedEmSizeStack = false;
 
 	protected calculateOpacity() {
-
 		let opacity = 1.0;
 		// tslint:disable-next-line: no-this-assignment
 		let element: Element = this;
 
 		while (element) {
-
 			const opacityStyle = element.getStyle('opacity', false, true); // no ancestors on style call
 
 			if (opacityStyle.hasValue(true)) {
@@ -34,9 +31,7 @@ export default abstract class RenderedElement extends Element {
 	}
 
 	setContext(ctx: RenderingContext2D, fromMeasure = false) {
-
 		if (!fromMeasure) { // causes stack overflow when measuring text with gradients
-
 			// fill
 			const fillStyleProp = this.getStyle('fill');
 			const fillOpacityStyleProp = this.getStyle('fill-opacity');
@@ -44,16 +39,13 @@ export default abstract class RenderedElement extends Element {
 			const strokeOpacityProp = this.getStyle('stroke-opacity');
 
 			if (fillStyleProp.isUrlDefinition()) {
-
 				const fillStyle = fillStyleProp.getFillStyleDefinition(this, fillOpacityStyleProp);
 
 				if (fillStyle) {
 					ctx.fillStyle = fillStyle;
 				}
-
 			} else
 			if (fillStyleProp.hasValue()) {
-
 				if (fillStyleProp.getString() === 'currentColor') {
 					fillStyleProp.setValue(this.getStyle('color').getColor());
 				}
@@ -68,7 +60,6 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (fillOpacityStyleProp.hasValue()) {
-
 				const fillStyle = new Property(this.document, 'fill', ctx.fillStyle as string)
 					.addOpacity(fillOpacityStyleProp)
 					.getColor();
@@ -78,16 +69,13 @@ export default abstract class RenderedElement extends Element {
 
 			// stroke
 			if (strokeStyleProp.isUrlDefinition()) {
-
 				const strokeStyle = strokeStyleProp.getFillStyleDefinition(this, strokeOpacityProp);
 
 				if (strokeStyle) {
 					ctx.strokeStyle = strokeStyle;
 				}
-
 			} else
 			if (strokeStyleProp.hasValue()) {
-
 				if (strokeStyleProp.getString() === 'currentColor') {
 					strokeStyleProp.setValue(this.getStyle('color').getColor());
 				}
@@ -102,7 +90,6 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (strokeOpacityProp.hasValue()) {
-
 				const strokeStyle = new Property(this.document, 'stroke', ctx.strokeStyle as string)
 					.addOpacity(strokeOpacityProp)
 					.getString();
@@ -113,7 +100,6 @@ export default abstract class RenderedElement extends Element {
 			const strokeWidthStyleProp = this.getStyle('stroke-width');
 
 			if (strokeWidthStyleProp.hasValue()) {
-
 				const newLineWidth = strokeWidthStyleProp.getPixels();
 
 				ctx.lineWidth = !newLineWidth
@@ -146,7 +132,6 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (strokeDasharrayStyleProp.hasValue() && strokeDasharrayStyleProp.getString() !== 'none') {
-
 				const gaps = toNumbers(strokeDasharrayStyleProp.getString());
 
 				if (typeof ctx.setLineDash !== 'undefined') {
@@ -177,7 +162,6 @@ export default abstract class RenderedElement extends Element {
 		this.modifiedEmSizeStack = false;
 
 		if (typeof ctx.font !== 'undefined') {
-
 			const fontStyleProp = this.getStyle('font');
 			const fontStyleStyleProp = this.getStyle('font-style');
 			const fontVariantStyleProp = this.getStyle('font-variant');
@@ -221,7 +205,6 @@ export default abstract class RenderedElement extends Element {
 	}
 
 	clearContext(ctx: RenderingContext2D) {
-
 		super.clearContext(ctx);
 
 		if (this.modifiedEmSizeStack) {

@@ -3,9 +3,7 @@ import {
 } from './util';
 
 export default class Point {
-
 	static parse(point: string, defaultValue = 0) {
-
 		const [
 			x = defaultValue,
 			y = defaultValue
@@ -15,7 +13,6 @@ export default class Point {
 	}
 
 	static parseScale(scale: string, defaultValue = 1) {
-
 		const [
 			x = defaultValue,
 			y = x
@@ -25,7 +22,6 @@ export default class Point {
 	}
 
 	static parsePath(path: string) {
-
 		const points = toNumbers(path);
 		const len = points.length;
 		const pathPoints: Point[] = [];
@@ -47,7 +43,6 @@ export default class Point {
 	}
 
 	applyTransform(transform: number[]) {
-
 		const {
 			x,
 			y
