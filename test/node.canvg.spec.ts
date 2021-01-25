@@ -31,10 +31,8 @@ describe('canvg', () => {
 			const svgsOfType = svgs[type];
 			const threshold = shouldPassing ? {} : {
 				failureThresholdType: 'percent',
-				failureThreshold: .03
+				failureThreshold: 11
 			};
-
-			jest.retryTimes(shouldPassing ? 0 : 5);
 
 			for (const svg in svgsOfType) {
 				const description: string = svgsOfType[svg];
