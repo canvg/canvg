@@ -1,0 +1,11 @@
+{
+	"exclude": "node_modules/**",
+	"presets": [
+		["@trigen/babel-preset", {
+			"env": "lib",
+			"targets": {
+				"esmodules": true
+			}
+		}]
+	]
+}

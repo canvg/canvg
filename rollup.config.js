@@ -16,7 +16,11 @@ import {
 } from './scripts/rollup-helpers';
 import pkg from './package.json';
 
-function getPlugins(standalone, transpile = true) {
+function getPlugins({
+	standalone = false,
+	transpile = true,
+	esmodules = false
+} = {}) {
 	return [
 		eslint({
 			exclude: ['**/*.json', 'node_modules/**'],
@@ -40,9 +44,13 @@ function getPlugins(standalone, transpile = true) {
 			],
 			babelHelpers: 'runtime',
 			// erring otherwise in attempt to find `@babel/plugin-transform-runtime`
-			//   added by `babel-preset-trigen`; see
+			//   added by `@trigen/babel-preset`; see
 			//   https://github.com/rollup/plugins/issues/381
-			skipPreflightCheck: true
+			skipPreflightCheck: true,
+			...esmodules ? {
+				babelrc: false,
+				configFile: './.babelrc.esmodules.json'
+			} : {}
 		}),
 		standalone && resolve({
 			preferBuiltins: false
@@ -55,19 +63,28 @@ export default [{
 	input: 'src/index.ts',
 	plugins: getPlugins(),
 	external: external(pkg, true),
-	output: [{
+	output: {
 		file: pkg.main,
 		format: 'cjs',
 		exports: 'named',
 		sourcemap: 'inline'
-	}, {
+	}
+}, {
+	input: 'src/index.ts',
+	plugins: getPlugins({
+		esmodules: true
+	}),
+	external: external(pkg, true),
+	output: {
 		file: pkg.module,
 		format: 'es',
 		sourcemap: 'inline'
-	}]
+	}
 }, {
 	input: 'src/index.ts',
-	plugins: getPlugins(false, false),
+	plugins: getPlugins({
+		transpile: false
+	}),
 	external: external(pkg, true),
 	output: {
 		file: pkg.raw,
@@ -76,7 +93,9 @@ export default [{
 	}
 }, {
 	input: 'src/index.ts',
-	plugins: getPlugins(true),
+	plugins: getPlugins({
+		standalone: true
+	}),
 	output: {
 		file: pkg.umd,
 		format: 'umd',
