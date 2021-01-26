@@ -6,7 +6,6 @@ import PathElement from './PathElement';
 import GradientElement from './GradientElement';
 
 export default class RadialGradientElement extends GradientElement {
-
 	type = 'radialGradient';
 
 	constructor(
@@ -14,7 +13,6 @@ export default class RadialGradientElement extends GradientElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.attributesToInherit.push(
@@ -28,7 +26,6 @@ export default class RadialGradientElement extends GradientElement {
 	}
 
 	getGradient(ctx: RenderingContext2D, element: PathElement) {
-
 		const isBoundingBoxUnits = this.getGradientUnits() === 'objectBoundingBox';
 		const boundingBox = element.getBoundingBox(ctx);
 

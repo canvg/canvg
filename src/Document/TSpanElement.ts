@@ -2,7 +2,6 @@ import Document from './Document';
 import TextElement from './TextElement';
 
 export default class TSpanElement extends TextElement {
-
 	type = 'tspan';
 	protected readonly text: string;
 
@@ -11,7 +10,6 @@ export default class TSpanElement extends TextElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(
 			document,
 			node,

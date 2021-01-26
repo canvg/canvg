@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-console */
 import {
 	RenderingContext2D
 } from '../types';
@@ -5,17 +8,16 @@ import {
 /**
  * Wrap rendering context to log every action.
  * @param ctx - Rendering context.
+ * @returns Proxy logger.
  */
 export function ctxLogger(ctx: RenderingContext2D) {
 	return new Proxy(ctx, {
 
 		get(target, key) {
-
 			const value = target[key];
 
 			if (typeof value === 'function') {
 				return (...args) => {
-
 					const result = Reflect.apply(value, target, args);
 
 					console.log('Call:', key, '()', args, '=>', result);
@@ -30,7 +32,6 @@ export function ctxLogger(ctx: RenderingContext2D) {
 		},
 
 		set(target, key, value) {
-
 			console.log('Set:', key, ':', value);
 
 			target[key] = value;
@@ -78,7 +79,8 @@ export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
  * @param ctx - Rendering context.
  * @param x - Angle x.
  * @param y - Angle y.
- * @param size - Triangle size.
+ * @param width
+ * @param height
  */
 export function box(ctx: RenderingContext2D, x: number, y: number, width: number, height: number) {
 	ctx.lineWidth = 2;

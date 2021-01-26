@@ -30,7 +30,6 @@ export type Command = { type: CommandType }
 	& Omit<CommandA, 'type'>;
 
 export default class PathParser extends SVGPathData {
-
 	control: Point = null;
 	start: Point = null;
 	current: Point = null;
@@ -63,7 +62,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	isEnd() {
-
 		const {
 			i,
 			commands
@@ -73,7 +71,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	next() {
-
 		const command = this.commands[++this.i];
 
 		this.previousCommand = this.command;
@@ -83,7 +80,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	getPoint(xProp = 'x', yProp = 'y') {
-
 		const point = new Point(
 			this.command[xProp],
 			this.command[yProp]
@@ -93,7 +89,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	getAsControlPoint(xProp?: string, yProp?: string) {
-
 		const point = this.getPoint(xProp, yProp);
 
 		this.control = point;
@@ -102,7 +97,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	getAsCurrentPoint(xProp?: string, yProp?: string) {
-
 		const point = this.getPoint(xProp, yProp);
 
 		this.current = point;
@@ -111,7 +105,6 @@ export default class PathParser extends SVGPathData {
 	}
 
 	getReflectedControlPoint() {
-
 		const previousCommand = this.previousCommand.type;
 
 		if (previousCommand !== SVGPathData.CURVE_TO
@@ -139,9 +132,7 @@ export default class PathParser extends SVGPathData {
 	}
 
 	makeAbsolute(point: Point) {
-
 		if (this.command.relative) {
-
 			const {
 				x,
 				y
@@ -155,11 +146,11 @@ export default class PathParser extends SVGPathData {
 	}
 
 	addMarker(point: Point, from?: Point, priorTo?: Point) {
-
 		const {
 			points,
 			angles
 		} = this;
+
 		// if the last angle isn't filled in because we didn't have this point yet ...
 		if (priorTo && angles.length > 0 && !angles[angles.length - 1]) {
 			angles[angles.length - 1] = points[points.length - 1].angleTo(priorTo);
@@ -178,18 +169,14 @@ export default class PathParser extends SVGPathData {
 	}
 
 	getMarkerAngles() {
-
 		const {
 			angles
 		} = this;
 		const len = angles.length;
 
 		for (let i = 0; i < len; i++) {
-
 			if (!angles[i]) {
-
 				for (let j = i + 1; j < len; j++) {
-
 					if (angles[j]) {
 						angles[i] = angles[j];
 						break;

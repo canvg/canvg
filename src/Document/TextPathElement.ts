@@ -50,7 +50,6 @@ interface IGlyphInfo {
 }
 
 export default class TextPathElement extends TextElement {
-
 	type = 'textPath';
 	protected textWidth = 0;
 	protected textHeight = 0;
@@ -67,7 +66,6 @@ export default class TextPathElement extends TextElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		const pathElement = this.getHrefAttribute().getDefinition<PathElement>();
@@ -81,7 +79,6 @@ export default class TextPathElement extends TextElement {
 	}
 
 	path(ctx: RenderingContext2D) {
-
 		const {
 			dataArray
 		} = this;
@@ -94,9 +91,7 @@ export default class TextPathElement extends TextElement {
 			type,
 			points
 		}) => {
-
 			switch (type) {
-
 				case PathParser.LINE_TO:
 
 					if (ctx) {
@@ -142,7 +137,6 @@ export default class TextPathElement extends TextElement {
 					break;
 
 				case PathParser.ARC: {
-
 					const [
 						cx,
 						cy,
@@ -153,9 +147,9 @@ export default class TextPathElement extends TextElement {
 						psi,
 						fs
 					] = points;
-					const r = (rx > ry) ? rx : ry;
-					const scaleX = (rx > ry) ? 1 : rx / ry;
-					const scaleY = (rx > ry) ? ry / rx : 1;
+					const r = rx > ry ? rx : ry;
+					const scaleX = rx > ry ? 1 : rx / ry;
+					const scaleY = rx > ry ? ry / rx : 1;
 
 					if (ctx) {
 						ctx.translate(cx, cy);
@@ -183,7 +177,6 @@ export default class TextPathElement extends TextElement {
 	}
 
 	renderChildren(ctx: RenderingContext2D) {
-
 		this.setTextData(ctx);
 		ctx.save();
 
@@ -199,7 +192,6 @@ export default class TextPathElement extends TextElement {
 		}
 
 		glyphInfo.forEach((glyph, i) => {
-
 			const {
 				p0,
 				p1,
@@ -222,7 +214,6 @@ export default class TextPathElement extends TextElement {
 			ctx.restore();
 
 			if (textDecoration === 'underline') {
-
 				if (i === 0) {
 					ctx.moveTo(p0.x, p0.y + fontSize / 8);
 				}
@@ -230,7 +221,7 @@ export default class TextPathElement extends TextElement {
 				ctx.lineTo(p1.x, p1.y + fontSize / 5);
 			}
 
-			//// To assist with debugging visually, uncomment following
+			// // To assist with debugging visually, uncomment following
 			//
 			// ctx.beginPath();
 			// if (i % 2)
@@ -268,7 +259,6 @@ export default class TextPathElement extends TextElement {
 		c: string,
 		charI: number
 	) {
-
 		let offset = inputOffset;
 		let glyphWidth = this.measureText(ctx, c);
 
@@ -292,13 +282,12 @@ export default class TextPathElement extends TextElement {
 		};
 		const rotation = p0 && p1
 			? Math.atan2(
-				(p1.y - p0.y),
-				(p1.x - p0.x)
+				p1.y - p0.y,
+				p1.x - p0.x
 			)
 			: 0;
 
 		if (dy) {
-
 			const dyX = Math.cos(Math.PI / 2 + rotation) * dy;
 			const dyY = Math.cos(-rotation) * dy;
 
@@ -327,7 +316,6 @@ export default class TextPathElement extends TextElement {
 		ctx: RenderingContext2D,
 		text?: string
 	) {
-
 		const {
 			measuresCache
 		} = this;
@@ -348,7 +336,6 @@ export default class TextPathElement extends TextElement {
 	// If some font will be loaded after this method call, <textPath> will not be rendered correctly.
 	// You need to call this method manually to update glyphs cache.
 	protected setTextData(ctx: RenderingContext2D) {
-
 		if (this.glyphInfo) {
 			return;
 		}
@@ -369,7 +356,6 @@ export default class TextPathElement extends TextElement {
 			letterSpacing = parentSpacing.getPixels();
 		} else
 		if (thisSpacing.hasValue()) {
-
 			if (thisSpacing.getValue() !== 'initial'
 				&& thisSpacing.getValue() !== 'unset'
 			) {
@@ -395,7 +381,7 @@ export default class TextPathElement extends TextElement {
 			(acc, cur, i) => (
 				i === 0
 					? 0
-					: (acc + cur || 0)
+					: acc + cur || 0
 			),
 			0
 		);
@@ -425,7 +411,6 @@ export default class TextPathElement extends TextElement {
 		offset += startOffset;
 
 		chars.forEach((char, i) => {
-
 			// Find such segment what distance between p0 and p1 is approx. width of glyph
 			const {
 				offset: nextOffset,
@@ -468,16 +453,15 @@ export default class TextPathElement extends TextElement {
 			this.glyphInfo.push({
 				// transposeX: midpoint.x,
 				// transposeY: midpoint.y,
-				text:      chars[i],
-				p0:        segment.p0,
-				p1:        segment.p1,
+				text: chars[i],
+				p0: segment.p0,
+				p1: segment.p1,
 				rotation
 			});
 		});
 	}
 
 	protected parsePathData(path: PathElement) {
-
 		this.pathLength = -1; // reset path length
 
 		if (!path) {
@@ -485,13 +469,14 @@ export default class TextPathElement extends TextElement {
 		}
 
 		const pathCommands: IPathCommand[] = [];
-		const pathParser = path.pathParser;
+		const {
+			pathParser
+		} = path;
 
 		pathParser.reset();
 
 		// convert l, H, h, V, and v to L
 		while (!pathParser.isEnd()) {
-
 			const {
 				current
 			} = pathParser;
@@ -502,7 +487,6 @@ export default class TextPathElement extends TextElement {
 			let points = [];
 
 			switch (command.type) {
-
 				case PathParser.MOVE_TO:
 					this.pathM(pathParser, points);
 					break;
@@ -572,7 +556,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			x,
 			y
@@ -585,7 +568,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			x,
 			y
@@ -600,7 +582,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			x,
 			y
@@ -615,7 +596,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			x,
 			y
@@ -630,7 +610,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			point,
 			controlPoint,
@@ -651,7 +630,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			point,
 			controlPoint,
@@ -674,7 +652,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			controlPoint,
 			currentPoint
@@ -692,7 +669,6 @@ export default class TextPathElement extends TextElement {
 		pathParser: PathParser,
 		points: number[]
 	) {
-
 		const {
 			controlPoint,
 			currentPoint
@@ -711,7 +687,6 @@ export default class TextPathElement extends TextElement {
 	protected pathA(
 		pathParser: PathParser
 	) {
-
 		let {
 			rX,
 			rY,
@@ -723,11 +698,11 @@ export default class TextPathElement extends TextElement {
 		} = PathElement.pathA(pathParser);
 
 		if (sweepFlag === 0 && ad > 0) {
-			ad = ad - 2 * Math.PI;
+			ad -= 2 * Math.PI;
 		}
 
 		if (sweepFlag === 1 && ad < 0) {
-			ad = ad + 2 * Math.PI;
+			ad += 2 * Math.PI;
 		}
 
 		return [
@@ -748,14 +723,12 @@ export default class TextPathElement extends TextElement {
 		commandType: CommandType,
 		points: number[]
 	) {
-
 		let len = 0;
 		let p1: IPoint = null;
 		let p2: IPoint = null;
 		let t = 0;
 
 		switch (commandType) {
-
 			case PathParser.LINE_TO:
 				return this.getLineLength(x, y, points[0], points[1]);
 
@@ -826,7 +799,7 @@ export default class TextPathElement extends TextElement {
 
 				return len;
 
-			case PathParser.ARC:
+			case PathParser.ARC: {
 				// Approximates by breaking curve into line segments
 				len = 0.0;
 
@@ -836,6 +809,7 @@ export default class TextPathElement extends TextElement {
 				// 5 = dTheta
 				const end = points[4] + dTheta;
 				let inc = Math.PI / 180.0;
+
 				// 1 degree resolution
 				if (Math.abs(start - end) < inc) {
 					inc = Math.abs(start - end);
@@ -850,7 +824,7 @@ export default class TextPathElement extends TextElement {
 					0
 				);
 
-				if (dTheta < 0) {// clockwise
+				if (dTheta < 0) { // clockwise
 					for (t = start - inc; t > end; t -= inc) {
 						p2 = this.getPointOnEllipticalArc(
 							points[0],
@@ -863,8 +837,7 @@ export default class TextPathElement extends TextElement {
 						len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
 						p1 = p2;
 					}
-				} else {// counter-clockwise
-
+				} else { // counter-clockwise
 					for (t = start + inc; t < end; t += inc) {
 						p2 = this.getPointOnEllipticalArc(
 							points[0],
@@ -890,6 +863,7 @@ export default class TextPathElement extends TextElement {
 				len += this.getLineLength(p1.x, p1.y, p2.x, p2.y);
 
 				return len;
+			}
 
 			default:
 		}
@@ -899,60 +873,57 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnLine(
 		dist: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		fromX = P1x,
-		fromY = P1y
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		fromX = p1x,
+		fromY = p1y
 	) {
-
-		const m = (P2y - P1y) / ((P2x - P1x) + PSEUDO_ZERO);
+		const m = (p2y - p1y) / ((p2x - p1x) + PSEUDO_ZERO);
 		let run = Math.sqrt(dist * dist / (1 + m * m));
 
-		if (P2x < P1x) {
+		if (p2x < p1x) {
 			run *= -1;
 		}
 
 		let rise = m * run;
 		let pt: IPoint = null;
 
-		if (P2x === P1x) { // vertical line
+		if (p2x === p1x) { // vertical line
 			pt = {
 				x: fromX,
 				y: fromY + rise
 			};
 		} else
-		if ((fromY - P1y) / ((fromX - P1x) + PSEUDO_ZERO) === m) {
+		if ((fromY - p1y) / ((fromX - p1x) + PSEUDO_ZERO) === m) {
 			pt = {
 				x: fromX + run,
 				y: fromY + rise
 			};
 		} else {
-
 			let ix = 0;
 			let iy = 0;
-			const len = this.getLineLength(P1x, P1y, P2x, P2y);
+			const len = this.getLineLength(p1x, p1y, p2x, p2y);
 
 			if (len < PSEUDO_ZERO) {
 				return null;
 			}
 
-			let u = (
-				((fromX - P1x) * (P2x - P1x))
-				+ ((fromY - P1y) * (P2y - P1y))
-			);
+			let u =
+				((fromX - p1x) * (p2x - p1x))
+				+ ((fromY - p1y) * (p2y - p1y));
 
-			u = u / (len * len);
-			ix = P1x + u * (P2x - P1x);
-			iy = P1y + u * (P2y - P1y);
+			u /= len * len;
+			ix = p1x + u * (p2x - p1x);
+			iy = p1y + u * (p2y - p1y);
 
 			const pRise = this.getLineLength(fromX, fromY, ix, iy);
 			const pRun = Math.sqrt(dist * dist - pRise * pRise);
 
 			run = Math.sqrt(pRun * pRun / (1 + m * m));
 
-			if (P2x < P1x) {
+			if (p2x < p1x) {
 				run *= -1;
 			}
 
@@ -967,7 +938,6 @@ export default class TextPathElement extends TextElement {
 	}
 
 	protected getPointOnPath(distance: number) {
-
 		const fullLen = this.getPathLength();
 		let cumulativePathLength = 0;
 		let p: IPoint = null;
@@ -983,7 +953,6 @@ export default class TextPathElement extends TextElement {
 		} = this;
 
 		for (const command of dataArray) {
-
 			if (command
 				&& (
 					command.pathLength < 0.00005
@@ -998,7 +967,6 @@ export default class TextPathElement extends TextElement {
 			let currentT = 0;
 
 			switch (command.type) {
-
 				case PathParser.LINE_TO:
 					p = this.getPointOnLine(
 						delta,
@@ -1011,7 +979,7 @@ export default class TextPathElement extends TextElement {
 					);
 					break;
 
-				case PathParser.ARC:
+				case PathParser.ARC: {
 					const start = command.points[4];
 					// 4 = theta
 					const dTheta = command.points[5];
@@ -1035,6 +1003,7 @@ export default class TextPathElement extends TextElement {
 						command.points[6]
 					);
 					break;
+				}
 
 				case PathParser.CURVE_TO:
 
@@ -1102,7 +1071,6 @@ export default class TextPathElement extends TextElement {
 	}
 
 	protected getPathLength() {
-
 		if (this.pathLength === -1) {
 			this.pathLength = this.dataArray.reduce<number>(
 				(length, command: IPathCommand) => (
@@ -1119,18 +1087,17 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnCubicBezier(
 		pct: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		P3x: number,
-		P3y: number,
-		P4x: number,
-		P4y: number
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		p3x: number,
+		p3y: number,
+		p4x: number,
+		p4y: number
 	): IPoint {
-
-		const x = P4x * CB1(pct) + P3x * CB2(pct) + P2x * CB3(pct) + P1x * CB4(pct);
-		const y = P4y * CB1(pct) + P3y * CB2(pct) + P2y * CB3(pct) + P1y * CB4(pct);
+		const x = p4x * CB1(pct) + p3x * CB2(pct) + p2x * CB3(pct) + p1x * CB4(pct);
+		const y = p4y * CB1(pct) + p3y * CB2(pct) + p2y * CB3(pct) + p1y * CB4(pct);
 
 		return {
 			x,
@@ -1140,16 +1107,15 @@ export default class TextPathElement extends TextElement {
 
 	protected getPointOnQuadraticBezier(
 		pct: number,
-		P1x: number,
-		P1y: number,
-		P2x: number,
-		P2y: number,
-		P3x: number,
-		P3y: number
+		p1x: number,
+		p1y: number,
+		p2x: number,
+		p2y: number,
+		p3x: number,
+		p3y: number
 	): IPoint {
-
-		const x = P3x * QB1(pct) + P2x * QB2(pct) + P1x * QB3(pct);
-		const y = P3y * QB1(pct) + P2y * QB2(pct) + P1y * QB3(pct);
+		const x = p3x * QB1(pct) + p2x * QB2(pct) + p1x * QB3(pct);
+		const y = p3y * QB1(pct) + p2y * QB2(pct) + p1y * QB3(pct);
 
 		return {
 			x,
@@ -1165,7 +1131,6 @@ export default class TextPathElement extends TextElement {
 		theta: number,
 		psi: number
 	): IPoint {
-
 		const cosPsi = Math.cos(psi);
 		const sinPsi = Math.sin(psi);
 		const pt = {
@@ -1184,7 +1149,6 @@ export default class TextPathElement extends TextElement {
 		inputStep: number,
 		inputPrecision: number
 	) {
-
 		const fullLen = this.getPathLength();
 		const precision = inputPrecision || 0.25; // accuracy vs performance
 		const step = inputStep || fullLen / 100;
@@ -1199,11 +1163,11 @@ export default class TextPathElement extends TextElement {
 				precision,
 				points: []
 			};
+
 			// Calculate points
 			let s = 0;
 
 			for (let l = 0; l <= fullLen; l += precision) {
-
 				const p0 = this.getPointOnPath(l);
 				const p1 = this.getPointOnPath(l + precision);
 
@@ -1230,7 +1194,6 @@ export default class TextPathElement extends TextElement {
 		step?: number,
 		precision?: number
 	) {
-
 		this.buildEquidistantCache(step, precision);
 
 		if (targetDistance < 0

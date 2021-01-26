@@ -4,11 +4,9 @@ import {
 import PolylineElement from './PolylineElement';
 
 export default class PolygonElement extends PolylineElement {
-
 	type = 'polygon';
 
 	path(ctx: RenderingContext2D) {
-
 		const boundingBox = super.path(ctx);
 		const [{
 			x,

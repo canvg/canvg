@@ -7,11 +7,9 @@ import Element from './Element';
 import SVGElement from './SVGElement';
 
 export default class MarkerElement extends Element {
-
 	type = 'marker';
 
 	render(ctx: RenderingContext2D, point?: Point, angle?: number) {
-
 		if (!point) {
 			return;
 		}
@@ -20,8 +18,8 @@ export default class MarkerElement extends Element {
 			x,
 			y
 		} = point;
-		const orient = this.getAttribute('orient').getValue('auto');
-		const markerUnits = this.getAttribute('markerUnits').getValue('strokeWidth');
+		const orient = this.getAttribute('orient').getString('auto');
+		const markerUnits = this.getAttribute('markerUnits').getString('strokeWidth');
 
 		ctx.translate(x, y);
 

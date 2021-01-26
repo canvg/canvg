@@ -1,7 +1,6 @@
 import Document from './Document';
 
 export default class SVGFontLoader {
-
 	loaded = false;
 
 	constructor(
@@ -11,9 +10,7 @@ export default class SVGFontLoader {
 	}
 
 	async load(fontFamily: string, url: string) {
-
 		try {
-
 			const {
 				document
 			} = this;
@@ -21,14 +18,11 @@ export default class SVGFontLoader {
 			const fonts = svgDocument.getElementsByTagName('font');
 
 			Array.from(fonts).forEach((fontNode) => {
-
 				const font = document.createElement(fontNode);
 
 				document.definitions[fontFamily] = font;
 			});
-
 		} catch (err) {
-			// tslint:disable-next-line: no-console
 			console.error(`Error while loading font "${url}":`, err);
 		}
 

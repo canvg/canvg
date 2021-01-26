@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import path from 'path';
 import {
 	promises as fs,
@@ -18,9 +22,7 @@ const preset = presets.node({
 	DOMParser,
 	canvas,
 	fetch(input) {
-
-		if (typeof input === 'string' && !/^http/.test(input)) {
-
+		if (typeof input === 'string' && !input.startsWith('http')) {
 			const stream = createReadStream(
 				path.join(__dirname, '..', 'svgs', input)
 			);
@@ -39,7 +41,6 @@ export default async function render(
 	height?: number,
 	preserveAspectRatio?: string
 ) {
-
 	const svg = await fs.readFile(
 		path.join(__dirname, '..', 'svgs', file),
 		'utf8'
@@ -60,8 +61,7 @@ export default async function render(
 const maybeRunIndex = process.argv.indexOf(__filename);
 
 if (~maybeRunIndex && maybeRunIndex === process.argv.length - 3) {
-	(async () => {
-
+	void (async () => {
 		const output = process.argv.pop();
 		const input = process.argv.pop();
 		const image = await render(input);

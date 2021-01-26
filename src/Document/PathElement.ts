@@ -1,4 +1,4 @@
-// tslint:disable: member-ordering
+/* eslint-disable @typescript-eslint/member-ordering */
 import {
 	RenderingContext2D
 } from '../types';
@@ -16,7 +16,6 @@ import MarkerElement from './MarkerElement';
 export type Marker = [Point, number];
 
 export default class PathElement extends RenderedElement {
-
 	type = 'path';
 	readonly pathParser: PathParser = null;
 
@@ -25,14 +24,12 @@ export default class PathElement extends RenderedElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.pathParser = new PathParser(this.getAttribute('d').getString());
 	}
 
 	path(ctx?: RenderingContext2D) {
-
 		const {
 			pathParser
 		} = this;
@@ -45,9 +42,7 @@ export default class PathElement extends RenderedElement {
 		}
 
 		while (!pathParser.isEnd()) {
-
 			switch (pathParser.next().type) {
-
 				case PathParser.MOVE_TO:
 					this.pathM(ctx, boundingBox);
 					break;
@@ -100,7 +95,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	getMarkers(): Marker[] {
-
 		const {
 			pathParser
 		} = this;
@@ -115,16 +109,14 @@ export default class PathElement extends RenderedElement {
 	}
 
 	renderChildren(ctx: RenderingContext2D) {
-
 		this.path(ctx);
 		this.document.screen.mouse.checkPath(this, ctx);
 
 		const fillRuleStyleProp = this.getStyle('fill-rule');
 
 		if (ctx.fillStyle !== '') {
-
 			if (fillRuleStyleProp.getString('inherit') !== 'inherit') {
-				ctx.fill(fillRuleStyleProp.getString() as any);
+				ctx.fill(fillRuleStyleProp.getString() as CanvasFillRule);
 			} else {
 				ctx.fill();
 			}
@@ -137,14 +129,12 @@ export default class PathElement extends RenderedElement {
 		const markers = this.getMarkers();
 
 		if (markers) {
-
 			const markersLastIndex = markers.length - 1;
 			const markerStartStyleProp = this.getStyle('marker-start');
 			const markerMidStyleProp = this.getStyle('marker-mid');
 			const markerEndStyleProp = this.getStyle('marker-end');
 
 			if (markerStartStyleProp.isUrlDefinition()) {
-
 				const marker = markerStartStyleProp.getDefinition<MarkerElement>();
 				const [
 					point,
@@ -155,11 +145,9 @@ export default class PathElement extends RenderedElement {
 			}
 
 			if (markerMidStyleProp.isUrlDefinition()) {
-
 				const marker = markerMidStyleProp.getDefinition<MarkerElement>();
 
 				for (let i = 1; i < markersLastIndex; i++) {
-
 					const [
 						point,
 						angle
@@ -170,7 +158,6 @@ export default class PathElement extends RenderedElement {
 			}
 
 			if (markerEndStyleProp.isUrlDefinition()) {
-
 				const marker = markerEndStyleProp.getDefinition<MarkerElement>();
 				const [
 					point,
@@ -183,7 +170,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathM(pathParser: PathParser) {
-
 		const point = pathParser.getAsCurrentPoint();
 
 		pathParser.start = pathParser.current;
@@ -197,7 +183,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -218,7 +203,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathL(pathParser: PathParser) {
-
 		const {
 			current
 		} = pathParser;
@@ -234,7 +218,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -256,7 +239,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathH(pathParser: PathParser) {
-
 		const {
 			current,
 			command
@@ -278,7 +260,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -300,7 +281,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathV(pathParser: PathParser) {
-
 		const {
 			current,
 			command
@@ -322,7 +302,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -344,7 +323,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathC(pathParser: PathParser) {
-
 		const {
 			current
 		} = pathParser;
@@ -364,7 +342,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -400,7 +377,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathS(pathParser: PathParser) {
-
 		const {
 			current
 		} = pathParser;
@@ -420,7 +396,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -456,7 +431,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathQ(pathParser: PathParser) {
-
 		const {
 			current
 		} = pathParser;
@@ -474,7 +448,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -505,7 +478,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathT(pathParser: PathParser) {
-
 		const {
 			current
 		} = pathParser;
@@ -526,7 +498,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -557,7 +528,6 @@ export default class PathElement extends RenderedElement {
 	}
 
 	static pathA(pathParser: PathParser) {
-
 		const {
 			current,
 			command
@@ -581,10 +551,9 @@ export default class PathElement extends RenderedElement {
 			+ Math.cos(xAxisRotation) * (current.y - currentPoint.y) / 2.0
 		);
 		// adjust radii
-		const l = (
+		const l =
 			Math.pow(currp.x, 2) / Math.pow(rX, 2)
-			+ Math.pow(currp.y, 2) / Math.pow(rY, 2)
-		);
+			+ Math.pow(currp.y, 2) / Math.pow(rY, 2);
 
 		if (l > 1) {
 			rX *= Math.sqrt(l);
@@ -651,7 +620,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		const {
 			pathParser
 		} = this;
@@ -665,7 +633,6 @@ export default class PathElement extends RenderedElement {
 			a1,
 			ad
 		} = PathElement.pathA(pathParser);
-
 		// for markers
 		const dir = 1 - sweepFlag ? 1.0 : -1.0;
 		const ah = a1 + dir * (ad / 2.0);
@@ -679,7 +646,6 @@ export default class PathElement extends RenderedElement {
 		boundingBox.addPoint(currentPoint.x, currentPoint.y); // TODO: this is too naive, make it better
 
 		if (ctx && !isNaN(a1) && !isNaN(ad)) {
-
 			const r = rX > rY ? rX : rY;
 			const sx = rX > rY ? 1 : rX / rY;
 			const sy = rX > rY ? rY / rX : 1;
@@ -702,7 +668,6 @@ export default class PathElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		boundingBox: BoundingBox
 	) {
-
 		PathElement.pathZ(this.pathParser);
 
 		if (ctx) {

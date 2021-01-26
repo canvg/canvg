@@ -7,7 +7,6 @@ import PathElement from './PathElement';
 import FeColorMatrixElement from './FeColorMatrixElement';
 
 export default class MaskElement extends Element {
-
 	static ignoreStyles = [
 		'mask',
 		'transform',
@@ -17,7 +16,6 @@ export default class MaskElement extends Element {
 	type = 'mask';
 
 	apply(ctx: RenderingContext2D, element: Element) {
-
 		const {
 			document
 		} = this;
@@ -28,7 +26,6 @@ export default class MaskElement extends Element {
 		let height = this.getStyle('height').getPixels('y');
 
 		if (!width && !height) {
-
 			const boundingBox = new BoundingBox();
 
 			this.children.forEach((child: PathElement) => {
@@ -56,10 +53,16 @@ export default class MaskElement extends Element {
 				nodeType: 1,
 				childNodes: [],
 				attributes: [
-					{ nodeName: 'type', value: 'luminanceToAlpha' },
-					{ nodeName: 'includeOpacity', value: 'true' }
+					{
+						nodeName: 'type',
+						value: 'luminanceToAlpha'
+					},
+					{
+						nodeName: 'includeOpacity',
+						value: 'true'
+					}
 				]
-			}) as any
+			}) as unknown as HTMLElement
 		).apply(maskCtx, 0, 0, x + width, y + height);
 
 		const tmpCanvas = document.createCanvas(x + width, y + height);

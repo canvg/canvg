@@ -6,7 +6,6 @@ import Element from './Element';
 import SVGElement from './SVGElement';
 
 export default class PatternElement extends Element {
-
 	type = 'pattern';
 
 	createPattern(
@@ -14,7 +13,6 @@ export default class PatternElement extends Element {
 		_: Element,
 		parentOpacityProp: Property
 	) {
-
 		const width = this.getStyle('width').getPixels('x', true);
 		const height = this.getStyle('height').getPixels('y', true);
 		// render me using a temporary svg element
@@ -65,7 +63,6 @@ export default class PatternElement extends Element {
 
 		// render 3x3 grid so when we transform there's no white space on edges
 		for (let x = -1; x <= 1; x++) {
-
 			for (let y = -1; y <= 1; y++) {
 				patternCtx.save();
 				patternSvg.attributes.x = new Property(

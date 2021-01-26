@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import Canvg from '../Canvg';
 import Screen, {
 	IScreenViewBoxConfig
@@ -9,7 +10,9 @@ import UnknownElement from './UnknownElement';
 import TextNode from './TextNode';
 import ImageElement from './ImageElement';
 import SVGElement from './SVGElement';
-import elementTypes from './elements';
+import elementTypes, {
+	AnyElement
+} from './elements';
 
 /**
  * Function to create new canvas.
@@ -49,7 +52,6 @@ export type IViewBoxConfig = Omit<IScreenViewBoxConfig, 'document'>;
 type DOMDocument = typeof window.document;
 
 function createCanvas(width: number, height: number) {
-
 	const canvas = document.createElement('canvas');
 
 	canvas.width = width;
@@ -59,7 +61,6 @@ function createCanvas(width: number, height: number) {
 }
 
 async function createImage(src: string, anonymousCrossOrigin = false) {
-
 	const image = document.createElement('img');
 
 	if (anonymousCrossOrigin) {
@@ -70,15 +71,15 @@ async function createImage(src: string, anonymousCrossOrigin = false) {
 		image.onload = () => {
 			resolve(image);
 		};
-		image.onerror = () => {
-			reject();
+
+		image.onerror = (_event, _source, _lineno, _colno, error) => {
+			reject(error);
 		};
 		image.src = src;
 	});
 }
 
 export default class Document {
-
 	static readonly createCanvas = createCanvas;
 	static readonly createImage = createImage;
 	static readonly elementTypes = elementTypes;
@@ -106,7 +107,6 @@ export default class Document {
 			anonymousCrossOrigin
 		}: IDocumentOptions = {}
 	) {
-
 		this.screen = canvg.screen;
 		this.rootEmSize = rootEmSize;
 		this.emSize = emSize;
@@ -118,15 +118,13 @@ export default class Document {
 	}
 
 	private bindCreateImage(createImage: CreateImage, anonymousCrossOrigin?: boolean) {
-
 		if (typeof anonymousCrossOrigin === 'boolean') {
-			return (source: string, forceAnonymousCrossOrigin?: boolean) =>
-				createImage(
-					source,
-					typeof forceAnonymousCrossOrigin === 'boolean'
-						? forceAnonymousCrossOrigin
-						: anonymousCrossOrigin
-				);
+			return (source: string, forceAnonymousCrossOrigin?: boolean) => createImage(
+				source,
+				typeof forceAnonymousCrossOrigin === 'boolean'
+					? forceAnonymousCrossOrigin
+					: anonymousCrossOrigin
+			);
 		}
 
 		return createImage;
@@ -145,7 +143,6 @@ export default class Document {
 	}
 
 	get emSize() {
-
 		const {
 			emSizeStack
 		} = this;
@@ -154,7 +151,6 @@ export default class Document {
 	}
 
 	set emSize(value: number) {
-
 		const {
 			emSizeStack
 		} = this;
@@ -163,7 +159,6 @@ export default class Document {
 	}
 
 	popEmSize() {
-
 		const {
 			emSizeStack
 		} = this;
@@ -184,7 +179,6 @@ export default class Document {
 	}
 
 	createDocumentElement(document: DOMDocument) {
-
 		const documentElement = this.createElement<SVGElement>(document.documentElement);
 
 		documentElement.root = true;
@@ -196,9 +190,8 @@ export default class Document {
 	}
 
 	createElement<T extends Element>(node: HTMLElement) {
-
 		const elementType = node.nodeName.replace(/^[^:]+:/, '');
-		const ElementType = Document.elementTypes[elementType];
+		const ElementType = Document.elementTypes[elementType] as AnyElement;
 
 		if (typeof ElementType !== 'undefined') {
 			return new ElementType(this, node) as T;

@@ -1,4 +1,3 @@
-// tslint:disable: variable-name
 import {
 	RenderingContext2D
 } from '../types';
@@ -9,12 +8,10 @@ import PathElement from './PathElement';
 import SVGElement from './SVGElement';
 
 export default class UseElement extends RenderedElement {
-
 	type = 'use';
-	private _element: PathElement;
+	private cachedElement: PathElement;
 
 	setContext(ctx: RenderingContext2D) {
-
 		super.setContext(ctx);
 
 		const xAttr = this.getAttribute('x');
@@ -30,7 +27,6 @@ export default class UseElement extends RenderedElement {
 	}
 
 	path(ctx: RenderingContext2D) {
-
 		const {
 			element
 		} = this;
@@ -41,14 +37,12 @@ export default class UseElement extends RenderedElement {
 	}
 
 	renderChildren(ctx: RenderingContext2D) {
-
 		const {
 			document,
 			element
 		} = this;
 
 		if (element) {
-
 			let tempSvg: RenderedElement = element;
 
 			if (element.type === 'symbol') {
@@ -83,9 +77,9 @@ export default class UseElement extends RenderedElement {
 			}
 
 			if (tempSvg.type === 'svg') {
-
 				const widthStyle = this.getStyle('width', false, true);
 				const heightStyle = this.getStyle('height', false, true);
+
 				// if symbol or svg, inherit width/height from me
 				if (widthStyle.hasValue()) {
 					tempSvg.attributes.width = new Property(
@@ -113,7 +107,6 @@ export default class UseElement extends RenderedElement {
 	}
 
 	getBoundingBox(ctx: RenderingContext2D) {
-
 		const {
 			element
 		} = this;
@@ -126,7 +119,6 @@ export default class UseElement extends RenderedElement {
 	}
 
 	elementTransform() {
-
 		const {
 			document,
 			element
@@ -136,11 +128,10 @@ export default class UseElement extends RenderedElement {
 	}
 
 	protected get element() {
-
-		if (!this._element) {
-			this._element = this.getHrefAttribute().getDefinition();
+		if (!this.cachedElement) {
+			this.cachedElement = this.getHrefAttribute().getDefinition();
 		}
 
-		return this._element;
+		return this.cachedElement;
 	}
 }

@@ -7,13 +7,11 @@ export const ignoreErrors = [
 	/SameSite/
 ];
 
-export function filterConsoleWarn(): () => void {
-
+export function filterConsoleWarn() {
 	const {
 		warn
 	} = console;
 	const mockWarn = jest.spyOn(console, 'warn').mockImplementation((first, ...args) => {
-
 		if (typeof first !== 'string'
 			|| ignoreErrors.every(_ => !_.test(first))
 		) {
@@ -21,16 +19,14 @@ export function filterConsoleWarn(): () => void {
 		}
 	});
 
-	return mockWarn.mockRestore.bind(mockWarn);
+	return mockWarn.mockRestore.bind(mockWarn) as () => void;
 }
 
-export function filterConsoleError(): () => void {
-
+export function filterConsoleError() {
 	const {
 		error
 	} = console;
 	const mockError = jest.spyOn(console, 'error').mockImplementation((first, ...args) => {
-
 		if (typeof first !== 'string'
 			|| ignoreErrors.every(_ => !_.test(first))
 		) {
@@ -38,11 +34,10 @@ export function filterConsoleError(): () => void {
 		}
 	});
 
-	return mockError.mockRestore.bind(mockError);
+	return mockError.mockRestore.bind(mockError) as () => void;
 }
 
 export function base64ToBuffer(base64: string, type = 'image') {
-
 	let [
 		extname,
 		data

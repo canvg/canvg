@@ -8,7 +8,6 @@ import PathElement, {
 } from './PathElement';
 
 export default class LineElement extends PathElement {
-
 	type = 'line';
 
 	getPoints() {
@@ -25,7 +24,6 @@ export default class LineElement extends PathElement {
 	}
 
 	path(ctx: RenderingContext2D) {
-
 		const [
 			{
 				x: x0,
@@ -52,7 +50,6 @@ export default class LineElement extends PathElement {
 	}
 
 	getMarkers(): Marker[] {
-
 		const [
 			p0,
 			p1

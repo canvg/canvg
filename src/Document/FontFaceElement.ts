@@ -2,7 +2,6 @@ import Document from './Document';
 import Element from './Element';
 
 export default class FontFaceElement extends Element {
-
 	type = 'font-face';
 	readonly ascent: number;
 	readonly descent: number;
@@ -13,7 +12,6 @@ export default class FontFaceElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.ascent = this.getAttribute('ascent').getNumber();

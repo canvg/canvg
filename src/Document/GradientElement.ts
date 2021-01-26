@@ -11,10 +11,10 @@ import StopElement from './StopElement';
 import GElement from './GElement';
 
 export default abstract class GradientElement extends Element {
-
 	readonly attributesToInherit = [
 		'gradientUnits'
 	];
+
 	protected readonly stops: StopElement[] = [];
 
 	constructor(
@@ -22,7 +22,6 @@ export default abstract class GradientElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		const {
@@ -31,7 +30,6 @@ export default abstract class GradientElement extends Element {
 		} = this;
 
 		children.forEach((child) => {
-
 			if (child.type === 'stop') {
 				stops.push(child as StopElement);
 			}
@@ -49,8 +47,7 @@ export default abstract class GradientElement extends Element {
 		element,
 		parentOpacityProp: Property
 	) {
-
-		// tslint:disable-next-line: no-this-assignment
+		// eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
 		let stopsContainer = this;
 
 		if (this.getHrefAttribute().hasValue()) {
@@ -76,7 +73,7 @@ export default abstract class GradientElement extends Element {
 				this.addParentOpacity(
 					parentOpacityProp,
 					stop.color
-				) as string
+				)
 			);
 		});
 
@@ -168,9 +165,7 @@ export default abstract class GradientElement extends Element {
 	}
 
 	protected inheritStopContainer(stopsContainer: Element) {
-
 		this.attributesToInherit.forEach((attributeToInherit) => {
-
 			if (!this.getAttribute(attributeToInherit).hasValue()
 				&& stopsContainer.getAttribute(attributeToInherit).hasValue()
 			) {
@@ -181,9 +176,7 @@ export default abstract class GradientElement extends Element {
 	}
 
 	protected addParentOpacity(parentOpacityProp: Property, color: string) {
-
 		if (parentOpacityProp.hasValue()) {
-
 			const colorProp = new Property(
 				this.document,
 				'color',

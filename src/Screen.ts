@@ -88,12 +88,11 @@ export interface IScreenViewBoxConfig {
 const defaultWindow = typeof window !== 'undefined'
 	? window
 	: null;
-const defaultFetch: typeof fetch = typeof fetch !== 'undefined'
-	? fetch.bind(void 0) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
+const defaultFetch = typeof fetch !== 'undefined'
+	? fetch.bind(undefined) as typeof fetch // `fetch` depends on context: `someObject.fetch(...)` will throw error.
 	: null;
 
 export default class Screen {
-
 	static readonly defaultWindow = defaultWindow;
 	static readonly defaultFetch = defaultFetch;
 
@@ -112,7 +111,7 @@ export default class Screen {
 	private frameDuration = 0;
 	private isReadyLock = false;
 	private isFirstRender = true;
-	private intervalId: any = null;
+	private intervalId: number = null;
 
 	constructor(
 		readonly ctx: RenderingContext2D,
@@ -130,7 +129,7 @@ export default class Screen {
 	}
 
 	ready() {
-
+		// eslint-disable-next-line @typescript-eslint/no-misused-promises
 		if (!this.readyPromise) {
 			return Promise.resolve();
 		}
@@ -139,7 +138,6 @@ export default class Screen {
 	}
 
 	isReady() {
-
 		if (this.isReadyLock) {
 			return true;
 		}
@@ -147,7 +145,6 @@ export default class Screen {
 		const isReadyLock = this.waits.every(_ => _());
 
 		if (isReadyLock) {
-
 			this.waits = [];
 
 			if (this.resolveReady) {
@@ -222,7 +219,6 @@ export default class Screen {
 		}
 
 		if (clip) {
-
 			const scaledClipX = scaleMin * clipX;
 			const scaledClipY = scaleMin * clipY;
 
@@ -236,31 +232,30 @@ export default class Screen {
 		}
 
 		if (!hasRefs) {
-
 			const isMeetMinY = meetOrSlice === 'meet' && scaleMin === scaleY;
 			const isSliceMaxY = meetOrSlice === 'slice' && scaleMax === scaleY;
 			const isMeetMinX = meetOrSlice === 'meet' && scaleMin === scaleX;
 			const isSliceMaxX = meetOrSlice === 'slice' && scaleMax === scaleX;
 
-			if (/^xMid/.test(align) && (
+			if (align.startsWith('xMid') && (
 				isMeetMinY || isSliceMaxY
 			)) {
 				ctx.translate(width / 2.0 - finalDesiredWidth / 2.0, 0);
 			}
 
-			if (/YMid$/.test(align) && (
+			if (align.endsWith('YMid') && (
 				isMeetMinX || isSliceMaxX
 			)) {
 				ctx.translate(0, height / 2.0 - finalDesiredHeight / 2.0);
 			}
 
-			if (/^xMax/.test(align) && (
+			if (align.startsWith('xMax') && (
 				isMeetMinY || isSliceMaxY
 			)) {
 				ctx.translate(width - finalDesiredWidth, 0);
 			}
 
-			if (/YMax$/.test(align) && (
+			if (align.endsWith('YMax') && (
 				isMeetMinX || isSliceMaxX
 			)) {
 				ctx.translate(0, height - finalDesiredHeight);
@@ -269,7 +264,6 @@ export default class Screen {
 
 		// scale
 		switch (true) {
-
 			case align === 'none':
 				ctx.scale(scaleX, scaleY);
 				break;
@@ -304,7 +298,6 @@ export default class Screen {
 			offsetY
 		}: IScreenStartOptions = {}
 	) {
-
 		const {
 			FRAMERATE,
 			mouse
@@ -336,12 +329,10 @@ export default class Screen {
 		let then = now;
 		let delta = 0;
 		const tick = () => {
-
 			now = Date.now();
 			delta = now - then;
 
 			if (delta >= frameDuration) {
-
 				then = now - (delta % frameDuration);
 
 				if (this.shouldUpdate(
@@ -372,7 +363,6 @@ export default class Screen {
 	}
 
 	stop() {
-
 		if (this.intervalId) {
 			requestAnimationFrame.cancel(this.intervalId);
 			this.intervalId = null;
@@ -385,10 +375,8 @@ export default class Screen {
 		ignoreAnimation: boolean,
 		forceRedraw: () => boolean
 	) {
-
 		// need update from animations?
 		if (!ignoreAnimation) {
-
 			const {
 				frameDuration
 			} = this;
@@ -428,7 +416,6 @@ export default class Screen {
 		offsetX: number,
 		offsetY: number
 	) {
-
 		const {
 			CLIENT_WIDTH,
 			CLIENT_HEIGHT,
@@ -455,7 +442,6 @@ export default class Screen {
 		)) {
 			// set canvas size
 			if (widthStyle.hasValue()) {
-
 				canvas.width = widthStyle.getPixels('x');
 
 				if (canvas.style) {
@@ -464,7 +450,6 @@ export default class Screen {
 			}
 
 			if (heightStyle.hasValue()) {
-
 				canvas.height = heightStyle.getPixels('y');
 
 				if (canvas.style) {
@@ -494,13 +479,11 @@ export default class Screen {
 		if (typeof scaleWidth === 'number'
 			|| typeof scaleHeight === 'number'
 		) {
-
 			const viewBox = toNumbers(element.getAttribute('viewBox').getString());
 			let xRatio = 0;
 			let yRatio = 0;
 
 			if (typeof scaleWidth === 'number') {
-
 				const widthStyle = element.getStyle('width');
 
 				if (widthStyle.hasValue()) {
@@ -512,7 +495,6 @@ export default class Screen {
 			}
 
 			if (typeof scaleHeight === 'number') {
-
 				const heightStyle = element.getStyle('height');
 
 				if (heightStyle.hasValue()) {

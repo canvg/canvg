@@ -9,13 +9,12 @@ export interface IProgress {
 }
 
 export default class AnimateElement extends Element {
-
 	type = 'animate';
 	protected readonly begin: number;
 	protected readonly maxDuration: number;
 	protected readonly from: Property;
 	protected readonly to: Property;
-	protected readonly values: Property;
+	protected readonly values: Property<string[]>;
 	protected duration = 0;
 	protected initialValue: string = null;
 	protected initialUnits = '';
@@ -27,7 +26,6 @@ export default class AnimateElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		document.screen.animations.push(this);
@@ -36,15 +34,16 @@ export default class AnimateElement extends Element {
 		this.maxDuration = this.begin + this.getAttribute('dur').getMilliseconds();
 		this.from = this.getAttribute('from');
 		this.to = this.getAttribute('to');
-		this.values = this.getAttribute('values');
+		this.values = new Property<string[]>(document, 'values', null);
 
-		if (this.values.hasValue()) {
-			this.values.setValue(this.values.getString().split(';'));
+		const valuesAttr = this.getAttribute('values');
+
+		if (valuesAttr.hasValue()) {
+			this.values.setValue(valuesAttr.getString().split(';'));
 		}
 	}
 
 	protected getProperty() {
-
 		const attributeType = this.getAttribute('attributeType').getString();
 		const attributeName = this.getAttribute('attributeName').getString();
 
@@ -56,7 +55,6 @@ export default class AnimateElement extends Element {
 	}
 
 	calcValue() {
-
 		const {
 			initialUnits
 		} = this;
@@ -76,7 +74,6 @@ export default class AnimateElement extends Element {
 	}
 
 	update(delta: number) {
-
 		const {
 			parent
 		} = this;
@@ -90,7 +87,6 @@ export default class AnimateElement extends Element {
 
 		// if we're past the end time
 		if (this.duration > this.maxDuration) {
-
 			const fill = this.getAttribute('fill').getString('remove');
 
 			// loop for indefinitely repeating animations
@@ -123,7 +119,6 @@ export default class AnimateElement extends Element {
 		let updated = false;
 
 		if (this.begin < this.duration) {
-
 			let newValue = this.calcValue(); // tween
 			const typeAttr = this.getAttribute('type');
 
@@ -142,7 +137,6 @@ export default class AnimateElement extends Element {
 	}
 
 	getProgress() {
-
 		const {
 			document,
 			values
@@ -152,7 +146,6 @@ export default class AnimateElement extends Element {
 		};
 
 		if (values.hasValue()) {
-
 			const p = result.progress * (values.getValue().length - 1);
 			const lb = Math.floor(p);
 			const ub = Math.ceil(p);

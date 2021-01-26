@@ -8,7 +8,6 @@ import Document from './Document';
 import Element from './Element';
 
 export default class FeGaussianBlurElement extends Element {
-
 	type = 'feGaussianBlur';
 	readonly extraFilterDistance: number;
 	protected readonly blurRadius: number;
@@ -18,7 +17,6 @@ export default class FeGaussianBlurElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.blurRadius = Math.floor(this.getAttribute('stdDeviation').getNumber());
@@ -32,7 +30,6 @@ export default class FeGaussianBlurElement extends Element {
 		width: number,
 		height: number
 	) {
-
 		const {
 			document,
 			blurRadius

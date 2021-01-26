@@ -13,21 +13,20 @@ interface IConfig {
  * Options preset for `OffscreenCanvas`.
  * @param config - Preset requirements.
  * @param config.DOMParser - XML/HTML parser from string into DOM Document.
+ * @returns Preset object.
  */
 export function offscreen({
 	DOMParser: DOMParserFallback
 }: IConfig = {}) {
-
 	const preset = {
-		window:          null as null,
+		window: null as null,
 		ignoreAnimation: true,
-		ignoreMouse:     true,
-		DOMParser:       DOMParserFallback,
+		ignoreMouse: true,
+		DOMParser: DOMParserFallback,
 		createCanvas(width: number, height: number) {
 			return new OffscreenCanvas(width, height);
 		},
 		async createImage(url: string) {
-
 			const response = await fetch(url);
 			const blob = await response.blob();
 			const img = await createImageBitmap(blob);

@@ -10,17 +10,14 @@ import Property from '../Property';
 import Element from './Element';
 
 export default abstract class RenderedElement extends Element {
-
 	private modifiedEmSizeStack = false;
 
 	protected calculateOpacity() {
-
 		let opacity = 1.0;
-		// tslint:disable-next-line: no-this-assignment
+		// eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
 		let element: Element = this;
 
 		while (element) {
-
 			const opacityStyle = element.getStyle('opacity', false, true); // no ancestors on style call
 
 			if (opacityStyle.hasValue(true)) {
@@ -34,9 +31,7 @@ export default abstract class RenderedElement extends Element {
 	}
 
 	setContext(ctx: RenderingContext2D, fromMeasure = false) {
-
 		if (!fromMeasure) { // causes stack overflow when measuring text with gradients
-
 			// fill
 			const fillStyleProp = this.getStyle('fill');
 			const fillOpacityStyleProp = this.getStyle('fill-opacity');
@@ -44,16 +39,13 @@ export default abstract class RenderedElement extends Element {
 			const strokeOpacityProp = this.getStyle('stroke-opacity');
 
 			if (fillStyleProp.isUrlDefinition()) {
-
 				const fillStyle = fillStyleProp.getFillStyleDefinition(this, fillOpacityStyleProp);
 
 				if (fillStyle) {
 					ctx.fillStyle = fillStyle;
 				}
-
 			} else
 			if (fillStyleProp.hasValue()) {
-
 				if (fillStyleProp.getString() === 'currentColor') {
 					fillStyleProp.setValue(this.getStyle('color').getColor());
 				}
@@ -68,7 +60,6 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (fillOpacityStyleProp.hasValue()) {
-
 				const fillStyle = new Property(this.document, 'fill', ctx.fillStyle as string)
 					.addOpacity(fillOpacityStyleProp)
 					.getColor();
@@ -78,16 +69,13 @@ export default abstract class RenderedElement extends Element {
 
 			// stroke
 			if (strokeStyleProp.isUrlDefinition()) {
-
 				const strokeStyle = strokeStyleProp.getFillStyleDefinition(this, strokeOpacityProp);
 
 				if (strokeStyle) {
 					ctx.strokeStyle = strokeStyle;
 				}
-
 			} else
 			if (strokeStyleProp.hasValue()) {
-
 				if (strokeStyleProp.getString() === 'currentColor') {
 					strokeStyleProp.setValue(this.getStyle('color').getColor());
 				}
@@ -102,7 +90,6 @@ export default abstract class RenderedElement extends Element {
 			}
 
 			if (strokeOpacityProp.hasValue()) {
-
 				const strokeStyle = new Property(this.document, 'stroke', ctx.strokeStyle as string)
 					.addOpacity(strokeOpacityProp)
 					.getString();
@@ -113,7 +100,6 @@ export default abstract class RenderedElement extends Element {
 			const strokeWidthStyleProp = this.getStyle('stroke-width');
 
 			if (strokeWidthStyleProp.hasValue()) {
-
 				const newLineWidth = strokeWidthStyleProp.getPixels();
 
 				ctx.lineWidth = !newLineWidth
@@ -124,39 +110,44 @@ export default abstract class RenderedElement extends Element {
 			const strokeLinecapStyleProp = this.getStyle('stroke-linecap');
 			const strokeLinejoinStyleProp = this.getStyle('stroke-linejoin');
 			const strokeMiterlimitProp = this.getStyle('stroke-miterlimit');
-			const pointOrderStyleProp = this.getStyle('paint-order');
+			// NEED TEST
+			// const pointOrderStyleProp = this.getStyle('paint-order');
 			const strokeDasharrayStyleProp = this.getStyle('stroke-dasharray');
 			const strokeDashoffsetProp = this.getStyle('stroke-dashoffset');
 
 			if (strokeLinecapStyleProp.hasValue()) {
-				ctx.lineCap = strokeLinecapStyleProp.getString() as any;
+				ctx.lineCap = strokeLinecapStyleProp.getString() as CanvasLineCap;
 			}
 
 			if (strokeLinejoinStyleProp.hasValue()) {
-				ctx.lineJoin = strokeLinejoinStyleProp.getString() as any;
+				ctx.lineJoin = strokeLinejoinStyleProp.getString() as CanvasLineJoin;
 			}
 
 			if (strokeMiterlimitProp.hasValue()) {
 				ctx.miterLimit = strokeMiterlimitProp.getNumber();
 			}
 
-			if (pointOrderStyleProp.hasValue()) {
-				// ?
-				(ctx as any).paintOrder = pointOrderStyleProp.getValue();
-			}
+			// NEED TEST
+			// if (pointOrderStyleProp.hasValue()) {
+			// 	// ?
+			// 	ctx.paintOrder = pointOrderStyleProp.getValue();
+			// }
 
 			if (strokeDasharrayStyleProp.hasValue() && strokeDasharrayStyleProp.getString() !== 'none') {
-
 				const gaps = toNumbers(strokeDasharrayStyleProp.getString());
 
 				if (typeof ctx.setLineDash !== 'undefined') {
 					ctx.setLineDash(gaps);
 				} else
-				if (typeof (ctx as any).webkitLineDash !== 'undefined') {
-					(ctx as any).webkitLineDash = gaps;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.webkitLineDash !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.webkitLineDash = gaps;
 				} else
-				if (typeof (ctx as any).mozDash !== 'undefined' && !(gaps.length === 1 && gaps[0] === 0)) {
-					(ctx as any).mozDash = gaps;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.mozDash !== 'undefined' && !(gaps.length === 1 && gaps[0] === 0)) {
+					// @ts-expect-error Handle browser prefix.
+					ctx.mozDash = gaps;
 				}
 
 				const offset = strokeDashoffsetProp.getPixels();
@@ -164,11 +155,15 @@ export default abstract class RenderedElement extends Element {
 				if (typeof ctx.lineDashOffset !== 'undefined') {
 					ctx.lineDashOffset = offset;
 				} else
-				if (typeof (ctx as any).webkitLineDashOffset !== 'undefined') {
-					(ctx as any).webkitLineDashOffset = offset;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.webkitLineDashOffset !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.webkitLineDashOffset = offset;
 				} else
-				if (typeof (ctx as any).mozDashOffset !== 'undefined') {
-					(ctx as any).mozDashOffset = offset;
+				// @ts-expect-error Handle browser prefix.
+				if (typeof ctx.mozDashOffset !== 'undefined') {
+					// @ts-expect-error Handle browser prefix.
+					ctx.mozDashOffset = offset;
 				}
 			}
 		}
@@ -177,7 +172,6 @@ export default abstract class RenderedElement extends Element {
 		this.modifiedEmSizeStack = false;
 
 		if (typeof ctx.font !== 'undefined') {
-
 			const fontStyleProp = this.getStyle('font');
 			const fontStyleStyleProp = this.getStyle('font-style');
 			const fontVariantStyleProp = this.getStyle('font-variant');
@@ -221,7 +215,6 @@ export default abstract class RenderedElement extends Element {
 	}
 
 	clearContext(ctx: RenderingContext2D) {
-
 		super.clearContext(ctx);
 
 		if (this.modifiedEmSizeStack) {

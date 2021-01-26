@@ -12,7 +12,7 @@ function imGet(
 	x: number,
 	y: number,
 	width: number,
-	_: number,
+	_height: number,
 	rgba: number
 ) {
 	return img[y * width * 4 + x * 4 + rgba];
@@ -23,7 +23,7 @@ function imSet(
 	x: number,
 	y: number,
 	width: number,
-	_: number,
+	_height: number,
 	rgba: number,
 	val: number
 ) {
@@ -35,7 +35,6 @@ function m(
 	i: number,
 	v: number
 ) {
-
 	const mi = matrix[i];
 
 	return mi * v;
@@ -51,7 +50,6 @@ function c(
 }
 
 export default class FeColorMatrixElement extends Element {
-
 	type = 'feColorMatrix';
 	protected readonly matrix: number[];
 	protected readonly includeOpacity: boolean;
@@ -61,17 +59,15 @@ export default class FeColorMatrixElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		let matrix = toNumbers(this.getAttribute('values').getString());
 
 		switch (this.getAttribute('type').getString('matrix')) { // http://www.w3.org/TR/SVG/filters.html#feColorMatrixElement
-
 			case 'saturate': {
-
 				const s = matrix[0];
 
+				/* eslint-disable array-element-newline */
 				matrix = [
 					0.213 + 0.787 * s, 0.715 - 0.715 * s, 0.072 - 0.072 * s, 0, 0,
 					0.213 - 0.213 * s, 0.715 + 0.285 * s, 0.072 - 0.072 * s, 0, 0,
@@ -79,13 +75,14 @@ export default class FeColorMatrixElement extends Element {
 					0, 0, 0, 1, 0,
 					0, 0, 0, 0, 1
 				];
+				/* eslint-enable array-element-newline */
 				break;
 			}
 
 			case 'hueRotate': {
-
 				const a = matrix[0] * Math.PI / 180.0;
 
+				/* eslint-disable array-element-newline */
 				matrix = [
 					c(a, 0.213, 0.787, -0.213), c(a, 0.715, -0.715, -0.715), c(a, 0.072, -0.072, 0.928), 0, 0,
 					c(a, 0.213, -0.213, 0.143), c(a, 0.715, 0.285, 0.140), c(a, 0.072, -0.072, -0.283), 0, 0,
@@ -93,10 +90,12 @@ export default class FeColorMatrixElement extends Element {
 					0, 0, 0, 1, 0,
 					0, 0, 0, 0, 1
 				];
+				/* eslint-enable array-element-newline */
 				break;
 			}
 
 			case 'luminanceToAlpha':
+				/* eslint-disable array-element-newline */
 				matrix = [
 					0, 0, 0, 0, 0,
 					0, 0, 0, 0, 0,
@@ -104,6 +103,7 @@ export default class FeColorMatrixElement extends Element {
 					0.2125, 0.7154, 0.0721, 0, 0,
 					0, 0, 0, 0, 1
 				];
+				/* eslint-enable array-element-newline */
 				break;
 
 			default:
@@ -115,8 +115,8 @@ export default class FeColorMatrixElement extends Element {
 
 	apply(
 		ctx: RenderingContext2D,
-		_: number,
-		__: number,
+		_x: number,
+		_y: number,
 		width: number,
 		height: number
 	) {
@@ -128,9 +128,7 @@ export default class FeColorMatrixElement extends Element {
 		const srcData = ctx.getImageData(0, 0, width, height);
 
 		for (let y = 0; y < height; y++) {
-
 			for (let x = 0; x < width; x++) {
-
 				const r = imGet(srcData.data, x, y, width, height, 0);
 				const g = imGet(srcData.data, x, y, width, height, 1);
 				const b = imGet(srcData.data, x, y, width, height, 2);
@@ -141,7 +139,9 @@ export default class FeColorMatrixElement extends Element {
 				let na = m(matrix, 15, r) + m(matrix, 16, g) + m(matrix, 17, b) + m(matrix, 18, a) + m(matrix, 19, 1);
 
 				if (includeOpacity) {
-					nr = ng = nb = 0;
+					nr = 0;
+					ng = 0;
+					nb = 0;
 					na *= a / 255;
 				}
 

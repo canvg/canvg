@@ -6,12 +6,12 @@ import {
 } from '../util';
 import Property from '../Property';
 import Point from '../Point';
+import Document, {
+	Element
+} from '../Document';
 import {
 	ITransform
 } from './types';
-import Document, {
-  Element
-} from '../Document';
 import Translate from './Translate';
 import Rotate from './Rotate';
 import Scale from './Scale';
@@ -39,7 +39,6 @@ function parseTransforms(transform: string) {
 }
 
 function parseTransform(transform: string) {
-
 	const [
 		type,
 		value
@@ -61,18 +60,7 @@ interface ITransformConstructor {
 }
 
 export default class Transform {
-
-	static transformTypes: Record<string, ITransformConstructor> = {
-		translate: Translate,
-		rotate:    Rotate,
-		scale:     Scale,
-		matrix:    Matrix,
-		skewX:     SkewX,
-		skewY:     SkewY
-	};
-
 	static fromElement(document: Document, element: Element) {
-
 		const transformStyle = element.getStyle('transform', false, true);
 		const [
 			transformOriginXProperty,
@@ -94,6 +82,15 @@ export default class Transform {
 		return null;
 	}
 
+	static transformTypes: Record<string, ITransformConstructor> = {
+		translate: Translate,
+		rotate: Rotate,
+		scale: Scale,
+		matrix: Matrix,
+		skewX: SkewX,
+		skewY: SkewY
+	};
+
 	private readonly transforms: ITransform[] = [];
 
 	constructor(
@@ -101,11 +98,9 @@ export default class Transform {
 		transform: string,
 		transformOrigin?: readonly [Property<string>, Property<string>]
 	) {
-
 		const data = parseTransforms(transform);
 
 		data.forEach((transform) => {
-
 			if (transform === 'none') {
 				return;
 			}
@@ -123,7 +118,6 @@ export default class Transform {
 	}
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			transforms
 		} = this;
@@ -135,7 +129,6 @@ export default class Transform {
 	}
 
 	unapply(ctx: RenderingContext2D) {
-
 		const {
 			transforms
 		} = this;
@@ -148,7 +141,6 @@ export default class Transform {
 
 	// TODO: applyToPoint unused ... remove?
 	applyToPoint(point: Point) {
-
 		const {
 			transforms
 		} = this;

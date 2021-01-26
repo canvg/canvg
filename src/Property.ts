@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import RGBColor from 'rgbcolor';
 import {
 	compressSpaces,
@@ -13,24 +15,23 @@ import Document, {
 } from './Document';
 
 export default class Property<T = any> {
-
-	static readonly textBaselineMapping = {
-		'baseline':         'alphabetic',
-		'before-edge':      'top',
-		'text-before-edge': 'top',
-		'middle':           'middle',
-		'central':          'middle',
-		'after-edge':       'bottom',
-		'text-after-edge':  'bottom',
-		'ideographic':      'ideographic',
-		'alphabetic':       'alphabetic',
-		'hanging':          'hanging',
-		'mathematical':     'alphabetic'
-	};
-
 	static empty(document: Document) {
 		return new Property(document, 'EMPTY', '');
 	}
+
+	static readonly textBaselineMapping = {
+		'baseline': 'alphabetic',
+		'before-edge': 'top',
+		'text-before-edge': 'top',
+		'middle': 'middle',
+		'central': 'middle',
+		'after-edge': 'bottom',
+		'text-after-edge': 'bottom',
+		'ideographic': 'ideographic',
+		'alphabetic': 'alphabetic',
+		'hanging': 'hanging',
+		'mathematical': 'alphabetic'
+	};
 
 	private isNormalizedColor = false;
 
@@ -41,7 +42,6 @@ export default class Property<T = any> {
 	) {}
 
 	split(separator = ' ') {
-
 		const {
 			document,
 			name
@@ -54,7 +54,6 @@ export default class Property<T = any> {
 	}
 
 	hasValue(zeroIsValue?: boolean) {
-
 		const {
 			value
 		} = this as any;
@@ -66,7 +65,6 @@ export default class Property<T = any> {
 	}
 
 	isString(regexp?: RegExp) {
-
 		const {
 			value
 		} = this as any;
@@ -84,7 +82,6 @@ export default class Property<T = any> {
 	}
 
 	isPixels() {
-
 		if (!this.hasValue()) {
 			return false;
 		}
@@ -92,8 +89,7 @@ export default class Property<T = any> {
 		const asString = this.getString();
 
 		switch (true) {
-
-			case /px$/.test(asString):
+			case asString.endsWith('px'):
 			case /^[0-9]+$/.test(asString):
 				return true;
 
@@ -108,7 +104,6 @@ export default class Property<T = any> {
 	}
 
 	getValue(def?: T) {
-
 		if (typeof def === 'undefined' || this.hasValue()) {
 			return this.value;
 		}
@@ -117,9 +112,7 @@ export default class Property<T = any> {
 	}
 
 	getNumber(def?: T) {
-
 		if (!this.hasValue()) {
-
 			if (typeof def === 'undefined') {
 				return 0;
 			}
@@ -133,14 +126,13 @@ export default class Property<T = any> {
 		let n = parseFloat(value);
 
 		if (this.isString(/%$/)) {
-			n = n / 100.0;
+			n /= 100.0;
 		}
 
 		return n;
 	}
 
 	getString(def?: T) {
-
 		if (typeof def === 'undefined' || this.hasValue()) {
 			return typeof this.value === 'undefined'
 				? ''
@@ -151,7 +143,6 @@ export default class Property<T = any> {
 	}
 
 	getColor(def?: T) {
-
 		let color = this.getString(def);
 
 		if (this.isNormalizedColor) {
@@ -178,13 +169,12 @@ export default class Property<T = any> {
 	}
 
 	getUnits() {
-		return this.getString().replace(/[0-9\.\-]/g, '');
+		return this.getString().replace(/[0-9.-]/g, '');
 	}
 
 	getPixels(axis?: Axis, processPercent?: boolean): number;
 	getPixels(isFontSize?: boolean): number;
 	getPixels(axisOrIsFontSize?: Axis | boolean, processPercent = false): number {
-
 		if (!this.hasValue()) {
 			return 0;
 		}
@@ -200,7 +190,6 @@ export default class Property<T = any> {
 		} = this.document.screen;
 
 		switch (true) {
-
 			case this.isString(/vmin$/):
 				return this.getNumber()
 					/ 100.0
@@ -261,7 +250,6 @@ export default class Property<T = any> {
 				return this.getNumber() * viewPort.computeSize(axis);
 
 			default: {
-
 				const n = this.getNumber();
 
 				if (processPercent && n < 1.0) {
@@ -274,7 +262,6 @@ export default class Property<T = any> {
 	}
 
 	getMilliseconds() {
-
 		if (!this.hasValue()) {
 			return 0;
 		}
@@ -287,13 +274,11 @@ export default class Property<T = any> {
 	}
 
 	getRadians() {
-
 		if (!this.hasValue()) {
 			return 0;
 		}
 
 		switch (true) {
-
 			case this.isString(/deg$/):
 				return this.getNumber() * (Math.PI / 180.0);
 
@@ -309,9 +294,8 @@ export default class Property<T = any> {
 	}
 
 	getDefinition<T extends Element>() {
-
 		const asString = this.getString();
-		let name: string | RegExpMatchArray = asString.match(/#([^\)'"]+)/);
+		let name: string | RegExpMatchArray = /#([^)'"]+)/.exec(asString);
 
 		if (name) {
 			name = name[1];
@@ -325,7 +309,6 @@ export default class Property<T = any> {
 	}
 
 	getFillStyleDefinition(element: Element, opacity: Property) {
-
 		let def: PatternElement & GradientElement = this.getDefinition();
 
 		if (!def) {
@@ -339,9 +322,7 @@ export default class Property<T = any> {
 
 		// pattern
 		if (typeof def.createPattern === 'function') {
-
 			if (def.getHrefAttribute().hasValue()) {
-
 				const patternTransform = def.getAttribute('patternTransform');
 
 				def = def.getHrefAttribute().getDefinition();
@@ -357,24 +338,21 @@ export default class Property<T = any> {
 		return null;
 	}
 
-	getTextBaseline(): string {
-
+	getTextBaseline() {
 		if (!this.hasValue()) {
 			return null;
 		}
 
-		return Property.textBaselineMapping[this.getString()];
+		return Property.textBaselineMapping[this.getString()] as string;
 	}
 
 	addOpacity(opacity: Property) {
-
 		let value = this.getColor();
 		const len = value.length;
 		let commas = 0;
 
 		// Simulate old RGBColor version, which can't parse rgba.
 		for (let i = 0; i < len; i++) {
-
 			if (value[i] === ',') {
 				commas++;
 			}
@@ -385,7 +363,6 @@ export default class Property<T = any> {
 		}
 
 		if (opacity.hasValue() && this.isString() && commas !== 3) {
-
 			const color = new RGBColor(value);
 
 			if (color.ok) {

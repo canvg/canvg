@@ -16,7 +16,6 @@ import GlyphElement from './GlyphElement';
 import RenderedElement from './RenderedElement';
 
 export default class TextElement extends RenderedElement {
-
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
@@ -27,7 +26,6 @@ export default class TextElement extends RenderedElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(
 			document,
 			node,
@@ -38,19 +36,17 @@ export default class TextElement extends RenderedElement {
 	}
 
 	setContext(ctx: RenderingContext2D, fromMeasure = false) {
-
 		super.setContext(ctx, fromMeasure);
 
 		const textBaseline = this.getStyle('dominant-baseline').getTextBaseline()
 			|| this.getStyle('alignment-baseline').getTextBaseline();
 
 		if (textBaseline) {
-			ctx.textBaseline = textBaseline as any;
+			ctx.textBaseline = textBaseline as CanvasTextBaseline;
 		}
 	}
 
 	protected initializeCoordinates(ctx: RenderingContext2D) {
-
 		this.x = this.getAttribute('x').getPixels('x');
 		this.y = this.getAttribute('y').getPixels('y');
 
@@ -69,7 +65,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	getBoundingBox(ctx: RenderingContext2D) {
-
 		if (this.type !== 'text') {
 			return this.getTElementBoundingBox(ctx);
 		}
@@ -79,7 +74,6 @@ export default class TextElement extends RenderedElement {
 		let boundingBox: BoundingBox = null;
 
 		this.children.forEach((_, i) => {
-
 			const childBoundingBox = this.getChildBoundingBox(ctx, this, this, i);
 
 			if (!boundingBox) {
@@ -93,7 +87,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected getFontSize() {
-
 		const {
 			document,
 			parent
@@ -105,7 +98,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected getTElementBoundingBox(ctx: RenderingContext2D) {
-
 		const fontSize = this.getFontSize();
 
 		return new BoundingBox(
@@ -121,12 +113,10 @@ export default class TextElement extends RenderedElement {
 		text: string,
 		i: number
 	) {
-
 		const char = text[i];
 		let glyph: GlyphElement = null;
 
 		if (font.isArabic) {
-
 			const len = text.length;
 			const prevChar = text[i - 1];
 			const nextChar = text[i + 1];
@@ -145,14 +135,13 @@ export default class TextElement extends RenderedElement {
 			}
 
 			if (typeof font.glyphs[char] !== 'undefined') {
+				// NEED TEST
+				const maybeGlyph = font.glyphs[char];
 
-				glyph = font.glyphs[char][arabicForm];
-
-				if (!glyph && font.glyphs[char].type === 'glyph') {
-					glyph = font.glyphs[char] as GlyphElement;
-				}
+				glyph = maybeGlyph instanceof GlyphElement
+					? maybeGlyph
+					: maybeGlyph[arabicForm];
 			}
-
 		} else {
 			glyph = font.glyphs[char] as GlyphElement;
 		}
@@ -169,15 +158,14 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected getTextFromNode(node?: ChildNode) {
-
 		const textNode = node || this.node;
 		const childNodes = Array.from(textNode.parentNode.childNodes);
 		const index = childNodes.indexOf(textNode);
 		const lastIndex = childNodes.length - 1;
 		let text = compressSpaces(
-			(textNode as any).value
-			|| (textNode as any).text
-			|| textNode.textContent
+			// textNode.value
+			// || textNode.text
+			textNode.textContent
 			|| ''
 		);
 
@@ -193,7 +181,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	renderChildren(ctx: RenderingContext2D) {
-
 		if (this.type !== 'text') {
 			this.renderTElementChildren(ctx);
 			return;
@@ -218,7 +205,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected renderTElementChildren(ctx: RenderingContext2D) {
-
 		const {
 			document,
 			parent
@@ -227,7 +213,6 @@ export default class TextElement extends RenderedElement {
 		const customFont = parent.getStyle('font-family').getDefinition<FontElement>();
 
 		if (customFont) {
-
 			const {
 				unitsPerEm
 			} = customFont.fontFace;
@@ -242,7 +227,6 @@ export default class TextElement extends RenderedElement {
 			const len = text.length;
 
 			for (let i = 0; i < len; i++) {
-
 				const glyph = this.getGlyph(customFont, text, i);
 
 				ctx.translate(this.x, this.y);
@@ -281,27 +265,24 @@ export default class TextElement extends RenderedElement {
 			y
 		} = this;
 
-		if ((ctx as any).paintOrder === 'stroke') {
+		// NEED TEST
+		// if (ctx.paintOrder === 'stroke') {
+		// 	if (ctx.strokeStyle) {
+		// 		ctx.strokeText(renderText, x, y);
+		// 	}
 
-			if (ctx.strokeStyle) {
-				ctx.strokeText(renderText, x, y);
-			}
-
-			if (ctx.fillStyle) {
-				ctx.fillText(renderText, x, y);
-			}
-
-		} else {
-
-			if (ctx.fillStyle) {
-				ctx.fillText(renderText, x, y);
-			}
-
-			if (ctx.strokeStyle) {
-				ctx.strokeText(renderText, x, y);
-			}
+		// 	if (ctx.fillStyle) {
+		// 		ctx.fillText(renderText, x, y);
+		// 	}
+		// } else {
+		if (ctx.fillStyle) {
+			ctx.fillText(renderText, x, y);
 		}
 
+		if (ctx.strokeStyle) {
+			ctx.strokeText(renderText, x, y);
+		}
+		// }
 	}
 
 	protected getAnchorDelta(
@@ -309,11 +290,9 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		startI: number
 	) {
-
 		const textAnchor = this.getStyle('text-anchor').getString('start');
 
 		if (textAnchor !== 'start') {
-
 			const {
 				children
 			} = parent;
@@ -322,7 +301,6 @@ export default class TextElement extends RenderedElement {
 			let width = 0;
 
 			for (let i = startI; i < len; i++) {
-
 				child = children[i] as TextElement;
 
 				if (i > startI && child.getAttribute('x').hasValue()
@@ -346,7 +324,6 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		i: number
 	) {
-
 		const child = parent.children[i] as TextElement;
 
 		if (typeof child.measureText !== 'function') {
@@ -363,7 +340,6 @@ export default class TextElement extends RenderedElement {
 		const textAnchor = child.getAttribute('text-anchor').getString('start');
 
 		if (i === 0 && child.type !== 'textNode') {
-
 			if (!xAttr.hasValue()) {
 				xAttr.setValue(textParent.getAttribute('x').getValue('0'));
 			}
@@ -382,11 +358,9 @@ export default class TextElement extends RenderedElement {
 		}
 
 		if (xAttr.hasValue()) {
-
 			child.x = xAttr.getPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
 
 			if (textAnchor !== 'start') {
-
 				const width = child.measureTextRecursive(ctx);
 
 				child.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
@@ -395,11 +369,8 @@ export default class TextElement extends RenderedElement {
 			if (dxAttr.hasValue()) {
 				child.x += dxAttr.getPixels('x');
 			}
-
 		} else {
-
 			if (textAnchor !== 'start') {
-
 				const width = child.measureTextRecursive(ctx);
 
 				textParent.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
@@ -415,15 +386,12 @@ export default class TextElement extends RenderedElement {
 		textParent.x = child.x + child.measureText(ctx);
 
 		if (yAttr.hasValue()) {
-
 			child.y = yAttr.getPixels('y');
 
 			if (dyAttr.hasValue()) {
 				child.y += dyAttr.getPixels('y');
 			}
-
 		} else {
-
 			if (dyAttr.hasValue()) {
 				textParent.y += dyAttr.getPixels('y');
 			}
@@ -445,7 +413,6 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		i: number
 	) {
-
 		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
 
 		// not a text node?
@@ -460,7 +427,6 @@ export default class TextElement extends RenderedElement {
 		}
 
 		child.children.forEach((_, i) => {
-
 			const childBoundingBox = textParent.getChildBoundingBox(ctx, textParent, child, i);
 
 			boundingBox.addBoundingBox(childBoundingBox);
@@ -475,7 +441,6 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		i: number
 	) {
-
 		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
 
 		child.render(ctx);
@@ -485,7 +450,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected measureTextRecursive(ctx: RenderingContext2D) {
-
 		const width: number = this.children.reduce(
 			(width, child: TextElement) => width + child.measureTextRecursive(ctx),
 			this.measureText(ctx)
@@ -495,7 +459,6 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected measureText(ctx: RenderingContext2D) {
-
 		const {
 			measureCache
 		} = this;
@@ -516,7 +479,6 @@ export default class TextElement extends RenderedElement {
 		ctx: RenderingContext2D,
 		targetText: string
 	) {
-
 		if (!targetText.length) {
 			return 0;
 		}
@@ -527,7 +489,6 @@ export default class TextElement extends RenderedElement {
 		const customFont = parent.getStyle('font-family').getDefinition<FontElement>();
 
 		if (customFont) {
-
 			const fontSize = this.getFontSize();
 			const text = customFont.isRTL
 				? targetText.split('').reverse().join('')
@@ -537,7 +498,6 @@ export default class TextElement extends RenderedElement {
 			let measure = 0;
 
 			for (let i = 0; i < len; i++) {
-
 				const glyph = this.getGlyph(customFont, text, i);
 
 				measure += (glyph.horizAdvX || customFont.horizAdvX)

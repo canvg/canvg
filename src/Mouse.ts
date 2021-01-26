@@ -8,15 +8,19 @@ import {
 	Element
 } from './Document';
 
+interface IEventTarget {
+	onClick?(): void;
+	onMouseMove?(): void;
+}
+
 export interface IEvent {
 	type: string;
 	x: number;
 	y: number;
-	run(event: any): void;
+	run(eventTarget: IEventTarget): void;
 }
 
 export default class Mouse {
-
 	private working = false;
 	private events: IEvent[] = [];
 	private eventElements: Element[] = [];
@@ -24,7 +28,9 @@ export default class Mouse {
 	constructor(
 		private readonly screen: Screen
 	) {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		this.onClick = this.onClick.bind(this);
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		this.onMouseMove = this.onMouseMove.bind(this);
 	}
 
@@ -33,7 +39,6 @@ export default class Mouse {
 	}
 
 	start() {
-
 		if (this.working) {
 			return;
 		}
@@ -51,7 +56,6 @@ export default class Mouse {
 	}
 
 	stop() {
-
 		if (!this.working) {
 			return;
 		}
@@ -68,7 +72,6 @@ export default class Mouse {
 	}
 
 	runEvents() {
-
 		if (!this.working) {
 			return;
 		}
@@ -86,12 +89,13 @@ export default class Mouse {
 			style.cursor = '';
 		}
 
-		events.forEach(({ run }, i) => {
-
+		events.forEach(({
+			run
+		}, i) => {
 			let element = eventElements[i];
 
 			while (element) {
-				run(element);
+				run(element as IEventTarget);
 				element = element.parent;
 			}
 		});
@@ -102,7 +106,6 @@ export default class Mouse {
 	}
 
 	checkPath(element: Element, ctx: RenderingContext2D) {
-
 		if (!this.working || !ctx) {
 			return;
 		}
@@ -112,8 +115,9 @@ export default class Mouse {
 			eventElements
 		} = this;
 
-		events.forEach(({ x, y }, i) => {
-
+		events.forEach(({
+			x, y
+		}, i) => {
 			if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
 				eventElements[i] = element;
 			}
@@ -121,7 +125,6 @@ export default class Mouse {
 	}
 
 	checkBoundingBox(element: Element, boundingBox: BoundingBox) {
-
 		if (!this.working || !boundingBox) {
 			return;
 		}
@@ -131,8 +134,9 @@ export default class Mouse {
 			eventElements
 		} = this;
 
-		events.forEach(({ x, y }, i) => {
-
+		events.forEach(({
+			x, y
+		}, i) => {
 			if (!eventElements[i] && boundingBox.isPointInBox(x, y)) {
 				eventElements[i] = element;
 			}
@@ -140,18 +144,17 @@ export default class Mouse {
 	}
 
 	private mapXY(x: number, y: number) {
-
 		const {
 			window,
 			ctx
 		} = this.screen;
 		const point = new Point(x, y);
-		let element: any = ctx.canvas;
+		let element = ctx.canvas as HTMLElement;
 
 		while (element) {
 			point.x -= element.offsetLeft;
 			point.y -= element.offsetTop;
-			element = element.offsetParent;
+			element = element.offsetParent as HTMLElement;
 		}
 
 		if (window.scrollX) {
@@ -165,45 +168,43 @@ export default class Mouse {
 		return point;
 	}
 
-	private onClick(evt: MouseEvent) {
-
+	private onClick(event: MouseEvent) {
 		const {
 			x,
 			y
 		} = this.mapXY(
-			(evt || event as any).clientX,
-			(evt || event as any).clientY
+			event.clientX,
+			event.clientY
 		);
 
 		this.events.push({
 			type: 'onclick',
 			x,
 			y,
-			run(event) {
-				if (event.onClick) {
-					event.onClick();
+			run(eventTarget) {
+				if (eventTarget.onClick) {
+					eventTarget.onClick();
 				}
 			}
 		});
 	}
 
-	private onMouseMove(evt: MouseEvent) {
-
+	private onMouseMove(event: MouseEvent) {
 		const {
 			x,
 			y
 		} = this.mapXY(
-			(evt || event as any).clientX,
-			(evt || event as any).clientY
+			event.clientX,
+			event.clientY
 		);
 
 		this.events.push({
 			type: 'onmousemove',
 			x,
 			y,
-			run(event) {
-				if (event.onMouseMove) {
-					event.onMouseMove();
+			run(eventTarget) {
+				if (eventTarget.onMouseMove) {
+					eventTarget.onMouseMove();
 				}
 			}
 		});

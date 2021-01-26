@@ -24,19 +24,18 @@ export interface IOptions extends IParserOptions,
  * SVG renderer on canvas.
  */
 export default class Canvg {
-
 	/**
 	 * Create Canvg instance from SVG source string or URL.
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string or URL.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	static async from(
 		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {
-
 		const parser = new Parser(options);
 		const svgDocument = await parser.parse(svg);
 
@@ -48,13 +47,13 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	static fromString(
 		ctx: RenderingContext2D,
 		svg: string,
 		options: IOptions = {}
 	) {
-
 		const parser = new Parser(options);
 		const svgDocument = parser.parseFromString(svg);
 
@@ -87,7 +86,6 @@ export default class Canvg {
 		svg: DOMDocument,
 		options: IOptions = {}
 	) {
-
 		this.parser = new Parser(options);
 		this.screen = new Screen(ctx, options);
 		this.options = options;
@@ -104,6 +102,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string or URL.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	fork(
 		ctx: RenderingContext2D,
@@ -121,6 +120,7 @@ export default class Canvg {
 	 * @param ctx - Rendering context.
 	 * @param svg - SVG source string.
 	 * @param options - Rendering options.
+	 * @returns Canvg instance.
 	 */
 	forkString(
 		ctx: RenderingContext2D,
@@ -135,6 +135,7 @@ export default class Canvg {
 
 	/**
 	 * Document is ready promise.
+	 * @returns Ready promise.
 	 */
 	ready() {
 		return this.screen.ready();
@@ -142,6 +143,7 @@ export default class Canvg {
 
 	/**
 	 * Document is ready value.
+	 * @returns Is ready or not.
 	 */
 	isReady() {
 		return this.screen.isReady();
@@ -152,11 +154,10 @@ export default class Canvg {
 	 * @param options - Rendering options.
 	 */
 	async render(options: IScreenStartOptions = {}) {
-
 		this.start({
-			enableRedraw:    true,
+			enableRedraw: true,
 			ignoreAnimation: true,
-			ignoreMouse:     true,
+			ignoreMouse: true,
 			...options
 		});
 
@@ -170,7 +171,6 @@ export default class Canvg {
 	 * @param options - Render options.
 	 */
 	start(options: IScreenStartOptions = {}) {
-
 		const {
 			documentElement,
 			screen,

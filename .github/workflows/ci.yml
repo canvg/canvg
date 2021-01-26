@@ -16,6 +16,8 @@ jobs:
           node-version: 10
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --ignore-engines
       - name: Build
         run: yarn build
       - name: Run tests

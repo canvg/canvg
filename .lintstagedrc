@@ -1,3 +1,5 @@
 {
-	"src/**/*.{ts,tsx}": "yarn lint"
+	"rollup.config.js": "eslint --cache --fix",
+	"src/**/*.ts": "eslint --cache --fix",
+	"test/**/*.{js,ts}": "eslint --cache --fix"
 }

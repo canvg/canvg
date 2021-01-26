@@ -5,7 +5,6 @@ import Document from './Document';
 import Element from './Element';
 
 export default class FeDropShadowElement extends Element {
-
 	type = 'feDropShadow';
 
 	constructor(
@@ -13,7 +12,6 @@ export default class FeDropShadowElement extends Element {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.addStylesFromStyleDefinition();
@@ -21,10 +19,10 @@ export default class FeDropShadowElement extends Element {
 
 	apply(
 		_: RenderingContext2D,
-		__: number,
-		___: number,
-		____: number,
-		_____: number
+		_x: number,
+		_y: number,
+		_width: number,
+		_height: number
 	) {
 		// TODO: implement
 	}

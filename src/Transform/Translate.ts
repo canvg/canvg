@@ -5,7 +5,6 @@ import Document from '../Document';
 import Point from '../Point';
 
 export default class Translate {
-
 	type = 'translate';
 	private readonly point: Point = null;
 
@@ -17,7 +16,6 @@ export default class Translate {
 	}
 
 	apply(ctx: RenderingContext2D) {
-
 		const {
 			x,
 			y
@@ -30,7 +28,6 @@ export default class Translate {
 	}
 
 	unapply(ctx: RenderingContext2D) {
-
 		const {
 			x,
 			y
@@ -43,7 +40,6 @@ export default class Translate {
 	}
 
 	applyToPoint(point: Point) {
-
 		const {
 			x,
 			y

@@ -3,7 +3,6 @@ import {
 } from './util';
 
 function wrapFontFamily(fontFamily: string) {
-
 	const trimmed = fontFamily.trim();
 
 	return /^('|")/.test(trimmed)
@@ -23,9 +22,10 @@ function prepareFontFamily(fontFamily: string) {
 
 /**
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
+ * @param fontStyle
+ * @returns CSS font style.
  */
 function prepareFontStyle(fontStyle: string) {
-
 	if (!fontStyle) {
 		return '';
 	}
@@ -33,7 +33,6 @@ function prepareFontStyle(fontStyle: string) {
 	const targetFontStyle = fontStyle.trim().toLowerCase();
 
 	switch (targetFontStyle) {
-
 		case 'normal':
 		case 'italic':
 		case 'oblique':
@@ -54,9 +53,10 @@ function prepareFontStyle(fontStyle: string) {
 
 /**
  * https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight
+ * @param fontWeight
+ * @returns CSS font weight.
  */
 function prepareFontWeight(fontWeight: string) {
-
 	if (!fontWeight) {
 		return '';
 	}
@@ -64,7 +64,6 @@ function prepareFontWeight(fontWeight: string) {
 	const targetFontWeight = fontWeight.trim().toLowerCase();
 
 	switch (targetFontWeight) {
-
 		case 'normal':
 		case 'bold':
 		case 'lighter':
@@ -85,16 +84,10 @@ function prepareFontWeight(fontWeight: string) {
 }
 
 export default class Font {
-
-	static readonly styles = 'normal|italic|oblique|inherit';
-	static readonly variants = 'normal|small-caps|inherit';
-	static readonly weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
-
 	static parse(
 		font = '',
 		inherit?: string | Font
 	) {
-
 		let fontStyle = '';
 		let fontVariant = '';
 		let fontWeight = '';
@@ -102,16 +95,14 @@ export default class Font {
 		let fontFamily = '';
 		const parts = compressSpaces(font).trim().split(' ');
 		const set = {
-			fontSize:    false,
-			fontStyle:   false,
-			fontWeight:  false,
+			fontSize: false,
+			fontStyle: false,
+			fontWeight: false,
 			fontVariant: false
 		};
 
 		parts.forEach((part) => {
-
 			switch (true) {
-
 				case !set.fontStyle && Font.styles.includes(part):
 
 					if (part !== 'inherit') {
@@ -172,6 +163,10 @@ export default class Font {
 		);
 	}
 
+	static readonly styles = 'normal|italic|oblique|inherit';
+	static readonly variants = 'normal|small-caps|inherit';
+	static readonly weights = 'normal|bold|bolder|lighter|100|200|300|400|500|600|700|800|900|inherit';
+
 	readonly fontFamily: string;
 	readonly fontSize: string;
 	readonly fontStyle: string;
@@ -186,12 +181,11 @@ export default class Font {
 		fontFamily: string,
 		inherit?: string | Font
 	) {
-
 		const inheritFont = inherit
 			? typeof inherit === 'string'
 				? Font.parse(inherit)
 				: inherit
-			: {} as any;
+			: {} as Font;
 
 		this.fontFamily = fontFamily || inheritFont.fontFamily;
 		this.fontSize = fontSize || inheritFont.fontSize;

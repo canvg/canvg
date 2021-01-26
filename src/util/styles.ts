@@ -1,16 +1,15 @@
 
 // slightly modified version of https://github.com/keeganstreet/specificity/blob/master/specificity.js
 const attributeRegex = /(\[[^\]]+\])/g;
-const idRegex = /(#[^\s\+>~\.\[:]+)/g;
-const classRegex = /(\.[^\s\+>~\.\[:]+)/g;
-const pseudoElementRegex = /(::[^\s\+>~\.\[:]+|:first-line|:first-letter|:before|:after)/gi;
-const pseudoClassWithBracketsRegex = /(:[\w-]+\([^\)]*\))/gi;
-const pseudoClassRegex = /(:[^\s\+>~\.\[:]+)/g;
-const elementRegex = /([^\s\+>~\.\[:]+)/g;
+const idRegex = /(#[^\s+>~.[:]+)/g;
+const classRegex = /(\.[^\s+>~.[:]+)/g;
+const pseudoElementRegex = /(::[^\s+>~.[:]+|:first-line|:first-letter|:before|:after)/gi;
+const pseudoClassWithBracketsRegex = /(:[\w-]+\([^)]*\))/gi;
+const pseudoClassRegex = /(:[^\s+>~.[:]+)/g;
+const elementRegex = /([^\s+>~.[:]+)/g;
 
 function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
-
-	const matches = selector.match(regex);
+	const matches = regex.exec(selector);
 
 	if (!matches) {
 		return [
@@ -28,12 +27,12 @@ function findSelectorMatch(selector: string, regex: RegExp): [string, number] {
 /**
  * Measure selector specificity.
  * @param selector - Selector to measure.
+ * @returns Specificity.
  */
 export function getSelectorSpecificity(selector: string) {
-
 	const specificity = [0, 0, 0];
 	let currentSelector = selector
-		.replace(/:not\(([^\)]*)\)/g, '     $1 ')
+		.replace(/:not\(([^)]*)\)/g, '     $1 ')
 		.replace(/{[\s\S]*/gm, ' ');
 	let delta = 0;
 
@@ -56,8 +55,8 @@ export function getSelectorSpecificity(selector: string) {
 	specificity[1] += delta;
 
 	currentSelector = currentSelector
-		.replace(/[\*\s\+>~]/g, ' ')
-		.replace(/[#\.]/g, ' ');
+		.replace(/[*\s+>~]/g, ' ')
+		.replace(/[#.]/g, ' ');
 
 	[currentSelector, delta] = findSelectorMatch(currentSelector, elementRegex); // lgtm [js/useless-assignment-to-local]
 	specificity[2] += delta;

@@ -10,9 +10,9 @@ import Document from './Document';
 import ClipPathElement from './ClipPathElement';
 import MaskElement from './MaskElement';
 import FilterElement from './FilterElement';
+import PathElement from './PathElement';
 
 export default abstract class Element {
-
 	static readonly ignoreChildTypes = [
 		'title'
 	];
@@ -31,14 +31,12 @@ export default abstract class Element {
 		protected readonly node: HTMLElement,
 		protected readonly captureTextNodes = false
 	) {
-
 		if (!node || node.nodeType !== 1) { // ELEMENT_NODE
 			return;
 		}
 
 		// add attributes
 		Array.from(node.attributes).forEach((attribute) => {
-
 			const nodeName = normalizeAttributeName(attribute.nodeName);
 
 			this.attributes[nodeName] = new Property(document, nodeName, attribute.value);
@@ -48,14 +46,12 @@ export default abstract class Element {
 
 		// add inline styles
 		if (this.getAttribute('style').hasValue()) {
-
 			const styles = this.getAttribute('style')
 				.getString()
 				.split(';')
 				.map(_ => _.trim());
 
 			styles.forEach((style) => {
-
 				if (!style) {
 					return;
 				}
@@ -76,13 +72,12 @@ export default abstract class Element {
 
 		// add id
 		if (id.hasValue()) {
-			if (!definitions[id.getValue()]) {
-				definitions[id.getValue()] = this;
+			if (!definitions[id.getString()]) {
+				definitions[id.getString()] = this;
 			}
 		}
 
 		Array.from(node.childNodes).forEach((childNode: HTMLElement) => {
-
 			if (childNode.nodeType === 1) {
 				this.addChild(childNode); // ELEMENT_NODE
 			} else
@@ -90,7 +85,6 @@ export default abstract class Element {
 				childNode.nodeType === 3
 				|| childNode.nodeType === 4
 			)) {
-
 				const textNode = document.createTextNode(childNode);
 
 				if (textNode.getText().length > 0) {
@@ -101,11 +95,9 @@ export default abstract class Element {
 	}
 
 	getAttribute(name: string, createIfNotExists = false) {
-
 		const attr = this.attributes[name];
 
 		if (!attr && createIfNotExists) {
-
 			const attr = new Property(this.document, name, '');
 
 			this.attributes[name] = attr;
@@ -117,10 +109,8 @@ export default abstract class Element {
 	}
 
 	getHrefAttribute() {
-
 		for (const key in this.attributes) {
-
-			if (key === 'href' || /:href$/.test(key)) {
+			if (key === 'href' || key.endsWith(':href')) {
 				return this.attributes[key];
 			}
 		}
@@ -129,7 +119,6 @@ export default abstract class Element {
 	}
 
 	getStyle(name: string, createIfNotExists = false, skipAncestors = false): Property {
-
 		const style = this.styles[name];
 
 		if (style) {
@@ -138,29 +127,26 @@ export default abstract class Element {
 
 		const attr = this.getAttribute(name);
 
-		if (attr && attr.hasValue()) {
+		if (attr?.hasValue()) {
 			this.styles[name] = attr; // move up to me to cache
 			return attr;
 		}
 
 		if (!skipAncestors) {
-
 			const {
 				parent
 			} = this;
 
 			if (parent) {
-
 				const parentStyle = parent.getStyle(name);
 
-				if (parentStyle && parentStyle.hasValue()) {
+				if (parentStyle?.hasValue()) {
 					return parentStyle;
 				}
 			}
 		}
 
 		if (createIfNotExists) {
-
 			const style = new Property(this.document, name, '');
 
 			this.styles[name] = style;
@@ -183,24 +169,20 @@ export default abstract class Element {
 		ctx.save();
 
 		if (this.getStyle('mask').hasValue()) { // mask
-
 			const mask = this.getStyle('mask').getDefinition<MaskElement>();
 
 			if (mask) {
 				this.applyEffects(ctx);
 				mask.apply(ctx, this);
 			}
-
 		} else
 		if (this.getStyle('filter').getValue('none') !== 'none') { // filter
-
 			const filter = this.getStyle('filter').getDefinition<FilterElement>();
 
 			if (filter) {
 				this.applyEffects(ctx);
-				filter.apply(ctx, this as any);
+				filter.apply(ctx, this as unknown as PathElement);
 			}
-
 		} else {
 			this.setContext(ctx);
 			this.renderChildren(ctx);
@@ -210,10 +192,11 @@ export default abstract class Element {
 		ctx.restore();
 	}
 
-	setContext(_: RenderingContext2D) {}
+	setContext(_: RenderingContext2D) {
+		// NO RENDER
+	}
 
 	protected applyEffects(ctx: RenderingContext2D) {
-
 		// transform
 		const transform = Transform.fromElement(this.document, this);
 
@@ -225,7 +208,6 @@ export default abstract class Element {
 		const clipPathStyleProp = this.getStyle('clip-path', false, true);
 
 		if (clipPathStyleProp.hasValue()) {
-
 			const clip = clipPathStyleProp.getDefinition<ClipPathElement>();
 
 			if (clip) {
@@ -234,7 +216,9 @@ export default abstract class Element {
 		}
 	}
 
-	clearContext(_: RenderingContext2D) {}
+	clearContext(_: RenderingContext2D) {
+		// NO RENDER
+	}
 
 	renderChildren(ctx: RenderingContext2D) {
 		this.children.forEach((child) => {
@@ -243,7 +227,6 @@ export default abstract class Element {
 	}
 
 	protected addChild(childNode: Element|HTMLElement) {
-
 		const child = childNode instanceof Element
 			? childNode
 			: this.document.createElement(childNode);
@@ -256,7 +239,6 @@ export default abstract class Element {
 	}
 
 	protected matchesSelector(selector: string) {
-
 		const {
 			node
 		} = this;
@@ -271,32 +253,22 @@ export default abstract class Element {
 			return false;
 		}
 
-		return styleClasses.split(' ').some((styleClass) => {
-
-			if (`.${styleClass}` === selector) {
-				return true;
-			}
-		});
+		return styleClasses.split(' ').some(styleClass => `.${styleClass}` === selector);
 	}
 
 	addStylesFromStyleDefinition() {
-
 		const {
 			styles,
 			stylesSpecificity
 		} = this.document;
 
 		for (const selector in styles) {
-
-			if (selector[0] !== '@' && this.matchesSelector(selector)) {
-
+			if (!selector.startsWith('@') && this.matchesSelector(selector)) {
 				const style = styles[selector];
 				const specificity = stylesSpecificity[selector];
 
 				if (style) {
-
 					for (const name in style) {
-
 						let existingSpecificity = this.stylesSpecificity[name];
 
 						if (typeof existingSpecificity === 'undefined') {
@@ -314,9 +286,7 @@ export default abstract class Element {
 	}
 
 	protected removeStyles(element: Element, ignoreStyles: string[]) {
-
 		const toRestore = ignoreStyles.reduce<[string, string][]>((toRestore, name) => {
-
 			const styleProp = element.getStyle(name);
 
 			if (!styleProp.hasValue()) {
@@ -337,7 +307,6 @@ export default abstract class Element {
 	}
 
 	protected restoreStyles(element: Element, styles: [string, string][]) {
-
 		styles.forEach(([
 			name,
 			value

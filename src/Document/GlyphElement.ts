@@ -2,7 +2,6 @@ import Document from './Document';
 import PathElement from './PathElement';
 
 export default class GlyphElement extends PathElement {
-
 	type = 'glyph';
 	readonly horizAdvX: number;
 	readonly unicode: string;
@@ -13,7 +12,6 @@ export default class GlyphElement extends PathElement {
 		node: HTMLElement,
 		captureTextNodes?: boolean
 	) {
-
 		super(document, node, captureTextNodes);
 
 		this.horizAdvX = this.getAttribute('horiz-adv-x').getNumber();
