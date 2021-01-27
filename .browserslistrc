@@ -1,1 +1,1 @@
-extends browserslist-config-trigen
+extends @trigen/browserslist-config
