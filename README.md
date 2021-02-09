@@ -13,8 +13,8 @@
 [deps]: https://david-dm.org/canvg/canvg.svg
 [deps-url]: https://david-dm.org/canvg/canvg
 
-[build]: http://img.shields.io/travis/com/canvg/canvg/master.svg
-[build-url]: https://travis-ci.com/canvg/canvg
+[build]: https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg
+[build-url]: https://github.com/canvg/canvg/actions
 
 [coverage]: https://img.shields.io/coveralls/canvg/canvg.svg
 [coverage-url]: https://coveralls.io/r/canvg/canvg
