@@ -5,7 +5,7 @@ on:
 jobs:
   base-test:
     runs-on: ubuntu-latest
-    name: Node.js base test
+    name: Node.js 10 base test
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout the repository
@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Image snapshots (Node.js base test)
+          name: Image snapshots (Node.js 10 base test)
           path: test/__image_snapshots__/
   matrix-test:
     runs-on: ubuntu-latest
