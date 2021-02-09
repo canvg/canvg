@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Image snapshots (Node.js 10 base test)
+          name: Image snapshots (Node.js base test)
           path: test/__image_snapshots__/
   matrix-test:
     runs-on: ubuntu-latest
