@@ -61,6 +61,27 @@ export default class Canvg {
 	}
 
 	/**
+	 * Create Canvg instance from SVG root element.
+	 * @param ctx - Rendering context.
+	 * @param svg - SVG root element.
+	 * @param options - Rendering options.
+	 * @returns Canvg instance.
+	 */
+	static fromSVGElement(
+		ctx: RenderingContext2D,
+		svg: SVGSVGElement,
+		options: IOptions = {}
+	) {
+		/* HACK: Mimic DOMDocument just enough to work with current Canvg constructor.
+		 * @ts-expect-error @ts-ignore */
+		const svgDocument = {
+			documentElement: svg
+		} as DOMDocument;
+
+		return new Canvg(ctx, svgDocument, options);
+	}
+
+	/**
 	 * XML/HTML parser instance.
 	 */
 	readonly parser: Parser;
