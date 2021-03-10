@@ -172,7 +172,8 @@
 		"issue1111.svg": "Issue #1111: unable to darken with feColorMatrix",
 		"issue977.svg": "Issue #977: transform origin",
 		"issue1196.svg": "Issue #1196: path parser",
-		"issue1161.svg": "Issue #1161: textPath with dx and dy"
+		"issue1161.svg": "Issue #1161: textPath with dx and dy",
+		"issue1364.svg": "Issue #1364: path parser"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
