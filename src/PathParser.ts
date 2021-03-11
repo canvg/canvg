@@ -44,7 +44,7 @@ export default class PathParser extends SVGPathData {
 		super(
 			path
 				// Fix spaces after signs.
-				.replace(/[+\-.]\s+/g, '-')
+				.replace(/([+-.])\s+/gm, '$1')
 				// Remove invalid part.
 				.replace(/[^MmZzLlHhVvCcSsQqTtAae\d\s.,+-].*/g, '')
 		);
