@@ -13,8 +13,8 @@
 [deps]: https://david-dm.org/canvg/canvg.svg
 [deps-url]: https://david-dm.org/canvg/canvg
 
-[build]: http://img.shields.io/travis/com/canvg/canvg/master.svg
-[build-url]: https://travis-ci.com/canvg/canvg
+[build]: https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg
+[build-url]: https://github.com/canvg/canvg/actions
 
 [coverage]: https://img.shields.io/coveralls/canvg/canvg.svg
 [coverage-url]: https://coveralls.io/r/canvg/canvg
@@ -60,7 +60,6 @@ import Canvg from 'canvg';
 let v = null;
 
 window.onload = async () => {
-
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     
@@ -86,7 +85,6 @@ import Canvg, {
 } from 'canvg';
 
 self.onmessage = async (event) => {
-
     const {
         width,
         height,
@@ -137,7 +135,6 @@ const preset = presets.node({
 });
 
 (async (output, input) => {
-
     const svg = await fs.readFile(input, 'utf8');
     const canvas = preset.createCanvas(800, 600);
     const ctx = canvas.getContext('2d');
@@ -169,7 +166,6 @@ import Canvg, {
 } from 'canvg';
 
 self.onmessage = async (event) => {
-
     const {
         width,
         height,
@@ -210,7 +206,6 @@ self.onmessage = async (event) => {
 <script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
 <script type="text/javascript">
 window.onload = () => {
-
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
     
