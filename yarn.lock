@@ -1390,9 +1390,9 @@
     webpack-bundle-analyzer "^3.9.0"
 
 "@trigen/babel-preset@^7.0.2":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@trigen/babel-preset/-/babel-preset-7.0.2.tgz#9d801f527b363e8e21db42a06b57ac0d3519eee5"
-  integrity sha512-7r+Oz+S47FRu4ZyHD1Jir7bETQILXvSoToXRp1my6QMLdVNbDkwb5dMfp7iyv+hiPps/L/RxIMAqju1CGk3ZlQ==
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@trigen/babel-preset/-/babel-preset-7.1.0.tgz#67e8a98a57014d45febdcd72d3fbe4a9dbf6abbe"
+  integrity sha512-nPiGYWzPxmJlO9yQyMKn0IYvNKovDWiRqOdoZpF0qnL3ApbLCZVdKcIpK6qwWE2LdRczFFCiRyoL2380+bJqmg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-proposal-async-generator-functions" "^7.8.3"
