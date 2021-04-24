@@ -1418,9 +1418,9 @@
     babel-plugin-transform-remove-imports "^1.5.2"
 
 "@trigen/browserslist-config@^7.0.2":
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/@trigen/browserslist-config/-/browserslist-config-7.0.2.tgz#0e90540c29c0a82ea2755690c4a6640f97493457"
-  integrity sha512-sxACGDRUQQpg41lTCrlykkRZMJiRkJLXo58GwfIXMHvE8Ph99YIPBy7SwxrAWsHUlORJlBZv/HnJr6tQ0AHr+w==
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@trigen/browserslist-config/-/browserslist-config-7.1.0.tgz#f00dc958c3c83785b9c99e07cb687cdb6be30fb1"
+  integrity sha512-Ba2w/LSUzX9mtPTCMsuAePUmmqvAF5VK78pjgT/6t0CW/E68BJ7f+W0H6xa0Rvl3q7LEDDmR5d19PUuepJDW5Q==
 
 "@trigen/eslint-config@^7.0.6":
   version "7.0.6"
