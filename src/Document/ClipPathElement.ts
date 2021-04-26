@@ -16,6 +16,7 @@ export default class ClipPathElement extends Element {
 		const {
 			document
 		} = this;
+		const transform = Transform.fromElement(document, this);
 		const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D;
 		const {
 			beginPath,
@@ -28,6 +29,10 @@ export default class ClipPathElement extends Element {
 		}
 
 		Reflect.apply(beginPath, ctx, []);
+
+		if (transform) {
+			transform.apply(ctx);
+		}
 
 		this.children.forEach((child: UseElement) => {
 			if (typeof child.path === 'undefined') {
@@ -56,6 +61,10 @@ export default class ClipPathElement extends Element {
 				transform.unapply(ctx);
 			}
 		});
+
+		if (transform) {
+			transform.unapply(ctx);
+		}
 
 		Reflect.apply(closePath, ctx, []);
 		ctx.clip();
