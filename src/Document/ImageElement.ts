@@ -81,6 +81,8 @@ export default class ImageElement extends RenderedElement {
 
 		ctx.save();
 
+		ctx.translate(x, y);
+
 		if (this.isSvg) {
 			void document.canvg.forkString(
 				ctx,
@@ -90,8 +92,8 @@ export default class ImageElement extends RenderedElement {
 					ignoreAnimation: true,
 					ignoreDimensions: true,
 					ignoreClear: true,
-					offsetX: x,
-					offsetY: y,
+					offsetX: 0,
+					offsetY: 0,
 					scaleWidth: width,
 					scaleHeight: height
 				}
@@ -99,7 +101,6 @@ export default class ImageElement extends RenderedElement {
 		} else {
 			const image = this.image as CanvasImageSource;
 
-			ctx.translate(x, y);
 			document.setViewBox({
 				ctx,
 				aspectRatio: this.getAttribute('preserveAspectRatio').getString(),
