@@ -29,6 +29,7 @@
 		"32.svg": "images",
 		"37.svg": "textPath",
 		"issue106.svg": "Issue #106: gradient transform",
+		"issue108.svg": "Issue #108: non-scaling-stroke",
 		"issue112.svg": "Issue #112: marker orientation",
 		"issue114.svg": "Issue #114: text anchor",
 		"issue115.svg": "Issue #115: marker orientation",
