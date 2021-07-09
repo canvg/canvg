@@ -40,6 +40,7 @@
   "scripts": {
     "lint": "eslint --cache 'rollup.config.js' 'src/**/*.ts' 'test/**/*.{js,ts}'",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
+    "jest:debug": "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --watch --no-cache --runInBand -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
     "test": "yarn typecheck && yarn lint && yarn jest && yarn build && yarn checkSize",
