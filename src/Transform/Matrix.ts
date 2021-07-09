@@ -6,6 +6,7 @@ import {
 } from '../util';
 import Document from '../Document';
 import Point from '../Point';
+import Property from '../Property';
 import {
 	ITransform
 } from './types';
@@ -13,19 +14,29 @@ import {
 export default class Matrix implements ITransform {
 	type = 'matrix';
 	protected matrix: number[] = [];
+	private readonly originX: Property = null;
+	private readonly originY: Property = null;
 
 	constructor(
 		_: Document,
-		matrix: string
+		matrix: string,
+		transformOrigin: [Property<string>, Property<string>]
 	) {
 		this.matrix = toNumbers(matrix);
+		this.originX = transformOrigin[0];
+		this.originY = transformOrigin[1];
 	}
 
 	apply(ctx: RenderingContext2D) {
 		const {
+			originX,
+			originY,
 			matrix
 		} = this;
+		const x = originX.getPixels('x');
+		const y = originY.getPixels('y');
 
+		ctx.translate(x, y);
 		ctx.transform(
 			matrix[0],
 			matrix[1],
@@ -34,6 +45,7 @@ export default class Matrix implements ITransform {
 			matrix[4],
 			matrix[5]
 		);
+		ctx.translate(-x, -y);
 	}
 
 	unapply(ctx: RenderingContext2D) {
