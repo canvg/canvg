@@ -33,10 +33,10 @@ export default class Matrix implements ITransform {
 			originY,
 			matrix
 		} = this;
-		const x = originX.getPixels('x');
-		const y = originY.getPixels('y');
+		const tx = originX.getPixels('x');
+		const ty = originY.getPixels('y');
 
-		ctx.translate(x, y);
+		ctx.translate(tx, ty);
 		ctx.transform(
 			matrix[0],
 			matrix[1],
@@ -45,11 +45,13 @@ export default class Matrix implements ITransform {
 			matrix[4],
 			matrix[5]
 		);
-		ctx.translate(-x, -y);
+		ctx.translate(-tx, -ty);
 	}
 
 	unapply(ctx: RenderingContext2D) {
 		const {
+			originX,
+			originY,
 			matrix
 		} = this;
 		const a = matrix[0];
@@ -62,7 +64,10 @@ export default class Matrix implements ITransform {
 		const h = 0.0;
 		const i = 1.0;
 		const det = 1 / (a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g));
+		const tx = originX.getPixels('x');
+		const ty = originY.getPixels('y');
 
+		ctx.translate(tx, ty);
 		ctx.transform(
 			det * (e * i - f * h),
 			det * (f * g - d * i),
@@ -71,6 +76,7 @@ export default class Matrix implements ITransform {
 			det * (b * f - c * e),
 			det * (c * d - a * f)
 		);
+		ctx.translate(-tx, -ty);
 	}
 
 	applyToPoint(point: Point) {

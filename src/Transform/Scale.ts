@@ -6,14 +6,18 @@ import {
 } from '../util';
 import Document from '../Document';
 import Point from '../Point';
+import Property from '../Property';
 
 export default class Scale {
 	type = 'scale';
 	private readonly scale: Point = null;
+	private readonly originX: Property = null;
+	private readonly originY: Property = null;
 
 	constructor(
 		_: Document,
-		scale: string
+		scale: string,
+		transformOrigin: [Property<string>, Property<string>]
 	) {
 		const scaleSize = Point.parseScale(scale);
 
@@ -26,24 +30,42 @@ export default class Scale {
 		}
 
 		this.scale = scaleSize;
+		this.originX = transformOrigin[0];
+		this.originY = transformOrigin[1];
 	}
 
 	apply(ctx: RenderingContext2D) {
 		const {
-			x,
-			y
-		} = this.scale;
+			scale: {
+				x,
+				y
+			},
+			originX,
+			originY
+		} = this;
+		const tx = originX.getPixels('x');
+		const ty = originY.getPixels('y');
 
+		ctx.translate(tx, ty);
 		ctx.scale(x, y || x);
+		ctx.translate(-tx, -ty);
 	}
 
 	unapply(ctx: RenderingContext2D) {
 		const {
-			x,
-			y
-		} = this.scale;
+			scale: {
+				x,
+				y
+			},
+			originX,
+			originY
+		} = this;
+		const tx = originX.getPixels('x');
+		const ty = originY.getPixels('y');
 
+		ctx.translate(tx, ty);
 		ctx.scale(1.0 / x, 1.0 / y || x);
+		ctx.translate(-tx, -ty);
 	}
 
 	applyToPoint(point: Point) {

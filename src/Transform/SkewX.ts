@@ -1,4 +1,5 @@
 import Document from '../Document';
+import Property from '../Property';
 import Skew from './Skew';
 
 export default class SkewX extends Skew {
@@ -6,9 +7,10 @@ export default class SkewX extends Skew {
 
 	constructor(
 		document: Document,
-		skew: string
+		skew: string,
+		transformOrigin: [Property<string>, Property<string>]
 	) {
-		super(document, skew);
+		super(document, skew, transformOrigin);
 
 		this.matrix = [
 			1,

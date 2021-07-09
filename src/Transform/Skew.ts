@@ -8,9 +8,10 @@ export default class Skew extends Matrix {
 
 	constructor(
 		document: Document,
-		skew: string
+		skew: string,
+		transformOrigin: [Property<string>, Property<string>]
 	) {
-		super(document, skew);
+		super(document, skew, transformOrigin);
 
 		this.angle = new Property(document, 'angle', skew);
 	}
