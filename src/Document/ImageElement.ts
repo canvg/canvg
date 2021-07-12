@@ -5,6 +5,9 @@ import BoundingBox from '../BoundingBox';
 import Document from './Document';
 import RenderedElement from './RenderedElement';
 
+// groups: 1: mime-type (+ charset), 2: mime-type (w/o charset), 3: charset, 4: base64?, 5: body
+const dataUriRegex = /^\s*data:(([^/,;]+\/[^/,;]+)(?:;([^,;=]+=[^,;=]+))?)?(?:;(base64))?,(.*)$/i;
+
 export default class ImageElement extends RenderedElement {
 	type = 'image';
 	loaded = false;
@@ -24,7 +27,7 @@ export default class ImageElement extends RenderedElement {
 			return;
 		}
 
-		const isSvg = href.endsWith('.svg');
+		const isSvg = href.endsWith('.svg') || /^\s*data:image\/svg\+xml/i.test(href);
 
 		document.images.push(this);
 
@@ -50,13 +53,25 @@ export default class ImageElement extends RenderedElement {
 	}
 
 	protected async loadSvg(href: string) {
-		try {
-			const response = await this.document.fetch(href);
-			const svg = await response.text();
+		const match = dataUriRegex.exec(href);
 
-			this.image = svg;
-		} catch (err) {
-			console.error(`Error while loading image "${href}":`, err);
+		if (match) {
+			const data = match[5];
+
+			if (match[4] === 'base64') {
+				this.image = atob(data);
+			} else {
+				this.image = decodeURIComponent(data);
+			}
+		} else {
+			try {
+				const response = await this.document.fetch(href);
+				const svg = await response.text();
+
+				this.image = svg;
+			} catch (err) {
+				console.error(`Error while loading image "${href}":`, err);
+			}
 		}
 
 		this.loaded = true;
@@ -81,6 +96,8 @@ export default class ImageElement extends RenderedElement {
 
 		ctx.save();
 
+		ctx.translate(x, y);
+
 		if (this.isSvg) {
 			void document.canvg.forkString(
 				ctx,
@@ -90,8 +107,8 @@ export default class ImageElement extends RenderedElement {
 					ignoreAnimation: true,
 					ignoreDimensions: true,
 					ignoreClear: true,
-					offsetX: x,
-					offsetY: y,
+					offsetX: 0,
+					offsetY: 0,
 					scaleWidth: width,
 					scaleHeight: height
 				}
@@ -99,7 +116,6 @@ export default class ImageElement extends RenderedElement {
 		} else {
 			const image = this.image as CanvasImageSource;
 
-			ctx.translate(x, y);
 			document.setViewBox({
 				ctx,
 				aspectRatio: this.getAttribute('preserveAspectRatio').getString(),
