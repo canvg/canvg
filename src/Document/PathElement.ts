@@ -123,7 +123,14 @@ export default class PathElement extends RenderedElement {
 		}
 
 		if (ctx.strokeStyle !== '') {
-			ctx.stroke();
+			if (this.getAttribute('vector-effect').getString() === 'non-scaling-stroke') {
+				ctx.save();
+				ctx.setTransform(1, 0, 0, 1, 0, 0);
+				ctx.stroke();
+				ctx.restore();
+			} else {
+				ctx.stroke();
+			}
 		}
 
 		const markers = this.getMarkers();
