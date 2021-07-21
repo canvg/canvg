@@ -101,7 +101,10 @@ export default class SVGElement extends RenderedElement {
 
 		screen.viewPort.setCurrent(width, height);
 
+		// Default value of transform-origin is center only for root SVG elements
+		// https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform-origin
 		if (this.node // is not temporary SVGElement
+			&& (!this.parent || this.node.parentNode?.nodeName === 'foreignObject')
 			&& this.getStyle('transform', false, true).hasValue()
 			&& !this.getStyle('transform-origin', false, true).hasValue()
 		) {
@@ -157,7 +160,7 @@ export default class SVGElement extends RenderedElement {
 	resize(
 		width: number,
 		height = width,
-		preserveAspectRatio: boolean|string = false
+		preserveAspectRatio: boolean | string = false
 	) {
 		const widthAttr = this.getAttribute('width', true);
 		const heightAttr = this.getAttribute('height', true);

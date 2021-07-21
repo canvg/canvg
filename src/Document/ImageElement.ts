@@ -99,7 +99,7 @@ export default class ImageElement extends RenderedElement {
 		ctx.translate(x, y);
 
 		if (this.isSvg) {
-			void document.canvg.forkString(
+			const subDocument = document.canvg.forkString(
 				ctx,
 				this.image as string,
 				{
@@ -112,7 +112,10 @@ export default class ImageElement extends RenderedElement {
 					scaleWidth: width,
 					scaleHeight: height
 				}
-			).render();
+			);
+
+			subDocument.document.documentElement.parent = this;
+			void subDocument.render();
 		} else {
 			const image = this.image as CanvasImageSource;
 

@@ -38,24 +38,28 @@ export default class Rotate {
 			originY,
 			angle
 		} = this;
-		const x = cx + originX.getPixels('x');
-		const y = cy + originY.getPixels('y');
+		const tx = cx + originX.getPixels('x');
+		const ty = cy + originY.getPixels('y');
 
-		ctx.translate(x, y);
+		ctx.translate(tx, ty);
 		ctx.rotate(angle.getRadians());
-		ctx.translate(-x, -y);
+		ctx.translate(-tx, -ty);
 	}
 
 	unapply(ctx: RenderingContext2D) {
 		const {
 			cx,
 			cy,
+			originX,
+			originY,
 			angle
 		} = this;
+		const tx = cx + originX.getPixels('x');
+		const ty = cy + originY.getPixels('y');
 
-		ctx.translate(cx, cy);
+		ctx.translate(tx, ty);
 		ctx.rotate(-1.0 * angle.getRadians());
-		ctx.translate(-cx, -cy);
+		ctx.translate(-tx, -ty);
 	}
 
 	applyToPoint(point: Point) {

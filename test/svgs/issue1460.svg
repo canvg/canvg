@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="100" preserveAspectRatio="xMidYMid meet">
+	<rect x="10" y="10" width="20" height="20" transform="rotate(45)" transform-origin="20 20" fill="yellow" />
+
+	<rect x="40" y="10" width="20" height="20" transform="rotate(30)" fill="red" />
+
+	<rect x="70" y="10" width="20" height="20" transform="skewX(30)" transform-origin="0 75" fill="green" />
+	<rect x="70" y="10" width="20" height="20" transform="skewY(30)" transform-origin="15 0" fill="green" />
+
+	<rect x="100" y="10" width="20" height="20" transform="matrix(0.173648, 0.984808, -0.984808, 0.173648, 0, 0)" fill="blue"  transform-origin="110 15"/>
+
+	<rect x="130" y="10" width="20" height="20" fill="black" />
+
+	<rect x="160" y="10" width="20" height="20" transform="scale(1.5)" transform-origin="120 0" fill="purple" />
+</svg>
