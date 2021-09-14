@@ -3,7 +3,7 @@
 set -e
 
 yarn build
-set +e; typedoc ./src --out ./docs --ignoreCompilerErrors --excludeExternals --mode modules; set -e
+set +e; typedoc ./src --out ./docs --excludeExternals; set -e
 touch docs/.nojekyll
 cp -R test/browser/ docs/demo/
 cp -R test/svgs/ docs/svgs/

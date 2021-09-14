@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for canvg">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -38,8 +39,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -49,11 +48,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>canvg</h1>
 		</div>
 	</div>
@@ -67,7 +61,7 @@
 				</a>
 				<p><a href="https://npmjs.com/package/canvg"><img src="https://img.shields.io/npm/v/canvg.svg" alt="NPM version"></a>
 					<a href="https://david-dm.org/canvg/canvg"><img src="https://david-dm.org/canvg/canvg.svg" alt="Dependencies status"></a>
-					<a href="https://travis-ci.com/canvg/canvg"><img src="http://img.shields.io/travis/com/canvg/canvg/master.svg" alt="Build status"></a>
+					<a href="https://github.com/canvg/canvg/actions"><img src="https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg" alt="Build status"></a>
 					<a href="https://coveralls.io/r/canvg/canvg"><img src="https://img.shields.io/coveralls/canvg/canvg.svg" alt="Coverage status"></a>
 					<a href="https://dependabot.com/"><img src="https://api.dependabot.com/badges/status?host=github&repo=canvg/canvg" alt="Dependabot badge"></a>
 				<a href="https://canvg.github.io/canvg"><img src="https://img.shields.io/badge/API-Documentation-2b7489.svg" alt="Documentation badge"></a></p>
@@ -77,247 +71,250 @@
 				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 					<h2>Install</h2>
 				</a>
-				<pre><code class="language-sh">npm i canvg
-<span class="hljs-comment"># or</span>
-yarn add canvg</code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">npm i canvg</span>
+<span style="color: #008000"># or</span>
+<span style="color: #000000">yarn add canvg</span>
+</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<p>Basic module exports:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Canvg;
-<span class="hljs-keyword">export</span> {
-    presets
-};</code></pre>
+				<pre><code class="language-js"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">presets</span>
+<span style="color: #000000">};</span>
+</code></pre>
 				<p><a href="https://canvg.github.io/canvg/index.html">Description of all exports you can find in Documentation.</a></p>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h3>Example</h3>
 				</a>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;canvg&#039;</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">let</span> v = <span class="hljs-literal">null</span>;
+<span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000"> = </span><span style="color: #0000FF">null</span><span style="color: #000000">;</span>
 
-<span class="hljs-built_in">window</span>.onload = <span class="hljs-keyword">async</span> () =&gt; {
+<span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">onload</span><span style="color: #000000"> = </span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">canvas</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">querySelector</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;canvas&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">getContext</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;2d&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span>
+<span style="color: #000000">    </span><span style="color: #001080">v</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;./svgs/1.svg&#039;</span><span style="color: #000000">);</span>
 
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;canvas&#x27;</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
+<span style="color: #000000">    </span><span style="color: #008000">// Start SVG rendering with animations and mouse handling.</span>
+<span style="color: #000000">    </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">start</span><span style="color: #000000">();</span>
+<span style="color: #000000">};</span>
 
-    v = <span class="hljs-keyword">await</span> Canvg.from(ctx, <span class="hljs-string">&#x27;./svgs/1.svg&#x27;</span>);
-
-    <span class="hljs-comment">// Start SVG rendering with animations and mouse handling.</span>
-    v.start();
-};
-
-<span class="hljs-built_in">window</span>.onbeforeunload = <span class="hljs-function">() =&gt;</span> {
-    v.stop();
-};</code></pre>
+<span style="color: #001080">window</span><span style="color: #000000">.</span><span style="color: #795E26">onbeforeunload</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">stop</span><span style="color: #000000">();</span>
+<span style="color: #000000">};</span>
+</code></pre>
 				<details>
 					<summary>
 						<b>OffscreenCanvas</b>
 					</summary>
-					<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg, {
-    presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
+					<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">, {</span>
+<span style="color: #000000">    </span><span style="color: #001080">presets</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;canvg&#039;</span><span style="color: #000000">;</span>
 
-self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
+<span style="color: #001080">self</span><span style="color: #000000">.</span><span style="color: #795E26">onmessage</span><span style="color: #000000"> = </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">event</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">width</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">height</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">svg</span>
+<span style="color: #000000">    } = </span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">canvas</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">OffscreenCanvas</span><span style="color: #000000">(</span><span style="color: #001080">width</span><span style="color: #000000">, </span><span style="color: #001080">height</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">getContext</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;2d&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">v</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">, </span><span style="color: #001080">svg</span><span style="color: #000000">, </span><span style="color: #001080">presets</span><span style="color: #000000">.</span><span style="color: #795E26">offscreen</span><span style="color: #000000">());</span>
 
-    <span class="hljs-keyword">const</span> {
-        width,
-        height,
-        svg
-    } = event.data;
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-keyword">new</span> OffscreenCanvas(width, height);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
-    <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> Canvg.from(ctx, svg, presets.offscreen());
+<span style="color: #000000">    </span><span style="color: #008000">// Render only first frame, ignoring animations and mouse.</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">();</span>
 
-    <span class="hljs-comment">// Render only first frame, ignoring animations and mouse.</span>
-    <span class="hljs-keyword">await</span> v.render();
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">blob</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">convertToBlob</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pngUrl</span><span style="color: #000000"> = </span><span style="color: #0070C1">URL</span><span style="color: #000000">.</span><span style="color: #795E26">createObjectURL</span><span style="color: #000000">(</span><span style="color: #001080">blob</span><span style="color: #000000">);</span>
 
-    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">await</span> canvas.convertToBlob();
-    <span class="hljs-keyword">const</span> pngUrl = URL.createObjectURL(blob);
-
-    self.postMessage({
-        pngUrl
-    });
-};</code></pre>
+<span style="color: #000000">    </span><span style="color: #001080">self</span><span style="color: #000000">.</span><span style="color: #795E26">postMessage</span><span style="color: #000000">({</span>
+<span style="color: #000000">        </span><span style="color: #001080">pngUrl</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">};</span>
+</code></pre>
 					<p><a href="https://caniuse.com/offscreencanvas"><code>OffscreenCanvas</code> browsers compatibility.</a></p>
 				</details>
 				<details>
 					<summary>
 						<b>NodeJS</b>
 					</summary>
-					<pre><code class="language-js"><span class="hljs-keyword">import</span> {
-    promises <span class="hljs-keyword">as</span> fs
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
-<span class="hljs-keyword">import</span> {
-    DOMParser
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;xmldom&#x27;</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> canvas <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvas&#x27;</span>;
-<span class="hljs-keyword">import</span> fetch <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node-fetch&#x27;</span>;
-<span class="hljs-keyword">import</span> Canvg, {
-    presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
+					<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">promises</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">fs</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;fs&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">DOMParser</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;xmldom&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #0000FF">*</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">canvas</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;canvas&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;node-fetch&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">, {</span>
+<span style="color: #000000">    </span><span style="color: #001080">presets</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;canvg&#039;</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">const</span> preset = presets.node({
-    DOMParser,
-    canvas,
-    fetch
-});
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">preset</span><span style="color: #000000"> = </span><span style="color: #001080">presets</span><span style="color: #000000">.</span><span style="color: #795E26">node</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">DOMParser</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">canvas</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">fetch</span>
+<span style="color: #000000">});</span>
 
-(<span class="hljs-keyword">async</span> (output, input) =&gt; {
+<span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">output</span><span style="color: #000000">, </span><span style="color: #001080">input</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">svg</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">readFile</span><span style="color: #000000">(</span><span style="color: #001080">input</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;utf8&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">canvas</span><span style="color: #000000"> = </span><span style="color: #001080">preset</span><span style="color: #000000">.</span><span style="color: #795E26">createCanvas</span><span style="color: #000000">(</span><span style="color: #098658">800</span><span style="color: #000000">, </span><span style="color: #098658">600</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">getContext</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;2d&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">v</span><span style="color: #000000"> = </span><span style="color: #001080">Canvg</span><span style="color: #000000">.</span><span style="color: #795E26">fromString</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">, </span><span style="color: #001080">svg</span><span style="color: #000000">, </span><span style="color: #001080">preset</span><span style="color: #000000">);</span>
 
-    <span class="hljs-keyword">const</span> svg = <span class="hljs-keyword">await</span> fs.readFile(input, <span class="hljs-string">&#x27;utf8&#x27;</span>);
-    <span class="hljs-keyword">const</span> canvas = preset.createCanvas(<span class="hljs-number">800</span>, <span class="hljs-number">600</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
-    <span class="hljs-keyword">const</span> v = Canvg.fromString(ctx, svg, preset);
+<span style="color: #000000">    </span><span style="color: #008000">// Render only first frame, ignoring animations.</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">();</span>
 
-    <span class="hljs-comment">// Render only first frame, ignoring animations.</span>
-    <span class="hljs-keyword">await</span> v.render();
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">png</span><span style="color: #000000"> = </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">toBuffer</span><span style="color: #000000">();</span>
 
-    <span class="hljs-keyword">const</span> png = canvas.toBuffer();
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">writeFile</span><span style="color: #000000">(</span><span style="color: #001080">output</span><span style="color: #000000">, </span><span style="color: #001080">png</span><span style="color: #000000">);</span>
 
-    <span class="hljs-keyword">await</span> fs.writeFile(output, png);
-
-})(
-    process.argv.pop(),
-    process.argv.pop()
-);</code></pre>
+<span style="color: #000000">})(</span>
+<span style="color: #000000">    </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">argv</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">(),</span>
+<span style="color: #000000">    </span><span style="color: #001080">process</span><span style="color: #000000">.</span><span style="color: #001080">argv</span><span style="color: #000000">.</span><span style="color: #795E26">pop</span><span style="color: #000000">()</span>
+<span style="color: #000000">);</span>
+</code></pre>
 				</details>
 				<details>
 					<summary>
 						<b>Resize</b>
 					</summary>
-					<pre><code class="language-js"><span class="hljs-keyword">import</span> Canvg, {
-    presets
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;canvg&#x27;</span>;
+					<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">, {</span>
+<span style="color: #000000">    </span><span style="color: #001080">presets</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;canvg&#039;</span><span style="color: #000000">;</span>
 
-self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
+<span style="color: #001080">self</span><span style="color: #000000">.</span><span style="color: #795E26">onmessage</span><span style="color: #000000"> = </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">event</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">width</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">height</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #0070C1">svg</span>
+<span style="color: #000000">    } = </span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">canvas</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">OffscreenCanvas</span><span style="color: #000000">(</span><span style="color: #001080">width</span><span style="color: #000000">, </span><span style="color: #001080">height</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000"> = </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">getContext</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;2d&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">v</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">Canvg</span><span style="color: #000000">.</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">ctx</span><span style="color: #000000">, </span><span style="color: #001080">svg</span><span style="color: #000000">, </span><span style="color: #001080">presets</span><span style="color: #000000">.</span><span style="color: #795E26">offscreen</span><span style="color: #000000">());</span>
 
-    <span class="hljs-keyword">const</span> {
-        width,
-        height,
-        svg
-    } = event.data;
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-keyword">new</span> OffscreenCanvas(width, height);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
-    <span class="hljs-keyword">const</span> v = <span class="hljs-keyword">await</span> Canvg.from(ctx, svg, presets.offscreen());
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Resize SVG to fit in given size.</span>
+<span style="color: #008000">     * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">width</span>
+<span style="color: #008000">     * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">height</span>
+<span style="color: #008000">     * </span><span style="color: #0000FF">@param</span><span style="color: #008000"> </span><span style="color: #001080">preserveAspectRatio</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">resize</span><span style="color: #000000">(</span><span style="color: #001080">width</span><span style="color: #000000">, </span><span style="color: #001080">height</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;xMidYMid meet&#039;</span><span style="color: #000000">);</span>
 
-    <span class="hljs-comment">/**
-     * Resize SVG to fit in given size.
-     * @param width
-     * @param height
-     * @param preserveAspectRatio
-     */</span>
-    v.resize(width, height, <span class="hljs-string">&#x27;xMidYMid meet&#x27;</span>);
+<span style="color: #000000">    </span><span style="color: #008000">// Render only first frame, ignoring animations and mouse.</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">v</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">();</span>
 
-    <span class="hljs-comment">// Render only first frame, ignoring animations and mouse.</span>
-    <span class="hljs-keyword">await</span> v.render();
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">blob</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">canvas</span><span style="color: #000000">.</span><span style="color: #795E26">convertToBlob</span><span style="color: #000000">();</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">pngUrl</span><span style="color: #000000"> = </span><span style="color: #0070C1">URL</span><span style="color: #000000">.</span><span style="color: #795E26">createObjectURL</span><span style="color: #000000">(</span><span style="color: #001080">blob</span><span style="color: #000000">);</span>
 
-    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">await</span> canvas.convertToBlob();
-    <span class="hljs-keyword">const</span> pngUrl = URL.createObjectURL(blob);
-
-    self.postMessage({
-        pngUrl
-    });
-};</code></pre>
+<span style="color: #000000">    </span><span style="color: #001080">self</span><span style="color: #000000">.</span><span style="color: #795E26">postMessage</span><span style="color: #000000">({</span>
+<span style="color: #000000">        </span><span style="color: #001080">pngUrl</span>
+<span style="color: #000000">    });</span>
+<span style="color: #000000">};</span>
+</code></pre>
 				</details>
 				<details>
 					<summary>
 						<b>Browser</b>
 					</summary>
-					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/canvg@3.0.4/lib/umd.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
-<span class="hljs-built_in">window</span>.onload = <span class="hljs-function">() =&gt;</span> {
+					<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;text/javascript&quot;</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;https://unpkg.com/canvg@3.0.4/lib/umd.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+<span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">type</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;text/javascript&quot;</span><span style="color: #800000">&gt;</span>
+<span style="color: #001080">window</span><span style="color: #000000FF">.</span><span style="color: #795E26">onload</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">const</span><span style="color: #000000FF"> </span><span style="color: #0070C1">canvas</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #001080">document</span><span style="color: #000000FF">.</span><span style="color: #795E26">querySelector</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;canvas&#039;</span><span style="color: #000000FF">);</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">const</span><span style="color: #000000FF"> </span><span style="color: #0070C1">ctx</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #001080">canvas</span><span style="color: #000000FF">.</span><span style="color: #795E26">getContext</span><span style="color: #000000FF">(</span><span style="color: #A31515">&#039;2d&#039;</span><span style="color: #000000FF">);</span>
+<span style="color: #000000FF">    </span>
+<span style="color: #000000FF">    </span><span style="color: #001080">v</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #001080">canvg</span><span style="color: #000000FF">.</span><span style="color: #001080">Canvg</span><span style="color: #000000FF">.</span><span style="color: #795E26">fromString</span><span style="color: #000000FF">(</span><span style="color: #001080">ctx</span><span style="color: #000000FF">, </span><span style="color: #A31515">&#039;&lt;svg width=&quot;600&quot; height=&quot;600&quot;&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;&#039;</span><span style="color: #000000FF">);</span>
 
-    <span class="hljs-keyword">const</span> canvas = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;canvas&#x27;</span>);
-    <span class="hljs-keyword">const</span> ctx = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);
+<span style="color: #000000FF">    </span><span style="color: #008000">// Start SVG rendering with animations and mouse handling.</span>
+<span style="color: #000000FF">    </span><span style="color: #001080">v</span><span style="color: #000000FF">.</span><span style="color: #795E26">start</span><span style="color: #000000FF">();</span>
 
-    v = canvg.Canvg.fromString(ctx, <span class="hljs-string">&#x27;&lt;svg width=&quot;600&quot; height=&quot;600&quot;&gt;&lt;text x=&quot;50&quot; y=&quot;50&quot;&gt;Hello World!&lt;/text&gt;&lt;/svg&gt;&#x27;</span>);
-
-    <span class="hljs-comment">// Start SVG rendering with animations and mouse handling.</span>
-    v.start();
-
-};
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> /&gt;</span></code></pre>
+<span style="color: #000000FF">};</span>
+<span style="color: #800000">&lt;/script&gt;</span>
+<span style="color: #800000">&lt;canvas</span><span style="color: #000000"> </span><span style="color: #CD3131">/</span><span style="color: #800000">&gt;</span>
+</code></pre>
 				</details>
 				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
 					<h3>Options</h3>
 				</a>
 				<p>The third parameter of <code>new Canvg(...)</code>, <code>Canvg.from(...)</code> and <code>Canvg.fromString(...)</code> is options:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> IOptions {
-    <span class="hljs-comment">/**
-     * WHATWG-compatible `fetch` function.
-     */</span>
-    fetch?: <span class="hljs-keyword">typeof</span> fetch;
-    <span class="hljs-comment">/**
-     * XML/HTML parser from string into DOM Document.
-     */</span>
-    DOMParser?: <span class="hljs-keyword">typeof</span> DOMParser;
-    <span class="hljs-comment">/**
-     * Window object.
-     */</span>
-    <span class="hljs-built_in">window</span>?: Window;
-    <span class="hljs-comment">/**
-     * Whether enable the redraw.
-     */</span>
-    enableRedraw?: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Ignore mouse events.
-     */</span>
-    ignoreMouse?: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Ignore animations.
-     */</span>
-    ignoreAnimation?: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Does not try to resize canvas.
-     */</span>
-    ignoreDimensions?: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Does not clear canvas.
-     */</span>
-    ignoreClear?: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Scales horizontally to width.
-     */</span>
-    scaleWidth?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Scales vertically to height.
-     */</span>
-    scaleHeight?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Draws at a x offset.
-     */</span>
-    offsetX?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Draws at a y offset.
-     */</span>
-    offsetY?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Will call the function on every frame, if it returns true, will redraw.
-     */</span>
-    forceRedraw?(): <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-comment">/**
-     * Default `rem` size.
-     */</span>
-    rootEmSize?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Default `em` size.
-     */</span>
-    emSize?: <span class="hljs-built_in">number</span>;
-    <span class="hljs-comment">/**
-     * Function to create new canvas.
-     */</span>
-    createCanvas?: <span class="hljs-function">(<span class="hljs-params">width: <span class="hljs-built_in">number</span>, height: <span class="hljs-built_in">number</span></span>) =&gt;</span> HTMLCanvasElement | OffscreenCanvas;
-    <span class="hljs-comment">/**
-     * Function to create new image.
-     */</span>
-    createImage?: <span class="hljs-function">(<span class="hljs-params">src: <span class="hljs-built_in">string</span>, anonymousCrossOrigin?: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;CanvasImageSource&gt;;
-    <span class="hljs-comment">/**
-     * Load images anonymously.
-     */</span>
-    anonymousCrossOrigin?: <span class="hljs-built_in">boolean</span>;
-}</code></pre>
+				<pre><code class="language-ts"><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">IOptions</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * WHATWG-compatible `fetch` function.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">fetch</span><span style="color: #000000">?: </span><span style="color: #0000FF">typeof</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * XML/HTML parser from string into DOM Document.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">DOMParser</span><span style="color: #000000">?: </span><span style="color: #0000FF">typeof</span><span style="color: #000000"> </span><span style="color: #001080">DOMParser</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Window object.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">window</span><span style="color: #000000">?: </span><span style="color: #267F99">Window</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Whether enable the redraw.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">enableRedraw</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Ignore mouse events.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">ignoreMouse</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Ignore animations.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">ignoreAnimation</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Does not try to resize canvas.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">ignoreDimensions</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Does not clear canvas.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">ignoreClear</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Scales horizontally to width.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">scaleWidth</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Scales vertically to height.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">scaleHeight</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Draws at a x offset.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">offsetX</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Draws at a y offset.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">offsetY</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Will call the function on every frame, if it returns true, will redraw.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #795E26">forceRedraw</span><span style="color: #000000">?(): </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Default `rem` size.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">rootEmSize</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Default `em` size.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">emSize</span><span style="color: #000000">?: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Function to create new canvas.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #795E26">createCanvas</span><span style="color: #000000">?: (</span><span style="color: #001080">width</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">, </span><span style="color: #001080">height</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLCanvasElement</span><span style="color: #000000"> | </span><span style="color: #267F99">OffscreenCanvas</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Function to create new image.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #795E26">createImage</span><span style="color: #000000">?: (</span><span style="color: #001080">src</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">anonymousCrossOrigin</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">CanvasImageSource</span><span style="color: #000000">&gt;;</span>
+<span style="color: #000000">    </span><span style="color: #008000">/**</span>
+<span style="color: #008000">     * Load images anonymously.</span>
+<span style="color: #008000">     */</span>
+<span style="color: #000000">    </span><span style="color: #001080">anonymousCrossOrigin</span><span style="color: #000000">?: </span><span style="color: #267F99">boolean</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#options-presets" id="options-presets" style="color: inherit; text-decoration: none;">
 					<h4>Options presets</h4>
 				</a>
@@ -335,251 +332,251 @@ self.onmessage = <span class="hljs-keyword">async</span> (event) =&gt; {
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_boundingbox_.html">&quot;src/<wbr>Bounding<wbr>Box&quot;</a>
+						<a href="modules/boundingbox.html">Bounding<wbr>Box</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_canvg_.html">&quot;src/<wbr>Canvg&quot;</a>
+						<a href="modules/canvg.html">Canvg</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_aelement_.html">&quot;src/<wbr>Document/AElement&quot;</a>
+						<a href="modules/document.html">Document</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_animatecolorelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Color<wbr>Element&quot;</a>
+						<a href="modules/document_aelement.html">Document/AElement</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_animateelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Element&quot;</a>
+						<a href="modules/document_animatecolorelement.html">Document/<wbr>Animate<wbr>Color<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_animatetransformelement_.html">&quot;src/<wbr>Document/<wbr>Animate<wbr>Transform<wbr>Element&quot;</a>
+						<a href="modules/document_animateelement.html">Document/<wbr>Animate<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_circleelement_.html">&quot;src/<wbr>Document/<wbr>Circle<wbr>Element&quot;</a>
+						<a href="modules/document_animatetransformelement.html">Document/<wbr>Animate<wbr>Transform<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_clippathelement_.html">&quot;src/<wbr>Document/<wbr>Clip<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/document_circleelement.html">Document/<wbr>Circle<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_defselement_.html">&quot;src/<wbr>Document/<wbr>Defs<wbr>Element&quot;</a>
+						<a href="modules/document_clippathelement.html">Document/<wbr>Clip<wbr>Path<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_descelement_.html">&quot;src/<wbr>Document/<wbr>Desc<wbr>Element&quot;</a>
+						<a href="modules/document_defselement.html">Document/<wbr>Defs<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_document_.html">&quot;src/<wbr>Document/<wbr>Document&quot;</a>
+						<a href="modules/document_descelement.html">Document/<wbr>Desc<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_element_.html">&quot;src/<wbr>Document/<wbr>Element&quot;</a>
+						<a href="modules/document_document.html">Document/<wbr>Document</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_ellipseelement_.html">&quot;src/<wbr>Document/<wbr>Ellipse<wbr>Element&quot;</a>
+						<a href="modules/document_element.html">Document/<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fecolormatrixelement_.html">&quot;src/<wbr>Document/<wbr>FeColor<wbr>Matrix<wbr>Element&quot;</a>
+						<a href="modules/document_ellipseelement.html">Document/<wbr>Ellipse<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fecompositeelement_.html">&quot;src/<wbr>Document/<wbr>FeComposite<wbr>Element&quot;</a>
+						<a href="modules/document_fecolormatrixelement.html">Document/<wbr>FeColor<wbr>Matrix<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fedropshadowelement_.html">&quot;src/<wbr>Document/<wbr>FeDrop<wbr>Shadow<wbr>Element&quot;</a>
+						<a href="modules/document_fecompositeelement.html">Document/<wbr>FeComposite<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fegaussianblurelement_.html">&quot;src/<wbr>Document/<wbr>FeGaussian<wbr>Blur<wbr>Element&quot;</a>
+						<a href="modules/document_fedropshadowelement.html">Document/<wbr>FeDrop<wbr>Shadow<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_femorphologyelement_.html">&quot;src/<wbr>Document/<wbr>FeMorphology<wbr>Element&quot;</a>
+						<a href="modules/document_fegaussianblurelement.html">Document/<wbr>FeGaussian<wbr>Blur<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_filterelement_.html">&quot;src/<wbr>Document/<wbr>Filter<wbr>Element&quot;</a>
+						<a href="modules/document_femorphologyelement.html">Document/<wbr>FeMorphology<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fontelement_.html">&quot;src/<wbr>Document/<wbr>Font<wbr>Element&quot;</a>
+						<a href="modules/document_filterelement.html">Document/<wbr>Filter<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_fontfaceelement_.html">&quot;src/<wbr>Document/<wbr>Font<wbr>Face<wbr>Element&quot;</a>
+						<a href="modules/document_fontelement.html">Document/<wbr>Font<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_gelement_.html">&quot;src/<wbr>Document/GElement&quot;</a>
+						<a href="modules/document_fontfaceelement.html">Document/<wbr>Font<wbr>Face<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_glyphelement_.html">&quot;src/<wbr>Document/<wbr>Glyph<wbr>Element&quot;</a>
+						<a href="modules/document_gelement.html">Document/GElement</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_gradientelement_.html">&quot;src/<wbr>Document/<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/document_glyphelement.html">Document/<wbr>Glyph<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_imageelement_.html">&quot;src/<wbr>Document/<wbr>Image<wbr>Element&quot;</a>
+						<a href="modules/document_gradientelement.html">Document/<wbr>Gradient<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_lineelement_.html">&quot;src/<wbr>Document/<wbr>Line<wbr>Element&quot;</a>
+						<a href="modules/document_imageelement.html">Document/<wbr>Image<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_lineargradientelement_.html">&quot;src/<wbr>Document/<wbr>Linear<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/document_lineelement.html">Document/<wbr>Line<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_markerelement_.html">&quot;src/<wbr>Document/<wbr>Marker<wbr>Element&quot;</a>
+						<a href="modules/document_lineargradientelement.html">Document/<wbr>Linear<wbr>Gradient<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_maskelement_.html">&quot;src/<wbr>Document/<wbr>Mask<wbr>Element&quot;</a>
+						<a href="modules/document_markerelement.html">Document/<wbr>Marker<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_missingglyphelement_.html">&quot;src/<wbr>Document/<wbr>Missing<wbr>Glyph<wbr>Element&quot;</a>
+						<a href="modules/document_maskelement.html">Document/<wbr>Mask<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_pathelement_.html">&quot;src/<wbr>Document/<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/document_missingglyphelement.html">Document/<wbr>Missing<wbr>Glyph<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_patternelement_.html">&quot;src/<wbr>Document/<wbr>Pattern<wbr>Element&quot;</a>
+						<a href="modules/document_pathelement.html">Document/<wbr>Path<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_polygonelement_.html">&quot;src/<wbr>Document/<wbr>Polygon<wbr>Element&quot;</a>
+						<a href="modules/document_patternelement.html">Document/<wbr>Pattern<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_polylineelement_.html">&quot;src/<wbr>Document/<wbr>Polyline<wbr>Element&quot;</a>
+						<a href="modules/document_polygonelement.html">Document/<wbr>Polygon<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_radialgradientelement_.html">&quot;src/<wbr>Document/<wbr>Radial<wbr>Gradient<wbr>Element&quot;</a>
+						<a href="modules/document_polylineelement.html">Document/<wbr>Polyline<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_rectelement_.html">&quot;src/<wbr>Document/<wbr>Rect<wbr>Element&quot;</a>
+						<a href="modules/document_radialgradientelement.html">Document/<wbr>Radial<wbr>Gradient<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_renderedelement_.html">&quot;src/<wbr>Document/<wbr>Rendered<wbr>Element&quot;</a>
+						<a href="modules/document_rectelement.html">Document/<wbr>Rect<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_svgelement_.html">&quot;src/<wbr>Document/SVGElement&quot;</a>
+						<a href="modules/document_renderedelement.html">Document/<wbr>Rendered<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_stopelement_.html">&quot;src/<wbr>Document/<wbr>Stop<wbr>Element&quot;</a>
+						<a href="modules/document_svgelement.html">Document/SVGElement</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_styleelement_.html">&quot;src/<wbr>Document/<wbr>Style<wbr>Element&quot;</a>
+						<a href="modules/document_stopelement.html">Document/<wbr>Stop<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_symbolelement_.html">&quot;src/<wbr>Document/<wbr>Symbol<wbr>Element&quot;</a>
+						<a href="modules/document_styleelement.html">Document/<wbr>Style<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_trefelement_.html">&quot;src/<wbr>Document/TRef<wbr>Element&quot;</a>
+						<a href="modules/document_symbolelement.html">Document/<wbr>Symbol<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_tspanelement_.html">&quot;src/<wbr>Document/TSpan<wbr>Element&quot;</a>
+						<a href="modules/document_trefelement.html">Document/TRef<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_textelement_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Element&quot;</a>
+						<a href="modules/document_tspanelement.html">Document/TSpan<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_textnode_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Node&quot;</a>
+						<a href="modules/document_textelement.html">Document/<wbr>Text<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_textpathelement_.html">&quot;src/<wbr>Document/<wbr>Text<wbr>Path<wbr>Element&quot;</a>
+						<a href="modules/document_textnode.html">Document/<wbr>Text<wbr>Node</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_titleelement_.html">&quot;src/<wbr>Document/<wbr>Title<wbr>Element&quot;</a>
+						<a href="modules/document_textpathelement.html">Document/<wbr>Text<wbr>Path<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_unknownelement_.html">&quot;src/<wbr>Document/<wbr>Unknown<wbr>Element&quot;</a>
+						<a href="modules/document_titleelement.html">Document/<wbr>Title<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_useelement_.html">&quot;src/<wbr>Document/<wbr>Use<wbr>Element&quot;</a>
+						<a href="modules/document_unknownelement.html">Document/<wbr>Unknown<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_elements_.html">&quot;src/<wbr>Document/elements&quot;</a>
+						<a href="modules/document_useelement.html">Document/<wbr>Use<wbr>Element</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_document_index_.html">&quot;src/<wbr>Document/index&quot;</a>
+						<a href="modules/document_elements.html">Document/elements</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_font_.html">&quot;src/<wbr>Font&quot;</a>
+						<a href="modules/font.html">Font</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_mouse_.html">&quot;src/<wbr>Mouse&quot;</a>
+						<a href="modules/mouse.html">Mouse</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_parser_.html">&quot;src/<wbr>Parser&quot;</a>
+						<a href="modules/parser.html">Parser</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_pathparser_.html">&quot;src/<wbr>Path<wbr>Parser&quot;</a>
+						<a href="modules/pathparser.html">Path<wbr>Parser</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_point_.html">&quot;src/<wbr>Point&quot;</a>
+						<a href="modules/point.html">Point</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_property_.html">&quot;src/<wbr>Property&quot;</a>
+						<a href="modules/property.html">Property</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_svgfontloader_.html">&quot;src/SVGFont<wbr>Loader&quot;</a>
+						<a href="modules/svgfontloader.html">SVGFont<wbr>Loader</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_screen_.html">&quot;src/<wbr>Screen&quot;</a>
+						<a href="modules/screen.html">Screen</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_matrix_.html">&quot;src/<wbr>Transform/<wbr>Matrix&quot;</a>
+						<a href="modules/transform.html">Transform</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_rotate_.html">&quot;src/<wbr>Transform/<wbr>Rotate&quot;</a>
+						<a href="modules/transform_matrix.html">Transform/<wbr>Matrix</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_scale_.html">&quot;src/<wbr>Transform/<wbr>Scale&quot;</a>
+						<a href="modules/transform_rotate.html">Transform/<wbr>Rotate</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_skew_.html">&quot;src/<wbr>Transform/<wbr>Skew&quot;</a>
+						<a href="modules/transform_scale.html">Transform/<wbr>Scale</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_skewx_.html">&quot;src/<wbr>Transform/<wbr>Skew<wbr>X&quot;</a>
+						<a href="modules/transform_skew.html">Transform/<wbr>Skew</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_skewy_.html">&quot;src/<wbr>Transform/<wbr>Skew<wbr>Y&quot;</a>
+						<a href="modules/transform_skewx.html">Transform/<wbr>SkewX</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_transform_.html">&quot;src/<wbr>Transform/<wbr>Transform&quot;</a>
+						<a href="modules/transform_skewy.html">Transform/<wbr>SkewY</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_translate_.html">&quot;src/<wbr>Transform/<wbr>Translate&quot;</a>
+						<a href="modules/transform_transform.html">Transform/<wbr>Transform</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_index_.html">&quot;src/<wbr>Transform/index&quot;</a>
+						<a href="modules/transform_translate.html">Transform/<wbr>Translate</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_transform_types_.html">&quot;src/<wbr>Transform/types&quot;</a>
+						<a href="modules/transform_types.html">Transform/types</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_viewport_.html">&quot;src/<wbr>View<wbr>Port&quot;</a>
+						<a href="modules/viewport.html">View<wbr>Port</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_index_.html">&quot;src/index&quot;</a>
+						<a href="modules/index.html">index</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_presets_index_.html">&quot;src/presets/index&quot;</a>
+						<a href="modules/presets.html">presets</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_presets_node_.html">&quot;src/presets/node&quot;</a>
+						<a href="modules/presets_node.html">presets/node</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_presets_offscreen_.html">&quot;src/presets/offscreen&quot;</a>
+						<a href="modules/presets_offscreen.html">presets/offscreen</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_presets_types_.html">&quot;src/presets/types&quot;</a>
+						<a href="modules/presets_types.html">presets/types</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_types_.html">&quot;src/types&quot;</a>
+						<a href="modules/types.html">types</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_util_debug_.html">&quot;src/util/debug&quot;</a>
+						<a href="modules/util.html">util</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_util_index_.html">&quot;src/util/index&quot;</a>
+						<a href="modules/util_debug.html">util/debug</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_util_math_.html">&quot;src/util/math&quot;</a>
+						<a href="modules/util_math.html">util/math</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_util_string_.html">&quot;src/util/string&quot;</a>
+						<a href="modules/util_string.html">util/string</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_util_styles_.html">&quot;src/util/styles&quot;</a>
+						<a href="modules/util_styles.html">util/styles</a>
 					</li>
 				</ul>
 			</nav>
