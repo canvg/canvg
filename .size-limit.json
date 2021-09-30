@@ -11,7 +11,7 @@
 	},
 	{
 		"path": "lib/umd.js",
-		"limit": "56 KB",
+		"limit": "57 KB",
 		"webpack": false
 	},
 	{
