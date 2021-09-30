@@ -97,7 +97,7 @@
     "jest-image-snapshot": "^4.3.0",
     "lint-staged": "^10.0.2",
     "node-fetch": "^2.6.0",
-    "puppeteer": "^5.5.0",
+    "puppeteer": "^10.4.0",
     "rollup": "^2.10.5",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-terser": "^7.0.2",
