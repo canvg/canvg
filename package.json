@@ -25,13 +25,13 @@
   },
   "type": "module",
   "sideEffects": false,
-  "main": "lib/index.js",
+  "main": "lib/index.cjs",
   "module": "lib/index.es.js",
   "raw": "lib/index.babel.js",
   "umd": "lib/umd.js",
   "types": "lib/index.d.ts",
   "exports": {
-    "require": "./lib/index.js",
+    "require": "./lib/index.cjs",
     "import": "./lib/index.es.js"
   },
   "engines": {
@@ -65,7 +65,7 @@
     "regenerator-runtime": "^0.13.7",
     "rgbcolor": "^1.0.1",
     "stackblur-canvas": "^2.0.0",
-    "svg-pathdata": "^5.0.5"
+    "svg-pathdata": "^6.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
