@@ -1,6 +1,6 @@
 [
 	{
-		"path": "lib/index.js",
+		"path": "lib/index.cjs",
 		"limit": "46 KB",
 		"webpack": false
 	},
