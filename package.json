@@ -80,7 +80,7 @@
     "@trigen/babel-preset": "^7.0.2",
     "@trigen/browserslist-config": "^7.0.2",
     "@trigen/eslint-config": "^7.0.6",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^27.0.2",
     "@types/node-fetch": "^2.5.4",
     "@types/puppeteer": "^5.4.2",
     "@types/xmldom": "^0.1.29",
