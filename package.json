@@ -87,7 +87,7 @@
     "babel-jest": "^26.0.1",
     "builtin-modules": "*",
     "canvas": "^2.1.0",
-    "clean-publish": "^1.1.0",
+    "clean-publish": "^3.3.0",
     "cross-env": "^7.0.0",
     "eslint": "^7.0.0",
     "http-server": "^0.12.0",
