@@ -176,7 +176,8 @@
 		"issue1161.svg": "Issue #1161: textPath with dx and dy",
 		"issue1364.svg": "Issue #1364: path parser",
 		"issue1439.svg": "Issue #1439: svg image positioning",
-		"issue1460.svg": "Issue #1460: matrix transform origin"
+		"issue1460.svg": "Issue #1460: matrix transform origin",
+		"issue1516.svg": "Issue #1516: pseudo node styles"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",
