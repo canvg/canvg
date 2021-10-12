@@ -247,7 +247,7 @@ export default abstract class Element {
 			return node.matches(selector);
 		}
 
-		const styleClasses = node.getAttribute('class');
+		const styleClasses = node.getAttribute?.('class');
 
 		if (!styleClasses || styleClasses === '') {
 			return false;
