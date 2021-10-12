@@ -84,7 +84,7 @@
     "@types/node-fetch": "^3.0.3",
     "@types/puppeteer": "^5.4.2",
     "@types/xmldom": "^0.1.29",
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^27.2.5",
     "builtin-modules": "*",
     "canvas": "^2.1.0",
     "clean-publish": "^3.4.1",
