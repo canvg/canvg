@@ -96,7 +96,7 @@
     "jest-circus": "^27.2.5",
     "jest-image-snapshot": "^4.3.0",
     "lint-staged": "^10.0.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.0.0",
     "puppeteer": "^10.4.0",
     "rollup": "^2.10.5",
     "rollup-plugin-node-globals": "^1.4.0",
