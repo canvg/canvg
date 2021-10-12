@@ -75,7 +75,7 @@
     "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-eslint": "^8.0.1",
     "@rollup/plugin-node-resolve": "^11.1.0",
-    "@rollup/plugin-replace": "^2.3.1",
+    "@rollup/plugin-replace": "^3.0.0",
     "@size-limit/preset-small-lib": "^4.4.0",
     "@trigen/babel-preset": "^7.0.2",
     "@trigen/browserslist-config": "^7.0.2",
