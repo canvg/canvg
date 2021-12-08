@@ -339,24 +339,6 @@ export default class TextElement extends RenderedElement {
 		const dyAttr = child.getAttribute('dy');
 		const textAnchor = child.getAttribute('text-anchor').getString('start');
 
-		if (i === 0 && child.type !== 'textNode') {
-			if (!xAttr.hasValue()) {
-				xAttr.setValue(textParent.getAttribute('x').getValue('0'));
-			}
-
-			if (!yAttr.hasValue()) {
-				yAttr.setValue(textParent.getAttribute('y').getValue('0'));
-			}
-
-			if (!dxAttr.hasValue()) {
-				dxAttr.setValue(textParent.getAttribute('dx').getValue('0'));
-			}
-
-			if (!dyAttr.hasValue()) {
-				dyAttr.setValue(textParent.getAttribute('dy').getValue('0'));
-			}
-		}
-
 		if (xAttr.hasValue()) {
 			child.x = xAttr.getPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
 

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <text y="10">
+    <tspan x="0" dy="10">toplevel tspan</tspan>
+    <tspan x="0" dy="20">
+      <tspan>dy on parent</tspan>
+    </tspan>
+    <tspan>
+      <tspan x="0" dy="20">dy on child</tspan>
+    </tspan>
+  </text>
+</svg>
