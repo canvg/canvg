@@ -9,6 +9,7 @@ import {
 } from '../util';
 import Font from '../Font';
 import BoundingBox from '../BoundingBox';
+import Property from '../Property';
 import Document from './Document';
 import Element from './Element';
 import FontElement from './FontElement';
@@ -16,6 +17,24 @@ import GlyphElement from './GlyphElement';
 import RenderedElement from './RenderedElement';
 
 export default class TextElement extends RenderedElement {
+	private static inheritAttribute(child: TextElement, name: string): string | null {
+		function isFirstChild(child: TextElement): boolean {
+			return child.parent.children.indexOf(child) === 0;
+		}
+
+		let current: Element = child;
+
+		while (current instanceof TextElement && isFirstChild(current)) {
+			const parentAttr = current.parent.getAttribute(name) as Property<string>;
+
+			if (parentAttr.hasValue(true)) {
+				return parentAttr.getValue('0');
+			}
+			current = current.parent;
+		}
+		return null;
+	}
+
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
@@ -47,19 +66,8 @@ export default class TextElement extends RenderedElement {
 	}
 
 	protected initializeCoordinates(ctx: RenderingContext2D) {
-		this.x = this.getAttribute('x').getPixels('x');
-		this.y = this.getAttribute('y').getPixels('y');
-
-		const dxAttr = this.getAttribute('dx');
-		const dyAttr = this.getAttribute('dy');
-
-		if (dxAttr.hasValue()) {
-			this.x += dxAttr.getPixels('x');
-		}
-
-		if (dyAttr.hasValue()) {
-			this.y += dyAttr.getPixels('y');
-		}
+		this.x = 0;
+		this.y = 0;
 
 		this.x += this.getAnchorDelta(ctx, this, 0);
 	}
@@ -330,6 +338,11 @@ export default class TextElement extends RenderedElement {
 			return child;
 		}
 
+		if (child.children.length > 0) {
+			// only leafs alter the text position
+			return child;
+		}
+
 		ctx.save();
 		child.setContext(ctx, true);
 
@@ -338,6 +351,26 @@ export default class TextElement extends RenderedElement {
 		const dxAttr = child.getAttribute('dx');
 		const dyAttr = child.getAttribute('dy');
 		const textAnchor = child.getAttribute('text-anchor').getString('start');
+
+		if (i === 0) {
+			// First children inherit attributes from parent(s). Attributes are only
+			// inherited from a parent where the child is the parent's first child.
+			if (!xAttr.hasValue()) {
+				xAttr.setValue(TextElement.inheritAttribute(child, 'x'));
+			}
+
+			if (!yAttr.hasValue()) {
+				yAttr.setValue(TextElement.inheritAttribute(child, 'y'));
+			}
+
+			if (!dxAttr.hasValue()) {
+				dxAttr.setValue(TextElement.inheritAttribute(child, 'dx'));
+			}
+
+			if (!dyAttr.hasValue()) {
+				dyAttr.setValue(TextElement.inheritAttribute(child, 'dy'));
+			}
+		}
 
 		if (xAttr.hasValue()) {
 			child.x = xAttr.getPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
