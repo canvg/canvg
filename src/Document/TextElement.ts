@@ -38,6 +38,10 @@ export default class TextElement extends RenderedElement {
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
+	private leafTexts: TextElement[];
+	private textChunkStart: number;
+	private minX: number;
+	private maxX: number;
 	private measureCache = -1;
 
 	constructor(
@@ -65,11 +69,13 @@ export default class TextElement extends RenderedElement {
 		}
 	}
 
-	protected initializeCoordinates(ctx: RenderingContext2D) {
+	protected initializeCoordinates() {
 		this.x = 0;
 		this.y = 0;
-
-		this.x += this.getAnchorDelta(ctx, this, 0);
+		this.leafTexts = [];
+		this.textChunkStart = 0;
+		this.minX = Number.POSITIVE_INFINITY;
+		this.maxX = Number.NEGATIVE_INFINITY;
 	}
 
 	getBoundingBox(ctx: RenderingContext2D) {
@@ -77,10 +83,13 @@ export default class TextElement extends RenderedElement {
 			return this.getTElementBoundingBox(ctx);
 		}
 
-		this.initializeCoordinates(ctx);
+		// first, calculate child positions
+		this.initializeCoordinates();
+		this.adjustChildCoordinatesRecursive(ctx);
 
 		let boundingBox: BoundingBox = null;
 
+		// then calculate bounding box
 		this.children.forEach((_, i) => {
 			const childBoundingBox = this.getChildBoundingBox(ctx, this, this, i);
 
@@ -194,7 +203,11 @@ export default class TextElement extends RenderedElement {
 			return;
 		}
 
-		this.initializeCoordinates(ctx);
+		// first, calculate child positions
+		this.initializeCoordinates();
+		this.adjustChildCoordinatesRecursive(ctx);
+
+		// then render
 		this.children.forEach((_, i) => {
 			this.renderChild(ctx, this, this, i);
 		});
@@ -293,37 +306,62 @@ export default class TextElement extends RenderedElement {
 		// }
 	}
 
-	protected getAnchorDelta(
-		ctx: RenderingContext2D,
-		parent: Element,
-		startI: number
-	) {
-		const textAnchor = this.getStyle('text-anchor').getString('start');
-
-		if (textAnchor !== 'start') {
-			const {
-				children
-			} = parent;
-			const len = children.length;
-			let child: TextElement = null;
-			let width = 0;
-
-			for (let i = startI; i < len; i++) {
-				child = children[i] as TextElement;
-
-				if (i > startI && child.getAttribute('x').hasValue()
-					|| child.getAttribute('text-anchor').hasValue()
-				) {
-					break; // new group
-				}
-
-				width += child.measureTextRecursive(ctx);
-			}
-
-			return -1 * (textAnchor === 'end' ? width : width / 2.0);
+	protected applyAnchoring() {
+		if (this.textChunkStart >= this.leafTexts.length) {
+			return;
 		}
 
-		return 0;
+		// This is basically the "Apply anchoring" part of https://www.w3.org/TR/SVG2/text.html#TextLayoutAlgorithm.
+		// The difference is that we apply the anchoring as soon as a chunk is finished. This saves some extra looping.
+		// Vertical text is not supported.
+
+		const firstElement = this.leafTexts[this.textChunkStart];
+		const textAnchor = firstElement.getStyle('text-anchor').getString('start');
+		const customFont = firstElement.getStyle('font-family').getDefinition<FontElement>();
+		const isRTL = Boolean(customFont) && customFont.isRTL;
+		let shift = 0;
+
+		if (textAnchor === 'start' && !isRTL || textAnchor === 'end' && isRTL) {
+			shift = firstElement.x - this.minX;
+		} else if (textAnchor === 'end' && !isRTL || textAnchor === 'start' && isRTL) {
+			shift = firstElement.x - this.maxX;
+		} else {
+			shift = firstElement.x - (this.minX + this.maxX) / 2;
+		}
+
+		for (let i = this.textChunkStart; i < this.leafTexts.length; i++) {
+			this.leafTexts[i].x += shift;
+		}
+
+		// start new chunk
+		this.minX = Number.POSITIVE_INFINITY;
+		this.maxX = Number.NEGATIVE_INFINITY;
+		this.textChunkStart = this.leafTexts.length;
+	}
+
+	protected adjustChildCoordinatesRecursive(ctx: RenderingContext2D) {
+		this.children.forEach((_, i) => {
+			this.adjustChildCoordinatesRecursiveCore(ctx, this, this, i);
+		});
+		this.applyAnchoring();
+	}
+
+	protected adjustChildCoordinatesRecursiveCore(
+		ctx: RenderingContext2D,
+		textParent: TextElement,
+		parent: Element,
+		i: number
+	): void {
+		const child = parent.children[i] as TextElement;
+
+		if (child.children.length > 0) {
+			child.children.forEach((_, i) => {
+				textParent.adjustChildCoordinatesRecursiveCore(ctx, textParent, child, i);
+			});
+		} else {
+			// only leafs are relevant
+			this.adjustChildCoordinates(ctx, textParent, parent, i);
+		}
 	}
 
 	protected adjustChildCoordinates(
@@ -338,11 +376,6 @@ export default class TextElement extends RenderedElement {
 			return child;
 		}
 
-		if (child.children.length > 0) {
-			// only leafs alter the text position
-			return child;
-		}
-
 		ctx.save();
 		child.setContext(ctx, true);
 
@@ -350,11 +383,10 @@ export default class TextElement extends RenderedElement {
 		const yAttr = child.getAttribute('y');
 		const dxAttr = child.getAttribute('dx');
 		const dyAttr = child.getAttribute('dy');
-		const textAnchor = child.getAttribute('text-anchor').getString('start');
 
 		if (i === 0) {
-			// First children inherit attributes from parent(s). Attributes are only
-			// inherited from a parent where the child is the parent's first child.
+			// First children inherit attributes from parent(s). Positional attributes
+			// are only inherited from a parent to it's first child.
 			if (!xAttr.hasValue()) {
 				xAttr.setValue(TextElement.inheritAttribute(child, 'x'));
 			}
@@ -373,24 +405,15 @@ export default class TextElement extends RenderedElement {
 		}
 
 		if (xAttr.hasValue()) {
-			child.x = xAttr.getPixels('x') + textParent.getAnchorDelta(ctx, parent, i);
+			// an "x" attribute marks the start of a new chunk
+			textParent.applyAnchoring();
 
-			if (textAnchor !== 'start') {
-				const width = child.measureTextRecursive(ctx);
-
-				child.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
-			}
+			child.x = xAttr.getPixels('x');
 
 			if (dxAttr.hasValue()) {
 				child.x += dxAttr.getPixels('x');
 			}
 		} else {
-			if (textAnchor !== 'start') {
-				const width = child.measureTextRecursive(ctx);
-
-				textParent.x += -1 * (textAnchor === 'end' ? width : width / 2.0);
-			}
-
 			if (dxAttr.hasValue()) {
 				textParent.x += dxAttr.getPixels('x');
 			}
@@ -416,6 +439,11 @@ export default class TextElement extends RenderedElement {
 
 		textParent.y = child.y;
 
+		// update the current chunk and it's bounds
+		textParent.leafTexts.push(child);
+		textParent.minX = Math.min(textParent.minX, child.x, textParent.x);
+		textParent.maxX = Math.max(textParent.maxX, child.x, textParent.x);
+
 		child.clearContext(ctx);
 		ctx.restore();
 
@@ -428,7 +456,7 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		i: number
 	) {
-		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
+		const child = parent.children[i] as TextElement;
 
 		// not a text node?
 		if (typeof child.getBoundingBox !== 'function') {
@@ -456,21 +484,12 @@ export default class TextElement extends RenderedElement {
 		parent: Element,
 		i: number
 	) {
-		const child = this.adjustChildCoordinates(ctx, textParent, parent, i);
+		const child = parent.children[i] as TextElement;
 
 		child.render(ctx);
 		child.children.forEach((_, i) => {
 			textParent.renderChild(ctx, textParent, child, i);
 		});
-	}
-
-	protected measureTextRecursive(ctx: RenderingContext2D) {
-		const width: number = this.children.reduce(
-			(width, child: TextElement) => width + child.measureTextRecursive(ctx),
-			this.measureText(ctx)
-		);
-
-		return width;
 	}
 
 	protected measureText(ctx: RenderingContext2D) {
