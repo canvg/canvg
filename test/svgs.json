@@ -179,7 +179,8 @@
 		"issue1460.svg": "Issue #1460: matrix transform origin",
 		"issue1516.svg": "Issue #1516: pseudo node styles",
 		"issue1548a.svg": "Issue #1548: nested tspan positioning",
-		"issue1548b.svg": "Issue #1548: nested tspan text anchor"
+		"issue1548b.svg": "Issue #1548: nested tspan text anchor",
+		"issue1548c.svg": "Issue #1548: nested tspan RTL"
 	},
 	"broken": {
 		"issue70.svg": "Issue #70: bounding box (broken - missing shadow)",

@@ -139,11 +139,11 @@ export default class TextElement extends RenderedElement {
 			const nextChar = text[i + 1];
 			let arabicForm = 'isolated';
 
-			if ((i === 0 || prevChar === ' ') && i < len - 2 && nextChar !== ' ') {
+			if ((i === 0 || prevChar === ' ') && i < len - 1 && nextChar !== ' ') {
 				arabicForm = 'terminal';
 			}
 
-			if (i > 0 && prevChar !== ' ' && i < len - 2 && nextChar !== ' ') {
+			if (i > 0 && prevChar !== ' ' && i < len - 1 && nextChar !== ' ') {
 				arabicForm = 'medial';
 			}
 
@@ -317,8 +317,7 @@ export default class TextElement extends RenderedElement {
 
 		const firstElement = this.leafTexts[this.textChunkStart];
 		const textAnchor = firstElement.getStyle('text-anchor').getString('start');
-		const customFont = firstElement.getStyle('font-family').getDefinition<FontElement>();
-		const isRTL = Boolean(customFont) && customFont.isRTL;
+		const isRTL = false; // we treat RTL like LTR
 		let shift = 0;
 
 		if (textAnchor === 'start' && !isRTL || textAnchor === 'end' && isRTL) {
@@ -383,6 +382,8 @@ export default class TextElement extends RenderedElement {
 		const yAttr = child.getAttribute('y');
 		const dxAttr = child.getAttribute('dx');
 		const dyAttr = child.getAttribute('dy');
+		const customFont = child.getStyle('font-family').getDefinition<FontElement>();
+		const isRTL = Boolean(customFont) && customFont.isRTL;
 
 		if (i === 0) {
 			// First children inherit attributes from parent(s). Positional attributes
@@ -404,6 +405,12 @@ export default class TextElement extends RenderedElement {
 			}
 		}
 
+		const width = child.measureText(ctx);
+
+		if (isRTL) {
+			textParent.x -= width;
+		}
+
 		if (xAttr.hasValue()) {
 			// an "x" attribute marks the start of a new chunk
 			textParent.applyAnchoring();
@@ -421,7 +428,11 @@ export default class TextElement extends RenderedElement {
 			child.x = textParent.x;
 		}
 
-		textParent.x = child.x + child.measureText(ctx);
+		textParent.x = child.x;
+
+		if (!isRTL) {
+			textParent.x += width;
+		}
 
 		if (yAttr.hasValue()) {
 			child.y = yAttr.getPixels('y');
@@ -441,8 +452,8 @@ export default class TextElement extends RenderedElement {
 
 		// update the current chunk and it's bounds
 		textParent.leafTexts.push(child);
-		textParent.minX = Math.min(textParent.minX, child.x, textParent.x);
-		textParent.maxX = Math.max(textParent.maxX, child.x, textParent.x);
+		textParent.minX = Math.min(textParent.minX, child.x, child.x + width);
+		textParent.maxX = Math.max(textParent.maxX, child.x, child.x + width);
 
 		child.clearContext(ctx);
 		ctx.restore();
