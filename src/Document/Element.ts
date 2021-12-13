@@ -314,4 +314,10 @@ export default abstract class Element {
 			element.getStyle(name, true).setValue(value);
 		});
 	}
+
+	public isFirstChild(): boolean {
+		const parent = this.parent;
+
+		return Boolean(parent) && parent.children.indexOf(this) === 0;
+	}
 }

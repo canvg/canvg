@@ -17,24 +17,6 @@ import GlyphElement from './GlyphElement';
 import RenderedElement from './RenderedElement';
 
 export default class TextElement extends RenderedElement {
-	private static inheritAttribute(child: TextElement, name: string): string | null {
-		function isFirstChild(child: TextElement): boolean {
-			return child.parent.children.indexOf(child) === 0;
-		}
-
-		let current: Element = child;
-
-		while (current instanceof TextElement && isFirstChild(current)) {
-			const parentAttr = current.parent.getAttribute(name) as Property<string>;
-
-			if (parentAttr.hasValue(true)) {
-				return parentAttr.getValue('0');
-			}
-			current = current.parent;
-		}
-		return null;
-	}
-
 	type = 'text';
 	protected x = 0;
 	protected y = 0;
@@ -389,19 +371,19 @@ export default class TextElement extends RenderedElement {
 			// First children inherit attributes from parent(s). Positional attributes
 			// are only inherited from a parent to it's first child.
 			if (!xAttr.hasValue()) {
-				xAttr.setValue(TextElement.inheritAttribute(child, 'x'));
+				xAttr.setValue(child.getInheritedAttribute('x'));
 			}
 
 			if (!yAttr.hasValue()) {
-				yAttr.setValue(TextElement.inheritAttribute(child, 'y'));
+				yAttr.setValue(child.getInheritedAttribute('y'));
 			}
 
 			if (!dxAttr.hasValue()) {
-				dxAttr.setValue(TextElement.inheritAttribute(child, 'dx'));
+				dxAttr.setValue(child.getInheritedAttribute('dx'));
 			}
 
 			if (!dyAttr.hasValue()) {
-				dyAttr.setValue(TextElement.inheritAttribute(child, 'dy'));
+				dyAttr.setValue(child.getInheritedAttribute('dy'));
 			}
 		}
 
@@ -572,5 +554,27 @@ export default class TextElement extends RenderedElement {
 		ctx.restore();
 
 		return measure;
+	}
+
+	/**
+	 * Inherits positional attributes from {@link TextElement} parent(s). Attributes
+	 * are only inherited from a parent to its first child.
+	 * @param name - The attribute name.
+	 * @protected
+	 * @returns The attribute value or null.
+	 */
+	protected getInheritedAttribute(name: string): string | null {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias,consistent-this
+		let current: Element = this;
+
+		while (current instanceof TextElement && current.isFirstChild()) {
+			const parentAttr = current.parent.getAttribute(name) as Property<string>;
+
+			if (parentAttr.hasValue(true)) {
+				return parentAttr.getValue('0');
+			}
+			current = current.parent;
+		}
+		return null;
 	}
 }
