@@ -16,7 +16,7 @@
 	},
 	{
 		"path": "lib/index.babel.js",
-		"limit": "35 KB",
+		"limit": "36 KB",
 		"webpack": false
 	}
 ]
