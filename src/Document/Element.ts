@@ -315,9 +315,7 @@ export default abstract class Element {
 		});
 	}
 
-	public isFirstChild(): boolean {
-		const parent = this.parent;
-
-		return Boolean(parent) && parent.children.indexOf(this) === 0;
+	isFirstChild() {
+		return this.parent?.children.indexOf(this) === 0;
 	}
 }
