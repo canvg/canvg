@@ -43,12 +43,12 @@
     "jest:debug": "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --watch --no-cache --runInBand -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
-    "test": "yarn typecheck && yarn lint && yarn jest && yarn build && yarn checkSize",
+    "test": "pnpm typecheck && pnpm lint && pnpm jest && pnpm build && pnpm checkSize",
     "build:docs": "./scripts/buildDocs.sh",
     "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
     "start:node": "ts-node -P ./tsconfig.dev.json -T test/node/index.ts",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "cleanPublish": "yarn test && clean-publish"
+    "cleanPublish": "pnpm test && clean-publish"
   },
   "keywords": [
     "javascript",

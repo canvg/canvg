@@ -3,64 +3,39 @@ on:
   push:
   pull_request:
 jobs:
-  base-test:
+  test:
     runs-on: ubuntu-latest
-    name: Node.js 10 base test
+    name: Running tests
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 10
+          node-version: 16
+          cache: 'pnpm'
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: yarn --frozen-lockfile --ignore-engines
+        run: pnpm install
       - name: Build
-        run: yarn build
+        run: pnpm build
       - name: Run tests
-        run: yarn test
+        run: pnpm test
       - name: Collect coverage
         uses: coverallsapp/github-action@master
         if: success()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update snapshots
-        run: yarn jest -u
+        run: pnpm jest -- -u
         if: "always() && contains(github.event.head_commit.message, '[ci update snapshots]')"
       - name: Collect artifacts
         uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: Image snapshots (Node.js 10 base test)
-          path: test/__image_snapshots__/
-  matrix-test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - 12
-          - 14
-    name: Node.js ${{ matrix.node-version }} matrix test
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-      - name: Build
-        run: yarn build
-      - name: Run tests
-        run: yarn test
-      - name: Collect artifacts
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: Image snapshots (Node.js ${{ matrix.node-version }} matrix test)
+          name: Image snapshots
           path: test/__image_snapshots__/

@@ -2,7 +2,7 @@
 
 set -e
 
-yarn build
+pnpm build
 set +e; typedoc ./src --out ./docs --excludeExternals; set -e
 touch docs/.nojekyll
 cp -R test/browser/ docs/demo/
