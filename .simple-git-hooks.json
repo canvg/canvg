@@ -1,0 +1,4 @@
+{
+  "pre-commit": "pnpm nano-staged",
+  "pre-push": "pnpm test"
+}
