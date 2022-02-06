@@ -34,9 +34,11 @@ JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file o
 ## Install
 
 ```sh
-npm i canvg
+pnpm add canvg
 # or
 yarn add canvg
+# or
+npm i canvg
 ```
 
 ## Usage

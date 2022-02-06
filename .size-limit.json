@@ -1,7 +1,7 @@
 [
 	{
 		"path": "lib/index.cjs",
-		"limit": "46 KB",
+		"limit": "47 KB",
 		"webpack": false
 	},
 	{
@@ -11,12 +11,12 @@
 	},
 	{
 		"path": "lib/umd.js",
-		"limit": "57 KB",
+		"limit": "62 KB",
 		"webpack": false
 	},
 	{
 		"path": "lib/index.babel.js",
-		"limit": "36 KB",
+		"limit": "37 KB",
 		"webpack": false
 	}
 ]
