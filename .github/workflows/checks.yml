@@ -1,0 +1,19 @@
+name: Checks
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  editorconfig:
+    runs-on: ubuntu-latest
+    name: Checking editorconfig
+    env:
+      CI_JOB_NUMBER: 1
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Create config
+        run: |
+          echo '{"Exclude": ["docs"]}' > .ecrc
+      - name: Check editorconfig
+        uses: editorconfig-checker/action-editorconfig-checker@v1
