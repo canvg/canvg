@@ -48,7 +48,7 @@ Basic module exports:
 ```js
 export default Canvg;
 export {
-    presets
+  presets
 };
 ```
 
@@ -62,49 +62,49 @@ import Canvg from 'canvg';
 let v = null;
 
 window.onload = async () => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
 
-    v = await Canvg.from(ctx, './svgs/1.svg');
+  v = await Canvg.from(ctx, './svgs/1.svg');
 
-    // Start SVG rendering with animations and mouse handling.
-    v.start();
+  // Start SVG rendering with animations and mouse handling.
+  v.start();
 };
 
 window.onbeforeunload = () => {
-    v.stop();
+  v.stop();
 };
 ```
 
 <details>
-    <summary>
-        <b>OffscreenCanvas</b>
-    </summary>
+  <summary>
+    <b>OffscreenCanvas</b>
+  </summary>
 
 ```js
 import Canvg, {
-    presets
+  presets
 } from 'canvg';
 
 self.onmessage = async (event) => {
-    const {
-        width,
-        height,
-        svg
-    } = event.data;
-    const canvas = new OffscreenCanvas(width, height);
-    const ctx = canvas.getContext('2d');
-    const v = await Canvg.from(ctx, svg, presets.offscreen());
+  const {
+    width,
+    height,
+    svg
+  } = event.data;
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+  const v = await Canvg.from(ctx, svg, presets.offscreen());
 
-    // Render only first frame, ignoring animations and mouse.
-    await v.render();
+  // Render only first frame, ignoring animations and mouse.
+  await v.render();
 
-    const blob = await canvas.convertToBlob();
-    const pngUrl = URL.createObjectURL(blob);
+  const blob = await canvas.convertToBlob();
+  const pngUrl = URL.createObjectURL(blob);
 
-    self.postMessage({
-        pngUrl
-    });
+  self.postMessage({
+    pngUrl
+  });
 };
 ```
 
@@ -113,108 +113,109 @@ self.onmessage = async (event) => {
 </details>
 
 <details>
-    <summary>
-        <b>NodeJS</b>
-    </summary>
+  <summary>
+    <b>NodeJS</b>
+  </summary>
 
 ```js
 import {
-    promises as fs
+  promises as fs
 } from 'fs';
 import {
-    DOMParser
+  DOMParser
 } from 'xmldom';
 import * as canvas from 'canvas';
 import fetch from 'node-fetch';
 import Canvg, {
-    presets
+  presets
 } from 'canvg';
 
 const preset = presets.node({
-    DOMParser,
-    canvas,
-    fetch
+  DOMParser,
+  canvas,
+  fetch
 });
 
 (async (output, input) => {
-    const svg = await fs.readFile(input, 'utf8');
-    const canvas = preset.createCanvas(800, 600);
-    const ctx = canvas.getContext('2d');
-    const v = Canvg.fromString(ctx, svg, preset);
+  const svg = await fs.readFile(input, 'utf8');
+  const canvas = preset.createCanvas(800, 600);
+  const ctx = canvas.getContext('2d');
+  const v = Canvg.fromString(ctx, svg, preset);
 
-    // Render only first frame, ignoring animations.
-    await v.render();
+  // Render only first frame, ignoring animations.
+  await v.render();
 
-    const png = canvas.toBuffer();
+  const png = canvas.toBuffer();
 
-    await fs.writeFile(output, png);
+  await fs.writeFile(output, png);
 
 })(
-    process.argv.pop(),
-    process.argv.pop()
+  process.argv.pop(),
+  process.argv.pop()
 );
 ```
 
 </details>
 
 <details>
-    <summary>
-        <b>Resize</b>
-    </summary>
+  <summary>
+    <b>Resize</b>
+  </summary>
 
 ```js
 import Canvg, {
-    presets
+  presets
 } from 'canvg';
 
 self.onmessage = async (event) => {
-    const {
-        width,
-        height,
-        svg
-    } = event.data;
-    const canvas = new OffscreenCanvas(width, height);
-    const ctx = canvas.getContext('2d');
-    const v = await Canvg.from(ctx, svg, presets.offscreen());
+  const {
+    width,
+    height,
+    svg
+  } = event.data;
+  const canvas = new OffscreenCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+  const v = await Canvg.from(ctx, svg, presets.offscreen());
 
-    /**
-     * Resize SVG to fit in given size.
-     * @param width
-     * @param height
-     * @param preserveAspectRatio
-     */
-    v.resize(width, height, 'xMidYMid meet');
+  /**
+   * Resize SVG to fit in given size.
+   * @param width
+   * @param height
+   * @param preserveAspectRatio
+   */
+  v.resize(width, height, 'xMidYMid meet');
 
-    // Render only first frame, ignoring animations and mouse.
-    await v.render();
+  // Render only first frame, ignoring animations and mouse.
+  await v.render();
 
-    const blob = await canvas.convertToBlob();
-    const pngUrl = URL.createObjectURL(blob);
+  const blob = await canvas.convertToBlob();
+  const pngUrl = URL.createObjectURL(blob);
 
-    self.postMessage({
-        pngUrl
-    });
+  self.postMessage({
+    pngUrl
+  });
 };
 ```
 
 </details>
 
 <details>
-    <summary>
-        <b>Browser</b>
-    </summary>
+  <summary>
+    <b>Browser</b>
+  </summary>
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/canvg@3.0.4/lib/umd.js"></script>
-<script type="text/javascript">
+<script type="module">
+import Canvg from 'https://cdn.skypack.dev/canvg';
+
 window.onload = () => {
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
 
-    v = canvg.Canvg.fromString(ctx, '<svg width="600" height="600"><text x="50" y="50">Hello World!</text></svg>');
+  v = Canvg.fromString(ctx, '<svg width="600" height="600"><text x="50" y="50">Hello World!</text></svg>');
 
-    // Start SVG rendering with animations and mouse handling.
-    v.start();
+  // Start SVG rendering with animations and mouse handling.
+  v.start();
 
 };
 </script>
@@ -229,78 +230,78 @@ The third parameter of `new Canvg(...)`, `Canvg.from(...)` and `Canvg.fromString
 
 ```ts
 interface IOptions {
-    /**
-     * WHATWG-compatible `fetch` function.
-     */
-    fetch?: typeof fetch;
-    /**
-     * XML/HTML parser from string into DOM Document.
-     */
-    DOMParser?: typeof DOMParser;
-    /**
-     * Window object.
-     */
-    window?: Window;
-    /**
-     * Whether enable the redraw.
-     */
-    enableRedraw?: boolean;
-    /**
-     * Ignore mouse events.
-     */
-    ignoreMouse?: boolean;
-    /**
-     * Ignore animations.
-     */
-    ignoreAnimation?: boolean;
-    /**
-     * Does not try to resize canvas.
-     */
-    ignoreDimensions?: boolean;
-    /**
-     * Does not clear canvas.
-     */
-    ignoreClear?: boolean;
-    /**
-     * Scales horizontally to width.
-     */
-    scaleWidth?: number;
-    /**
-     * Scales vertically to height.
-     */
-    scaleHeight?: number;
-    /**
-     * Draws at a x offset.
-     */
-    offsetX?: number;
-    /**
-     * Draws at a y offset.
-     */
-    offsetY?: number;
-    /**
-     * Will call the function on every frame, if it returns true, will redraw.
-     */
-    forceRedraw?(): boolean;
-    /**
-     * Default `rem` size.
-     */
-    rootEmSize?: number;
-    /**
-     * Default `em` size.
-     */
-    emSize?: number;
-    /**
-     * Function to create new canvas.
-     */
-    createCanvas?: (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas;
-    /**
-     * Function to create new image.
-     */
-    createImage?: (src: string, anonymousCrossOrigin?: boolean) => Promise<CanvasImageSource>;
-    /**
-     * Load images anonymously.
-     */
-    anonymousCrossOrigin?: boolean;
+  /**
+   * WHATWG-compatible `fetch` function.
+   */
+  fetch?: typeof fetch;
+  /**
+   * XML/HTML parser from string into DOM Document.
+   */
+  DOMParser?: typeof DOMParser;
+  /**
+   * Window object.
+   */
+  window?: Window;
+  /**
+   * Whether enable the redraw.
+   */
+  enableRedraw?: boolean;
+  /**
+   * Ignore mouse events.
+   */
+  ignoreMouse?: boolean;
+  /**
+   * Ignore animations.
+   */
+  ignoreAnimation?: boolean;
+  /**
+   * Does not try to resize canvas.
+   */
+  ignoreDimensions?: boolean;
+  /**
+   * Does not clear canvas.
+   */
+  ignoreClear?: boolean;
+  /**
+   * Scales horizontally to width.
+   */
+  scaleWidth?: number;
+  /**
+   * Scales vertically to height.
+   */
+  scaleHeight?: number;
+  /**
+   * Draws at a x offset.
+   */
+  offsetX?: number;
+  /**
+   * Draws at a y offset.
+   */
+  offsetY?: number;
+  /**
+   * Will call the function on every frame, if it returns true, will redraw.
+   */
+  forceRedraw?(): boolean;
+  /**
+   * Default `rem` size.
+   */
+  rootEmSize?: number;
+  /**
+   * Default `em` size.
+   */
+  emSize?: number;
+  /**
+   * Function to create new canvas.
+   */
+  createCanvas?: (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas;
+  /**
+   * Function to create new image.
+   */
+  createImage?: (src: string, anonymousCrossOrigin?: boolean) => Promise<CanvasImageSource>;
+  /**
+   * Load images anonymously.
+   */
+  anonymousCrossOrigin?: boolean;
 }
 ```
 

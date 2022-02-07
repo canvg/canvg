@@ -3,7 +3,13 @@
   "testEnvironment": "node",
   "testRegex": "/test/.*\\.spec\\.(jsx?|tsx?)$",
   "transform": {
-    "^.+\\.(jsx?|tsx?)$": "babel-jest"
+    "^.+\\.(t|j)sx?$": ["@swc/jest", {
+      "env": {
+        "targets": {
+          "node": 12
+        }
+      }
+    }]
   },
   "collectCoverage": true,
   "collectCoverageFrom": [

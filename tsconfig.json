@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
     "declaration": true,
     "declarationMap": true,
     "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",
-    "jsx": "preserve",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
     "inlineSourceMap": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "lib": [
       "esnext",
@@ -26,9 +24,19 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src"
   ],
   "exclude": [
-    "lib/**/*"
-  ]
+    "node_modules",
+    "dist"
+  ],
+  "ts-node": {
+    "swc": true,
+    "moduleTypes": {
+      "test/**/*": "cjs"
+    },
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

@@ -31,6 +31,8 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+        env:
+          NODE_ENV: ${{ matrix.stage == 'base' && 'production' || 'development' }}
       - name: Run tests
         run: pnpm test:${{ matrix.stage }}
       - name: Collect coverage
@@ -42,7 +44,7 @@ jobs:
           parallel: true
       - name: Collect artifacts
         uses: actions/upload-artifact@v2
-        if: "always() && matrix.stage != 'base'"
+        if: "failure() && matrix.stage != 'base'"
         with:
           name: Image snapshots (${{ matrix.stage }})
           path: test/__image_snapshots__/

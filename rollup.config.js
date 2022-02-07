@@ -1,100 +1,75 @@
-import commonjs from '@rollup/plugin-commonjs'
-import globals from 'rollup-plugin-node-globals'
-import typescript from 'rollup-plugin-typescript2'
+import swc from 'rollup-plugin-swc'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
-import babel from '@rollup/plugin-babel'
-import resolve from '@rollup/plugin-node-resolve'
-import { terser } from 'rollup-plugin-terser'
-import { DEFAULT_EXTENSIONS } from '@babel/core'
-import { external } from './scripts/rollup-helpers'
+import commonjs from '@rollup/plugin-commonjs'
+import browsersEsm from '@trigen/browserslist-config/browsers-esm'
+import nodeEsm from '@trigen/browserslist-config/node-esm'
+import browsers from '@trigen/browserslist-config/browsers'
+import node from '@trigen/browserslist-config/node'
 import pkg from './package.json'
 
-function getPlugins({
-  standalone = false,
-  transpile = true,
-  esmodules = false
-} = {}) {
-  return [
-    commonjs(),
-    standalone && globals(),
-    typescript(),
-    replace({
+const extensions = ['.js', '.ts']
+const external = _ => /node_modules/.test(_) && !/@swc\/helpers/.test(_)
+const plugins = targets => [
+  nodeResolve({
+    extensions
+  }),
+  replace({
+    preventAssignment: true,
+    values: {
       'process.env.NODE_ENV': JSON.stringify(
         process.env.ROLLUP_WATCH
           ? 'development'
           : 'production'
       )
-    }),
-    transpile && babel({
-      extensions: [
-        ...DEFAULT_EXTENSIONS,
-        'ts',
-        'tsx'
-      ],
-      babelHelpers: 'runtime',
-      // erring otherwise in attempt to find `@babel/plugin-transform-runtime`
-      //   added by `@trigen/babel-preset`; see
-      //   https://github.com/rollup/plugins/issues/381
-      skipPreflightCheck: true,
-      ...esmodules ? {
-        babelrc: false,
-        configFile: './.babelrc.esmodules.json'
-      } : {}
-    }),
-    standalone && resolve({
-      preferBuiltins: false
-    }),
-    !process.env.ROLLUP_WATCH && standalone && terser()
-  ].filter(Boolean)
-}
+    }
+  }),
+  swc({
+    jsc: {
+      parser: {
+        syntax: 'typescript'
+      },
+      externalHelpers: true
+    },
+    env: {
+      targets
+    },
+    module: {
+      type: 'es6'
+    },
+    sourceMaps: true
+  })
+]
 
-export default [
+export default process.env.NODE_ENV !== 'development' ? [
   {
-    input: 'src/index.ts',
-    plugins: getPlugins(),
-    external: external(pkg, true),
+    input: pkg.main,
+    plugins: plugins(browsersEsm.concat(nodeEsm).join(', ')),
+    external,
     output: {
-      file: pkg.main,
+      file: pkg.publishConfig.module,
+      format: 'es',
+      sourcemap: true
+    }
+  },
+  {
+    input: pkg.main,
+    plugins: plugins(browsers.concat(node).join(', ')),
+    external,
+    output: {
+      file: pkg.publishConfig.main,
       format: 'cjs',
-      exports: 'named',
-      sourcemap: 'inline'
-    }
-  },
-  {
-    input: 'src/index.ts',
-    plugins: getPlugins({
-      esmodules: true
-    }),
-    external: external(pkg, true),
-    output: {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: 'inline'
-    }
-  },
-  {
-    input: 'src/index.ts',
-    plugins: getPlugins({
-      transpile: false
-    }),
-    external: external(pkg, true),
-    output: {
-      file: pkg.raw,
-      format: 'es',
-      sourcemap: 'inline'
-    }
-  },
-  {
-    input: 'src/index.ts',
-    plugins: getPlugins({
-      standalone: true
-    }),
-    output: {
-      file: pkg.umd,
-      format: 'umd',
-      exports: 'named',
-      name: 'canvg',
       sourcemap: true
     }
   }
-]
+] : {
+  input: pkg.main,
+  plugins: [...plugins(browsersEsm.join(', ')), commonjs()],
+  output: {
+    file: './dist/umd.js',
+    format: 'umd',
+    exports: 'named',
+    name: 'canvg',
+    sourcemap: true
+  }
+}
