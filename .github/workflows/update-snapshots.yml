@@ -1,4 +1,4 @@
-name: Manual
+name: Update snapshots
 on: workflow_dispatch
 jobs:
   update-snapshots:
