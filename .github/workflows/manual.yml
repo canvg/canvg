@@ -1,0 +1,36 @@
+name: Manual
+on: workflow_dispatch
+jobs:
+  update-snapshots:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stage:
+          - browser
+          - node
+          - offscreen
+    name: Updating ${{ matrix.stage }} snapshots
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Update snapshots
+        run: pnpm test:${{ matrix.stage }} -- -u
+      - name: Collect artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Updated image snapshots (${{ matrix.stage }})
+          path: test/__image_snapshots__/
