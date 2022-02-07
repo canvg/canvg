@@ -5,6 +5,6 @@
  * XML/HTML parser from string into DOM Document.
  */
 export interface DOMParser {
-	prototype: any;
-	new (): any;
+  prototype: any
+  new (): any
 }

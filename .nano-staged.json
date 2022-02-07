@@ -1,5 +1,6 @@
 {
   "rollup.config.js": "eslint --fix",
   "src/**/*.ts": "eslint --fix",
+  "types/**/*.ts": "eslint --fix",
   "test/**/*.{js,ts}": "eslint --fix"
 }

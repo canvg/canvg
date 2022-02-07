@@ -1,5 +1,3 @@
-export {
-	default
-} from './Document';
-export * from './Document';
-export * from './elements';
+export { default } from './Document'
+export * from './Document'
+export * from './elements'

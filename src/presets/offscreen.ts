@@ -1,12 +1,10 @@
-import {
-	DOMParser
-} from './types';
+import { DOMParser } from './types'
 
 interface IConfig {
-	/**
-	 * XML/HTML parser from string into DOM Document.
-	 */
-	DOMParser?: DOMParser;
+  /**
+   * XML/HTML parser from string into DOM Document.
+   */
+  DOMParser?: DOMParser
 }
 
 /**
@@ -15,31 +13,29 @@ interface IConfig {
  * @param config.DOMParser - XML/HTML parser from string into DOM Document.
  * @returns Preset object.
  */
-export function offscreen({
-	DOMParser: DOMParserFallback
-}: IConfig = {}) {
-	const preset = {
-		window: null as null,
-		ignoreAnimation: true,
-		ignoreMouse: true,
-		DOMParser: DOMParserFallback,
-		createCanvas(width: number, height: number) {
-			return new OffscreenCanvas(width, height);
-		},
-		async createImage(url: string) {
-			const response = await fetch(url);
-			const blob = await response.blob();
-			const img = await createImageBitmap(blob);
+export function offscreen({ DOMParser: DOMParserFallback }: IConfig = {}) {
+  const preset = {
+    window: null as null,
+    ignoreAnimation: true,
+    ignoreMouse: true,
+    DOMParser: DOMParserFallback,
+    createCanvas(width: number, height: number) {
+      return new OffscreenCanvas(width, height)
+    },
+    async createImage(url: string) {
+      const response = await fetch(url)
+      const blob = await response.blob()
+      const img = await createImageBitmap(blob)
 
-			return img;
-		}
-	};
+      return img
+    }
+  }
 
-	if (typeof DOMParser !== 'undefined'
-		|| typeof DOMParserFallback === 'undefined'
-	) {
-		Reflect.deleteProperty(preset, 'DOMParser');
-	}
+  if (typeof DOMParser !== 'undefined'
+    || typeof DOMParserFallback === 'undefined'
+  ) {
+    Reflect.deleteProperty(preset, 'DOMParser')
+  }
 
-	return preset;
+  return preset
 }

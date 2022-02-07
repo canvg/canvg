@@ -1,22 +1,22 @@
 [
-	{
-		"path": "lib/index.cjs",
-		"limit": "47 KB",
-		"webpack": false
-	},
-	{
-		"path": "lib/index.es.js",
-		"limit": "45 KB",
-		"webpack": false
-	},
-	{
-		"path": "lib/umd.js",
-		"limit": "62 KB",
-		"webpack": false
-	},
-	{
-		"path": "lib/index.babel.js",
-		"limit": "37 KB",
-		"webpack": false
-	}
+  {
+    "path": "lib/index.cjs",
+    "limit": "47 KB",
+    "webpack": false
+  },
+  {
+    "path": "lib/index.es.js",
+    "limit": "45 KB",
+    "webpack": false
+  },
+  {
+    "path": "lib/umd.js",
+    "limit": "62 KB",
+    "webpack": false
+  },
+  {
+    "path": "lib/index.babel.js",
+    "limit": "37 KB",
+    "webpack": false
+  }
 ]

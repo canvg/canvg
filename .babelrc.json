@@ -1,21 +1,21 @@
 {
-	"exclude": "node_modules/**",
-	"presets": [
-		["@trigen/babel-preset", {
-			"env": "lib"
-		}]
-	],
-	"env": {
-		"test": {
-			"presets": [
-				[
-					"@trigen/babel-preset",
-					{
-						"env": "jest",
-						"typescript": true
-					}
-				]
-			]
-		}
-	}
+  "exclude": "node_modules/**",
+  "presets": [
+    ["@trigen/babel-preset", {
+      "env": "lib"
+    }]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@trigen/babel-preset",
+          {
+            "env": "jest",
+            "typescript": true
+          }
+        ]
+      ]
+    }
+  }
 }

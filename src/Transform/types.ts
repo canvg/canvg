@@ -1,11 +1,9 @@
-import {
-	RenderingContext2D
-} from '../types';
-import Point from '../Point';
+import { RenderingContext2D } from '../types'
+import Point from '../Point'
 
 export interface ITransform {
-	type: string;
-	apply(ctx: RenderingContext2D): void;
-	unapply(ctx: RenderingContext2D): void;
-	applyToPoint(point: Point): void;
+  type: string
+  apply(ctx: RenderingContext2D): void
+  unapply(ctx: RenderingContext2D): void
+  applyToPoint(point: Point): void
 }

@@ -1,21 +1,21 @@
-import Document from './Document';
-import Element from './Element';
+import Document from './Document'
+import Element from './Element'
 
 export default class FontFaceElement extends Element {
-	type = 'font-face';
-	readonly ascent: number;
-	readonly descent: number;
-	readonly unitsPerEm: number;
+  type = 'font-face'
+  readonly ascent: number
+  readonly descent: number
+  readonly unitsPerEm: number
 
-	constructor(
-		document: Document,
-		node: HTMLElement,
-		captureTextNodes?: boolean
-	) {
-		super(document, node, captureTextNodes);
+  constructor(
+    document: Document,
+    node: HTMLElement,
+    captureTextNodes?: boolean
+  ) {
+    super(document, node, captureTextNodes)
 
-		this.ascent = this.getAttribute('ascent').getNumber();
-		this.descent = this.getAttribute('descent').getNumber();
-		this.unitsPerEm = this.getAttribute('units-per-em').getNumber();
-	}
+    this.ascent = this.getAttribute('ascent').getNumber()
+    this.descent = this.getAttribute('descent').getNumber()
+    this.unitsPerEm = this.getAttribute('units-per-em').getNumber()
+  }
 }

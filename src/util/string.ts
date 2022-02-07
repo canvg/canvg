@@ -4,7 +4,7 @@
  * @returns String.
  */
 export function compressSpaces(str: string) {
-	return str.replace(/(?!\u3000)\s+/gm, ' ');
+  return str.replace(/(?!\u3000)\s+/gm, ' ')
 }
 
 /**
@@ -13,7 +13,7 @@ export function compressSpaces(str: string) {
  * @returns String.
  */
 export function trimLeft(str: string) {
-	return str.replace(/^[\n \t]+/, '');
+  return str.replace(/^[\n \t]+/, '')
 }
 
 /**
@@ -22,7 +22,7 @@ export function trimLeft(str: string) {
  * @returns String.
  */
 export function trimRight(str: string) {
-	return str.replace(/[\n \t]+$/, '');
+  return str.replace(/[\n \t]+$/, '')
 }
 
 /**
@@ -31,13 +31,13 @@ export function trimRight(str: string) {
  * @returns Numbers array.
  */
 export function toNumbers(str: string) {
-	const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || [];
+  const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || []
 
-	return matches.map(parseFloat);
+  return matches.map(parseFloat)
 }
 
 // Microsoft Edge fix
-const allUppercase = /^[A-Z-]+$/;
+const allUppercase = /^[A-Z-]+$/
 
 /**
  * Normalize attribute name.
@@ -45,11 +45,11 @@ const allUppercase = /^[A-Z-]+$/;
  * @returns Normalized attribute name.
  */
 export function normalizeAttributeName(name: string) {
-	if (allUppercase.test(name)) {
-		return name.toLowerCase();
-	}
+  if (allUppercase.test(name)) {
+    return name.toLowerCase()
+  }
 
-	return name;
+  return name
 }
 
 /**
@@ -58,13 +58,13 @@ export function normalizeAttributeName(name: string) {
  * @returns Parsed URL.
  */
 export function parseExternalUrl(url: string): string {
-	//                      single quotes [2]
-	//                      v         double quotes [3]
-	//                      v         v         no quotes [4]
-	//                      v         v         v
-	const urlMatch = /url\(('([^']+)'|"([^"]+)"|([^'")]+))\)/.exec(url) || [] as RegExpExecArray;
+  //                      single quotes [2]
+  //                      v         double quotes [3]
+  //                      v         v         no quotes [4]
+  //                      v         v         v
+  const urlMatch = /url\(('([^']+)'|"([^"]+)"|([^'")]+))\)/.exec(url) || [] as RegExpExecArray
 
-	return urlMatch[2] || urlMatch[3] || urlMatch[4];
+  return urlMatch[2] || urlMatch[3] || urlMatch[4]
 }
 
 /**
@@ -73,17 +73,17 @@ export function parseExternalUrl(url: string): string {
  * @returns Normalized color.
  */
 export function normalizeColor(color: string) {
-	if (!color.startsWith('rgb')) {
-		return color;
-	}
+  if (!color.startsWith('rgb')) {
+    return color
+  }
 
-	let rgbParts = 3;
-	const normalizedColor = color.replace(
-		/\d+(\.\d+)?/g,
-		(num, isFloat) => (rgbParts-- && isFloat
-			? String(Math.round(parseFloat(num)))
-			: num)
-	);
+  let rgbParts = 3
+  const normalizedColor = color.replace(
+    /\d+(\.\d+)?/g,
+    (num, isFloat) => (rgbParts-- && isFloat
+      ? String(Math.round(parseFloat(num)))
+      : num)
+  )
 
-	return normalizedColor;
+  return normalizedColor
 }

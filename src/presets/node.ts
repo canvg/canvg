@@ -1,34 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-	DOMParser
-} from './types';
+import { DOMParser } from './types'
 
 /**
  * `node-canvas` exports.
  */
 interface ICanvas {
-	createCanvas(width: number, height: number): any;
-	loadImage(src: string): Promise<any>;
+  createCanvas(width: number, height: number): any
+  loadImage(src: string): Promise<any>
 }
 
 /**
  * WHATWG-compatible `fetch` function.
  */
-type Fetch = (input: any, config?: any) => Promise<any>;
+type Fetch = (input: any, config?: any) => Promise<any>
 
 interface IConfig {
-	/**
-	 * XML/HTML parser from string into DOM Document.
-	 */
-	DOMParser: DOMParser;
-	/**
-	 * `node-canvas` exports.
-	 */
-	canvas: ICanvas;
-	/**
-	 * WHATWG-compatible `fetch` function.
-	 */
-	fetch: Fetch;
+  /**
+   * XML/HTML parser from string into DOM Document.
+   */
+  DOMParser: DOMParser
+  /**
+   * `node-canvas` exports.
+   */
+  canvas: ICanvas
+  /**
+   * WHATWG-compatible `fetch` function.
+   */
+  fetch: Fetch
 }
 
 /**
@@ -40,17 +38,17 @@ interface IConfig {
  * @returns Preset object.
  */
 export function node({
-	DOMParser,
-	canvas,
-	fetch
+  DOMParser,
+  canvas,
+  fetch
 }: IConfig) {
-	return {
-		window: null as null,
-		ignoreAnimation: true,
-		ignoreMouse: true,
-		DOMParser,
-		fetch,
-		createCanvas: canvas.createCanvas,
-		createImage: canvas.loadImage
-	};
+  return {
+    window: null as null,
+    ignoreAnimation: true,
+    ignoreMouse: true,
+    DOMParser,
+    fetch,
+    createCanvas: canvas.createCanvas,
+    createImage: canvas.loadImage
+  }
 }

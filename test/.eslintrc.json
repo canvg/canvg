@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-async-promise-executor": "off",
+    "require-atomic-updates": "off"
+  }
+}

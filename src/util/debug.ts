@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-console */
-import {
-	RenderingContext2D
-} from '../types';
+import { RenderingContext2D } from '../types'
 
 /**
  * Wrap rendering context to log every action.
@@ -11,34 +10,34 @@ import {
  * @returns Proxy logger.
  */
 export function ctxLogger(ctx: RenderingContext2D) {
-	return new Proxy(ctx, {
+  return new Proxy(ctx, {
 
-		get(target, key) {
-			const value = target[key];
+    get(target, key) {
+      const value = target[key]
 
-			if (typeof value === 'function') {
-				return (...args) => {
-					const result = Reflect.apply(value, target, args);
+      if (typeof value === 'function') {
+        return (...args) => {
+          const result = Reflect.apply(value, target, args)
 
-					console.log('Call:', key, '()', args, '=>', result);
+          console.log('Call:', key, '()', args, '=>', result)
 
-					return result;
-				};
-			}
+          return result
+        }
+      }
 
-			console.log('Get:', key, ':', value);
+      console.log('Get:', key, ':', value)
 
-			return value;
-		},
+      return value
+    },
 
-		set(target, key, value) {
-			console.log('Set:', key, ':', value);
+    set(target, key, value) {
+      console.log('Set:', key, ':', value)
 
-			target[key] = value;
+      target[key] = value
 
-			return true;
-		}
-	});
+      return true
+    }
+  })
 }
 
 /**
@@ -49,11 +48,11 @@ export function ctxLogger(ctx: RenderingContext2D) {
  * @param radius - Point radius.
  */
 export function point(ctx: RenderingContext2D, x = 0, y = 0, radius = 10) {
-	ctx.lineWidth = 2;
-	ctx.strokeStyle = 'red';
-	ctx.beginPath();
-	ctx.arc(x, y, radius, 0, 2 * Math.PI);
-	ctx.stroke();
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'red'
+  ctx.beginPath()
+  ctx.arc(x, y, radius, 0, 2 * Math.PI)
+  ctx.stroke()
 }
 
 /**
@@ -64,14 +63,14 @@ export function point(ctx: RenderingContext2D, x = 0, y = 0, radius = 10) {
  * @param size - Triangle size.
  */
 export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
-	ctx.lineWidth = 2;
-	ctx.strokeStyle = 'red';
-	ctx.beginPath();
-	ctx.moveTo(x, y);
-	ctx.lineTo(x + size * 2, y - size);
-	ctx.lineTo(x + size * 2, y + size);
-	ctx.lineTo(x, y);
-	ctx.stroke();
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'red'
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+  ctx.lineTo(x + size * 2, y - size)
+  ctx.lineTo(x + size * 2, y + size)
+  ctx.lineTo(x, y)
+  ctx.stroke()
 }
 
 /**
@@ -83,13 +82,13 @@ export function angle(ctx: RenderingContext2D, x = 0, y = 0, size = 10) {
  * @param height
  */
 export function box(ctx: RenderingContext2D, x: number, y: number, width: number, height: number) {
-	ctx.lineWidth = 2;
-	ctx.strokeStyle = 'red';
-	ctx.beginPath();
-	ctx.moveTo(x, y);
-	ctx.lineTo(x + width, y);
-	ctx.lineTo(x + width, y + height);
-	ctx.lineTo(x, y + height);
-	ctx.lineTo(x, y);
-	ctx.stroke();
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'red'
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+  ctx.lineTo(x + width, y)
+  ctx.lineTo(x + width, y + height)
+  ctx.lineTo(x, y + height)
+  ctx.lineTo(x, y)
+  ctx.stroke()
 }

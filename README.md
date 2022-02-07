@@ -64,7 +64,7 @@ let v = null;
 window.onload = async () => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
-    
+
     v = await Canvg.from(ctx, './svgs/1.svg');
 
     // Start SVG rendering with animations and mouse handling.
@@ -210,7 +210,7 @@ self.onmessage = async (event) => {
 window.onload = () => {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
-    
+
     v = canvg.Canvg.fromString(ctx, '<svg width="600" height="600"><text x="50" y="50">Hello World!</text></svg>');
 
     // Start SVG rendering with animations and mouse handling.

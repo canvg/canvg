@@ -38,7 +38,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "lint": "eslint --cache 'rollup.config.js' 'src/**/*.ts' 'test/**/*.{js,ts}'",
+    "lint": "eslint 'rollup.config.js' 'src/**/*.ts' 'types/**/*.ts' 'test/**/*.{js,ts}'",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
     "jest:debug": "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --watch --no-cache --runInBand -c jest.config.json",
     "typecheck": "tsc --noEmit --pretty --skipLibCheck",
@@ -91,7 +91,7 @@
     "@size-limit/preset-small-lib": "^4.4.0",
     "@trigen/babel-preset": "^7.0.2",
     "@trigen/browserslist-config": "^7.0.2",
-    "@trigen/eslint-config": "^7.0.6",
+    "@trigen/eslint-config": "^8.0.0-alpha.6",
     "@types/jest": "^27.0.2",
     "@types/node": "^17.0.15",
     "@types/node-fetch": "^3.0.3",
