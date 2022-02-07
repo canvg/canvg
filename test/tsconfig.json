@@ -1,6 +1,6 @@
 {
-	"extends": "../tsconfig",
-	"include": [
-		"**/*.ts"
-	]
+  "extends": "../tsconfig",
+  "include": [
+    "**/*.ts"
+  ]
 }

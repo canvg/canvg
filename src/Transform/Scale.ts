@@ -1,86 +1,82 @@
-import {
-	RenderingContext2D
-} from '../types';
-import {
-	PSEUDO_ZERO
-} from '../util';
-import Document from '../Document';
-import Point from '../Point';
-import Property from '../Property';
+import { RenderingContext2D } from '../types'
+import { PSEUDO_ZERO } from '../util'
+import Document from '../Document'
+import Point from '../Point'
+import Property from '../Property'
 
 export default class Scale {
-	type = 'scale';
-	private readonly scale: Point = null;
-	private readonly originX: Property = null;
-	private readonly originY: Property = null;
+  type = 'scale'
+  private readonly scale: Point = null
+  private readonly originX: Property = null
+  private readonly originY: Property = null
 
-	constructor(
-		_: Document,
-		scale: string,
-		transformOrigin: [Property<string>, Property<string>]
-	) {
-		const scaleSize = Point.parseScale(scale);
+  constructor(
+    _: Document,
+    scale: string,
+    transformOrigin: [Property<string>, Property<string>]
+  ) {
+    const scaleSize = Point.parseScale(scale)
 
-		// Workaround for node-canvas
-		if (scaleSize.x === 0
-			|| scaleSize.y === 0
-		) {
-			scaleSize.x = PSEUDO_ZERO;
-			scaleSize.y = PSEUDO_ZERO;
-		}
+    // Workaround for node-canvas
+    if (scaleSize.x === 0
+      || scaleSize.y === 0
+    ) {
+      scaleSize.x = PSEUDO_ZERO
+      scaleSize.y = PSEUDO_ZERO
+    }
 
-		this.scale = scaleSize;
-		this.originX = transformOrigin[0];
-		this.originY = transformOrigin[1];
-	}
+    this.scale = scaleSize
+    this.originX = transformOrigin[0]
+    this.originY = transformOrigin[1]
+  }
 
-	apply(ctx: RenderingContext2D) {
-		const {
-			scale: {
-				x,
-				y
-			},
-			originX,
-			originY
-		} = this;
-		const tx = originX.getPixels('x');
-		const ty = originY.getPixels('y');
+  apply(ctx: RenderingContext2D) {
+    const {
+      scale: {
+        x,
+        y
+      },
+      originX,
+      originY
+    } = this
+    const tx = originX.getPixels('x')
+    const ty = originY.getPixels('y')
 
-		ctx.translate(tx, ty);
-		ctx.scale(x, y || x);
-		ctx.translate(-tx, -ty);
-	}
+    ctx.translate(tx, ty)
+    ctx.scale(x, y || x)
+    ctx.translate(-tx, -ty)
+  }
 
-	unapply(ctx: RenderingContext2D) {
-		const {
-			scale: {
-				x,
-				y
-			},
-			originX,
-			originY
-		} = this;
-		const tx = originX.getPixels('x');
-		const ty = originY.getPixels('y');
+  unapply(ctx: RenderingContext2D) {
+    const {
+      scale: {
+        x,
+        y
+      },
+      originX,
+      originY
+    } = this
+    const tx = originX.getPixels('x')
+    const ty = originY.getPixels('y')
 
-		ctx.translate(tx, ty);
-		ctx.scale(1.0 / x, 1.0 / y || x);
-		ctx.translate(-tx, -ty);
-	}
+    ctx.translate(tx, ty)
+    ctx.scale(1.0 / x, 1.0 / y || x)
+    ctx.translate(-tx, -ty)
+  }
 
-	applyToPoint(point: Point) {
-		const {
-			x,
-			y
-		} = this.scale;
+  applyToPoint(point: Point) {
+    const {
+      x,
+      y
+    } = this.scale
 
-		point.applyTransform([
-			x || 0.0,
-			0,
-			0,
-			y || 0.0,
-			0,
-			0
-		]);
-	}
+    point.applyTransform([
+      x || 0.0,
+      0,
+      0,
+      y || 0.0,
+      0,
+      0
+    ])
+  }
 }

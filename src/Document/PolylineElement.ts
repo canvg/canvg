@@ -1,83 +1,71 @@
-import {
-	RenderingContext2D
-} from '../types';
-import Point from '../Point';
-import BoundingBox from '../BoundingBox';
-import Document from './Document';
-import PathElement, {
-	Marker
-} from './PathElement';
+import { RenderingContext2D } from '../types'
+import Point from '../Point'
+import BoundingBox from '../BoundingBox'
+import Document from './Document'
+import PathElement, { Marker } from './PathElement'
 
 export default class PolylineElement extends PathElement {
-	type = 'polyline';
-	protected readonly points: Point[] = [];
+  type = 'polyline'
+  protected readonly points: Point[] = []
 
-	constructor(
-		document: Document,
-		node: HTMLElement,
-		captureTextNodes?: boolean
-	) {
-		super(document, node, captureTextNodes);
+  constructor(
+    document: Document,
+    node: HTMLElement,
+    captureTextNodes?: boolean
+  ) {
+    super(document, node, captureTextNodes)
 
-		this.points = Point.parsePath(
-			this.getAttribute('points').getString()
-		);
-	}
+    this.points = Point.parsePath(
+      this.getAttribute('points').getString()
+    )
+  }
 
-	path(ctx: RenderingContext2D) {
-		const {
-			points
-		} = this;
-		const [{
-			x: x0,
-			y: y0
-		}] = points;
-		const boundingBox = new BoundingBox(x0, y0);
+  path(ctx: RenderingContext2D) {
+    const { points } = this
+    const [
+      {
+        x: x0,
+        y: y0
+      }
+    ] = points
+    const boundingBox = new BoundingBox(x0, y0)
 
-		if (ctx) {
-			ctx.beginPath();
-			ctx.moveTo(x0, y0);
-		}
+    if (ctx) {
+      ctx.beginPath()
+      ctx.moveTo(x0, y0)
+    }
 
-		points.forEach(({
-			x,
-			y
-		}) => {
-			boundingBox.addPoint(x, y);
+    points.forEach(({
+      x,
+      y
+    }) => {
+      boundingBox.addPoint(x, y)
 
-			if (ctx) {
-				ctx.lineTo(x, y);
-			}
-		});
+      if (ctx) {
+        ctx.lineTo(x, y)
+      }
+    })
 
-		return boundingBox;
-	}
+    return boundingBox
+  }
 
-	getMarkers() {
-		const {
-			points
-		} = this;
-		const lastIndex = points.length - 1;
-		const markers: Marker[] = [];
+  getMarkers() {
+    const { points } = this
+    const lastIndex = points.length - 1
+    const markers: Marker[] = []
 
-		points.forEach((point, i) => {
-			if (i === lastIndex) {
-				return;
-			}
+    points.forEach((point, i) => {
+      if (i === lastIndex) {
+        return
+      }
 
-			markers.push([
-				point,
-				point.angleTo(points[i + 1])
-			]);
-		});
+      markers.push([point, point.angleTo(points[i + 1])])
+    })
 
-		if (markers.length > 0) {
-			markers.push([
-				points[points.length - 1],
-				markers[markers.length - 1][1]
-			]);
-		}
+    if (markers.length > 0) {
+      markers.push([points[points.length - 1], markers[markers.length - 1][1]])
+    }
 
-		return markers;
-	}
+    return markers
+  }
 }

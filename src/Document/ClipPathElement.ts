@@ -1,72 +1,68 @@
-import {
-	RenderingContext2D
-} from '../types';
-import Transform from '../Transform';
-import Element from './Element';
-import UseElement from './UseElement';
+import { RenderingContext2D } from '../types'
+import Transform from '../Transform'
+import Element from './Element'
+import UseElement from './UseElement'
 
 const noop = () => {
-	// NOOP
-};
+  // NOOP
+}
 
 export default class ClipPathElement extends Element {
-	type = 'clipPath';
+  type = 'clipPath'
 
-	apply(ctx: RenderingContext2D) {
-		const {
-			document
-		} = this;
-		const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D;
-		const {
-			beginPath,
-			closePath
-		} = ctx;
+  apply(ctx: RenderingContext2D) {
+    const { document } = this
+    const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D
+    const {
+      beginPath,
+      closePath
+    } = ctx
 
-		if (contextProto) {
-			contextProto.beginPath = noop;
-			contextProto.closePath = noop;
-		}
+    if (contextProto) {
+      contextProto.beginPath = noop
+      contextProto.closePath = noop
+    }
 
-		Reflect.apply(beginPath, ctx, []);
+    Reflect.apply(beginPath, ctx, [])
 
-		this.children.forEach((child: UseElement) => {
-			if (typeof child.path === 'undefined') {
-				return;
-			}
+    this.children.forEach((child: UseElement) => {
+      if (typeof child.path === 'undefined') {
+        return
+      }
 
-			let transform = typeof child.elementTransform !== 'undefined'
-				? child.elementTransform()
-				: null; // handle <use />
+      let transform = typeof child.elementTransform !== 'undefined'
+        ? child.elementTransform()
+        : null // handle <use />
 
-			if (!transform) {
-				transform = Transform.fromElement(document, child);
-			}
+      if (!transform) {
+        transform = Transform.fromElement(document, child)
+      }
 
-			if (transform) {
-				transform.apply(ctx);
-			}
+      if (transform) {
+        transform.apply(ctx)
+      }
 
-			child.path(ctx);
+      child.path(ctx)
 
-			if (contextProto) {
-				contextProto.closePath = closePath;
-			}
+      if (contextProto) {
+        contextProto.closePath = closePath
+      }
 
-			if (transform) {
-				transform.unapply(ctx);
-			}
-		});
+      if (transform) {
+        transform.unapply(ctx)
+      }
+    })
 
-		Reflect.apply(closePath, ctx, []);
-		ctx.clip();
+    Reflect.apply(closePath, ctx, [])
+    ctx.clip()
 
-		if (contextProto) {
-			contextProto.beginPath = beginPath;
-			contextProto.closePath = closePath;
-		}
-	}
+    if (contextProto) {
+      contextProto.beginPath = beginPath
+      contextProto.closePath = closePath
+    }
+  }
 
-	render(_: RenderingContext2D) {
-		// NO RENDER
-	}
+  render(_: RenderingContext2D) {
+    // NO RENDER
+  }
 }

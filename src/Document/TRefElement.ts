@@ -1,19 +1,19 @@
-import TextElement from './TextElement';
+import TextElement from './TextElement'
 
 export default class TRefElement extends TextElement {
-	type = 'tref';
+  type = 'tref'
 
-	getText() {
-		const element = this.getHrefAttribute().getDefinition();
+  getText() {
+    const element = this.getHrefAttribute().getDefinition()
 
-		if (element) {
-			const firstChild = element.children[0] as TextElement;
+    if (element) {
+      const firstChild = element.children[0] as TextElement
 
-			if (firstChild) {
-				return firstChild.getText();
-			}
-		}
+      if (firstChild) {
+        return firstChild.getText()
+      }
+    }
 
-		return '';
-	}
+    return ''
+  }
 }

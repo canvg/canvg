@@ -1,5 +1,5 @@
-import Element from './Element';
+import Element from './Element'
 
 export default class TitleElement extends Element {
-	type = 'title';
+  type = 'title'
 }
