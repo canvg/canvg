@@ -6,7 +6,7 @@ specifiers:
   '@babel/node': ^7.6.3
   '@babel/runtime': ^7.12.5
   '@rollup/plugin-babel': ^5.0.0
-  '@rollup/plugin-commonjs': ^18.0.0
+  '@rollup/plugin-commonjs': ^21.0.0
   '@rollup/plugin-eslint': ^8.0.1
   '@rollup/plugin-node-resolve': ^13.0.5
   '@rollup/plugin-replace': ^3.0.0
@@ -65,7 +65,7 @@ devDependencies:
   '@babel/core': 7.17.0
   '@babel/node': 7.16.8_@babel+core@7.17.0
   '@rollup/plugin-babel': 5.3.0_@babel+core@7.17.0+rollup@2.67.0
-  '@rollup/plugin-commonjs': 18.1.0_rollup@2.67.0
+  '@rollup/plugin-commonjs': 21.0.1_rollup@2.67.0
   '@rollup/plugin-eslint': 8.0.1_rollup@2.67.0
   '@rollup/plugin-node-resolve': 13.1.3_rollup@2.67.0
   '@rollup/plugin-replace': 3.0.1_rollup@2.67.0
@@ -1872,11 +1872,11 @@ packages:
       rollup: 2.67.0
     dev: true
 
-  /@rollup/plugin-commonjs/18.1.0_rollup@2.67.0:
-    resolution: {integrity: sha512-h3e6T9rUxVMAQswpDIobfUHn/doMzM9sgkMrsMWCFLmB84PSoC8mV8tOloAJjSRwdqhXBqstlX2BwBpHJvbhxg==}
+  /@rollup/plugin-commonjs/21.0.1_rollup@2.67.0:
+    resolution: {integrity: sha512-EA+g22lbNJ8p5kuZJUYyhhDK7WgJckW5g4pNN7n4mAFUM96VuwUnNT3xr2Db2iCZPI1pJPbGyfT5mS9T1dHfMg==}
     engines: {node: '>= 8.0.0'}
     peerDependencies:
-      rollup: ^2.30.0
+      rollup: ^2.38.3
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.67.0
       commondir: 1.0.1
@@ -2941,6 +2941,7 @@ packages:
 
   /bindings/1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
     dependencies:
       file-uri-to-path: 1.0.0
     dev: true
@@ -4568,6 +4569,7 @@ packages:
 
   /file-uri-to-path/1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
     dev: true
     optional: true
 
