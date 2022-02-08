@@ -25,23 +25,25 @@
   },
   "type": "module",
   "sideEffects": false,
-  "main": "lib/index.cjs",
-  "module": "lib/index.es.js",
-  "raw": "lib/index.babel.js",
-  "umd": "lib/umd.js",
-  "types": "lib/index.d.ts",
-  "exports": {
-    "require": "./lib/index.cjs",
-    "import": "./lib/index.es.js"
+  "main": "./src/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "directory": "package"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
+    "emitDeclarations": "tsc --skipLibCheck --emitDeclarationOnly",
+    "build": "rollup -c & pnpm emitDeclarations",
     "lint": "eslint 'rollup.config.js' 'src/**/*.ts' 'types/**/*.ts' 'test/**/*.{js,ts}'",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
-    "jest:debug": "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --watch --no-cache --runInBand -c jest.config.json",
-    "typecheck": "tsc --noEmit --pretty --skipLibCheck",
     "checkSize": "size-limit",
     "test:base": "pnpm test",
     "test:browser": "pnpm jest test/browser",
@@ -49,9 +51,8 @@
     "test:offscreen": "pnpm jest test/offscreen",
     "test": "pnpm lint && pnpm jest test/util",
     "build:docs": "./scripts/buildDocs.sh",
-    "start": "ts-node -P ./tsconfig.dev.json test/common/server.ts",
-    "start:node": "ts-node -P ./tsconfig.dev.json -T test/node/index.ts",
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "start": "NODE_ENV=development rollup -c && node --loader ts-node/esm test/common/server.ts",
+    "start:node": "ts-node -P ./tsconfig.dev.json test/node/index.ts",
     "cleanPublish": "pnpm test && clean-publish",
     "commit": "cz",
     "bumpVersion": "standard-version",
@@ -67,38 +68,34 @@
     "canvas"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
     "@types/raf": "^3.4.0",
-    "core-js": "^3.8.3",
     "raf": "^3.4.1",
-    "regenerator-runtime": "^0.13.7",
     "rgbcolor": "^1.0.1",
     "stackblur-canvas": "^2.0.0",
     "svg-pathdata": "^6.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@commitlint/cz-commitlint": "^16.1.0",
-    "@rollup/plugin-babel": "^5.0.0",
-    "@rollup/plugin-commonjs": "^18.0.0",
-    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@rollup/plugin-replace": "^3.0.0",
     "@size-limit/preset-small-lib": "^4.4.0",
+    "@swc/core": "^1.2.136",
+    "@swc/helpers": "^0.3.2",
+    "@swc/jest": "^0.2.17",
     "@trigen/babel-preset": "^7.0.2",
-    "@trigen/browserslist-config": "^7.0.2",
+    "@trigen/browserslist-config": "^8.0.0-alpha.2",
     "@trigen/eslint-config": "^8.0.0-alpha.6",
     "@types/jest": "^27.0.2",
     "@types/node": "^17.0.15",
     "@types/node-fetch": "^3.0.3",
     "@types/puppeteer": "^5.4.2",
     "@types/xmldom": "^0.1.29",
-    "babel-jest": "^27.2.5",
-    "builtin-modules": "*",
+    "browserslist": "^4.19.1",
     "canvas": "^2.1.0",
     "clean-publish": "^3.4.1",
     "commitizen": "^4.2.4",
@@ -112,21 +109,19 @@
     "nano-staged": "^0.5.0",
     "node-fetch": "^2.6.0",
     "puppeteer": "^10.4.0",
-    "rollup": "^2.10.5",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup": "^2.67.1",
+    "rollup-plugin-swc": "^0.2.1",
     "simple-git-hooks": "^2.7.0",
     "simple-github-release": "^1.0.0",
     "size-limit": "^4.4.0",
     "standard-version": "^9.3.2",
-    "ts-node-dev": "^1.0.0-pre.39",
+    "ts-node": "^10.5.0",
     "tsconfig-paths": "^3.8.0",
     "typedoc": "^0.20.16",
     "typescript": "3.9.7",
     "xmldom": "^0.6.0"
   },
   "files": [
-    "lib"
+    "dist"
   ]
 }

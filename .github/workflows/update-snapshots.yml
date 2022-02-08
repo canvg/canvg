@@ -26,6 +26,8 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+        env:
+          NODE_ENV: 'development'
       - name: Update snapshots
         run: pnpm test:${{ matrix.stage }} -- -u
       - name: Collect artifacts

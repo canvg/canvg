@@ -31,7 +31,7 @@ export function offscreen({ DOMParser: DOMParserFallback }: IConfig = {}) {
     }
   }
 
-  if (typeof DOMParser !== 'undefined'
+  if (typeof globalThis.DOMParser !== 'undefined'
     || typeof DOMParserFallback === 'undefined'
   ) {
     Reflect.deleteProperty(preset, 'DOMParser')
