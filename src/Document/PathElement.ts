@@ -4,16 +4,16 @@ import {
   vectorsRatio,
   vectorsAngle
 } from '../util'
-import Point from '../Point'
-import BoundingBox from '../BoundingBox'
-import PathParser from '../PathParser'
-import Document from './Document'
-import RenderedElement from './RenderedElement'
-import MarkerElement from './MarkerElement'
+import { Point } from '../Point'
+import { BoundingBox } from '../BoundingBox'
+import { PathParser } from '../PathParser'
+import { Document } from './Document'
+import { RenderedElement } from './RenderedElement'
+import { MarkerElement } from './MarkerElement'
 
 export type Marker = [Point, number]
 
-export default class PathElement extends RenderedElement {
+export class PathElement extends RenderedElement {
   type = 'path'
   readonly pathParser: PathParser = null
 

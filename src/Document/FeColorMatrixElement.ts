@@ -1,7 +1,7 @@
 import { RenderingContext2D } from '../types'
 import { toNumbers } from '../util'
-import Document from './Document'
-import Element from './Element'
+import { Document } from './Document'
+import { Element } from './Element'
 
 function imGet(
   img: Uint8ClampedArray,
@@ -45,7 +45,7 @@ function c(
   return m1 + Math.cos(a) * m2 + Math.sin(a) * m3
 }
 
-export default class FeColorMatrixElement extends Element {
+export class FeColorMatrixElement extends Element {
   type = 'feColorMatrix'
   protected readonly matrix: number[]
   protected readonly includeOpacity: boolean

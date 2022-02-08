@@ -1,10 +1,10 @@
-import Document from './Document'
-import Element from './Element'
-import FontFaceElement from './FontFaceElement'
-import MissingGlyphElement from './MissingGlyphElement'
-import GlyphElement from './GlyphElement'
+import { Document } from './Document'
+import { Element } from './Element'
+import { FontFaceElement } from './FontFaceElement'
+import { MissingGlyphElement } from './MissingGlyphElement'
+import { GlyphElement } from './GlyphElement'
 
-export default class FontElement extends Element {
+export class FontElement extends Element {
   type = 'font'
   readonly isArabic: boolean
   readonly missingGlyph: MissingGlyphElement

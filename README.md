@@ -46,8 +46,8 @@ npm i canvg
 Basic module exports:
 
 ```js
-export default Canvg;
 export {
+  Canvg,
   presets
 };
 ```
@@ -57,7 +57,7 @@ export {
 ### Example
 
 ```js
-import Canvg from 'canvg';
+import { Canvg } from 'canvg';
 
 let v = null;
 
@@ -82,7 +82,8 @@ window.onbeforeunload = () => {
   </summary>
 
 ```js
-import Canvg, {
+import {
+  Canvg,
   presets
 } from 'canvg';
 
@@ -126,7 +127,8 @@ import {
 } from 'xmldom';
 import * as canvas from 'canvas';
 import fetch from 'node-fetch';
-import Canvg, {
+import {
+  Canvg,
   presets
 } from 'canvg';
 
@@ -163,7 +165,8 @@ const preset = presets.node({
   </summary>
 
 ```js
-import Canvg, {
+import {
+  Canvg,
   presets
 } from 'canvg';
 
@@ -206,7 +209,7 @@ self.onmessage = async (event) => {
 
 ```html
 <script type="module">
-import Canvg from 'https://cdn.skypack.dev/canvg';
+import { Canvg } from 'https://cdn.skypack.dev/canvg';
 
 window.onload = () => {
   const canvas = document.querySelector('canvas');

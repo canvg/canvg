@@ -1,9 +1,9 @@
 import { RenderingContext2D } from '../types'
-import Property from '../Property'
-import Element from './Element'
-import SVGElement from './SVGElement'
+import { Property } from '../Property'
+import { Element } from './Element'
+import { SVGElement } from './SVGElement'
 
-export default class PatternElement extends Element {
+export class PatternElement extends Element {
   type = 'pattern'
 
   createPattern(

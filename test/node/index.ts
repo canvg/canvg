@@ -10,7 +10,7 @@ import {
 import { DOMParser } from 'xmldom'
 import * as canvas from 'canvas'
 import fetch, { Response } from 'node-fetch'
-import Canvg, { presets } from '../../src'
+import { Canvg, presets } from '../../src'
 
 const preset = presets.node({
   DOMParser,
@@ -29,7 +29,7 @@ const preset = presets.node({
   }
 })
 
-export default async function render(
+export async function render(
   file: string,
   width?: number,
   height?: number,

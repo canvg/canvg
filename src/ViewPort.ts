@@ -6,7 +6,7 @@ export interface IViewPortSize {
 
 export type Axis = 'x' | 'y'
 
-export default class ViewPort {
+export class ViewPort {
   viewPorts: IViewPortSize[] = []
 
   clear() {

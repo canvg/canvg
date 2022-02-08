@@ -1,7 +1,7 @@
 import { RenderingContext2D } from '../types'
-import Element from './Element'
+import { Element } from './Element'
 
-export default class FeCompositeElement extends Element {
+export class FeCompositeElement extends Element {
   type = 'feComposite'
 
   apply(

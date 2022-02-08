@@ -1,7 +1,7 @@
-import Document from './Document'
-import Element from './Element'
+import { Document } from './Document'
+import { Element } from './Element'
 
-export default class StopElement extends Element {
+export class StopElement extends Element {
   type = 'stop'
   readonly offset: number
   readonly color: string

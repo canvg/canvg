@@ -1,8 +1,8 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import PathElement from './PathElement'
+import { BoundingBox } from '../BoundingBox'
+import { PathElement } from './PathElement'
 
-export default class CircleElement extends PathElement {
+export class CircleElement extends PathElement {
   type = 'circle'
 
   path(ctx: RenderingContext2D) {

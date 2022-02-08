@@ -1,8 +1,8 @@
-import Document from '../Document'
-import Property from '../Property'
-import Skew from './Skew'
+import { Document } from '../Document'
+import { Property } from '../Property'
+import { Skew } from './Skew'
 
-export default class SkewY extends Skew {
+export class SkewY extends Skew {
   type = 'skewY'
 
   constructor(

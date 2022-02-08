@@ -5,16 +5,16 @@ import {
   trimLeft,
   trimRight
 } from '../util'
-import Font from '../Font'
-import BoundingBox from '../BoundingBox'
-import Property from '../Property'
-import Document from './Document'
-import Element from './Element'
-import FontElement from './FontElement'
-import GlyphElement from './GlyphElement'
-import RenderedElement from './RenderedElement'
+import { Font } from '../Font'
+import { BoundingBox } from '../BoundingBox'
+import { Property } from '../Property'
+import { Document } from './Document'
+import { Element } from './Element'
+import { FontElement } from './FontElement'
+import { GlyphElement } from './GlyphElement'
+import { RenderedElement } from './RenderedElement'
 
-export default class TextElement extends RenderedElement {
+export class TextElement extends RenderedElement {
   type = 'text'
   protected x = 0
   protected y = 0

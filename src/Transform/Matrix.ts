@@ -1,11 +1,11 @@
 import { RenderingContext2D } from '../types'
 import { toNumbers } from '../util'
-import Document from '../Document'
-import Point from '../Point'
-import Property from '../Property'
+import { Document } from '../Document'
+import { Point } from '../Point'
+import { Property } from '../Property'
 import { ITransform } from './types'
 
-export default class Matrix implements ITransform {
+export class Matrix implements ITransform {
   type = 'matrix'
   protected matrix: number[] = []
   private readonly originX: Property = null

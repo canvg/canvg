@@ -6,13 +6,14 @@ import {
   normalizeColor
 } from './util'
 import { Axis } from './ViewPort'
-import Document, {
+import {
+  Document,
   Element,
   PatternElement,
   GradientElement
 } from './Document'
 
-export default class Property<T = any> {
+export class Property<T = any> {
   static empty(document: Document) {
     return new Property(document, 'EMPTY', '')
   }

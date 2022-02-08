@@ -1,10 +1,10 @@
 import { RenderingContext2D } from '../types'
 import { toNumbers } from '../util'
-import Document from '../Document'
-import Property from '../Property'
-import Point from '../Point'
+import { Document } from '../Document'
+import { Property } from '../Property'
+import { Point } from '../Point'
 
-export default class Rotate {
+export class Rotate {
   type = 'rotate'
   private readonly angle: Property = null
   private readonly originX: Property = null

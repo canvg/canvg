@@ -1,12 +1,12 @@
 import { RenderingContext2D } from '../types'
-import Property from '../Property'
-import Font from '../Font'
-import BoundingBox from '../BoundingBox'
-import Document from './Document'
-import TextElement from './TextElement'
-import GElement from './GElement'
+import { Property } from '../Property'
+import { Font } from '../Font'
+import { BoundingBox } from '../BoundingBox'
+import { Document } from './Document'
+import { TextElement } from './TextElement'
+import { GElement } from './GElement'
 
-export default class AElement extends TextElement {
+export class AElement extends TextElement {
   type = 'a'
   protected readonly hasText: boolean
   protected readonly text: string

@@ -1,8 +1,8 @@
 import { RenderingContext2D } from '../types'
-import Document from './Document'
-import Element from './Element'
+import { Document } from './Document'
+import { Element } from './Element'
 
-export default class FeDropShadowElement extends Element {
+export class FeDropShadowElement extends Element {
   type = 'feDropShadow'
 
   constructor(

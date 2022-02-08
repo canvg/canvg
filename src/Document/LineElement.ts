@@ -1,9 +1,9 @@
 import { RenderingContext2D } from '../types'
-import Point from '../Point'
-import BoundingBox from '../BoundingBox'
-import PathElement, { Marker } from './PathElement'
+import { Point } from '../Point'
+import { BoundingBox } from '../BoundingBox'
+import { PathElement, Marker } from './PathElement'
 
-export default class LineElement extends PathElement {
+export class LineElement extends PathElement {
   type = 'line'
 
   getPoints() {

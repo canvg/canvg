@@ -1,13 +1,13 @@
 import { RenderingContext2D } from '../types'
-import Transform from '../Transform'
-import Element from './Element'
-import UseElement from './UseElement'
+import { Transform } from '../Transform'
+import { Element } from './Element'
+import { UseElement } from './UseElement'
 
 const noop = () => {
   // NOOP
 }
 
-export default class ClipPathElement extends Element {
+export class ClipPathElement extends Element {
   type = 'clipPath'
 
   apply(ctx: RenderingContext2D) {

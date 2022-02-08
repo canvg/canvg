@@ -12,7 +12,7 @@ import {
   CommandA
 } from 'svg-pathdata/lib/types'
 import { SVGPathData } from 'svg-pathdata'
-import Point from './Point'
+import { Point } from './Point'
 
 export type CommandType = SVGCommand['type']
 export type Command = { type: CommandType }
@@ -27,7 +27,7 @@ export type Command = { type: CommandType }
   & Omit<CommandS, 'type'>
   & Omit<CommandA, 'type'>
 
-export default class PathParser extends SVGPathData {
+export class PathParser extends SVGPathData {
   control: Point = null
   start: Point = null
   current: Point = null

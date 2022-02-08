@@ -1,10 +1,10 @@
 import { RenderingContext2D } from '../types'
 import { toNumbers } from '../util'
-import Property from '../Property'
-import Font from '../Font'
-import RenderedElement from './RenderedElement'
+import { Property } from '../Property'
+import { Font } from '../Font'
+import { RenderedElement } from './RenderedElement'
 
-export default class SVGElement extends RenderedElement {
+export class SVGElement extends RenderedElement {
   type = 'svg'
   root = false
 

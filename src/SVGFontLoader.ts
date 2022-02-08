@@ -1,6 +1,6 @@
-import Document from './Document'
+import { Document } from './Document'
 
-export default class SVGFontLoader {
+export class SVGFontLoader {
   loaded = false
 
   constructor(

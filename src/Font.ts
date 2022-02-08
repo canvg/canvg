@@ -81,7 +81,7 @@ function prepareFontWeight(fontWeight: string) {
   }
 }
 
-export default class Font {
+export class Font {
   static parse(
     font = '',
     inherit?: string | Font

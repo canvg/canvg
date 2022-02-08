@@ -1,7 +1,7 @@
-import Document from './Document'
-import TextElement from './TextElement'
+import { Document } from './Document'
+import { TextElement } from './TextElement'
 
-export default class TSpanElement extends TextElement {
+export class TSpanElement extends TextElement {
   type = 'tspan'
   protected readonly text: string
 

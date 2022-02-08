@@ -1,9 +1,9 @@
 import { RenderingContext2D } from '../types'
-import Document from './Document'
-import PathElement from './PathElement'
-import GradientElement from './GradientElement'
+import { Document } from './Document'
+import { PathElement } from './PathElement'
+import { GradientElement } from './GradientElement'
 
-export default class LinearGradientElement extends GradientElement {
+export class LinearGradientElement extends GradientElement {
   type = 'linearGradient'
 
   constructor(

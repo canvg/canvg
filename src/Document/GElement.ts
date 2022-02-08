@@ -1,9 +1,9 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import PathElement from './PathElement'
-import RenderedElement from './RenderedElement'
+import { BoundingBox } from '../BoundingBox'
+import { PathElement } from './PathElement'
+import { RenderedElement } from './RenderedElement'
 
-export default class GElement extends RenderedElement {
+export class GElement extends RenderedElement {
   type = 'g'
 
   getBoundingBox(ctx: RenderingContext2D) {

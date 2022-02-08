@@ -1,7 +1,7 @@
-import Document from './Document'
-import Element from './Element'
+import { Document } from './Document'
+import { Element } from './Element'
 
-export default class UnknownElement extends Element {
+export class UnknownElement extends Element {
   constructor(
     document: Document,
     node: HTMLElement,

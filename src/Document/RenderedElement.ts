@@ -3,11 +3,11 @@ import {
   PSEUDO_ZERO,
   toNumbers
 } from '../util'
-import Font from '../Font'
-import Property from '../Property'
-import Element from './Element'
+import { Font } from '../Font'
+import { Property } from '../Property'
+import { Element } from './Element'
 
-export default abstract class RenderedElement extends Element {
+export abstract class RenderedElement extends Element {
   private modifiedEmSizeStack = false
 
   protected calculateOpacity() {

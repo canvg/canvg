@@ -1,9 +1,9 @@
 import { RenderingContext2D } from '../types'
-import Element from './Element'
-import PathElement from './PathElement'
-import FeGaussianBlurElement from './FeGaussianBlurElement'
+import { Element } from './Element'
+import { PathElement } from './PathElement'
+import { FeGaussianBlurElement } from './FeGaussianBlurElement'
 
-export default class FilterElement extends Element {
+export class FilterElement extends Element {
   static ignoreStyles = [
     'filter',
     'transform',

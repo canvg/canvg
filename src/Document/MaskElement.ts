@@ -1,10 +1,10 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import Element from './Element'
-import PathElement from './PathElement'
-import FeColorMatrixElement from './FeColorMatrixElement'
+import { BoundingBox } from '../BoundingBox'
+import { Element } from './Element'
+import { PathElement } from './PathElement'
+import { FeColorMatrixElement } from './FeColorMatrixElement'
 
-export default class MaskElement extends Element {
+export class MaskElement extends Element {
   static ignoreStyles = [
     'mask',
     'transform',

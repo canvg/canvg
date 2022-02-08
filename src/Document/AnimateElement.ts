@@ -1,6 +1,6 @@
-import Property from '../Property'
-import Document from './Document'
-import Element from './Element'
+import { Property } from '../Property'
+import { Document } from './Document'
+import { Element } from './Element'
 
 export interface IProgress {
   from?: Property
@@ -8,7 +8,7 @@ export interface IProgress {
   progress: number
 }
 
-export default class AnimateElement extends Element {
+export class AnimateElement extends Element {
   type = 'animate'
   protected readonly begin: number
   protected readonly maxDuration: number
