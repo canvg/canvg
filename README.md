@@ -16,8 +16,8 @@
 [build]: https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg
 [build-url]: https://github.com/canvg/canvg/actions
 
-[coverage]: https://img.shields.io/coveralls/canvg/canvg.svg
-[coverage-url]: https://coveralls.io/r/canvg/canvg
+[coverage]: https://img.shields.io/codecov/c/github/canvg/canvg.svg
+[coverage-url]: https://app.codecov.io/gh/canvg/canvg
 
 [dependabot]: https://api.dependabot.com/badges/status?host=github&repo=canvg/canvg
 [dependabot-url]: https://dependabot.com/
