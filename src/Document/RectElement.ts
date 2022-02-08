@@ -1,8 +1,8 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import PathElement from './PathElement'
+import { BoundingBox } from '../BoundingBox'
+import { PathElement } from './PathElement'
 
-export default class RectElement extends PathElement {
+export class RectElement extends PathElement {
   type = 'rect'
 
   path(ctx: RenderingContext2D) {

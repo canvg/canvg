@@ -1,4 +1,4 @@
-import Screen from './Screen'
+import { Screen } from './Screen'
 
 export interface IParserOptions {
   /**
@@ -16,7 +16,7 @@ const DefaultDOMParser = typeof DOMParser !== 'undefined'
   ? DOMParser
   : null
 
-export default class Parser {
+export class Parser {
   private readonly fetch: typeof defaultFetch
   private readonly DOMParser: typeof DefaultDOMParser
 

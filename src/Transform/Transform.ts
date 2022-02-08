@@ -1,26 +1,15 @@
 import { RenderingContext2D } from '../types'
 import { compressSpaces } from '../util'
-import Property from '../Property'
-import Point from '../Point'
-import Document, { Element } from '../Document'
+import { Property } from '../Property'
+import { Point } from '../Point'
+import { Document, Element } from '../Document'
 import { ITransform } from './types'
-import Translate from './Translate'
-import Rotate from './Rotate'
-import Scale from './Scale'
-import Matrix from './Matrix'
-import Skew from './Skew'
-import SkewX from './SkewX'
-import SkewY from './SkewY'
-
-export {
-  Translate,
-  Rotate,
-  Scale,
-  Matrix,
-  Skew,
-  SkewX,
-  SkewY
-}
+import { Translate } from './Translate'
+import { Rotate } from './Rotate'
+import { Scale } from './Scale'
+import { Matrix } from './Matrix'
+import { SkewX } from './SkewX'
+import { SkewY } from './SkewY'
 
 function parseTransforms(transform: string) {
   return compressSpaces(transform)
@@ -45,7 +34,7 @@ interface ITransformConstructor {
   ): ITransform
 }
 
-export default class Transform {
+export class Transform {
   static fromElement(document: Document, element: Element) {
     const transformStyle = element.getStyle('transform', false, true)
     const [transformOriginXProperty, transformOriginYProperty = transformOriginXProperty] = element.getStyle('transform-origin', false, true).split()

@@ -1,7 +1,7 @@
-import Document from './Document'
-import PathElement from './PathElement'
+import { Document } from './Document'
+import { PathElement } from './PathElement'
 
-export default class GlyphElement extends PathElement {
+export class GlyphElement extends PathElement {
   type = 'glyph'
   readonly horizAdvX: number
   readonly unicode: string

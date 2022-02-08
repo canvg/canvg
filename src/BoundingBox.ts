@@ -1,5 +1,5 @@
 
-export default class BoundingBox {
+export class BoundingBox {
   constructor(
     public x1 = Number.NaN,
     public y1 = Number.NaN,

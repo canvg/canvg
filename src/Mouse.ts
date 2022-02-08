@@ -1,7 +1,7 @@
 import { RenderingContext2D } from './types'
-import BoundingBox from './BoundingBox'
-import Point from './Point'
-import Screen from './Screen'
+import { BoundingBox } from './BoundingBox'
+import { Point } from './Point'
+import { Screen } from './Screen'
 import { Element } from './Document'
 
 interface IEventTarget {
@@ -16,7 +16,7 @@ export interface IEvent {
   run(eventTarget: IEventTarget): void
 }
 
-export default class Mouse {
+export class Mouse {
   private working = false
   private events: IEvent[] = []
   private eventElements: Element[] = []

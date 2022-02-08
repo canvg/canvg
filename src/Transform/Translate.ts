@@ -1,8 +1,8 @@
 import { RenderingContext2D } from '../types'
-import Document from '../Document'
-import Point from '../Point'
+import { Document } from '../Document'
+import { Point } from '../Point'
 
-export default class Translate {
+export class Translate {
   type = 'translate'
   private readonly point: Point = null
 

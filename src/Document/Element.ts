@@ -1,14 +1,14 @@
 import { RenderingContext2D } from '../types'
 import { normalizeAttributeName } from '../util'
-import Property from '../Property'
-import Transform from '../Transform'
-import Document from './Document'
-import ClipPathElement from './ClipPathElement'
-import MaskElement from './MaskElement'
-import FilterElement from './FilterElement'
-import PathElement from './PathElement'
+import { Property } from '../Property'
+import { Transform } from '../Transform'
+import { Document } from './Document'
+import { ClipPathElement } from './ClipPathElement'
+import { MaskElement } from './MaskElement'
+import { FilterElement } from './FilterElement'
+import { PathElement } from './PathElement'
 
-export default abstract class Element {
+export abstract class Element {
   static readonly ignoreChildTypes = ['title']
 
   readonly type: string

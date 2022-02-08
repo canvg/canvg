@@ -1,10 +1,10 @@
 import { RenderingContext2D } from '../types'
 import { PSEUDO_ZERO } from '../util'
-import Document from '../Document'
-import Point from '../Point'
-import Property from '../Property'
+import { Document } from '../Document'
+import { Point } from '../Point'
+import { Property } from '../Property'
 
-export default class Scale {
+export class Scale {
   type = 'scale'
   private readonly scale: Point = null
   private readonly originX: Property = null

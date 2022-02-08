@@ -1,6 +1,6 @@
-import TextElement from './TextElement'
+import { TextElement } from './TextElement'
 
-export default class TRefElement extends TextElement {
+export class TRefElement extends TextElement {
   type = 'tref'
 
   getText() {

@@ -1,14 +1,14 @@
 import { RenderingContext2D } from '../types'
-import Property from '../Property'
-import Document from './Document'
-import Element from './Element'
-import PathElement from './PathElement'
-import SVGElement from './SVGElement'
-import RectElement from './RectElement'
-import StopElement from './StopElement'
-import GElement from './GElement'
+import { Property } from '../Property'
+import { Document } from './Document'
+import { Element } from './Element'
+import { PathElement } from './PathElement'
+import { SVGElement } from './SVGElement'
+import { RectElement } from './RectElement'
+import { StopElement } from './StopElement'
+import { GElement } from './GElement'
 
-export default abstract class GradientElement extends Element {
+export abstract class GradientElement extends Element {
   readonly attributesToInherit = ['gradientUnits']
 
   protected readonly stops: StopElement[] = []

@@ -1,7 +1,7 @@
 import RGBColor from 'rgbcolor'
-import AnimateElement from './AnimateElement'
+import { AnimateElement } from './AnimateElement'
 
-export default class AnimateColorElement extends AnimateElement {
+export class AnimateColorElement extends AnimateElement {
   type = 'animateColor'
 
   calcValue() {

@@ -1,10 +1,10 @@
 import { RenderingContext2D } from '../types'
-import Point from '../Point'
-import Property from '../Property'
-import Element from './Element'
-import SVGElement from './SVGElement'
+import { Point } from '../Point'
+import { Property } from '../Property'
+import { Element } from './Element'
+import { SVGElement } from './SVGElement'
 
-export default class MarkerElement extends Element {
+export class MarkerElement extends Element {
   type = 'marker'
 
   render(ctx: RenderingContext2D, point?: Point, angle?: number) {

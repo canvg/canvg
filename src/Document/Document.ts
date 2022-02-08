@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import Canvg from '../Canvg'
-import Screen, { IScreenViewBoxConfig } from '../Screen'
-import Property from '../Property'
-import SVGFontLoader from '../SVGFontLoader'
-import Element from './Element'
-import UnknownElement from './UnknownElement'
-import TextNode from './TextNode'
-import ImageElement from './ImageElement'
-import SVGElement from './SVGElement'
-import elementTypes, { AnyElement } from './elements'
+import { Canvg } from '../Canvg'
+import { IScreenViewBoxConfig, Screen } from '../Screen'
+import { Property } from '../Property'
+import { SVGFontLoader } from '../SVGFontLoader'
+import { Element } from './Element'
+import { UnknownElement } from './UnknownElement'
+import { TextNode } from './TextNode'
+import { ImageElement } from './ImageElement'
+import { SVGElement } from './SVGElement'
+import {
+  AnyElement,
+  elements as elementTypes
+} from './elements'
 
 /**
  * Function to create new canvas.
@@ -76,7 +79,7 @@ async function createImage(src: string, anonymousCrossOrigin = false) {
   })
 }
 
-export default class Document {
+export class Document {
   static readonly createCanvas = createCanvas
   static readonly createImage = createImage
   static readonly elementTypes = elementTypes

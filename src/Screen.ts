@@ -4,10 +4,11 @@ import {
   compressSpaces,
   toNumbers
 } from './util'
-import Property from './Property'
-import ViewPort from './ViewPort'
-import Mouse from './Mouse'
-import Document, {
+import { Property } from './Property'
+import { ViewPort } from './ViewPort'
+import { Mouse } from './Mouse'
+import {
+  Document,
   Element,
   AnimateElement
 } from './Document'
@@ -90,7 +91,7 @@ const defaultFetch = typeof fetch !== 'undefined'
   ? fetch.bind(undefined) as typeof fetch // `fetch` depends on context: `someObject.fetch(...)` will throw error.
   : null
 
-export default class Screen {
+export class Screen {
   static readonly defaultWindow = defaultWindow
   static readonly defaultFetch = defaultFetch
 

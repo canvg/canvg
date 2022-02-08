@@ -3,12 +3,12 @@ import {
   getSelectorSpecificity,
   parseExternalUrl
 } from '../util'
-import Property from '../Property'
-import SVGFontLoader from '../SVGFontLoader'
-import Document from './Document'
-import Element from './Element'
+import { Property } from '../Property'
+import { SVGFontLoader } from '../SVGFontLoader'
+import { Document } from './Document'
+import { Element } from './Element'
 
-export default class StyleElement extends Element {
+export class StyleElement extends Element {
   static readonly parseExternalUrl = parseExternalUrl
 
   type = 'style'

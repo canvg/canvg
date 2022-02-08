@@ -1,11 +1,11 @@
 import { RenderingContext2D } from '../types'
-import Property from '../Property'
-import Transform from '../Transform'
-import RenderedElement from './RenderedElement'
-import PathElement from './PathElement'
-import SVGElement from './SVGElement'
+import { Property } from '../Property'
+import { Transform } from '../Transform'
+import { RenderedElement } from './RenderedElement'
+import { PathElement } from './PathElement'
+import { SVGElement } from './SVGElement'
 
-export default class UseElement extends RenderedElement {
+export class UseElement extends RenderedElement {
   type = 'use'
   private cachedElement: PathElement
 

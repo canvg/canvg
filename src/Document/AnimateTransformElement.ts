@@ -1,7 +1,7 @@
 import { toNumbers } from '../util'
-import AnimateElement from './AnimateElement'
+import { AnimateElement } from './AnimateElement'
 
-export default class AnimateTransformElement extends AnimateElement {
+export class AnimateTransformElement extends AnimateElement {
   type = 'animateTransform'
 
   calcValue() {

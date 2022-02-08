@@ -3,7 +3,7 @@ import {
   filterConsoleWarn,
   filterConsoleError
 } from './common'
-import render from './node'
+import { render } from './node'
 import svgs from './svgs.json'
 
 describe('canvg', () => {

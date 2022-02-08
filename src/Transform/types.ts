@@ -1,5 +1,5 @@
 import { RenderingContext2D } from '../types'
-import Point from '../Point'
+import { Point } from '../Point'
 
 export interface ITransform {
   type: string

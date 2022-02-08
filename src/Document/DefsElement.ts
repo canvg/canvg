@@ -1,6 +1,6 @@
-import Element from './Element'
+import { Element } from './Element'
 
-export default class DefsElement extends Element {
+export class DefsElement extends Element {
   type = 'defs'
 
   render() {

@@ -1,11 +1,13 @@
 import { RenderingContext2D } from './types'
-import Parser, { IParserOptions } from './Parser'
-import Screen, {
+import { IParserOptions, Parser } from './Parser'
+import {
   IScreenOptions,
-  IScreenStartOptions
+  IScreenStartOptions,
+  Screen
 } from './Screen'
-import Document, {
+import {
   IDocumentOptions,
+  Document,
   SVGElement
 } from './Document'
 
@@ -19,7 +21,7 @@ export interface IOptions extends IParserOptions,
 /**
  * SVG renderer on canvas.
  */
-export default class Canvg {
+export class Canvg {
   /**
    * Create Canvg instance from SVG source string or URL.
    * @param ctx - Rendering context.

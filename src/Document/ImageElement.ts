@@ -1,12 +1,12 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import Document from './Document'
-import RenderedElement from './RenderedElement'
+import { BoundingBox } from '../BoundingBox'
+import { Document } from './Document'
+import { RenderedElement } from './RenderedElement'
 
 // groups: 1: mime-type (+ charset), 2: mime-type (w/o charset), 3: charset, 4: base64?, 5: body
 const dataUriRegex = /^\s*data:(([^/,;]+\/[^/,;]+)(?:;([^,;=]+=[^,;=]+))?)?(?:;(base64))?,(.*)$/i
 
-export default class ImageElement extends RenderedElement {
+export class ImageElement extends RenderedElement {
   type = 'image'
   loaded = false
   protected readonly isSvg: boolean

@@ -9,10 +9,10 @@ import {
   QB2,
   QB3
 } from '../util'
-import PathParser, { CommandType } from '../PathParser'
-import Document from './Document'
-import TextElement from './TextElement'
-import PathElement from './PathElement'
+import { PathParser, CommandType } from '../PathParser'
+import { Document } from './Document'
+import { TextElement } from './TextElement'
+import { PathElement } from './PathElement'
 
 export interface IPoint {
   x: number
@@ -45,7 +45,7 @@ interface IGlyphInfo {
   p1: ICachedPoint
 }
 
-export default class TextPathElement extends TextElement {
+export class TextPathElement extends TextElement {
   type = 'textPath'
   protected textWidth = 0
   protected textHeight = 0

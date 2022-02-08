@@ -1,8 +1,8 @@
 import { RenderingContext2D } from '../types'
-import BoundingBox from '../BoundingBox'
-import PathElement from './PathElement'
+import { BoundingBox } from '../BoundingBox'
+import { PathElement } from './PathElement'
 
-export default class EllipseElement extends PathElement {
+export class EllipseElement extends PathElement {
   type = 'ellipse'
 
   path(ctx: RenderingContext2D) {

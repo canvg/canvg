@@ -1,6 +1,6 @@
 import { toNumbers } from './util'
 
-export default class Point {
+export class Point {
   static parse(point: string, defaultValue = 0) {
     const [x = defaultValue, y = defaultValue] = toNumbers(point)
 
