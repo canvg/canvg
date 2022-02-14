@@ -10,15 +10,17 @@ export class FilterElement extends Element {
     'clip-path'
   ]
 
-  type = 'filter'
+  override type = 'filter'
 
-  apply(ctx: RenderingContext2D, element: PathElement) {
+  apply(ctx: RenderingContext2D, element: Element | PathElement) {
     // render as temp svg
     const {
       document,
       children
     } = this
-    const boundingBox = element.getBoundingBox(ctx)
+    const boundingBox = 'getBoundingBox' in element
+      ? element.getBoundingBox(ctx)
+      : null
 
     if (!boundingBox) {
       return
@@ -82,7 +84,7 @@ export class FilterElement extends Element {
     this.restoreStyles(element, ignoredStyles)
   }
 
-  render(_: RenderingContext2D) {
+  override render(_: RenderingContext2D) {
     // NO RENDER
   }
 }

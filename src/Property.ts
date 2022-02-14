@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import RGBColor from 'rgbcolor'
 import {
   compressSpaces,
@@ -9,16 +7,17 @@ import { Axis } from './ViewPort'
 import {
   Document,
   Element,
+  PathElement,
   PatternElement,
   GradientElement
 } from './Document'
 
-export class Property<T = any> {
+export class Property<T = unknown> {
   static empty(document: Document) {
     return new Property(document, 'EMPTY', '')
   }
 
-  static readonly textBaselineMapping = {
+  static readonly textBaselineMapping: Record<string, string> = {
     'baseline': 'alphabetic',
     'before-edge': 'top',
     'text-before-edge': 'top',
@@ -53,7 +52,7 @@ export class Property<T = any> {
   }
 
   hasValue(zeroIsValue?: boolean) {
-    const { value } = this as any
+    const value = this.value as unknown
 
     return value !== null
       && value !== ''
@@ -62,14 +61,14 @@ export class Property<T = any> {
   }
 
   isString(regexp?: RegExp) {
-    const { value } = this as any
+    const { value } = this
     const result = typeof value === 'string'
 
     if (!result || !regexp) {
       return result
     }
 
-    return regexp.test(value as string)
+    return regexp.test(value)
   }
 
   isUrlDefinition() {
@@ -146,7 +145,7 @@ export class Property<T = any> {
 
     this.isNormalizedColor = true
     color = normalizeColor(color)
-    this.value = color as any
+    this.value = color as unknown as T
 
     return color
   }
@@ -285,31 +284,23 @@ export class Property<T = any> {
 
   getDefinition<T extends Element>() {
     const asString = this.getString()
-    let name: string | RegExpMatchArray = /#([^)'"]+)/.exec(asString)
+    const match = /#([^)'"]+)/.exec(asString)
+    const name = match?.[1] || asString
 
-    if (name) {
-      name = name[1]
-    }
-
-    if (!name) {
-      name = asString
-    }
-
-    return this.document.definitions[name as string] as T
+    return this.document.definitions[name] as T | undefined
   }
 
-  getFillStyleDefinition(element: Element, opacity: Property) {
-    let def: PatternElement & GradientElement = this.getDefinition()
+  getFillStyleDefinition(element: Element | PathElement, opacity: Property) {
+    let def = this.getDefinition<PatternElement & GradientElement>()
 
     if (!def) {
       return null
     }
 
     // gradient
-    if (typeof def.createGradient === 'function') {
+    if (typeof def.createGradient === 'function' && 'getBoundingBox' in element) {
       return def.createGradient(
         this.document.ctx,
-        // @ts-expect-error Can't check it in runtime, due to circular dependency.
         element,
         opacity
       )
@@ -322,12 +313,14 @@ export class Property<T = any> {
 
         def = def.getHrefAttribute().getDefinition()
 
-        if (patternTransform.hasValue()) {
+        if (def && patternTransform.hasValue()) {
           def.getAttribute('patternTransform', true).setValue(patternTransform.value)
         }
       }
 
-      return def.createPattern(this.document.ctx, element, opacity)
+      if (def) {
+        return def.createPattern(this.document.ctx, element, opacity)
+      }
     }
 
     return null
@@ -338,7 +331,9 @@ export class Property<T = any> {
       return null
     }
 
-    return Property.textBaselineMapping[this.getString()] as string
+    const key = this.getString()
+
+    return Property.textBaselineMapping[key] || null
   }
 
   addOpacity(opacity: Property) {

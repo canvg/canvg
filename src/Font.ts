@@ -134,7 +134,7 @@ export class Font {
         case !set.fontSize:
 
           if (part !== 'inherit') {
-            [fontSize] = part.split('/')
+            fontSize = part.split('/')[0] || ''
           }
 
           set.fontStyle = true

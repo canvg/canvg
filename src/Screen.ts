@@ -1,5 +1,8 @@
 import requestAnimationFrame from 'raf'
-import { RenderingContext2D } from './types'
+import {
+  RenderingContext2D,
+  Fetch
+} from './types'
 import {
   compressSpaces,
   toNumbers
@@ -17,11 +20,11 @@ export interface IScreenOptions {
   /**
    * Window object.
    */
-  window?: Window
+  window?: Window | null
   /**
    * WHATWG-compatible `fetch` function.
    */
-  fetch?: typeof fetch
+  fetch?: Fetch
 }
 
 export interface IScreenStartOptions {
@@ -88,29 +91,27 @@ const defaultWindow = typeof window !== 'undefined'
   ? window
   : null
 const defaultFetch = typeof fetch !== 'undefined'
-  ? fetch.bind(undefined) as typeof fetch // `fetch` depends on context: `someObject.fetch(...)` will throw error.
-  : null
+  ? fetch.bind(undefined) // `fetch` depends on context: `someObject.fetch(...)` will throw error.
+  : undefined
 
 export class Screen {
   static readonly defaultWindow = defaultWindow
   static readonly defaultFetch = defaultFetch
+  static FRAMERATE = 30
+  static MAX_VIRTUAL_PIXELS = 30000
 
-  FRAMERATE = 30
-  MAX_VIRTUAL_PIXELS = 30000
-  CLIENT_WIDTH = 800
-  CLIENT_HEIGHT = 600
-  readonly window?: Window
-  readonly fetch: typeof defaultFetch
+  readonly window: Window | null
+  readonly fetch: Fetch
   readonly viewPort = new ViewPort()
   readonly mouse = new Mouse(this)
   readonly animations: AnimateElement[] = []
-  private readyPromise: Promise<void>
-  private resolveReady: () => void
+  private readyPromise: Promise<void> | undefined
+  private resolveReady: (() => void) | undefined
   private waits: (() => boolean)[] = []
   private frameDuration = 0
   private isReadyLock = false
   private isFirstRender = true
-  private intervalId: number = null
+  private intervalId: number | null = null
 
   constructor(
     readonly ctx: RenderingContext2D,
@@ -120,6 +121,11 @@ export class Screen {
     }: IScreenOptions = {}
   ) {
     this.window = window
+
+    if (!fetch) {
+      throw new Error(`Can't find 'fetch' in 'globalThis', please provide it via options`)
+    }
+
     this.fetch = fetch
   }
 
@@ -271,8 +277,6 @@ export class Screen {
       case meetOrSlice === 'slice':
         ctx.scale(scaleMax, scaleMax)
         break
-
-      default:
     }
 
     // translate
@@ -294,11 +298,8 @@ export class Screen {
       offsetY
     }: IScreenStartOptions = {}
   ) {
-    const {
-      FRAMERATE,
-      mouse
-    } = this
-    const frameDuration = 1000 / FRAMERATE
+    const { mouse } = this
+    const frameDuration = 1000 / Screen.FRAMERATE
 
     this.frameDuration = frameDuration
     this.readyPromise = new Promise((resolve) => {
@@ -369,7 +370,7 @@ export class Screen {
 
   private shouldUpdate(
     ignoreAnimation: boolean,
-    forceRedraw: () => boolean
+    forceRedraw: (() => boolean) | undefined
   ) {
     // need update from animations?
     if (!ignoreAnimation) {
@@ -405,14 +406,12 @@ export class Screen {
     element: Element,
     ignoreDimensions: boolean,
     ignoreClear: boolean,
-    scaleWidth: number,
-    scaleHeight: number,
-    offsetX: number,
-    offsetY: number
+    scaleWidth: number | undefined,
+    scaleHeight: number | undefined,
+    offsetX: number | undefined,
+    offsetY: number | undefined
   ) {
     const {
-      CLIENT_WIDTH,
-      CLIENT_HEIGHT,
       viewPort,
       ctx,
       isFirstRender
@@ -423,8 +422,6 @@ export class Screen {
 
     if (canvas.width && canvas.height) {
       viewPort.setCurrent(canvas.width, canvas.height)
-    } else {
-      viewPort.setCurrent(CLIENT_WIDTH, CLIENT_HEIGHT)
     }
 
     const widthStyle = element.getStyle('width')
@@ -438,6 +435,7 @@ export class Screen {
       if (widthStyle.hasValue()) {
         canvas.width = widthStyle.getPixels('x')
 
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (canvas.style) {
           canvas.style.width = `${canvas.width}px`
         }
@@ -446,6 +444,7 @@ export class Screen {
       if (heightStyle.hasValue()) {
         canvas.height = heightStyle.getPixels('y')
 
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (canvas.style) {
           canvas.style.height = `${canvas.height}px`
         }
@@ -483,7 +482,7 @@ export class Screen {
         if (widthStyle.hasValue()) {
           xRatio = widthStyle.getPixels('x') / scaleWidth
         } else
-        if (!isNaN(viewBox[2])) {
+        if (viewBox[2] && !isNaN(viewBox[2])) {
           xRatio = viewBox[2] / scaleWidth
         }
       }
@@ -494,7 +493,7 @@ export class Screen {
         if (heightStyle.hasValue()) {
           yRatio = heightStyle.getPixels('y') / scaleHeight
         } else
-        if (!isNaN(viewBox[3])) {
+        if (viewBox[3] && !isNaN(viewBox[3])) {
           yRatio = viewBox[3] / scaleHeight
         }
       }

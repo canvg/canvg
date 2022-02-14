@@ -13,8 +13,8 @@ describe('canvg', () => {
       return
     }
 
-    let restoreWarn: () => void = null
-    let restoreError: () => void = null
+    let restoreWarn: () => void
+    let restoreError: () => void
 
     beforeAll(() => {
       restoreWarn = filterConsoleWarn()

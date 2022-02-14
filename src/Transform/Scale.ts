@@ -6,14 +6,14 @@ import { Property } from '../Property'
 
 export class Scale {
   type = 'scale'
-  private readonly scale: Point = null
-  private readonly originX: Property = null
-  private readonly originY: Property = null
+  private readonly scale: Point
+  private readonly originX: Property
+  private readonly originY: Property
 
   constructor(
     _: Document,
     scale: string,
-    transformOrigin: [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
     const scaleSize = Point.parseScale(scale)
 

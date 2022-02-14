@@ -3,13 +3,13 @@ import { Property } from '../Property'
 import { Matrix } from './Matrix'
 
 export class Skew extends Matrix {
-  type = 'skew'
-  protected readonly angle: Property = null
+  override type = 'skew'
+  protected readonly angle: Property
 
   constructor(
     document: Document,
     skew: string,
-    transformOrigin: [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
     super(document, skew, transformOrigin)
 

@@ -11,7 +11,7 @@ import { Element } from './Element'
 export class StyleElement extends Element {
   static readonly parseExternalUrl = parseExternalUrl
 
-  type = 'style'
+  override type = 'style'
 
   constructor(
     document: Document,

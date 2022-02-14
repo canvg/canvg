@@ -15,7 +15,7 @@ interface IConfig {
  */
 export function offscreen({ DOMParser: DOMParserFallback }: IConfig = {}) {
   const preset = {
-    window: null as null,
+    window: null,
     ignoreAnimation: true,
     ignoreMouse: true,
     DOMParser: DOMParserFallback,

@@ -7,21 +7,20 @@ import {
 } from '../util'
 import { Font } from '../Font'
 import { BoundingBox } from '../BoundingBox'
-import { Property } from '../Property'
 import { Document } from './Document'
 import { Element } from './Element'
 import { FontElement } from './FontElement'
-import { GlyphElement } from './GlyphElement'
+import { ArabicForm, GlyphElement } from './GlyphElement'
 import { RenderedElement } from './RenderedElement'
 
 export class TextElement extends RenderedElement {
-  type = 'text'
+  override type = 'text'
   protected x = 0
   protected y = 0
-  private leafTexts: TextElement[]
-  private textChunkStart: number
-  private minX: number
-  private maxX: number
+  private leafTexts: TextElement[] = []
+  private textChunkStart = 0
+  private minX = Number.POSITIVE_INFINITY
+  private maxX = Number.NEGATIVE_INFINITY
   private measureCache = -1
 
   constructor(
@@ -38,7 +37,7 @@ export class TextElement extends RenderedElement {
     )
   }
 
-  setContext(ctx: RenderingContext2D, fromMeasure = false) {
+  override setContext(ctx: RenderingContext2D, fromMeasure = false) {
     super.setContext(ctx, fromMeasure)
 
     const textBaseline = this.getStyle('dominant-baseline').getTextBaseline()
@@ -67,7 +66,7 @@ export class TextElement extends RenderedElement {
     this.initializeCoordinates()
     this.adjustChildCoordinatesRecursive(ctx)
 
-    let boundingBox: BoundingBox = null
+    let boundingBox: BoundingBox | null = null
 
     // then calculate bounding box
     this.children.forEach((_, i) => {
@@ -111,13 +110,13 @@ export class TextElement extends RenderedElement {
     i: number
   ) {
     const char = text[i]
-    let glyph: GlyphElement = null
+    let glyph: GlyphElement | undefined
 
     if (font.isArabic) {
       const len = text.length
       const prevChar = text[i - 1]
       const nextChar = text[i + 1]
-      let arabicForm = 'isolated'
+      let arabicForm: ArabicForm = 'isolated'
 
       if ((i === 0 || prevChar === ' ') && i < len - 1 && nextChar !== ' ') {
         arabicForm = 'terminal'
@@ -131,20 +130,13 @@ export class TextElement extends RenderedElement {
         arabicForm = 'initial'
       }
 
-      if (typeof font.glyphs[char] !== 'undefined') {
-        // NEED TEST
-        const maybeGlyph = font.glyphs[char]
-
-        glyph = maybeGlyph instanceof GlyphElement
-          ? maybeGlyph
-          : maybeGlyph[arabicForm]
-      }
+      glyph = font.arabicGlyphs[char]?.[arabicForm] || font.glyphs[char]
     } else {
-      glyph = font.glyphs[char] as GlyphElement
+      glyph = font.glyphs[char]
     }
 
     if (!glyph) {
-      glyph = font.missingGlyph as GlyphElement
+      glyph = font.missingGlyph
     }
 
     return glyph
@@ -177,7 +169,7 @@ export class TextElement extends RenderedElement {
     return text
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     if (this.type !== 'text') {
       this.renderTElementChildren(ctx)
       return
@@ -359,7 +351,7 @@ export class TextElement extends RenderedElement {
     const dxAttr = child.getAttribute('dx')
     const dyAttr = child.getAttribute('dy')
     const customFont = child.getStyle('font-family').getDefinition<FontElement>()
-    const isRTL = Boolean(customFont) && customFont.isRTL
+    const isRTL = Boolean(customFont?.isRTL)
 
     if (i === 0) {
       // First children inherit attributes from parent(s). Positional attributes
@@ -452,15 +444,13 @@ export class TextElement extends RenderedElement {
 
     const boundingBox = child.getBoundingBox(ctx)
 
-    if (!boundingBox) {
-      return null
+    if (boundingBox) {
+      child.children.forEach((_, i) => {
+        const childBoundingBox = textParent.getChildBoundingBox(ctx, textParent, child, i)
+
+        boundingBox.addBoundingBox(childBoundingBox)
+      })
     }
-
-    child.children.forEach((_, i) => {
-      const childBoundingBox = textParent.getChildBoundingBox(ctx, textParent, child, i)
-
-      boundingBox.addBoundingBox(childBoundingBox)
-    })
 
     return boundingBox
   }
@@ -529,6 +519,7 @@ export class TextElement extends RenderedElement {
       return measure
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!ctx.measureText) {
       return targetText.length * 10
     }
@@ -552,13 +543,13 @@ export class TextElement extends RenderedElement {
    */
   protected getInheritedAttribute(name: string): string | null {
     // eslint-disable-next-line @typescript-eslint/no-this-alias,consistent-this
-    let current: Element = this
+    let current: Element | null = this
 
-    while (current instanceof TextElement && current.isFirstChild()) {
-      const parentAttr = current.parent.getAttribute(name) as Property<string>
+    while (current instanceof TextElement && current.isFirstChild() && current.parent) {
+      const parentAttr = current.parent.getAttribute(name)
 
       if (parentAttr.hasValue(true)) {
-        return parentAttr.getValue('0')
+        return parentAttr.getString('0')
       }
 
       current = current.parent

@@ -5,20 +5,20 @@ import { Font } from '../Font'
 import { RenderedElement } from './RenderedElement'
 
 export class SVGElement extends RenderedElement {
-  type = 'svg'
+  override type = 'svg'
   root = false
 
-  setContext(ctx: RenderingContext2D) {
+  override setContext(ctx: RenderingContext2D) {
     const { document } = this
     const {
       screen,
       window
     } = document
-    const canvas = ctx.canvas as HTMLCanvasElement
+    const canvas = ctx.canvas
 
     screen.setDefaults(ctx)
 
-    if (canvas.style
+    if ('style' in canvas
       && typeof ctx.font !== 'undefined'
       && window
       && typeof window.getComputedStyle !== 'undefined'
@@ -139,7 +139,7 @@ export class SVGElement extends RenderedElement {
     }
   }
 
-  clearContext(ctx: RenderingContext2D) {
+  override clearContext(ctx: RenderingContext2D) {
     super.clearContext(ctx)
 
     this.document.screen.viewPort.removeCurrent()

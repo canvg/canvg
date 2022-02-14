@@ -4,7 +4,7 @@ import { Document } from './Document'
 import { Element } from './Element'
 
 export class FeGaussianBlurElement extends Element {
-  type = 'feGaussianBlur'
+  override type = 'feGaussianBlur'
   readonly extraFilterDistance: number
   protected readonly blurRadius: number
 

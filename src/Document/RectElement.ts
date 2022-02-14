@@ -3,9 +3,9 @@ import { BoundingBox } from '../BoundingBox'
 import { PathElement } from './PathElement'
 
 export class RectElement extends PathElement {
-  type = 'rect'
+  override type = 'rect'
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const x = this.getAttribute('x').getPixels('x')
     const y = this.getAttribute('y').getPixels('y')
     const width = this.getStyle('width', false, true).getPixels('x')
@@ -55,7 +55,7 @@ export class RectElement extends PathElement {
     return new BoundingBox(x, y, x + width, y + height)
   }
 
-  getMarkers() {
+  override getMarkers() {
     return null
   }
 }

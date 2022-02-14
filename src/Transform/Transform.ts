@@ -20,9 +20,9 @@ function parseTransforms(transform: string) {
 }
 
 function parseTransform(transform: string) {
-  const [type, value] = transform.split('(')
+  const [type = '', value = ''] = transform.split('(')
 
-  return [type.trim(), value.trim().replace(')', '')]
+  return [type.trim(), value.trim().replace(')', '')] as const
 }
 
 interface ITransformConstructor {
@@ -30,22 +30,26 @@ interface ITransformConstructor {
   new (
     document: Document,
     value: string,
-    transformOrigin?: readonly [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ): ITransform
 }
 
 export class Transform {
   static fromElement(document: Document, element: Element) {
     const transformStyle = element.getStyle('transform', false, true)
-    const [transformOriginXProperty, transformOriginYProperty = transformOriginXProperty] = element.getStyle('transform-origin', false, true).split()
-    const transformOrigin = [transformOriginXProperty, transformOriginYProperty] as const
 
     if (transformStyle.hasValue()) {
-      return new Transform(
-        document,
-        transformStyle.getString(),
-        transformOrigin
-      )
+      const [transformOriginXProperty, transformOriginYProperty = transformOriginXProperty] = element.getStyle('transform-origin', false, true).split()
+
+      if (transformOriginXProperty && transformOriginYProperty) {
+        const transformOrigin = [transformOriginXProperty, transformOriginYProperty] as const
+
+        return new Transform(
+          document,
+          transformStyle.getString(),
+          transformOrigin
+        )
+      }
     }
 
     return null
@@ -65,7 +69,7 @@ export class Transform {
   constructor(
     private readonly document: Document,
     transform: string,
-    transformOrigin?: readonly [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
     const data = parseTransforms(transform)
 
@@ -77,37 +81,22 @@ export class Transform {
       const [type, value] = parseTransform(transform)
       const TransformType = Transform.transformTypes[type]
 
-      if (typeof TransformType !== 'undefined') {
+      if (TransformType) {
         this.transforms.push(new TransformType(this.document, value, transformOrigin))
       }
     })
   }
 
   apply(ctx: RenderingContext2D) {
-    const { transforms } = this
-    const len = transforms.length
-
-    for (let i = 0; i < len; i++) {
-      transforms[i].apply(ctx)
-    }
+    this.transforms.forEach(transform => transform.apply(ctx))
   }
 
   unapply(ctx: RenderingContext2D) {
-    const { transforms } = this
-    const len = transforms.length
-
-    for (let i = len - 1; i >= 0; i--) {
-      transforms[i].unapply(ctx)
-    }
+    this.transforms.forEach(transform => transform.unapply(ctx))
   }
 
   // TODO: applyToPoint unused ... remove?
   applyToPoint(point: Point) {
-    const { transforms } = this
-    const len = transforms.length
-
-    for (let i = 0; i < len; i++) {
-      transforms[i].applyToPoint(point)
-    }
+    this.transforms.forEach(transform => transform.applyToPoint(point))
   }
 }

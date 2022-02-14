@@ -4,7 +4,7 @@ import { PathElement } from './PathElement'
 import { GradientElement } from './GradientElement'
 
 export class LinearGradientElement extends GradientElement {
-  type = 'linearGradient'
+  override type = 'linearGradient'
 
   constructor(
     document: Document,

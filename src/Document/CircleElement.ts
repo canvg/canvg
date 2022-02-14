@@ -3,9 +3,9 @@ import { BoundingBox } from '../BoundingBox'
 import { PathElement } from './PathElement'
 
 export class CircleElement extends PathElement {
-  type = 'circle'
+  override type = 'circle'
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const cx = this.getAttribute('cx').getPixels('x')
     const cy = this.getAttribute('cy').getPixels('y')
     const r = this.getAttribute('r').getPixels()
@@ -24,7 +24,7 @@ export class CircleElement extends PathElement {
     )
   }
 
-  getMarkers() {
+  override getMarkers() {
     return null
   }
 }

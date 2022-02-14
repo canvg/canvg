@@ -6,10 +6,10 @@ import { PathElement } from './PathElement'
 import { SVGElement } from './SVGElement'
 
 export class UseElement extends RenderedElement {
-  type = 'use'
-  private cachedElement: PathElement
+  override type = 'use'
+  private cachedElement: PathElement | undefined
 
-  setContext(ctx: RenderingContext2D) {
+  override setContext(ctx: RenderingContext2D) {
     super.setContext(ctx)
 
     const xAttr = this.getAttribute('x')
@@ -32,7 +32,7 @@ export class UseElement extends RenderedElement {
     }
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     const {
       document,
       element
@@ -43,10 +43,7 @@ export class UseElement extends RenderedElement {
 
       if (element.type === 'symbol') {
         // render me using a temporary svg element in symbol cases (http://www.w3.org/TR/SVG/struct.html#UseElement)
-        tempSvg = new SVGElement(
-          document,
-          null
-        )
+        tempSvg = new SVGElement(document)
         tempSvg.attributes.viewBox = new Property(
           document,
           'viewBox',
@@ -102,7 +99,7 @@ export class UseElement extends RenderedElement {
     }
   }
 
-  getBoundingBox(ctx: RenderingContext2D) {
+  getBoundingBox(ctx: CanvasRenderingContext2D) {
     const { element } = this
 
     if (element) {
@@ -117,6 +114,10 @@ export class UseElement extends RenderedElement {
       document,
       element
     } = this
+
+    if (!element) {
+      return null
+    }
 
     return Transform.fromElement(document, element)
   }

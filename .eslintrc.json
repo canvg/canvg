@@ -17,7 +17,6 @@
     "no-magic-numbers": "off",
     "max-params": "off",
     "@typescript-eslint/no-magic-numbers": "off",
-    "import/no-default-export": "off",
     "@typescript-eslint/no-unnecessary-condition": "off"
   }
 }

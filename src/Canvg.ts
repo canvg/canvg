@@ -198,7 +198,7 @@ export class Canvg {
   resize(
     width: number,
     height = width,
-    preserveAspectRatio: boolean|string = false
+    preserveAspectRatio: boolean | string = false
   ) {
     this.documentElement.resize(width, height, preserveAspectRatio)
   }

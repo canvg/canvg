@@ -5,9 +5,9 @@ import { Element } from './Element'
 import { SVGElement } from './SVGElement'
 
 export class MarkerElement extends Element {
-  type = 'marker'
+  override type = 'marker'
 
-  render(ctx: RenderingContext2D, point?: Point, angle?: number) {
+  override render(ctx: RenderingContext2D, point?: Point, angle?: number) {
     if (!point) {
       return
     }
@@ -32,10 +32,7 @@ export class MarkerElement extends Element {
     ctx.save()
 
     // render me using a temporary svg element
-    const markerSvg = new SVGElement(
-      this.document,
-      null
-    )
+    const markerSvg = new SVGElement(this.document)
 
     markerSvg.type = this.type
     markerSvg.attributes.viewBox = new Property(

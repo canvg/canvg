@@ -2,9 +2,9 @@ import { toNumbers } from '../util'
 import { AnimateElement } from './AnimateElement'
 
 export class AnimateTransformElement extends AnimateElement {
-  type = 'animateTransform'
+  override type = 'animateTransform'
 
-  calcValue() {
+  override calcValue() {
     const {
       progress,
       from,

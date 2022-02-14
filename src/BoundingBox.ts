@@ -26,7 +26,7 @@ export class BoundingBox {
     return this.y2 - this.y1
   }
 
-  addPoint(x: number, y: number) {
+  addPoint(x: number | undefined, y: number | undefined) {
     if (typeof x !== 'undefined') {
       if (isNaN(this.x1) || isNaN(this.x2)) {
         this.x1 = x
@@ -59,14 +59,14 @@ export class BoundingBox {
   }
 
   addX(x: number) {
-    this.addPoint(x, null)
+    this.addPoint(x, 0)
   }
 
   addY(y: number) {
-    this.addPoint(null, y)
+    this.addPoint(0, y)
   }
 
-  addBoundingBox(boundingBox: BoundingBox) {
+  addBoundingBox(boundingBox: BoundingBox | null) {
     if (!boundingBox) {
       return
     }

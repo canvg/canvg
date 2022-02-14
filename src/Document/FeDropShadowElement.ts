@@ -3,7 +3,7 @@ import { Document } from './Document'
 import { Element } from './Element'
 
 export class FeDropShadowElement extends Element {
-  type = 'feDropShadow'
+  override type = 'feDropShadow'
 
   constructor(
     document: Document,

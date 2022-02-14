@@ -30,18 +30,18 @@ async function render(page: Page, file: string) {
         const response = await fetch(c.src)
         const blob = await response.blob()
 
-        return new Promise((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
           const reader = new FileReader()
 
           reader.onerror = reject
 
           reader.onload = () => {
-            resolve(reader.result)
+            resolve(reader.result as string)
           }
 
           reader.readAsDataURL(blob)
         })
-      }) as string
+      })
 
       resolve(base64ToBuffer(base64))
     } catch (err) {
@@ -60,9 +60,9 @@ describe('canvg', () => {
         return
       }
 
-      let browser: Browser = null
-      let page: Page = null
-      let server: Server = null
+      let browser: Browser | null = null
+      let page: Page | null = null
+      let server: Server | null = null
 
       beforeAll(async () => {
         server = new Server()
@@ -72,12 +72,14 @@ describe('canvg', () => {
       })
 
       beforeEach(async () => {
-        page = await createPage(browser)
+        if (browser) {
+          page = await createPage(browser)
+        }
       })
 
       afterAll(async () => {
-        await browser.close()
-        server.close()
+        await browser?.close()
+        server?.close()
 
         browser = null
         server = null

@@ -4,7 +4,7 @@ import { Element } from './Element'
 import { SVGElement } from './SVGElement'
 
 export class PatternElement extends Element {
-  type = 'pattern'
+  override type = 'pattern'
 
   createPattern(
     ctx: RenderingContext2D,
@@ -78,7 +78,7 @@ export class PatternElement extends Element {
       }
     }
 
-    const pattern = ctx.createPattern(patternCanvas, 'repeat')
+    const pattern = ctx.createPattern(patternCanvas as CanvasImageSource, 'repeat')
 
     return pattern
   }

@@ -3,9 +3,9 @@ import { BoundingBox } from '../BoundingBox'
 import { PathElement } from './PathElement'
 
 export class EllipseElement extends PathElement {
-  type = 'ellipse'
+  override type = 'ellipse'
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const KAPPA = 4 * ((Math.sqrt(2) - 1) / 3)
     const rx = this.getAttribute('rx').getPixels('x')
     const ry = this.getAttribute('ry').getPixels('y')
@@ -58,7 +58,7 @@ export class EllipseElement extends PathElement {
     )
   }
 
-  getMarkers() {
+  override getMarkers() {
     return null
   }
 }

@@ -2,7 +2,7 @@ import { RenderingContext2D } from '../types'
 import { Element } from './Element'
 
 export class FeCompositeElement extends Element {
-  type = 'feComposite'
+  override type = 'feComposite'
 
   apply(
     _: RenderingContext2D,

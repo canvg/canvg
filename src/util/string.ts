@@ -1,3 +1,5 @@
+import { MatrixValue } from '../types'
+
 /**
  * HTML-safe compress white-spaces.
  * @param str - String to compress.
@@ -31,9 +33,28 @@ export function trimRight(str: string) {
  * @returns Numbers array.
  */
 export function toNumbers(str: string) {
-  const matches = (str || '').match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm) || []
+  const matches = str.match(/-?(\d+(?:\.\d*(?:[eE][+-]?\d+)?)?|\.\d+)(?=\D|$)/gm)
 
-  return matches.map(parseFloat)
+  return matches ? matches.map(parseFloat) : []
+}
+
+/**
+ * String to matrix value.
+ * @param str - Numbers string.
+ * @returns Matrix value.
+ */
+export function toMatrixValue(str: string): MatrixValue {
+  const numbers = toNumbers(str)
+  const matrix = [
+    numbers[0] || 0,
+    numbers[1] || 0,
+    numbers[2] || 0,
+    numbers[3] || 0,
+    numbers[4] || 0,
+    numbers[5] || 0
+  ] as const
+
+  return matrix
 }
 
 // Microsoft Edge fix
@@ -62,9 +83,13 @@ export function parseExternalUrl(url: string): string {
   //                      v         double quotes [3]
   //                      v         v         no quotes [4]
   //                      v         v         v
-  const urlMatch = /url\(('([^']+)'|"([^"]+)"|([^'")]+))\)/.exec(url) || [] as RegExpExecArray
+  const urlMatch = /url\(('([^']+)'|"([^"]+)"|([^'")]+))\)/.exec(url)
 
-  return urlMatch[2] || urlMatch[3] || urlMatch[4]
+  if (!urlMatch) {
+    return ''
+  }
+
+  return urlMatch[2] || urlMatch[3] || urlMatch[4] || ''
 }
 
 /**

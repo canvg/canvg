@@ -2,7 +2,7 @@ import { Document } from './Document'
 import { Element } from './Element'
 
 export class StopElement extends Element {
-  type = 'stop'
+  override type = 'stop'
   readonly offset: number
   readonly color: string
 

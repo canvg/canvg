@@ -7,7 +7,7 @@ import { TextElement } from './TextElement'
 import { GElement } from './GElement'
 
 export class AElement extends TextElement {
-  type = 'a'
+  override type = 'a'
   protected readonly hasText: boolean
   protected readonly text: string
 
@@ -29,11 +29,11 @@ export class AElement extends TextElement {
       : ''
   }
 
-  getText() {
+  override getText() {
     return this.text
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     if (this.hasText) {
       // render as text element
       super.renderChildren(ctx)
@@ -65,10 +65,7 @@ export class AElement extends TextElement {
     } else
     if (this.children.length > 0) {
       // render as temporary group
-      const g = new GElement(
-        this.document,
-        null
-      )
+      const g = new GElement(this.document)
 
       g.children = this.children
       g.parent = this

@@ -4,7 +4,7 @@ import { PathElement } from './PathElement'
 import { GradientElement } from './GradientElement'
 
 export class RadialGradientElement extends GradientElement {
-  type = 'radialGradient'
+  override type = 'radialGradient'
 
   constructor(
     document: Document,

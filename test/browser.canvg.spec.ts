@@ -47,9 +47,9 @@ describe('canvg', () => {
       return
     }
 
-    let browser: Browser = null
-    let page: Page = null
-    let server: Server = null
+    let browser: Browser | null = null
+    let page: Page | null = null
+    let server: Server | null = null
 
     beforeAll(async () => {
       server = new Server()
@@ -59,12 +59,14 @@ describe('canvg', () => {
     })
 
     beforeEach(async () => {
-      page = await createPage(browser)
+      if (browser) {
+        page = await createPage(browser)
+      }
     })
 
     afterAll(async () => {
-      await browser.close()
-      server.close()
+      await browser?.close()
+      server?.close()
 
       browser = null
       server = null

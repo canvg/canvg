@@ -1,9 +1,9 @@
 import { TextElement } from './TextElement'
 
 export class TRefElement extends TextElement {
-  type = 'tref'
+  override type = 'tref'
 
-  getText() {
+  override getText() {
     const element = this.getHrefAttribute().getDefinition()
 
     if (element) {

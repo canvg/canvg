@@ -24,9 +24,7 @@ export class Mouse {
   constructor(
     private readonly screen: Screen
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.onClick = this.onClick.bind(this)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.onMouseMove = this.onMouseMove.bind(this)
   }
 
@@ -78,13 +76,15 @@ export class Mouse {
       eventElements
     } = this
     const { style } = document.ctx.canvas as HTMLCanvasElement
+    let element: Element | null | undefined
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (style) {
       style.cursor = ''
     }
 
     events.forEach(({ run }, i) => {
-      let element = eventElements[i]
+      element = eventElements[i]
 
       while (element) {
         run(element as IEventTarget)
@@ -97,7 +97,7 @@ export class Mouse {
     this.eventElements = []
   }
 
-  checkPath(element: Element, ctx: RenderingContext2D) {
+  checkPath(element: Element, ctx: RenderingContext2D | null) {
     if (!this.working || !ctx) {
       return
     }
@@ -108,13 +108,14 @@ export class Mouse {
     } = this
 
     events.forEach(({ x, y }, i) => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!eventElements[i] && ctx.isPointInPath && ctx.isPointInPath(x, y)) {
         eventElements[i] = element
       }
     })
   }
 
-  checkBoundingBox(element: Element, boundingBox: BoundingBox) {
+  checkBoundingBox(element: Element, boundingBox: BoundingBox | null) {
     if (!this.working || !boundingBox) {
       return
     }
@@ -137,19 +138,19 @@ export class Mouse {
       ctx
     } = this.screen
     const point = new Point(x, y)
-    let element = ctx.canvas as HTMLElement
+    let element = ctx.canvas as HTMLElement | null
 
     while (element) {
       point.x -= element.offsetLeft
       point.y -= element.offsetTop
-      element = element.offsetParent as HTMLElement
+      element = element.offsetParent as HTMLElement | null
     }
 
-    if (window.scrollX) {
+    if (window?.scrollX) {
       point.x += window.scrollX
     }
 
-    if (window.scrollY) {
+    if (window?.scrollY) {
       point.y += window.scrollY
     }
 

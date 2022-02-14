@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable no-console */
+/* eslint-disable */
 import { RenderingContext2D } from '../types'
 
 /**
@@ -12,11 +9,11 @@ import { RenderingContext2D } from '../types'
 export function ctxLogger(ctx: RenderingContext2D) {
   return new Proxy(ctx, {
 
-    get(target, key) {
+    get(target: any, key) {
       const value = target[key]
 
       if (typeof value === 'function') {
-        return (...args) => {
+        return (...args: unknown[]) => {
           const result = Reflect.apply(value, target, args)
 
           console.log('Call:', key, '()', args, '=>', result)
