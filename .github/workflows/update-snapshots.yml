@@ -29,7 +29,7 @@ jobs:
         env:
           NODE_ENV: 'development'
       - name: Update snapshots
-        run: pnpm test:${{ matrix.stage }} -- -u
+        run: pnpm test:${{ matrix.stage }} -- -- -u
       - name: Collect artifacts
         uses: actions/upload-artifact@v2
         if: always()
