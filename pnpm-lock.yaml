@@ -43,7 +43,7 @@ specifiers:
   rollup-plugin-swc: ^0.2.1
   simple-git-hooks: ^2.7.0
   simple-github-release: ^1.0.0
-  size-limit: ^4.4.0
+  size-limit: ^7.0.0
   stackblur-canvas: ^2.0.0
   standard-version: ^9.3.2
   svg-pathdata: ^6.0.3
@@ -70,7 +70,7 @@ devDependencies:
   '@rollup/plugin-commonjs': 21.0.1_rollup@2.67.1
   '@rollup/plugin-node-resolve': 13.1.3_rollup@2.67.1
   '@rollup/plugin-replace': 3.0.1_rollup@2.67.1
-  '@size-limit/preset-small-lib': 4.12.0_2cfd3e696bd0e9c26eff0f07f71ee0fa
+  '@size-limit/preset-small-lib': 4.12.0_4c279942dbd1a3765e22b8aa3605e82a
   '@swc/core': 1.2.137_99ae9436e134a034c8d45fdd98ebbf22
   '@swc/helpers': 0.3.2
   '@swc/jest': 0.2.17_@swc+core@1.2.137
@@ -100,7 +100,7 @@ devDependencies:
   rollup-plugin-swc: 0.2.1_@swc+core@1.2.137+rollup@2.67.1
   simple-git-hooks: 2.7.0
   simple-github-release: 1.0.0
-  size-limit: 4.12.0
+  size-limit: 7.0.8
   standard-version: 9.3.2
   ts-node: 10.5.0_20843e44270740d39129187f3c82199b
   tsconfig-paths: 3.12.0
@@ -2260,24 +2260,24 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@size-limit/file/4.12.0_size-limit@4.12.0:
+  /@size-limit/file/4.12.0_size-limit@7.0.8:
     resolution: {integrity: sha512-csgGSAG3s2y9eOl/taahojXY91AXpNgqLs9HJ5c/Qmrs+6UHgXbwJ4vo475NfZmt1Y9simircb1ygqupauNUyA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       size-limit: 4.12.0
     dependencies:
       semver: 7.3.5
-      size-limit: 4.12.0
+      size-limit: 7.0.8
     dev: true
 
-  /@size-limit/preset-small-lib/4.12.0_2cfd3e696bd0e9c26eff0f07f71ee0fa:
+  /@size-limit/preset-small-lib/4.12.0_4c279942dbd1a3765e22b8aa3605e82a:
     resolution: {integrity: sha512-jqUT2PiPN4Bf9aeUcTHt78+mELwo1x3K+w4grfNkzV/46j1rK3eXarls4qc0/FHolE76cLgNTLNjrX/Zb9c65w==}
     peerDependencies:
       size-limit: 4.12.0
     dependencies:
-      '@size-limit/file': 4.12.0_size-limit@4.12.0
-      '@size-limit/webpack': 4.12.0_2cfd3e696bd0e9c26eff0f07f71ee0fa
-      size-limit: 4.12.0
+      '@size-limit/file': 4.12.0_size-limit@7.0.8
+      '@size-limit/webpack': 4.12.0_4c279942dbd1a3765e22b8aa3605e82a
+      size-limit: 7.0.8
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -2286,7 +2286,7 @@ packages:
       - webpack-command
     dev: true
 
-  /@size-limit/webpack/4.12.0_2cfd3e696bd0e9c26eff0f07f71ee0fa:
+  /@size-limit/webpack/4.12.0_4c279942dbd1a3765e22b8aa3605e82a:
     resolution: {integrity: sha512-CtqSqxffexYmuAKeKAT2xcDmLwGChHXeq8Y9gjIe9vxfzUx1HU7Nmc0XyvsLGZG1qZO4TFuANlfQeavGY0jB6A==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -2300,7 +2300,7 @@ packages:
       optimize-css-assets-webpack-plugin: 6.0.1_webpack@4.46.0
       pnp-webpack-plugin: 1.7.0_typescript@4.5.5
       rimraf: 3.0.2
-      size-limit: 4.12.0
+      size-limit: 7.0.8
       style-loader: 2.0.0_webpack@4.46.0
       webpack: 4.46.0
       webpack-bundle-analyzer: 4.5.0
@@ -3516,6 +3516,7 @@ packages:
 
   /bindings/1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
     dependencies:
       file-uri-to-path: 1.0.0
     dev: true
@@ -4021,10 +4022,6 @@ packages:
 
   /colord/2.9.2:
     resolution: {integrity: sha512-Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ==}
-    dev: true
-
-  /colorette/1.4.0:
-    resolution: {integrity: sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==}
     dev: true
 
   /colors/1.4.0:
@@ -5548,6 +5545,7 @@ packages:
 
   /file-uri-to-path/1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -7902,6 +7900,12 @@ packages:
       to-regex: 3.0.2
     dev: true
 
+  /nanospinner/1.0.0:
+    resolution: {integrity: sha512-14c2r2QQ9xfTmdbqdF51FKCNvww+0ZON9GeEHur+pBdOufoFvxD4CZQRaYWmFrGH3Nuv7PZ/9Q+wsV+hFSp32g==}
+    dependencies:
+      picocolors: 1.0.0
+    dev: true
+
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
@@ -9637,19 +9641,19 @@ packages:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
     dev: true
 
-  /size-limit/4.12.0:
-    resolution: {integrity: sha512-LwlUDPxFJbJDIJsBE5bKo8kFMuxmuewBMDjgfSoQwnO27V8DSK+j6881nsrX3GoM3bJMFIeEq56thqBEdYC8bw==}
-    engines: {node: ^10 || ^11 || ^12 || >=13.7}
+  /size-limit/7.0.8:
+    resolution: {integrity: sha512-3h76c9E0e/nNhYLSR7IBI/bSoXICeo7EYkYjlyVqNIsu7KvN/PQmMbIXeyd2QKIF8iZKhaiZQoXLkGWbyPDtvQ==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
     hasBin: true
     dependencies:
       bytes-iec: 3.1.1
       chokidar: 3.5.3
       ci-job-number: 1.2.2
-      colorette: 1.4.0
       globby: 11.1.0
       lilconfig: 2.0.4
-      ora: 5.4.1
-      read-pkg-up: 7.0.1
+      mkdirp: 1.0.4
+      nanospinner: 1.0.0
+      picocolors: 1.0.0
     dev: true
 
   /slash/3.0.0:
