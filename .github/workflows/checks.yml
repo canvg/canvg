@@ -41,3 +41,20 @@ jobs:
           echo '{"Exclude": ["docs"]}' > .ecrc
       - name: Check editorconfig
         uses: editorconfig-checker/action-editorconfig-checker@v1
+  package-json:
+    runs-on: ubuntu-latest
+    name: Checking package.json files
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'pnpm'
+      - name: Check package.json files
+        run: pnpm --package=@trigen/lint-package-json dlx lint-package-json

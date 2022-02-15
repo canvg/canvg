@@ -1,7 +1,9 @@
 {
   "name": "canvg",
+  "type": "module",
   "version": "3.0.10",
   "description": "JavaScript SVG parser and renderer on Canvas.",
+  "author": "Gabe Lerner",
   "authors": [
     {
       "name": "Gabe Lerner",
@@ -23,7 +25,16 @@
   "bugs": {
     "url": "https://github.com/canvg/canvg/issues"
   },
-  "type": "module",
+  "keywords": [
+    "javascript",
+    "client",
+    "browser",
+    "svg",
+    "canvas"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "sideEffects": false,
   "main": "./src/index.ts",
   "publishConfig": {
@@ -36,9 +47,9 @@
     },
     "directory": "package"
   },
-  "engines": {
-    "node": ">=12.0.0"
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "emitDeclarations": "tsc --skipLibCheck --emitDeclarationOnly",
     "build": "rollup -c & pnpm emitDeclarations",
@@ -60,13 +71,6 @@
     "release": "pnpm bumpVersion && git push origin master --tags && pnpm createGithubRelease",
     "updateGitHooks": "simple-git-hooks"
   },
-  "keywords": [
-    "javascript",
-    "client",
-    "browser",
-    "svg",
-    "canvas"
-  ],
   "dependencies": {
     "@types/offscreencanvas": "^2019.6.4",
     "@types/raf": "^3.4.0",
@@ -121,8 +125,5 @@
     "typedoc": "^0.20.16",
     "typescript": "^4.5.5",
     "xmldom": "^0.6.0"
-  },
-  "files": [
-    "dist"
-  ]
+  }
 }
