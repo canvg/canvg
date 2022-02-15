@@ -29,7 +29,7 @@ specifiers:
   commitizen: ^4.2.4
   cross-env: ^7.0.0
   eslint: ^8.0.0
-  http-server: ^0.12.0
+  http-server: ^14.0.0
   inquirer: ^8.2.0
   jest: ^27.2.5
   jest-circus: ^27.2.5
@@ -88,7 +88,7 @@ devDependencies:
   commitizen: 4.2.4_@swc+core@1.2.137
   cross-env: 7.0.3
   eslint: 8.9.0
-  http-server: 0.12.3
+  http-server: 14.1.0
   inquirer: 8.2.0
   jest: 27.4.7_canvas@2.9.0+ts-node@10.5.0
   jest-circus: 27.4.6
@@ -3267,9 +3267,11 @@ packages:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: true
 
-  /basic-auth/1.1.0:
-    resolution: {integrity: sha1-RSIe5Cn37h5QNb4/UVM/HN/SmIQ=}
-    engines: {node: '>= 0.6'}
+  /basic-auth/2.0.1:
+    resolution: {integrity: sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      safe-buffer: 5.1.2
     dev: true
 
   /before-after-hook/2.2.2:
@@ -4161,17 +4163,6 @@ packages:
     dependencies:
       find-up: 3.0.0
       minimatch: 3.0.5
-    dev: true
-
-  /ecstatic/3.3.2:
-    resolution: {integrity: sha512-fLf9l1hnwrHI2xn9mEDT7KIi22UDqA2jaCwyCbSUJh9a1V+LEUSL/JO/6TIz/QyuBURWUHrFL5Kg2TtO1bkkog==}
-    deprecated: This package is unmaintained and deprecated. See the GH Issue 259.
-    hasBin: true
-    dependencies:
-      he: 1.2.0
-      mime: 1.6.0
-      minimist: 1.2.5
-      url-join: 2.0.5
     dev: true
 
   /electron-to-chromium/1.4.64:
@@ -5351,6 +5342,13 @@ packages:
       whatwg-encoding: 1.0.5
     dev: true
 
+  /html-encoding-sniffer/3.0.0:
+    resolution: {integrity: sha512-oWv4T4yJ52iKrufjnyZPkrN0CH3QnrUqdB6In1g5Fe1mia8GmF36gnfNySxoZtxD5+NmYw1EElVXiBk93UeskA==}
+    engines: {node: '>=12'}
+    dependencies:
+      whatwg-encoding: 2.0.0
+    dev: true
+
   /html-escaper/2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
     dev: true
@@ -5377,21 +5375,24 @@ packages:
       - debug
     dev: true
 
-  /http-server/0.12.3:
-    resolution: {integrity: sha512-be0dKG6pni92bRjq0kvExtj/NrrAd28/8fCXkaI/4piTwQMSDSLMhWyW0NI1V+DBI3aa1HMlQu46/HjVLfmugA==}
-    engines: {node: '>=6'}
+  /http-server/14.1.0:
+    resolution: {integrity: sha512-5lYsIcZtf6pdR8tCtzAHTWrAveo4liUlJdWc7YafwK/maPgYHs+VNP6KpCClmUnSorJrARVMXqtT055zBv11Yg==}
+    engines: {node: '>=12'}
     hasBin: true
     dependencies:
-      basic-auth: 1.1.0
-      colors: 1.4.0
+      basic-auth: 2.0.1
+      chalk: 4.1.2
       corser: 2.0.1
-      ecstatic: 3.3.2
+      he: 1.2.0
+      html-encoding-sniffer: 3.0.0
       http-proxy: 1.18.1
+      mime: 1.6.0
       minimist: 1.2.5
       opener: 1.5.2
       portfinder: 1.0.28
       secure-compare: 3.0.1
       union: 0.5.0
+      url-join: 4.0.1
     transitivePeerDependencies:
       - debug
     dev: true
@@ -5413,6 +5414,13 @@ packages:
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      safer-buffer: 2.1.2
+    dev: true
+
+  /iconv-lite/0.6.3:
+    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
@@ -8528,8 +8536,8 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /url-join/2.0.5:
-    resolution: {integrity: sha1-WvIvGMBSoACkjXuCxenC4v7tpyg=}
+  /url-join/4.0.1:
+    resolution: {integrity: sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==}
     dev: true
 
   /util-deprecate/1.0.2:
@@ -8618,6 +8626,13 @@ packages:
     resolution: {integrity: sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==}
     dependencies:
       iconv-lite: 0.4.24
+    dev: true
+
+  /whatwg-encoding/2.0.0:
+    resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
+    engines: {node: '>=12'}
+    dependencies:
+      iconv-lite: 0.6.3
     dev: true
 
   /whatwg-mimetype/2.3.0:
