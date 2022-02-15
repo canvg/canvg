@@ -25,7 +25,7 @@ specifiers:
   '@types/xmldom': ^0.1.29
   browserslist: ^4.19.1
   canvas: ^2.1.0
-  clean-publish: ^3.4.1
+  clean-publish: ^4.0.0
   commitizen: ^4.2.4
   cross-env: ^7.0.0
   eslint: ^7.0.0
@@ -84,7 +84,7 @@ devDependencies:
   '@types/xmldom': 0.1.31
   browserslist: 4.19.1
   canvas: 2.9.0
-  clean-publish: 3.4.5
+  clean-publish: 4.0.0
   commitizen: 4.2.4_@swc+core@1.2.137
   cross-env: 7.0.3
   eslint: 7.32.0
@@ -1694,6 +1694,7 @@ packages:
   /@commitlint/load/16.2.1_@swc+core@1.2.137:
     resolution: {integrity: sha512-oSpz0jTyVI/A1AIImxJINTLDOMB8YF7lWGm+Jg5wVWM0r7ucpuhyViVvpSRTgvL0z09oIxlctyFGWUQQpI42uw==}
     engines: {node: '>=v12'}
+    requiresBuild: true
     dependencies:
       '@commitlint/config-validator': 16.2.1
       '@commitlint/execute-rule': 16.2.1
@@ -3502,16 +3503,14 @@ packages:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
 
-  /clean-publish/3.4.5:
-    resolution: {integrity: sha512-wxtaEqCy/B7lch+bpTPmx9wI8owTODa619UOVA1XfyNaM2bjwv1SkR1IJNDA6rtf89bjiz6UkpfU5HcEL8YJIw==}
-    engines: {node: ^12.0.0 || ^14.0.0 || >= 16.0.0}
+  /clean-publish/4.0.0:
+    resolution: {integrity: sha512-PcOxJSnPgncx/ANmgPw8hj9DDtdLHTxIc6Vh/yXCX7IA9w1oUSx2POL0Vno/7omhyrKxMKTpnRh2wlzwH5zaCw==}
     hasBin: true
     dependencies:
       cross-spawn: 7.0.3
       fast-glob: 3.2.11
-      fs-extra: 10.0.0
-      hosted-git-info: 4.1.0
       lilconfig: 2.0.4
+      micromatch: 4.0.4
     dev: true
 
   /cli-cursor/2.1.0:
