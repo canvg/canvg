@@ -1,3 +1,4 @@
+import { MatrixValue } from './types'
 import { toNumbers } from './util'
 
 export class Point {
@@ -34,7 +35,7 @@ export class Point {
     return Math.atan2(point.y - this.y, point.x - this.x)
   }
 
-  applyTransform(transform: number[]) {
+  applyTransform(transform: MatrixValue) {
     const {
       x,
       y

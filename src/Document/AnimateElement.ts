@@ -3,20 +3,20 @@ import { Document } from './Document'
 import { Element } from './Element'
 
 export interface IProgress {
-  from?: Property
-  to?: Property
+  from: Property
+  to: Property
   progress: number
 }
 
 export class AnimateElement extends Element {
-  type = 'animate'
+  override type = 'animate'
   protected readonly begin: number
   protected readonly maxDuration: number
   protected readonly from: Property
   protected readonly to: Property
   protected readonly values: Property<string[]>
   protected duration = 0
-  protected initialValue: string = null
+  protected initialValue: string | undefined
   protected initialUnits = ''
   protected removed = false
   protected frozen = false
@@ -34,7 +34,7 @@ export class AnimateElement extends Element {
     this.maxDuration = this.begin + this.getAttribute('dur').getMilliseconds()
     this.from = this.getAttribute('from')
     this.to = this.getAttribute('to')
-    this.values = new Property<string[]>(document, 'values', null)
+    this.values = new Property<string[] | null>(document, 'values', null)
 
     const valuesAttr = this.getAttribute('values')
 
@@ -93,16 +93,23 @@ export class AnimateElement extends Element {
       } else
       if (fill === 'freeze' && !this.frozen) {
         this.frozen = true
-        parent.animationFrozen = true
-        parent.animationFrozenValue = prop.getString()
+
+        if (parent && prop) {
+          parent.animationFrozen = true
+          parent.animationFrozenValue = prop.getString()
+        }
       } else
       if (fill === 'remove' && !this.removed) {
         this.removed = true
-        prop.setValue(
-          parent.animationFrozen
-            ? parent.animationFrozenValue
-            : this.initialValue
-        )
+
+        if (parent && prop) {
+          prop.setValue(
+            parent.animationFrozen
+              ? parent.animationFrozenValue
+              : this.initialValue
+          )
+        }
+
         return true
       }
 
@@ -132,36 +139,45 @@ export class AnimateElement extends Element {
     return updated
   }
 
-  getProgress() {
+  getProgress(): IProgress {
     const {
       document,
       values
     } = this
-    const result: IProgress = {
-      progress: (this.duration - this.begin) / (this.maxDuration - this.begin)
-    }
+    let progress = (this.duration - this.begin) / (this.maxDuration - this.begin)
+    let from: Property
+    let to: Property
 
     if (values.hasValue()) {
-      const p = result.progress * (values.getValue().length - 1)
+      const p = progress * (values.getValue().length - 1)
       const lb = Math.floor(p)
       const ub = Math.ceil(p)
+      let value: string | undefined
 
-      result.from = new Property(
+      value = values.getValue()[lb]
+      from = new Property(
         document,
         'from',
-        parseFloat(values.getValue()[lb])
+        value ? parseFloat(value) : 0
       )
-      result.to = new Property(
+
+      value = values.getValue()[ub]
+      to = new Property(
         document,
         'to',
-        parseFloat(values.getValue()[ub])
+        value ? parseFloat(value) : 0
       )
-      result.progress = (p - lb) / (ub - lb)
+
+      progress = (p - lb) / (ub - lb)
     } else {
-      result.from = this.from
-      result.to = this.to
+      from = this.from
+      to = this.to
     }
 
-    return result
+    return {
+      progress,
+      from,
+      to
+    }
   }
 }

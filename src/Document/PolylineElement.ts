@@ -5,7 +5,7 @@ import { Document } from './Document'
 import { PathElement, Marker } from './PathElement'
 
 export class PolylineElement extends PathElement {
-  type = 'polyline'
+  override type = 'polyline'
   protected readonly points: Point[] = []
 
   constructor(
@@ -20,7 +20,7 @@ export class PolylineElement extends PathElement {
     )
   }
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const { points } = this
     const [
       {
@@ -49,7 +49,7 @@ export class PolylineElement extends PathElement {
     return boundingBox
   }
 
-  getMarkers() {
+  override getMarkers() {
     const { points } = this
     const lastIndex = points.length - 1
     const markers: Marker[] = []

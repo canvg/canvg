@@ -9,6 +9,7 @@ jobs:
           - browser
           - node
           - offscreen
+      fail-fast: false
     name: Updating ${{ matrix.stage }} snapshots
     steps:
       - name: Checkout the repository

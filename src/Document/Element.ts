@@ -6,23 +6,22 @@ import { Document } from './Document'
 import { ClipPathElement } from './ClipPathElement'
 import { MaskElement } from './MaskElement'
 import { FilterElement } from './FilterElement'
-import { PathElement } from './PathElement'
 
 export abstract class Element {
   static readonly ignoreChildTypes = ['title']
 
-  readonly type: string
+  readonly type: string = ''
   readonly attributes: Record<string, Property> = {}
   readonly styles: Record<string, Property> = {}
   readonly stylesSpecificity: Record<string, string> = {}
   animationFrozen = false
   animationFrozenValue = ''
-  parent: Element = null
+  parent: Element | null = null
   children: Element[] = []
 
   constructor(
     protected readonly document: Document,
-    protected readonly node: HTMLElement,
+    protected readonly node?: HTMLElement,
     protected readonly captureTextNodes = false
   ) {
     if (!node || node.nodeType !== 1) { // ELEMENT_NODE
@@ -52,7 +51,9 @@ export abstract class Element {
 
         const [name, value] = style.split(':').map(_ => _.trim())
 
-        this.styles[name] = new Property(document, name, value)
+        if (name) {
+          this.styles[name] = new Property(document, name, value)
+        }
       })
     }
 
@@ -83,7 +84,7 @@ export abstract class Element {
     })
   }
 
-  getAttribute(name: string, createIfNotExists = false) {
+  getAttribute(name: string, createIfNotExists = false): Property {
     const attr = this.attributes[name]
 
     if (!attr && createIfNotExists) {
@@ -97,14 +98,17 @@ export abstract class Element {
     return attr || Property.empty(this.document)
   }
 
-  getHrefAttribute() {
+  getHrefAttribute(): Property {
+    let href: Property | undefined
+
     for (const key in this.attributes) {
       if (key === 'href' || key.endsWith(':href')) {
-        return this.attributes[key]
+        href = this.attributes[key]
+        break
       }
     }
 
-    return Property.empty(this.document)
+    return href || Property.empty(this.document)
   }
 
   getStyle(name: string, createIfNotExists = false, skipAncestors = false): Property {
@@ -116,7 +120,7 @@ export abstract class Element {
 
     const attr = this.getAttribute(name)
 
-    if (attr?.hasValue()) {
+    if (attr.hasValue()) {
       this.styles[name] = attr // move up to me to cache
       return attr
     }
@@ -127,7 +131,7 @@ export abstract class Element {
       if (parent) {
         const parentStyle = parent.getStyle(name)
 
-        if (parentStyle?.hasValue()) {
+        if (parentStyle.hasValue()) {
           return parentStyle
         }
       }
@@ -141,7 +145,7 @@ export abstract class Element {
       return style
     }
 
-    return style || Property.empty(this.document)
+    return Property.empty(this.document)
   }
 
   render(ctx: RenderingContext2D) {
@@ -168,7 +172,7 @@ export abstract class Element {
 
       if (filter) {
         this.applyEffects(ctx)
-        filter.apply(ctx, this as unknown as PathElement)
+        filter.apply(ctx, this)
       }
     } else {
       this.setContext(ctx)
@@ -246,6 +250,7 @@ export abstract class Element {
       styles,
       stylesSpecificity
     } = this.document
+    let styleProp: Property | undefined
 
     for (const selector in styles) {
       if (!selector.startsWith('@') && this.matchesSelector(selector)) {
@@ -260,8 +265,13 @@ export abstract class Element {
               existingSpecificity = '000'
             }
 
-            if (specificity >= existingSpecificity) {
-              this.styles[name] = style[name]
+            if (specificity && specificity >= existingSpecificity) {
+              styleProp = style[name]
+
+              if (styleProp) {
+                this.styles[name] = styleProp
+              }
+
               this.stylesSpecificity[name] = specificity
             }
           }

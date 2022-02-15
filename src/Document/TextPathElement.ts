@@ -46,7 +46,7 @@ interface IGlyphInfo {
 }
 
 export class TextPathElement extends TextElement {
-  type = 'textPath'
+  override type = 'textPath'
   protected textWidth = 0
   protected textHeight = 0
   protected pathLength = -1
@@ -70,7 +70,7 @@ export class TextPathElement extends TextElement {
     this.dataArray = this.parsePathData(pathElement)
   }
 
-  getText() {
+  override getText() {
     return this.text
   }
 
@@ -171,7 +171,7 @@ export class TextPathElement extends TextElement {
     })
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     this.setTextData(ctx)
     ctx.save()
 
@@ -305,7 +305,7 @@ export class TextPathElement extends TextElement {
     }
   }
 
-  protected measureText(
+  protected override measureText(
     ctx: RenderingContext2D,
     text?: string
   ) {

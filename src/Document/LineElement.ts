@@ -4,7 +4,7 @@ import { BoundingBox } from '../BoundingBox'
 import { PathElement, Marker } from './PathElement'
 
 export class LineElement extends PathElement {
-  type = 'line'
+  override type = 'line'
 
   getPoints() {
     return [
@@ -19,7 +19,7 @@ export class LineElement extends PathElement {
     ]
   }
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const [
       {
         x: x0,
@@ -45,7 +45,7 @@ export class LineElement extends PathElement {
     )
   }
 
-  getMarkers(): Marker[] {
+  override getMarkers(): Marker[] {
     const [p0, p1] = this.getPoints()
     const a = p0.angleTo(p1)
 

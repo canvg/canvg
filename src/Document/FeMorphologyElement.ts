@@ -2,7 +2,7 @@ import { RenderingContext2D } from '../types'
 import { Element } from './Element'
 
 export class FeMorphologyElement extends Element {
-  type = 'feMorphology'
+  override type = 'feMorphology'
 
   apply(
     _: RenderingContext2D,

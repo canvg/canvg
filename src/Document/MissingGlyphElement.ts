@@ -1,6 +1,6 @@
-import { PathElement } from './PathElement'
+import { GlyphElement } from './GlyphElement'
 
-export class MissingGlyphElement extends PathElement {
-  type = 'missing-glyph'
-  readonly horizAdvX = 0
+export class MissingGlyphElement extends GlyphElement {
+  override type = 'missing-glyph'
+  override readonly horizAdvX = 0
 }

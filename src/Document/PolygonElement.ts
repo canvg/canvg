@@ -2,9 +2,9 @@ import { RenderingContext2D } from '../types'
 import { PolylineElement } from './PolylineElement'
 
 export class PolygonElement extends PolylineElement {
-  type = 'polygon'
+  override type = 'polygon'
 
-  path(ctx: RenderingContext2D) {
+  override path(ctx: RenderingContext2D) {
     const boundingBox = super.path(ctx)
     const [
       {

@@ -1,29 +1,40 @@
+import { Fetch } from './types'
 import { Screen } from './Screen'
+
+type DOMParserConstructor = typeof DOMParser
 
 export interface IParserOptions {
   /**
    * WHATWG-compatible `fetch` function.
    */
-  fetch?: typeof fetch
+  fetch?: Fetch
   /**
    * XML/HTML parser from string into DOM Document.
    */
-  DOMParser?: typeof DOMParser
+  DOMParser?: DOMParserConstructor
 }
 
 const { defaultFetch } = Screen
 const DefaultDOMParser = typeof DOMParser !== 'undefined'
   ? DOMParser
-  : null
+  : undefined
 
 export class Parser {
-  private readonly fetch: typeof defaultFetch
-  private readonly DOMParser: typeof DefaultDOMParser
+  private readonly fetch: Fetch
+  private readonly DOMParser: DOMParserConstructor
 
   constructor({
     fetch = defaultFetch,
     DOMParser = DefaultDOMParser
   }: IParserOptions = {}) {
+    if (!fetch) {
+      throw new Error(`Can't find 'fetch' in 'globalThis', please provide it via options`)
+    }
+
+    if (!DOMParser) {
+      throw new Error(`Can't find 'DOMParser' in 'globalThis', please provide it via options`)
+    }
+
     this.fetch = fetch
     this.DOMParser = DOMParser
   }
@@ -54,7 +65,7 @@ export class Parser {
     const parserError = document.getElementsByTagName('parsererror')[0]
 
     if (parserError) {
-      throw new Error(parserError.textContent)
+      throw new Error(parserError.textContent || 'Unknown parse error')
     }
 
     return document

@@ -7,10 +7,9 @@ import { RenderedElement } from './RenderedElement'
 const dataUriRegex = /^\s*data:(([^/,;]+\/[^/,;]+)(?:;([^,;=]+=[^,;=]+))?)?(?:;(base64))?,(.*)$/i
 
 export class ImageElement extends RenderedElement {
-  type = 'image'
+  override type = 'image'
   loaded = false
-  protected readonly isSvg: boolean
-  protected image: CanvasImageSource | string
+  protected image: CanvasImageSource | string | undefined
 
   constructor(
     document: Document,
@@ -34,8 +33,6 @@ export class ImageElement extends RenderedElement {
     } else {
       void this.loadSvg(href)
     }
-
-    this.isSvg = isSvg
   }
 
   protected async loadImage(href: string) {
@@ -56,10 +53,12 @@ export class ImageElement extends RenderedElement {
     if (match) {
       const data = match[5]
 
-      if (match[4] === 'base64') {
-        this.image = atob(data)
-      } else {
-        this.image = decodeURIComponent(data)
+      if (data) {
+        if (match[4] === 'base64') {
+          this.image = atob(data)
+        } else {
+          this.image = decodeURIComponent(data)
+        }
       }
     } else {
       try {
@@ -75,7 +74,7 @@ export class ImageElement extends RenderedElement {
     this.loaded = true
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     const {
       document,
       image,
@@ -93,13 +92,12 @@ export class ImageElement extends RenderedElement {
     }
 
     ctx.save()
-
     ctx.translate(x, y)
 
-    if (this.isSvg) {
+    if (typeof image === 'string') {
       const subDocument = document.canvg.forkString(
         ctx,
-        this.image as string,
+        image,
         {
           ignoreMouse: true,
           ignoreAnimation: true,
@@ -111,12 +109,14 @@ export class ImageElement extends RenderedElement {
           scaleHeight: height
         }
       )
+      const { documentElement } = subDocument.document
 
-      subDocument.document.documentElement.parent = this
+      if (documentElement) {
+        documentElement.parent = this
+      }
+
       void subDocument.render()
     } else {
-      const image = this.image as CanvasImageSource
-
       document.setViewBox({
         ctx,
         aspectRatio: this.getAttribute('preserveAspectRatio').getString(),
@@ -127,7 +127,7 @@ export class ImageElement extends RenderedElement {
       })
 
       if (this.loaded) {
-        if (typeof (image as HTMLImageElement).complete === 'undefined' || (image as HTMLImageElement).complete) {
+        if (!('complete' in image) || image.complete) {
           ctx.drawImage(image, 0, 0)
         }
       }

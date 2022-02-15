@@ -3,12 +3,12 @@ import { Property } from '../Property'
 import { Skew } from './Skew'
 
 export class SkewX extends Skew {
-  type = 'skewX'
+  override type = 'skewX'
 
   constructor(
     document: Document,
     skew: string,
-    transformOrigin: [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
     super(document, skew, transformOrigin)
 

@@ -1,9 +1,9 @@
 import { Element } from './Element'
 
 export class DefsElement extends Element {
-  type = 'defs'
+  override type = 'defs'
 
-  render() {
+  override render() {
     // NOOP
   }
 }

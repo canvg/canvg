@@ -8,11 +8,11 @@ const noop = () => {
 }
 
 export class ClipPathElement extends Element {
-  type = 'clipPath'
+  override type = 'clipPath'
 
   apply(ctx: RenderingContext2D) {
     const { document } = this
-    const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D
+    const contextProto = Reflect.getPrototypeOf(ctx) as RenderingContext2D | null
     const {
       beginPath,
       closePath
@@ -25,12 +25,12 @@ export class ClipPathElement extends Element {
 
     Reflect.apply(beginPath, ctx, [])
 
-    this.children.forEach((child: UseElement) => {
-      if (typeof child.path === 'undefined') {
+    this.children.forEach((child: Element | UseElement) => {
+      if (!('path' in child)) {
         return
       }
 
-      let transform = typeof child.elementTransform !== 'undefined'
+      let transform = 'elementTransform' in child
         ? child.elementTransform()
         : null // handle <use />
 
@@ -62,7 +62,7 @@ export class ClipPathElement extends Element {
     }
   }
 
-  render(_: RenderingContext2D) {
+  override render(_: RenderingContext2D) {
     // NO RENDER
   }
 }

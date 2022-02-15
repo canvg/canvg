@@ -2,9 +2,9 @@ import RGBColor from 'rgbcolor'
 import { AnimateElement } from './AnimateElement'
 
 export class AnimateColorElement extends AnimateElement {
-  type = 'animateColor'
+  override type = 'animateColor'
 
-  calcValue() {
+  override calcValue() {
     const {
       progress,
       from,

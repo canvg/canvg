@@ -4,7 +4,7 @@ import { Point } from '../Point'
 
 export class Translate {
   type = 'translate'
-  private readonly point: Point = null
+  private readonly point: Point
 
   constructor(
     _: Document,

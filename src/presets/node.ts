@@ -43,7 +43,7 @@ export function node({
   fetch
 }: IConfig) {
   return {
-    window: null as null,
+    window: null,
     ignoreAnimation: true,
     ignoreMouse: true,
     DOMParser,

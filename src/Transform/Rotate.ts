@@ -6,16 +6,16 @@ import { Point } from '../Point'
 
 export class Rotate {
   type = 'rotate'
-  private readonly angle: Property = null
-  private readonly originX: Property = null
-  private readonly originY: Property = null
-  private readonly cx: number = 0
-  private readonly cy: number = 0
+  private readonly angle: Property
+  private readonly originX: Property
+  private readonly originY: Property
+  private readonly cx: number
+  private readonly cy: number
 
   constructor(
     document: Document,
     rotate: string,
-    transformOrigin: [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
     const numbers = toNumbers(rotate)
 

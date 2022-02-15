@@ -4,7 +4,7 @@ import { PathElement } from './PathElement'
 import { RenderedElement } from './RenderedElement'
 
 export class GElement extends RenderedElement {
-  type = 'g'
+  override type = 'g'
 
   getBoundingBox(ctx: RenderingContext2D) {
     const boundingBox = new BoundingBox()

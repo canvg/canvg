@@ -1,34 +1,40 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "declaration": true,
-    "declarationMap": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "target": "esnext",
+    /* Type Checking */
+    "strict": false, /* @todo Enable */
+    "strictBindCallApply": true,
+    "exactOptionalPropertyTypes": false, /* @todo Enable */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": false, /* @todo Enable */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitAny": false,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "inlineSourceMap": true,
-    "skipLibCheck": true,
+    /* Modules */
     "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSourceMap": true,
+    "outDir": "dist",
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    /* Language and Environment */
     "lib": [
       "esnext",
       "dom"
     ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./types"
-    ]
+    "target": "esnext",
+    /* Completeness */
+    "skipLibCheck": true
   },
   "include": [
+    "types",
     "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
   ],
   "ts-node": {
     "swc": true,

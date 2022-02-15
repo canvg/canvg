@@ -28,22 +28,22 @@ export type Command = { type: CommandType }
   & Omit<CommandA, 'type'>
 
 export class PathParser extends SVGPathData {
-  control: Point = null
-  start: Point = null
-  current: Point = null
-  command: Command = null
-  readonly commands: Command[] /* Babel fix: */ = this.commands
+  control: Point = new Point(0, 0)
+  start: Point = new Point(0, 0)
+  current: Point = new Point(0, 0)
+  command: Command | null = null
+  override readonly commands: Command[] /* Babel fix: */ = this.commands
   private i = -1
-  private previousCommand: Command = null
+  private previousCommand: Command | null = null
   private points: Point[] = []
-  private angles: number[] = []
+  private angles: (number | null)[] = []
 
   constructor(path: string) {
     super(
       path
-      // Fix spaces after signs.
+        // Fix spaces after signs.
         .replace(/([+\-.])\s+/gm, '$1')
-      // Remove invalid part.
+        // Remove invalid part.
         .replace(/[^MmZzLlHhVvCcSsQqTtAae\d\s.,+-].*/g, '')
     )
   }

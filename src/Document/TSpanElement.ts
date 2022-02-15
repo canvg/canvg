@@ -2,7 +2,7 @@ import { Document } from './Document'
 import { TextElement } from './TextElement'
 
 export class TSpanElement extends TextElement {
-  type = 'tspan'
+  override type = 'tspan'
   protected readonly text: string
 
   constructor(
@@ -24,7 +24,7 @@ export class TSpanElement extends TextElement {
       : this.getTextFromNode()
   }
 
-  getText() {
+  override getText() {
     return this.text
   }
 }

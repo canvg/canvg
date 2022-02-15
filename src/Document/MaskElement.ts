@@ -11,7 +11,7 @@ export class MaskElement extends Element {
     'clip-path'
   ]
 
-  type = 'mask'
+  override type = 'mask'
 
   apply(ctx: RenderingContext2D, element: Element) {
     const { document } = this
@@ -68,17 +68,17 @@ export class MaskElement extends Element {
     element.render(tmpCtx)
 
     tmpCtx.globalCompositeOperation = 'destination-in'
-    tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas, 'no-repeat')
+    tmpCtx.fillStyle = maskCtx.createPattern(maskCanvas as CanvasImageSource, 'no-repeat')
     tmpCtx.fillRect(0, 0, x + width, y + height)
 
-    ctx.fillStyle = tmpCtx.createPattern(tmpCanvas, 'no-repeat')
+    ctx.fillStyle = tmpCtx.createPattern(tmpCanvas as CanvasImageSource, 'no-repeat')
     ctx.fillRect(0, 0, x + width, y + height)
 
     // reassign mask
     this.restoreStyles(element, ignoredStyles)
   }
 
-  render(_: RenderingContext2D) {
+  override render(_: RenderingContext2D) {
     // NO RENDER
   }
 }

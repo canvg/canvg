@@ -2,7 +2,7 @@ import { Document } from './Document'
 import { Element } from './Element'
 
 export class FontFaceElement extends Element {
-  type = 'font-face'
+  override type = 'font-face'
   readonly ascent: number
   readonly descent: number
   readonly unitsPerEm: number

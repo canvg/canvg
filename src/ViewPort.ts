@@ -7,6 +7,9 @@ export interface IViewPortSize {
 export type Axis = 'x' | 'y'
 
 export class ViewPort {
+  static DEFAULT_VIEWPORT_WIDTH = 800
+  static DEFAULT_VIEWPORT_HEIGHT = 600
+
   viewPorts: IViewPortSize[] = []
 
   clear() {
@@ -24,10 +27,25 @@ export class ViewPort {
     this.viewPorts.pop()
   }
 
+  getRoot() {
+    const [root] = this.viewPorts
+
+    if (!root) {
+      return getDefault()
+    }
+
+    return root
+  }
+
   getCurrent() {
     const { viewPorts } = this
+    const current = viewPorts[viewPorts.length - 1]
 
-    return viewPorts[viewPorts.length - 1]
+    if (!current) {
+      return getDefault()
+    }
+
+    return current
   }
 
   get width() {
@@ -54,5 +72,12 @@ export class ViewPort {
     return Math.sqrt(
       Math.pow(this.width, 2) + Math.pow(this.height, 2)
     ) / Math.sqrt(2)
+  }
+}
+
+function getDefault() {
+  return {
+    width: ViewPort.DEFAULT_VIEWPORT_WIDTH,
+    height: ViewPort.DEFAULT_VIEWPORT_HEIGHT
   }
 }

@@ -79,13 +79,15 @@ async function createImage(src: string, anonymousCrossOrigin = false) {
   })
 }
 
+const DEFAULT_EM_SIZE = 12
+
 export class Document {
   static readonly createCanvas = createCanvas
   static readonly createImage = createImage
-  static readonly elementTypes = elementTypes
+  static readonly elementTypes: Record<string, AnyElement> = elementTypes
 
   rootEmSize: number
-  documentElement: SVGElement
+  documentElement?: SVGElement
   readonly screen: Screen
   readonly createCanvas: CreateCanvas
   readonly createImage: CreateImage
@@ -100,8 +102,8 @@ export class Document {
   constructor(
     readonly canvg: Canvg,
     {
-      rootEmSize = 12,
-      emSize = 12,
+      rootEmSize = DEFAULT_EM_SIZE,
+      emSize = DEFAULT_EM_SIZE,
       createCanvas = Document.createCanvas,
       createImage = Document.createImage,
       anonymousCrossOrigin
@@ -145,7 +147,7 @@ export class Document {
   get emSize() {
     const { emSizeStack } = this
 
-    return emSizeStack[emSizeStack.length - 1]
+    return emSizeStack[emSizeStack.length - 1] || DEFAULT_EM_SIZE
   }
 
   set emSize(value: number) {
@@ -185,9 +187,9 @@ export class Document {
 
   createElement<T extends Element>(node: HTMLElement) {
     const elementType = node.nodeName.replace(/^[^:]+:/, '')
-    const ElementType = Document.elementTypes[elementType] as AnyElement
+    const ElementType = Document.elementTypes[elementType]
 
-    if (typeof ElementType !== 'undefined') {
+    if (ElementType) {
       return new ElementType(this, node) as T
     }
 

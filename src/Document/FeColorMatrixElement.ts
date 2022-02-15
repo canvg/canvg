@@ -46,7 +46,7 @@ function c(
 }
 
 export class FeColorMatrixElement extends Element {
-  type = 'feColorMatrix'
+  override type = 'feColorMatrix'
   protected readonly matrix: number[]
   protected readonly includeOpacity: boolean
 

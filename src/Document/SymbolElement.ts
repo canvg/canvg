@@ -2,9 +2,9 @@ import { RenderingContext2D } from '../types'
 import { RenderedElement } from './RenderedElement'
 
 export class SymbolElement extends RenderedElement {
-  type = 'symbol'
+  override type = 'symbol'
 
-  render(_: RenderingContext2D) {
+  override render(_: RenderingContext2D) {
     // NO RENDER
   }
 }

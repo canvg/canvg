@@ -1,5 +1,5 @@
-import { RenderingContext2D } from '../types'
-import { toNumbers } from '../util'
+import { MatrixValue, RenderingContext2D } from '../types'
+import { toMatrixValue } from '../util'
 import { Document } from '../Document'
 import { Point } from '../Point'
 import { Property } from '../Property'
@@ -7,16 +7,16 @@ import { ITransform } from './types'
 
 export class Matrix implements ITransform {
   type = 'matrix'
-  protected matrix: number[] = []
-  private readonly originX: Property = null
-  private readonly originY: Property = null
+  protected matrix: MatrixValue
+  private readonly originX: Property
+  private readonly originY: Property
 
   constructor(
     _: Document,
     matrix: string,
-    transformOrigin: [Property<string>, Property<string>]
+    transformOrigin: readonly [Property<string>, Property<string>]
   ) {
-    this.matrix = toNumbers(matrix)
+    this.matrix = toMatrixValue(matrix)
     this.originX = transformOrigin[0]
     this.originY = transformOrigin[1]
   }

@@ -2,16 +2,17 @@ import { Document } from './Document'
 import { Element } from './Element'
 import { FontFaceElement } from './FontFaceElement'
 import { MissingGlyphElement } from './MissingGlyphElement'
-import { GlyphElement } from './GlyphElement'
+import { ArabicForm, GlyphElement } from './GlyphElement'
 
 export class FontElement extends Element {
-  type = 'font'
-  readonly isArabic: boolean
-  readonly missingGlyph: MissingGlyphElement
-  readonly glyphs: Record<string, GlyphElement | Record<string, GlyphElement>> = {}
+  override type = 'font'
+  readonly isArabic: boolean = false
+  readonly missingGlyph: MissingGlyphElement | undefined
+  readonly glyphs: Record<string, GlyphElement> = {}
+  readonly arabicGlyphs: Record<string, Partial<Record<ArabicForm, GlyphElement>>> = {}
   readonly horizAdvX: number
-  readonly isRTL: boolean
-  readonly fontFace: FontFaceElement
+  readonly isRTL: boolean = false
+  readonly fontFace: FontFaceElement | undefined
 
   constructor(
     document: Document,
@@ -26,48 +27,40 @@ export class FontElement extends Element {
     const { children } = this
 
     for (const child of children) {
-      switch (child.type) {
-        case 'font-face': {
-          this.fontFace = child as FontFaceElement
+      if (child instanceof FontFaceElement) {
+        this.fontFace = child
 
-          const fontFamilyStyle = child.getStyle('font-family')
+        const fontFamilyStyle = child.getStyle('font-family')
 
-          if (fontFamilyStyle.hasValue()) {
-            definitions[fontFamilyStyle.getString()] = this
-          }
-
-          break
+        if (fontFamilyStyle.hasValue()) {
+          definitions[fontFamilyStyle.getString()] = this
         }
+      } else
+      if (child instanceof MissingGlyphElement) {
+        this.missingGlyph = child
+      } else
+      if (child instanceof GlyphElement) {
+        if (child.arabicForm) {
+          this.isRTL = true
+          this.isArabic = true
 
-        case 'missing-glyph':
-          this.missingGlyph = child as MissingGlyphElement
-          break
+          const arabicGlyph = this.arabicGlyphs[child.unicode]
 
-        case 'glyph': {
-          const glyph = child as GlyphElement
-
-          if (glyph.arabicForm) {
-            this.isRTL = true
-            this.isArabic = true
-
-            if (typeof this.glyphs[glyph.unicode] === 'undefined') {
-              this.glyphs[glyph.unicode] = {}
+          if (typeof arabicGlyph === 'undefined') {
+            this.arabicGlyphs[child.unicode] = {
+              [child.arabicForm]: child
             }
-
-            this.glyphs[glyph.unicode][glyph.arabicForm] = glyph
           } else {
-            this.glyphs[glyph.unicode] = glyph
+            arabicGlyph[child.arabicForm] = child
           }
-
-          break
+        } else {
+          this.glyphs[child.unicode] = child
         }
-
-        default:
       }
     }
   }
 
-  render() {
+  override render() {
     // NO RENDER
   }
 }

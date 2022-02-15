@@ -14,12 +14,12 @@ import { MarkerElement } from './MarkerElement'
 export type Marker = [Point, number]
 
 export class PathElement extends RenderedElement {
-  type = 'path'
-  readonly pathParser: PathParser = null
+  override type = 'path'
+  readonly pathParser: PathParser
 
   constructor(
     document: Document,
-    node: HTMLElement,
+    node?: HTMLElement,
     captureTextNodes?: boolean
   ) {
     super(document, node, captureTextNodes)
@@ -86,7 +86,7 @@ export class PathElement extends RenderedElement {
     return boundingBox
   }
 
-  getBoundingBox(_?: RenderingContext2D) {
+  getBoundingBox(_ctx: RenderingContext2D) {
     return this.path()
   }
 
@@ -99,7 +99,7 @@ export class PathElement extends RenderedElement {
     return markers
   }
 
-  renderChildren(ctx: RenderingContext2D) {
+  override renderChildren(ctx: RenderingContext2D) {
     this.path(ctx)
     this.document.screen.mouse.checkPath(this, ctx)
 
@@ -169,7 +169,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathM(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -198,7 +198,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathL(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -238,7 +238,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathH(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -278,7 +278,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathV(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -314,7 +314,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathC(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -364,7 +364,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathS(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -412,7 +412,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathQ(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -458,7 +458,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathT(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -553,8 +553,8 @@ export class PathElement extends RenderedElement {
     // initial angle
     const a1 = vectorsAngle([1, 0], [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY]) // θ1
     // angle delta
-    const u = [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY]
-    const v = [(-currp.x - cpp.x) / rX, (-currp.y - cpp.y) / rY]
+    const u = [(currp.x - cpp.x) / rX, (currp.y - cpp.y) / rY] as const
+    const v = [(-currp.x - cpp.x) / rX, (-currp.y - cpp.y) / rY] as const
     let ad = vectorsAngle(u, v) // Δθ
 
     if (vectorsRatio(u, v) <= -1) {
@@ -578,7 +578,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathA(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     const { pathParser } = this
@@ -624,7 +624,7 @@ export class PathElement extends RenderedElement {
   }
 
   protected pathZ(
-    ctx: RenderingContext2D,
+    ctx: RenderingContext2D | undefined,
     boundingBox: BoundingBox
   ) {
     PathElement.pathZ(this.pathParser)

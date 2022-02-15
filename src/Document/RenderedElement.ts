@@ -13,7 +13,7 @@ export abstract class RenderedElement extends Element {
   protected calculateOpacity() {
     let opacity = 1.0
     // eslint-disable-next-line @typescript-eslint/no-this-alias, consistent-this
-    let element: Element = this
+    let element: Element | null = this
 
     while (element) {
       const opacityStyle = element.getStyle('opacity', false, true) // no ancestors on style call
@@ -28,7 +28,7 @@ export abstract class RenderedElement extends Element {
     return opacity
   }
 
-  setContext(ctx: RenderingContext2D, fromMeasure = false) {
+  override setContext(ctx: RenderingContext2D, fromMeasure = false) {
     if (!fromMeasure) { // causes stack overflow when measuring text with gradients
       // fill
       const fillStyleProp = this.getStyle('fill')
@@ -58,7 +58,7 @@ export abstract class RenderedElement extends Element {
       }
 
       if (fillOpacityStyleProp.hasValue()) {
-        const fillStyle = new Property(this.document, 'fill', ctx.fillStyle as string)
+        const fillStyle = new Property(this.document, 'fill', ctx.fillStyle)
           .addOpacity(fillOpacityStyleProp)
           .getColor()
 
@@ -88,7 +88,7 @@ export abstract class RenderedElement extends Element {
       }
 
       if (strokeOpacityProp.hasValue()) {
-        const strokeStyle = new Property(this.document, 'stroke', ctx.strokeStyle as string)
+        const strokeStyle = new Property(this.document, 'stroke', ctx.strokeStyle)
           .addOpacity(strokeOpacityProp)
           .getString()
 
@@ -212,7 +212,7 @@ export abstract class RenderedElement extends Element {
     }
   }
 
-  clearContext(ctx: RenderingContext2D) {
+  override clearContext(ctx: RenderingContext2D) {
     super.clearContext(ctx)
 
     if (this.modifiedEmSizeStack) {

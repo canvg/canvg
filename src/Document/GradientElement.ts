@@ -1,4 +1,5 @@
 import { RenderingContext2D } from '../types'
+import { Screen } from '../Screen'
 import { Property } from '../Property'
 import { Document } from './Document'
 import { Element } from './Element'
@@ -32,7 +33,7 @@ export abstract class GradientElement extends Element {
     })
   }
 
-  abstract getGradient(ctx: RenderingContext2D, element: PathElement): CanvasGradient
+  abstract getGradient(ctx: RenderingContext2D, element: PathElement): CanvasGradient | null
 
   getGradientUnits() {
     return this.getAttribute('gradientUnits').getString('objectBoundingBox')
@@ -74,15 +75,10 @@ export abstract class GradientElement extends Element {
     if (this.getAttribute('gradientTransform').hasValue()) {
       // render as transformed pattern on temporary canvas
       const { document } = this
-      const {
-        MAX_VIRTUAL_PIXELS,
-        viewPort
-      } = document.screen
-      const [rootView] = viewPort.viewPorts
-      const rect = new RectElement(
-        document,
-        null
-      )
+      const { MAX_VIRTUAL_PIXELS } = Screen
+      const { viewPort } = document.screen
+      const rootView = viewPort.getRoot()
+      const rect = new RectElement(document)
 
       rect.attributes.x = new Property(
         document,
@@ -105,10 +101,7 @@ export abstract class GradientElement extends Element {
         MAX_VIRTUAL_PIXELS
       )
 
-      const group = new GElement(
-        document,
-        null
-      )
+      const group = new GElement(document)
 
       group.attributes.transform = new Property(
         document,
@@ -117,10 +110,7 @@ export abstract class GradientElement extends Element {
       )
       group.children = [rect]
 
-      const patternSvg = new SVGElement(
-        document,
-        null
-      )
+      const patternSvg = new SVGElement(document)
 
       patternSvg.attributes.x = new Property(
         document,
@@ -150,7 +140,7 @@ export abstract class GradientElement extends Element {
       patternCtx.fillStyle = gradient
       patternSvg.render(patternCtx)
 
-      return patternCtx.createPattern(patternCanvas, 'no-repeat')
+      return patternCtx.createPattern(patternCanvas as CanvasImageSource, 'no-repeat')
     }
 
     return gradient

@@ -22,7 +22,7 @@ export async function createPage(browser: Browser) {
   page.goto = (url, options) => goto.call(page, url, {
     waitUntil: 'networkidle0',
     ...options
-  }) as ReturnType<typeof goto>
+  })
 
   await page.setViewport({
     width: 1280,
