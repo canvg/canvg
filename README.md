@@ -4,14 +4,13 @@
 [![Dependencies status][deps]][deps-url]
 [![Build status][build]][build-url]
 [![Coverage status][coverage]][coverage-url]
-[![Dependabot badge][dependabot]][dependabot-url]
 [![Documentation badge][documentation]][documentation-url]
 
 [npm]: https://img.shields.io/npm/v/canvg.svg
 [npm-url]: https://npmjs.com/package/canvg
 
-[deps]: https://david-dm.org/canvg/canvg.svg
-[deps-url]: https://david-dm.org/canvg/canvg
+[deps]: https://img.shields.io/librariesio/release/npm/canvg
+[deps-url]: https://libraries.io/npm/canvg/tree
 
 [build]: https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg
 [build-url]: https://github.com/canvg/canvg/actions
@@ -19,19 +18,26 @@
 [coverage]: https://img.shields.io/codecov/c/github/canvg/canvg.svg
 [coverage-url]: https://app.codecov.io/gh/canvg/canvg
 
-[dependabot]: https://api.dependabot.com/badges/status?host=github&repo=canvg/canvg
-[dependabot-url]: https://dependabot.com/
-
 [documentation]: https://img.shields.io/badge/API-Documentation-2b7489.svg
 [documentation-url]: https://canvg.github.io/canvg
 
 JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas.
 
-[Demo](https://canvg.github.io/canvg/demo/index.html)
+<a href="#quickstart">Quickstart</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="#examples">Examples</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="#options">Options</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="https://canvg.github.io/canvg/demo/index.html">Demo</a>
+<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+<a href="https://jsfiddle.net/0q1vrjxk/">Playground</a>
+<br />
+<hr />
 
-[Playground](https://jsfiddle.net/0q1vrjxk/)
+## Quickstart
 
-## Install
+Install this library using your favorite package manager:
 
 ```sh
 pnpm add canvg
@@ -41,20 +47,7 @@ yarn add canvg
 npm i canvg
 ```
 
-## Usage
-
-Basic module exports:
-
-```js
-export {
-  Canvg,
-  presets
-};
-```
-
-[Description of all exports you can find in Documentation.](https://canvg.github.io/canvg/index.html)
-
-### Example
+Then, just import `Canvg` and use it:
 
 ```js
 import { Canvg } from 'canvg';
@@ -75,6 +68,10 @@ window.onbeforeunload = () => {
   v.stop();
 };
 ```
+
+[Description of all exports you can find in Documentation.](https://canvg.github.io/canvg/index.html)
+
+## Examples
 
 <details>
   <summary>
@@ -227,7 +224,7 @@ window.onload = () => {
 
 </details>
 
-### Options
+## Options
 
 The third parameter of `new Canvg(...)`, `Canvg.from(...)` and `Canvg.fromString(...)` is options:
 
@@ -308,7 +305,7 @@ interface IOptions {
 }
 ```
 
-#### Options presets
+### Options presets
 
 There are two options presets:
 
