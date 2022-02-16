@@ -105,6 +105,7 @@
     "clean-publish": "^4.0.0",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.0",
+    "del-cli": "^4.0.1",
     "eslint": "^8.0.0",
     "http-server": "^14.0.0",
     "inquirer": "^8.2.0",

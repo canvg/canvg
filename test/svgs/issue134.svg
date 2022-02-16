@@ -8,30 +8,8 @@
 					font-size: 12px;
 				}
 			</style>
-			<svg id="frame" width="21" height="21" preserveAspectRatio="xMinYMin slice">
-				<image width="42" height="42" xlink:href="http://us.battle.net/d3/static/images/icons/frames/trait-21.png"></image>
-			</svg>
 			<svg id="rune_none"></svg>
-			<svg id="rune_a" width="16" height="16" preserveAspectRatio="xMinYMin slice">
-				<image width="96" height="16" xlink:href="http://us.battle.net/d3/static/images/icons/runes/small.png"></image>
-			</svg>
-			<svg id="rune_b" width="16" height="16" preserveAspectRatio="xMinYMin slice">
-				<image width="96" height="16" x="-16" xlink:href="http://us.battle.net/d3/static/images/icons/runes/small.png"></image>
-			</svg>
-			<svg id="rune_c" width="16" height="16" preserveAspectRatio="xMinYMin slice">
-				<image width="96" height="16" x="-32" xlink:href="http://us.battle.net/d3/static/images/icons/runes/small.png"></image>
-			</svg>
-			<svg id="rune_d" width="16" height="16" preserveAspectRatio="xMinYMin slice">
-				<image width="96" height="16" x="-48" xlink:href="http://us.battle.net/d3/static/images/icons/runes/small.png"></image>
-			</svg>
-			<svg id="rune_e" width="16" height="16" preserveAspectRatio="xMinYMin slice">
-				<image width="96" height="16" x="-64" xlink:href="http://us.battle.net/d3/static/images/icons/runes/small.png"></image>
-			</svg>
 		</defs>
-
-		<!--rect x="0" y="0" width="100%" height="100%" style="fill: #000000;"/-->
-		<image id="crest" x="50%" y="0" width="200" height="200" transform="translate(-100, -18)" xlink:href="http://us.battle.net/d3/static/images/hero/barbarian/crest.png"></image>
-
 
 		<svg preserveAspectRatio="xMinYMax meet" viewBox="0 0 400 120">
 			<rect x="0" y="0" width="100%" height="90" style="fill: #000000; opacity: 0.5;" rx="10" ry="10"></rect>
