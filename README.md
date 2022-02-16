@@ -71,6 +71,10 @@ window.onbeforeunload = () => {
 
 [Description of all exports you can find in Documentation.](https://canvg.github.io/canvg/index.html)
 
+<br />
+
+[![supported by Cube](https://user-images.githubusercontent.com/986756/154330861-d79ab8ec-aacb-4af8-9e17-1b28f1eccb01.svg)](https://cube.dev/)
+
 ## Examples
 
 <details>
