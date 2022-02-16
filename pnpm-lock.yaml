@@ -16,6 +16,7 @@ specifiers:
   '@trigen/babel-preset': ^7.0.2
   '@trigen/browserslist-config': ^8.0.0-alpha.2
   '@trigen/eslint-config': ^8.0.0-alpha.7
+  '@trigen/scripts': ^8.0.0-alpha.5
   '@types/jest': ^27.0.2
   '@types/node': ^17.0.16
   '@types/node-fetch': ^2.5.12
@@ -78,6 +79,7 @@ devDependencies:
   '@trigen/babel-preset': 7.1.0_@babel+core@7.17.0
   '@trigen/browserslist-config': 8.0.0-alpha.5
   '@trigen/eslint-config': 8.0.0-alpha.7_9feeed2938de332e796fdb582cabd8fb
+  '@trigen/scripts': 8.0.0-alpha.5
   '@types/jest': 27.4.0
   '@types/node': 17.0.16
   '@types/node-fetch': 2.5.12
@@ -2581,6 +2583,16 @@ packages:
       - typescript
     dev: true
 
+  /@trigen/scripts/8.0.0-alpha.5:
+    resolution: {integrity: sha512-uxaZ4dJhwHtZzQEr+xWtzoAXPhCjf4zfKR2Ez9XJzFNwlyCOafB79sdb6skbyj97EeRg6eWDcvHwwUpzMgbx3w==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      argue-cli: 2.0.0
+      dotenv: 14.3.2
+      p-limit: 4.0.0
+    dev: true
+
   /@tsconfig/node10/1.0.8:
     resolution: {integrity: sha512-6XFfSQmMgq0CFLY1MslA/CPUfhIL919M1rMsa5lP2P097N2Wd1sSX0tx1u4olM16fLNhtHZpRhedZJphNJqmZg==}
     dev: true
@@ -4198,6 +4210,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
+    dev: true
+
+  /dotenv/14.3.2:
+    resolution: {integrity: sha512-vwEppIphpFdvaMCaHfCEv9IgwcxMljMw2TnAQBB4VWPvzXQLTb82jwmdOKzlEVUL3gNFT4l4TPKO+Bn+sqcrVQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotgitignore/2.1.0:
@@ -7121,6 +7138,13 @@ packages:
       yocto-queue: 0.1.0
     dev: true
 
+  /p-limit/4.0.0:
+    resolution: {integrity: sha512-5b0R4txpzjPWVw/cXXUResoD4hb6U/x9BH08L7nw+GN1sezDzPdxeRvpc9c433fZhBan/wusjbCsqwqm4EIBIQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      yocto-queue: 1.0.0
+    dev: true
+
   /p-locate/2.0.0:
     resolution: {integrity: sha1-IKAQOyIqcMj9OcwuWAaA893l7EM=}
     engines: {node: '>=4'}
@@ -8909,4 +8933,9 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  /yocto-queue/1.0.0:
+    resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
+    engines: {node: '>=12.20'}
     dev: true

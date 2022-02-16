@@ -1,3 +1,5 @@
 {
-  "packageManager": "pnpm"
+  "withoutPublish": true,
+  "tempDir": "package",
+  "files": ["docs"]
 }
