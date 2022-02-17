@@ -15,7 +15,7 @@ jobs:
           - node
           - offscreen
       fail-fast: false
-    name: Running ${{ matrix.stage }} tests
+    name: ${{ matrix.stage }} tests
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2

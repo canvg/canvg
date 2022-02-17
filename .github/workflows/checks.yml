@@ -6,7 +6,7 @@ on:
 jobs:
   size:
     runs-on: ubuntu-latest
-    name: Checking size
+    name: size-limit
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
   editorconfig:
     runs-on: ubuntu-latest
-    name: Checking editorconfig
+    name: editorconfig
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
         uses: editorconfig-checker/action-editorconfig-checker@v1
   package-json:
     runs-on: ubuntu-latest
-    name: Checking package.json files
+    name: package.json
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
