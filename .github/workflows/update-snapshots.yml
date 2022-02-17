@@ -10,7 +10,7 @@ jobs:
           - node
           - offscreen
       fail-fast: false
-    name: Updating ${{ matrix.stage }} snapshots
+    name: ${{ matrix.stage }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
