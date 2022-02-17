@@ -3,7 +3,6 @@
     /* Type Checking */
     "strict": false, /* @todo Enable */
     "strictBindCallApply": true,
-    "exactOptionalPropertyTypes": false, /* @todo Enable */
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
