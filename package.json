@@ -52,11 +52,11 @@
   ],
   "scripts": {
     "clear:package": "del ./package",
+    "clear": "del ./package ./dist ./coverage",
     "prepublishOnly": "run test build clear:package clean-publish",
     "postpublish": "pnpm clear:package",
     "emitDeclarations": "tsc --skipLibCheck --emitDeclarationOnly",
-    "rollup": "rollup -c",
-    "build": "run -p rollup emitDeclarations",
+    "build": "run -p [ rollup -c ] emitDeclarations",
     "lint": "eslint 'rollup.config.js' 'src/**/*.ts' 'types/**/*.ts' 'test/**/*.{js,ts}'",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
     "test:size": "size-limit",
@@ -71,8 +71,7 @@
     "commit": "cz",
     "bumpVersion": "standard-version",
     "createGithubRelease": "simple-github-release",
-    "push": "git push origin master --tags",
-    "release": "run bumpVersion push createGithubRelease",
+    "release": "run bumpVersion [ git push origin master --tags ] createGithubRelease",
     "updateGitHooks": "simple-git-hooks"
   },
   "dependencies": {
@@ -96,10 +95,10 @@
     "@swc/core": "^1.2.136",
     "@swc/helpers": "^0.3.2",
     "@swc/jest": "^0.2.17",
-    "@trigen/babel-preset": "^7.0.2",
+    "@trigen/babel-preset": "^8.0.0-alpha.5",
     "@trigen/browserslist-config": "^8.0.0-alpha.2",
     "@trigen/eslint-config": "^8.0.0-alpha.7",
-    "@trigen/scripts": "^8.0.0-alpha.5",
+    "@trigen/scripts": "^8.0.0-alpha.9",
     "@types/jest": "^27.0.2",
     "@types/node": "^17.0.16",
     "@types/node-fetch": "^2.5.12",
@@ -131,5 +130,6 @@
     "typedoc": "^0.22.0",
     "typescript": "^4.5.5",
     "xmldom": "^0.6.0"
-  }
+  },
+  "readme": ""
 }
