@@ -4,6 +4,6 @@
     "strict": false
   },
   "include": [
-    "./**/*.ts"
+    "."
   ]
 }
