@@ -6,7 +6,6 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "noUncheckedIndexedAccess": false, /* @todo Enable */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     /* Modules */

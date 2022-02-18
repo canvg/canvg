@@ -16,7 +16,6 @@
     "prefer-destructuring": "off",
     "no-magic-numbers": "off",
     "max-params": "off",
-    "@typescript-eslint/no-magic-numbers": "off",
-    "@typescript-eslint/no-unnecessary-condition": "off"
+    "@typescript-eslint/no-magic-numbers": "off"
   }
 }
