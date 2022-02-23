@@ -8,7 +8,7 @@ specifiers:
   '@commitlint/cz-commitlint': ^16.1.0
   '@rollup/plugin-commonjs': ^21.0.1
   '@rollup/plugin-node-resolve': ^13.0.5
-  '@rollup/plugin-replace': ^3.0.0
+  '@rollup/plugin-replace': ^4.0.0
   '@size-limit/preset-small-lib': ^7.0.8
   '@swc/core': ^1.2.136
   '@swc/helpers': ^0.3.2
@@ -71,7 +71,7 @@ devDependencies:
   '@commitlint/cz-commitlint': 16.1.0_f151a90481712f8da5ddf82d794e91d4
   '@rollup/plugin-commonjs': 21.0.1_rollup@2.67.1
   '@rollup/plugin-node-resolve': 13.1.3_rollup@2.67.1
-  '@rollup/plugin-replace': 3.0.1_rollup@2.67.1
+  '@rollup/plugin-replace': 4.0.0_rollup@2.67.1
   '@size-limit/preset-small-lib': 7.0.8_size-limit@7.0.8
   '@swc/core': 1.2.137_99ae9436e134a034c8d45fdd98ebbf22
   '@swc/helpers': 0.3.2
@@ -2296,8 +2296,8 @@ packages:
       rollup: 2.67.1
     dev: true
 
-  /@rollup/plugin-replace/3.0.1_rollup@2.67.1:
-    resolution: {integrity: sha512-989J5oRzf3mm0pO/0djTijdfEh9U3n63BIXN5X7T4U9BP+fN4oxQ6DvDuBvFaHA6scaHQRclqmKQEkBhB7k7Hg==}
+  /@rollup/plugin-replace/4.0.0_rollup@2.67.1:
+    resolution: {integrity: sha512-+rumQFiaNac9y64OHtkHGmdjm7us9bo1PlbgQfdihQtuNxzjpaB064HbRnewUOggLQxVCCyINfStkgmBeQpv1g==}
     peerDependencies:
       rollup: ^1.20.0 || ^2.0.0
     dependencies:
