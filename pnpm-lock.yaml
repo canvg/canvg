@@ -36,7 +36,7 @@ specifiers:
   jest: ^27.2.5
   jest-circus: ^27.2.5
   jest-image-snapshot: ^4.3.0
-  nano-staged: ^0.5.0
+  nano-staged: ^0.8.0
   node-fetch: ^2.6.0
   puppeteer: ^13.0.0
   raf: ^3.4.1
@@ -97,7 +97,7 @@ devDependencies:
   jest: 27.4.7_canvas@2.9.0+ts-node@10.5.0
   jest-circus: 27.4.6
   jest-image-snapshot: 4.5.1_jest@27.4.7
-  nano-staged: 0.5.0
+  nano-staged: 0.8.0
   node-fetch: 2.6.7
   puppeteer: 13.3.2
   rollup: 2.67.1
@@ -6874,8 +6874,8 @@ packages:
     resolution: {integrity: sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==}
     dev: true
 
-  /nano-staged/0.5.0:
-    resolution: {integrity: sha512-5jkhLvyZM974RmCyI8vt7zo0QK6GIAOCBe6e7L36awXIlG+40/5zJiDvESFrFmO4PhBCRm9lUlnH0SsWAFLDLg==}
+  /nano-staged/0.8.0:
+    resolution: {integrity: sha512-QSEqPGTCJbkHU2yLvfY6huqYPjdBrOaTMKatO1F8nCSrkQGXeKwtCiCnsdxnuMhbg3DTVywKaeWLGCE5oJpq0g==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
