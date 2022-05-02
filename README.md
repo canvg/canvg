@@ -1,5 +1,7 @@
 # canvg
 
+<img align="right" width="120" height="120" alt="Logo" src="website/static/img/logo.svg">
+
 [![NPM version][npm]][npm-url]
 [![Dependencies status][deps]][deps-url]
 [![Build status][build]][build-url]
@@ -21,7 +23,7 @@
 [documentation]: https://img.shields.io/badge/API-Documentation-2b7489.svg
 [documentation-url]: https://canvg.github.io/canvg
 
-JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas.
+JavaScript SVG parser and renderer on Canvas. It takes the URL to the SVG file or the text of the SVG file, parses it in JavaScript and renders the result on Canvas. It also can be used to rasterize SVG images.
 
 <a href="#quickstart">Quickstart</a>
 <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
@@ -87,6 +89,13 @@ import {
   Canvg,
   presets
 } from 'canvg';
+import {
+  DOMParser
+} from 'xmldom';
+
+const preset = presets.offscreen({
+  DOMParser
+});
 
 self.onmessage = async (event) => {
   const {
@@ -96,7 +105,7 @@ self.onmessage = async (event) => {
   } = event.data;
   const canvas = new OffscreenCanvas(width, height);
   const ctx = canvas.getContext('2d');
-  const v = await Canvg.from(ctx, svg, presets.offscreen());
+  const v = await Canvg.from(ctx, svg, preset);
 
   // Render only first frame, ignoring animations and mouse.
   await v.render();
@@ -170,6 +179,13 @@ import {
   Canvg,
   presets
 } from 'canvg';
+import {
+  DOMParser
+} from 'xmldom';
+
+const preset = presets.offscreen({
+  DOMParser
+});
 
 self.onmessage = async (event) => {
   const {
@@ -179,7 +195,7 @@ self.onmessage = async (event) => {
   } = event.data;
   const canvas = new OffscreenCanvas(width, height);
   const ctx = canvas.getContext('2d');
-  const v = await Canvg.from(ctx, svg, presets.offscreen());
+  const v = await Canvg.from(ctx, svg, preset);
 
   /**
    * Resize SVG to fit in given size.

@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="128" fill="white" />
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M128 210C82.7126 210 46 173.287 46 128C46 82.7126 82.7126 46 128 46V92.9216C127.29 92.8788 126.575 92.8571 125.854 92.8571C106.445 92.8571 90.711 108.591 90.711 128C90.711 147.409 106.445 163.143 125.854 163.143C126.575 163.143 127.29 163.121 128 163.078V210Z"
+    fill="#141446" />
+  <path d="M174 186H151V210H174V186Z" fill="#D5D5E2" />
+  <path d="M151 186H128V210H151V186Z" fill="#A1A1B5" />
+  <path d="M198 163H174V186H198V163Z" fill="#A1A1B5" />
+  <path d="M174 163H151V186H174V163Z" fill="#141446" />
+  <path d="M151 163H128V186H151V163Z" fill="#43436B" />
+  <path d="M221 140H198V163H221V140Z" fill="#D5D5E2" />
+  <path d="M198 140H174V163H198V140Z" fill="#141446" />
+  <path d="M174 140H151V163H174V140Z" fill="#A1A1B5" />
+  <path d="M221 116H198V140H221V116Z" fill="#A1A1B5" />
+  <path d="M198 116H174V140H198V116Z" fill="#43436B" />
+  <path d="M221 93H198V116H221V93Z" fill="#D5D5E2" />
+  <path d="M198 93H174V116H198V93Z" fill="#141446" />
+  <path d="M174 93H151V116H174V93Z" fill="#A1A1B5" />
+  <path d="M198 70H174V93H198V70Z" fill="#A1A1B5" />
+  <path d="M174 70H151V93H174V70Z" fill="#141446" />
+  <path d="M151 70H128V93H151V70Z" fill="#43436B" />
+  <path d="M174 46H151V70H174V46Z" fill="#D5D5E2" />
+  <path d="M151 46H128V70H151V46Z" fill="#A1A1B5" />
+</svg>
