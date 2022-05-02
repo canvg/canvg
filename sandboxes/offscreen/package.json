@@ -1,0 +1,7 @@
+{
+  "main": "index.js",
+  "dependencies": {
+    "canvg": "^4.0.0",
+    "xmldom": "^0.6.0"
+  }
+}
