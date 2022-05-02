@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+      import { Canvg } from 'https://cdn.skypack.dev/canvg@^4.0.0';
+
+      window.onload = () => {
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        const v = Canvg.fromString(ctx, '<svg width="600" height="600"><text x="50" y="50">Hello World!</text></svg>');
+
+        // Start SVG rendering with animations and mouse handling.
+        v.start();
+      };
+    </script>
+  </head>
+  <body>
+    <canvas />
+  </body>
+</html>
