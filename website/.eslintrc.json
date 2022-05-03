@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "@trigen/eslint-config",
+    "@trigen/eslint-config/commonjs"
+  ],
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "tsconfigRootDir": "./",
+    "project": ["./tsconfig.json"]
+  }
+}

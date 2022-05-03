@@ -50,4 +50,4 @@ jobs:
           node-version: 16
           cache: 'pnpm'
       - name: Check package.json files
-        run: pnpm --package=@trigen/lint-package-json dlx lint-package-json --ignore sandboxes
+        run: pnpm --package=@trigen/lint-package-json dlx lint-package-json --ignore sandboxes --ignore website
