@@ -38,7 +38,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'deploy'
       - name: Push build
-        uses: ad-m/github-push-action@v0.5.0
+        uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
