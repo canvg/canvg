@@ -10,7 +10,7 @@ const config = {
   title: 'canvg',
   tagline: 'JavaScript SVG parser and renderer on Canvas',
   url: 'https://canvg.js.org',
-  baseUrl: '/',
+  baseUrl: '/canvg/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
