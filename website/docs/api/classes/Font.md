@@ -25,7 +25,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Font.ts:85](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L85)
+[src/Font.ts:85](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L85)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:195](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L195)
+[src/Font.ts:195](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L195)
 
 ## Properties
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:164](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L164)
+[src/Font.ts:164](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L164)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:165](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L165)
+[src/Font.ts:165](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L165)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:166](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L166)
+[src/Font.ts:166](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L166)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:168](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L168)
+[src/Font.ts:168](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L168)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:169](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L169)
+[src/Font.ts:169](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L169)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:170](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L170)
+[src/Font.ts:170](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L170)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:171](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L171)
+[src/Font.ts:171](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L171)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/Font.ts:172](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L172)
+[src/Font.ts:172](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L172)
 
 ## Constructors
 
@@ -140,4 +140,4 @@ ___
 
 #### Defined in
 
-[src/Font.ts:174](https://github.com/canvg/canvg/blob/5ea8056/src/Font.ts#L174)
+[src/Font.ts:174](https://github.com/canvg/canvg/blob/5c58ee8/src/Font.ts#L174)

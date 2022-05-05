@@ -115,7 +115,7 @@ Function to create new canvas.
 
 #### Defined in
 
-[src/Document/Document.ts:19](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L19)
+[src/Document/Document.ts:19](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L19)
 
 ___
 
@@ -142,7 +142,7 @@ Function to create new image.
 
 #### Defined in
 
-[src/Document/Document.ts:24](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L24)
+[src/Document/Document.ts:24](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L24)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/Document/Document.ts:49](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L49)
+[src/Document/Document.ts:49](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L49)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/Document/elements.ts:93](https://github.com/canvg/canvg/blob/5ea8056/src/Document/elements.ts#L93)
+[src/Document/elements.ts:93](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/elements.ts#L93)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L17)
+[src/PathParser.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L17)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:18](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L18)
+[src/PathParser.ts:18](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L18)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:7](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L7)
+[src/ViewPort.ts:7](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L7)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:1](https://github.com/canvg/canvg/blob/5ea8056/src/types.ts#L1)
+[src/types.ts:1](https://github.com/canvg/canvg/blob/5c58ee8/src/types.ts#L1)
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:3](https://github.com/canvg/canvg/blob/5ea8056/src/types.ts#L3)
+[src/types.ts:3](https://github.com/canvg/canvg/blob/5c58ee8/src/types.ts#L3)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:5](https://github.com/canvg/canvg/blob/5ea8056/src/types.ts#L5)
+[src/types.ts:5](https://github.com/canvg/canvg/blob/5c58ee8/src/types.ts#L5)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:7](https://github.com/canvg/canvg/blob/5ea8056/src/types.ts#L7)
+[src/types.ts:7](https://github.com/canvg/canvg/blob/5c58ee8/src/types.ts#L7)
 
 ## Variables
 
@@ -288,7 +288,7 @@ ___
 
 #### Defined in
 
-[src/Document/elements.ts:47](https://github.com/canvg/canvg/blob/5ea8056/src/Document/elements.ts#L47)
+[src/Document/elements.ts:47](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/elements.ts#L47)
 
 ___
 
@@ -298,7 +298,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:3](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L3)
+[src/util/math.ts:3](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L3)
 
 ## Functions
 
@@ -322,7 +322,7 @@ Number result.
 
 #### Defined in
 
-[src/util/math.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L10)
+[src/util/math.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L10)
 
 ___
 
@@ -347,7 +347,7 @@ Number result.
 
 #### Defined in
 
-[src/util/math.ts:20](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L20)
+[src/util/math.ts:20](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L20)
 
 ___
 
@@ -372,7 +372,7 @@ Number result.
 
 #### Defined in
 
-[src/util/math.ts:30](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L30)
+[src/util/math.ts:30](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L30)
 
 ___
 
@@ -392,7 +392,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L34)
+[src/util/math.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L34)
 
 ___
 
@@ -412,7 +412,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L38)
+[src/util/math.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L38)
 
 ___
 
@@ -432,7 +432,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L42)
+[src/util/math.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L42)
 
 ___
 
@@ -452,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L46)
+[src/util/math.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L46)
 
 ___
 
@@ -472,7 +472,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L50)
+[src/util/math.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L50)
 
 ___
 
@@ -492,7 +492,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:54](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L54)
+[src/util/math.ts:54](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L54)
 
 ___
 
@@ -512,7 +512,7 @@ ___
 
 #### Defined in
 
-[src/util/math.ts:58](https://github.com/canvg/canvg/blob/5ea8056/src/util/math.ts#L58)
+[src/util/math.ts:58](https://github.com/canvg/canvg/blob/5c58ee8/src/util/math.ts#L58)
 
 ___
 
@@ -536,7 +536,7 @@ String.
 
 #### Defined in
 
-[src/util/string.ts:8](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L8)
+[src/util/string.ts:8](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L8)
 
 ___
 
@@ -560,7 +560,7 @@ String.
 
 #### Defined in
 
-[src/util/string.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L17)
+[src/util/string.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L17)
 
 ___
 
@@ -584,7 +584,7 @@ String.
 
 #### Defined in
 
-[src/util/string.ts:26](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L26)
+[src/util/string.ts:26](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L26)
 
 ___
 
@@ -608,7 +608,7 @@ Numbers array.
 
 #### Defined in
 
-[src/util/string.ts:35](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L35)
+[src/util/string.ts:35](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L35)
 
 ___
 
@@ -632,7 +632,7 @@ Matrix value.
 
 #### Defined in
 
-[src/util/string.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L46)
+[src/util/string.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L46)
 
 ___
 
@@ -656,7 +656,7 @@ Normalized attribute name.
 
 #### Defined in
 
-[src/util/string.ts:68](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L68)
+[src/util/string.ts:68](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L68)
 
 ___
 
@@ -680,7 +680,7 @@ Parsed URL.
 
 #### Defined in
 
-[src/util/string.ts:81](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L81)
+[src/util/string.ts:81](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L81)
 
 ___
 
@@ -704,7 +704,7 @@ Normalized color.
 
 #### Defined in
 
-[src/util/string.ts:100](https://github.com/canvg/canvg/blob/5ea8056/src/util/string.ts#L100)
+[src/util/string.ts:100](https://github.com/canvg/canvg/blob/5c58ee8/src/util/string.ts#L100)
 
 ___
 
@@ -728,4 +728,4 @@ Specificity.
 
 #### Defined in
 
-[src/util/styles.ts:26](https://github.com/canvg/canvg/blob/5ea8056/src/util/styles.ts#L26)
+[src/util/styles.ts:26](https://github.com/canvg/canvg/blob/5c58ee8/src/util/styles.ts#L26)

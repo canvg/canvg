@@ -1,12 +1,9 @@
-import { DOMParser } from 'xmldom'
 import {
   Canvg,
   presets
 } from 'canvg'
 
-const preset = presets.offscreen({
-  DOMParser
-})
+const preset = presets.offscreen()
 
 async function toPng(data) {
   const {

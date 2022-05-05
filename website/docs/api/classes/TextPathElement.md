@@ -24,7 +24,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Document/Element.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L11)
+[src/Document/Element.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L11)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L14)
+[src/Document/Element.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L14)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L15)
+[src/Document/Element.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L15)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L16)
+[src/Document/Element.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L16)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L17)
+[src/Document/Element.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L17)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:18](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L18)
+[src/Document/Element.ts:18](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L18)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:19](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L19)
+[src/Document/Element.ts:19](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L19)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:20](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L20)
+[src/Document/Element.ts:20](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L20)
 
 ___
 
@@ -166,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:18](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L18)
+[src/Document/TextElement.ts:18](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L18)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:19](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L19)
+[src/Document/TextElement.ts:19](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L19)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:49](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L49)
+[src/Document/TextPathElement.ts:49](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L49)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L50)
+[src/Document/TextPathElement.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L50)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:51](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L51)
+[src/Document/TextPathElement.ts:51](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L51)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:52](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L52)
+[src/Document/TextPathElement.ts:52](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L52)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:53](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L53)
+[src/Document/TextPathElement.ts:53](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L53)
 
 ___
 
@@ -244,7 +244,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:54](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L54)
+[src/Document/TextPathElement.ts:54](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L54)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:55](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L55)
+[src/Document/TextPathElement.ts:55](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L55)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:56](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L56)
+[src/Document/TextPathElement.ts:56](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L56)
 
 ___
 
@@ -274,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:57](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L57)
+[src/Document/TextPathElement.ts:57](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L57)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:58](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L58)
+[src/Document/TextPathElement.ts:58](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L58)
 
 ## Methods
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:87](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L87)
+[src/Document/Element.ts:87](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L87)
 
 ___
 
@@ -327,7 +327,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:101](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L101)
+[src/Document/Element.ts:101](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L101)
 
 ___
 
@@ -353,7 +353,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:114](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L114)
+[src/Document/Element.ts:114](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L114)
 
 ___
 
@@ -377,7 +377,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:151](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L151)
+[src/Document/Element.ts:151](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L151)
 
 ___
 
@@ -401,7 +401,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:190](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L190)
+[src/Document/Element.ts:190](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L190)
 
 ___
 
@@ -425,7 +425,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:220](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L220)
+[src/Document/Element.ts:220](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L220)
 
 ___
 
@@ -449,7 +449,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:232](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L232)
+[src/Document/Element.ts:232](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L232)
 
 ___
 
@@ -467,7 +467,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:248](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L248)
+[src/Document/Element.ts:248](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L248)
 
 ___
 
@@ -492,7 +492,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:283](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L283)
+[src/Document/Element.ts:283](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L283)
 
 ___
 
@@ -517,7 +517,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:301](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L301)
+[src/Document/Element.ts:301](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L301)
 
 ___
 
@@ -535,7 +535,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:307](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L307)
+[src/Document/Element.ts:307](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L307)
 
 ___
 
@@ -553,7 +553,7 @@ ___
 
 #### Defined in
 
-[src/Document/RenderedElement.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Document/RenderedElement.ts#L13)
+[src/Document/RenderedElement.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/RenderedElement.ts#L13)
 
 ___
 
@@ -577,7 +577,7 @@ ___
 
 #### Defined in
 
-[src/Document/RenderedElement.ts:215](https://github.com/canvg/canvg/blob/5ea8056/src/Document/RenderedElement.ts#L215)
+[src/Document/RenderedElement.ts:215](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/RenderedElement.ts#L215)
 
 ___
 
@@ -602,7 +602,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:40](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L40)
+[src/Document/TextElement.ts:40](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L40)
 
 ___
 
@@ -620,7 +620,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:51](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L51)
+[src/Document/TextElement.ts:51](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L51)
 
 ___
 
@@ -644,7 +644,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:60](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L60)
+[src/Document/TextElement.ts:60](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L60)
 
 ___
 
@@ -662,7 +662,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:85](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L85)
+[src/Document/TextElement.ts:85](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L85)
 
 ___
 
@@ -686,7 +686,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:96](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L96)
+[src/Document/TextElement.ts:96](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L96)
 
 ___
 
@@ -712,7 +712,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:107](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L107)
+[src/Document/TextElement.ts:107](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L107)
 
 ___
 
@@ -736,7 +736,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:149](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L149)
+[src/Document/TextElement.ts:149](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L149)
 
 ___
 
@@ -760,7 +760,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:198](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L198)
+[src/Document/TextElement.ts:198](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L198)
 
 ___
 
@@ -778,7 +778,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:277](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L277)
+[src/Document/TextElement.ts:277](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L277)
 
 ___
 
@@ -802,7 +802,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:309](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L309)
+[src/Document/TextElement.ts:309](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L309)
 
 ___
 
@@ -829,7 +829,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:316](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L316)
+[src/Document/TextElement.ts:316](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L316)
 
 ___
 
@@ -856,7 +856,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:334](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L334)
+[src/Document/TextElement.ts:334](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L334)
 
 ___
 
@@ -883,7 +883,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:432](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L432)
+[src/Document/TextElement.ts:432](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L432)
 
 ___
 
@@ -910,7 +910,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:458](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L458)
+[src/Document/TextElement.ts:458](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L458)
 
 ___
 
@@ -935,7 +935,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextElement.ts:487](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L487)
+[src/Document/TextElement.ts:487](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L487)
 
 ___
 
@@ -964,7 +964,7 @@ The attribute value or null.
 
 #### Defined in
 
-[src/Document/TextElement.ts:544](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextElement.ts#L544)
+[src/Document/TextElement.ts:544](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextElement.ts#L544)
 
 ___
 
@@ -982,7 +982,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:73](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L73)
+[src/Document/TextPathElement.ts:73](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L73)
 
 ___
 
@@ -1002,7 +1002,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:77](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L77)
+[src/Document/TextPathElement.ts:77](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L77)
 
 ___
 
@@ -1026,7 +1026,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:174](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L174)
+[src/Document/TextPathElement.ts:174](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L174)
 
 ___
 
@@ -1046,7 +1046,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:240](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L240)
+[src/Document/TextPathElement.ts:240](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L240)
 
 ___
 
@@ -1082,7 +1082,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:244](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L244)
+[src/Document/TextPathElement.ts:244](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L244)
 
 ___
 
@@ -1107,7 +1107,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:308](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L308)
+[src/Document/TextPathElement.ts:308](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L308)
 
 ___
 
@@ -1127,7 +1127,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:329](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L329)
+[src/Document/TextPathElement.ts:329](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L329)
 
 ___
 
@@ -1147,7 +1147,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:455](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L455)
+[src/Document/TextPathElement.ts:455](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L455)
 
 ___
 
@@ -1168,7 +1168,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:542](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L542)
+[src/Document/TextPathElement.ts:542](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L542)
 
 ___
 
@@ -1189,7 +1189,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:554](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L554)
+[src/Document/TextPathElement.ts:554](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L554)
 
 ___
 
@@ -1210,7 +1210,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:568](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L568)
+[src/Document/TextPathElement.ts:568](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L568)
 
 ___
 
@@ -1231,7 +1231,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:582](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L582)
+[src/Document/TextPathElement.ts:582](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L582)
 
 ___
 
@@ -1252,7 +1252,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:596](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L596)
+[src/Document/TextPathElement.ts:596](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L596)
 
 ___
 
@@ -1273,7 +1273,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:616](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L616)
+[src/Document/TextPathElement.ts:616](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L616)
 
 ___
 
@@ -1294,7 +1294,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:638](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L638)
+[src/Document/TextPathElement.ts:638](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L638)
 
 ___
 
@@ -1315,7 +1315,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:655](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L655)
+[src/Document/TextPathElement.ts:655](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L655)
 
 ___
 
@@ -1335,7 +1335,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:674](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L674)
+[src/Document/TextPathElement.ts:674](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L674)
 
 ___
 
@@ -1358,7 +1358,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:707](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L707)
+[src/Document/TextPathElement.ts:707](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L707)
 
 ___
 
@@ -1384,7 +1384,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:862](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L862)
+[src/Document/TextPathElement.ts:862](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L862)
 
 ___
 
@@ -1404,7 +1404,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:928](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L928)
+[src/Document/TextPathElement.ts:928](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L928)
 
 ___
 
@@ -1427,7 +1427,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1047](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1047)
+[src/Document/TextPathElement.ts:1047](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1047)
 
 ___
 
@@ -1441,7 +1441,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1059](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1059)
+[src/Document/TextPathElement.ts:1059](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1059)
 
 ___
 
@@ -1469,7 +1469,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1074](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1074)
+[src/Document/TextPathElement.ts:1074](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1074)
 
 ___
 
@@ -1495,7 +1495,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1094](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1094)
+[src/Document/TextPathElement.ts:1094](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1094)
 
 ___
 
@@ -1520,7 +1520,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1112](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1112)
+[src/Document/TextPathElement.ts:1112](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1112)
 
 ___
 
@@ -1541,7 +1541,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1134](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1134)
+[src/Document/TextPathElement.ts:1134](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1134)
 
 ___
 
@@ -1563,7 +1563,7 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:1178](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L1178)
+[src/Document/TextPathElement.ts:1178](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L1178)
 
 ## Constructors
 
@@ -1585,4 +1585,4 @@ ___
 
 #### Defined in
 
-[src/Document/TextPathElement.ts:60](https://github.com/canvg/canvg/blob/5ea8056/src/Document/TextPathElement.ts#L60)
+[src/Document/TextPathElement.ts:60](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/TextPathElement.ts#L60)

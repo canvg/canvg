@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Transform/Matrix.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L10)
+[src/Transform/Matrix.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L10)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Skew.ts:6](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Skew.ts#L6)
+[src/Transform/Skew.ts:6](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Skew.ts#L6)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Skew.ts:7](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Skew.ts#L7)
+[src/Transform/Skew.ts:7](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Skew.ts#L7)
 
 ## Methods
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:24](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L24)
+[src/Transform/Matrix.ts:24](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L24)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:45](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L45)
+[src/Transform/Matrix.ts:45](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L45)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:76](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L76)
+[src/Transform/Matrix.ts:76](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L76)
 
 ## Constructors
 
@@ -146,4 +146,4 @@ ___
 
 #### Defined in
 
-[src/Transform/Skew.ts:9](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Skew.ts#L9)
+[src/Transform/Skew.ts:9](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Skew.ts#L9)

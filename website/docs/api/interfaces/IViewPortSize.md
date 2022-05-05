@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/ViewPort.ts:3](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L3)
+[src/ViewPort.ts:3](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L3)
 
 ___
 
@@ -24,4 +24,4 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:4](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L4)
+[src/ViewPort.ts:4](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L4)

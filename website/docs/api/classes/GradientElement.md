@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Document/Element.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L11)
+[src/Document/Element.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L11)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L13)
+[src/Document/Element.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L13)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L14)
+[src/Document/Element.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L14)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L15)
+[src/Document/Element.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L15)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L16)
+[src/Document/Element.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L16)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L17)
+[src/Document/Element.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L17)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:18](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L18)
+[src/Document/Element.ts:18](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L18)
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:19](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L19)
+[src/Document/Element.ts:19](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L19)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:20](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L20)
+[src/Document/Element.ts:20](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L20)
 
 ___
 
@@ -180,7 +180,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L13)
+[src/Document/GradientElement.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L13)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L15)
+[src/Document/GradientElement.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L15)
 
 ## Methods
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:87](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L87)
+[src/Document/Element.ts:87](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L87)
 
 ___
 
@@ -233,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:101](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L101)
+[src/Document/Element.ts:101](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L101)
 
 ___
 
@@ -259,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:114](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L114)
+[src/Document/Element.ts:114](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L114)
 
 ___
 
@@ -283,7 +283,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:151](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L151)
+[src/Document/Element.ts:151](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L151)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:186](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L186)
+[src/Document/Element.ts:186](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L186)
 
 ___
 
@@ -331,7 +331,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:190](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L190)
+[src/Document/Element.ts:190](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L190)
 
 ___
 
@@ -355,7 +355,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:210](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L210)
+[src/Document/Element.ts:210](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L210)
 
 ___
 
@@ -379,7 +379,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:214](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L214)
+[src/Document/Element.ts:214](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L214)
 
 ___
 
@@ -403,7 +403,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:220](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L220)
+[src/Document/Element.ts:220](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L220)
 
 ___
 
@@ -427,7 +427,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:232](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L232)
+[src/Document/Element.ts:232](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L232)
 
 ___
 
@@ -445,7 +445,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:248](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L248)
+[src/Document/Element.ts:248](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L248)
 
 ___
 
@@ -470,7 +470,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:283](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L283)
+[src/Document/Element.ts:283](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L283)
 
 ___
 
@@ -495,7 +495,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:301](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L301)
+[src/Document/Element.ts:301](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L301)
 
 ___
 
@@ -513,7 +513,7 @@ ___
 
 #### Defined in
 
-[src/Document/Element.ts:307](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Element.ts#L307)
+[src/Document/Element.ts:307](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Element.ts#L307)
 
 ___
 
@@ -534,7 +534,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:36](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L36)
+[src/Document/GradientElement.ts:36](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L36)
 
 ___
 
@@ -548,7 +548,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L38)
+[src/Document/GradientElement.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L38)
 
 ___
 
@@ -570,7 +570,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L42)
+[src/Document/GradientElement.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L42)
 
 ___
 
@@ -590,7 +590,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:149](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L149)
+[src/Document/GradientElement.ts:149](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L149)
 
 ___
 
@@ -611,7 +611,7 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:160](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L160)
+[src/Document/GradientElement.ts:160](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L160)
 
 ## Constructors
 
@@ -633,4 +633,4 @@ ___
 
 #### Defined in
 
-[src/Document/GradientElement.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/Document/GradientElement.ts#L17)
+[src/Document/GradientElement.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/GradientElement.ts#L17)

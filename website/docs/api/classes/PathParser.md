@@ -20,7 +20,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/PathParser.ts:31](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L31)
+[src/PathParser.ts:31](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L31)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:32](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L32)
+[src/PathParser.ts:32](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L32)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:33](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L33)
+[src/PathParser.ts:33](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L33)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L34)
+[src/PathParser.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L34)
 
 ___
 
@@ -64,7 +64,7 @@ SVGPathData.commands
 
 #### Defined in
 
-[src/PathParser.ts:35](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L35)
+[src/PathParser.ts:35](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L35)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:36](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L36)
+[src/PathParser.ts:36](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L36)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:37](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L37)
+[src/PathParser.ts:37](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L37)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L38)
+[src/PathParser.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L38)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:39](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L39)
+[src/PathParser.ts:39](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L39)
 
 ## Constructors
 
@@ -124,7 +124,7 @@ SVGPathData.constructor
 
 #### Defined in
 
-[src/PathParser.ts:41](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L41)
+[src/PathParser.ts:41](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L41)
 
 ## Methods
 
@@ -138,7 +138,7 @@ SVGPathData.constructor
 
 #### Defined in
 
-[src/PathParser.ts:51](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L51)
+[src/PathParser.ts:51](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L51)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:62](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L62)
+[src/PathParser.ts:62](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L62)
 
 ___
 
@@ -166,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:71](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L71)
+[src/PathParser.ts:71](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L71)
 
 ___
 
@@ -187,7 +187,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:80](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L80)
+[src/PathParser.ts:80](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L80)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:89](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L89)
+[src/PathParser.ts:89](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L89)
 
 ___
 
@@ -229,7 +229,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:97](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L97)
+[src/PathParser.ts:97](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L97)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:105](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L105)
+[src/PathParser.ts:105](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L105)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:132](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L132)
+[src/PathParser.ts:132](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L132)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:146](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L146)
+[src/PathParser.ts:146](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L146)
 
 ___
 
@@ -306,7 +306,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:160](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L160)
+[src/PathParser.ts:160](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L160)
 
 ___
 
@@ -320,7 +320,7 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:165](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L165)
+[src/PathParser.ts:165](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L165)
 
 ___
 
@@ -334,4 +334,4 @@ ___
 
 #### Defined in
 
-[src/PathParser.ts:169](https://github.com/canvg/canvg/blob/5ea8056/src/PathParser.ts#L169)
+[src/PathParser.ts:169](https://github.com/canvg/canvg/blob/5c58ee8/src/PathParser.ts#L169)

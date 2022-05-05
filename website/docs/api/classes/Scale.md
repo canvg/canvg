@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Transform/Scale.ts:8](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L8)
+[src/Transform/Scale.ts:8](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L8)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:9](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L9)
+[src/Transform/Scale.ts:9](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L9)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L10)
+[src/Transform/Scale.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L10)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L11)
+[src/Transform/Scale.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L11)
 
 ## Constructors
 
@@ -62,7 +62,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L13)
+[src/Transform/Scale.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L13)
 
 ## Methods
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:33](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L33)
+[src/Transform/Scale.ts:33](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L33)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L50)
+[src/Transform/Scale.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L50)
 
 ___
 
@@ -122,4 +122,4 @@ ___
 
 #### Defined in
 
-[src/Transform/Scale.ts:67](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Scale.ts#L67)
+[src/Transform/Scale.ts:67](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Scale.ts#L67)

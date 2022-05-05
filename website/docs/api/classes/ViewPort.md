@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/ViewPort.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L10)
+[src/ViewPort.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L10)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L11)
+[src/ViewPort.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L11)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L13)
+[src/ViewPort.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L13)
 
 ## Constructors
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L15)
+[src/ViewPort.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L15)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:19](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L19)
+[src/ViewPort.ts:19](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L19)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:26](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L26)
+[src/ViewPort.ts:26](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L26)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:30](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L30)
+[src/ViewPort.ts:30](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L30)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:40](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L40)
+[src/ViewPort.ts:40](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L40)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:59](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L59)
+[src/ViewPort.ts:59](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L59)
 
 ## Accessors
 
@@ -151,7 +151,7 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:51](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L51)
+[src/ViewPort.ts:51](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L51)
 
 ___
 
@@ -165,4 +165,4 @@ ___
 
 #### Defined in
 
-[src/ViewPort.ts:55](https://github.com/canvg/canvg/blob/5ea8056/src/ViewPort.ts#L55)
+[src/ViewPort.ts:55](https://github.com/canvg/canvg/blob/5c58ee8/src/ViewPort.ts#L55)

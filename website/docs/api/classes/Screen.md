@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Screen.ts:98](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L98)
+[src/Screen.ts:98](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L98)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:99](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L99)
+[src/Screen.ts:99](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L99)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:100](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L100)
+[src/Screen.ts:100](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L100)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:101](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L101)
+[src/Screen.ts:101](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L101)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:103](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L103)
+[src/Screen.ts:103](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L103)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:104](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L104)
+[src/Screen.ts:104](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L104)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:105](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L105)
+[src/Screen.ts:105](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L105)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:106](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L106)
+[src/Screen.ts:106](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L106)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:107](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L107)
+[src/Screen.ts:107](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L107)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:108](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L108)
+[src/Screen.ts:108](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L108)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:109](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L109)
+[src/Screen.ts:109](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L109)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:110](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L110)
+[src/Screen.ts:110](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L110)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:111](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L111)
+[src/Screen.ts:111](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L111)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:112](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L112)
+[src/Screen.ts:112](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L112)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:113](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L113)
+[src/Screen.ts:113](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L113)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:114](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L114)
+[src/Screen.ts:114](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L114)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:116](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L116)
+[src/Screen.ts:116](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L116)
 
 ## Methods
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:132](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L132)
+[src/Screen.ts:132](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L132)
 
 ___
 
@@ -259,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:136](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L136)
+[src/Screen.ts:136](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L136)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:145](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L145)
+[src/Screen.ts:145](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L145)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:165](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L165)
+[src/Screen.ts:165](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L165)
 
 ___
 
@@ -313,7 +313,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:173](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L173)
+[src/Screen.ts:173](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L173)
 
 ___
 
@@ -334,7 +334,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:286](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L286)
+[src/Screen.ts:286](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L286)
 
 ___
 
@@ -348,7 +348,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:362](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L362)
+[src/Screen.ts:362](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L362)
 
 ___
 
@@ -369,7 +369,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:371](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L371)
+[src/Screen.ts:371](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L371)
 
 ___
 
@@ -395,4 +395,4 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:405](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L405)
+[src/Screen.ts:405](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L405)

@@ -28,7 +28,7 @@ ITransform.type
 
 #### Defined in
 
-[src/Transform/Matrix.ts:9](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L9)
+[src/Transform/Matrix.ts:9](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L9)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L10)
+[src/Transform/Matrix.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L10)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L11)
+[src/Transform/Matrix.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L11)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:12](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L12)
+[src/Transform/Matrix.ts:12](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L12)
 
 ## Constructors
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Matrix.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L14)
+[src/Transform/Matrix.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L14)
 
 ## Methods
 
@@ -100,7 +100,7 @@ ITransform.apply
 
 #### Defined in
 
-[src/Transform/Matrix.ts:24](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L24)
+[src/Transform/Matrix.ts:24](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L24)
 
 ___
 
@@ -124,7 +124,7 @@ ITransform.unapply
 
 #### Defined in
 
-[src/Transform/Matrix.ts:45](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L45)
+[src/Transform/Matrix.ts:45](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L45)
 
 ___
 
@@ -148,4 +148,4 @@ ITransform.applyToPoint
 
 #### Defined in
 
-[src/Transform/Matrix.ts:76](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Matrix.ts#L76)
+[src/Transform/Matrix.ts:76](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Matrix.ts#L76)

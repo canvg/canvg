@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/SVGFontLoader.ts:4](https://github.com/canvg/canvg/blob/5ea8056/src/SVGFontLoader.ts#L4)
+[src/SVGFontLoader.ts:4](https://github.com/canvg/canvg/blob/5c58ee8/src/SVGFontLoader.ts#L4)
 
 ## Constructors
 
@@ -30,7 +30,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/SVGFontLoader.ts:6](https://github.com/canvg/canvg/blob/5ea8056/src/SVGFontLoader.ts#L6)
+[src/SVGFontLoader.ts:6](https://github.com/canvg/canvg/blob/5c58ee8/src/SVGFontLoader.ts#L6)
 
 ## Methods
 
@@ -51,4 +51,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/SVGFontLoader.ts:12](https://github.com/canvg/canvg/blob/5ea8056/src/SVGFontLoader.ts#L12)
+[src/SVGFontLoader.ts:12](https://github.com/canvg/canvg/blob/5c58ee8/src/SVGFontLoader.ts#L12)

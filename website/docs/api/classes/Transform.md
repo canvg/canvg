@@ -25,7 +25,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Transform/Transform.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L38)
+[src/Transform/Transform.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L38)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:90](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L90)
+[src/Transform/Transform.ts:90](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L90)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:94](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L94)
+[src/Transform/Transform.ts:94](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L94)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:99](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L99)
+[src/Transform/Transform.ts:99](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L99)
 
 ## Properties
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:58](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L58)
+[src/Transform/Transform.ts:58](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L58)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:67](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L67)
+[src/Transform/Transform.ts:67](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L67)
 
 ## Constructors
 
@@ -123,4 +123,4 @@ ___
 
 #### Defined in
 
-[src/Transform/Transform.ts:69](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Transform.ts#L69)
+[src/Transform/Transform.ts:69](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Transform.ts#L69)

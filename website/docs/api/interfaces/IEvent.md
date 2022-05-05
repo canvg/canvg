@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Mouse.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L13)
+[src/Mouse.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L13)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L14)
+[src/Mouse.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L14)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L15)
+[src/Mouse.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L15)
 
 ## Methods
 
@@ -54,4 +54,4 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L16)
+[src/Mouse.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L16)

@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Mouse.ts:20](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L20)
+[src/Mouse.ts:20](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L20)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:21](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L21)
+[src/Mouse.ts:21](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L21)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:22](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L22)
+[src/Mouse.ts:22](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L22)
 
 ## Constructors
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:24](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L24)
+[src/Mouse.ts:24](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L24)
 
 ## Methods
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:31](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L31)
+[src/Mouse.ts:31](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L31)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:35](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L35)
+[src/Mouse.ts:35](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L35)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:52](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L52)
+[src/Mouse.ts:52](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L52)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:64](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L64)
+[src/Mouse.ts:64](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L64)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:68](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L68)
+[src/Mouse.ts:68](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L68)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:100](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L100)
+[src/Mouse.ts:100](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L100)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:118](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L118)
+[src/Mouse.ts:118](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L118)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:135](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L135)
+[src/Mouse.ts:135](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L135)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:160](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L160)
+[src/Mouse.ts:160](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L160)
 
 ___
 
@@ -223,4 +223,4 @@ ___
 
 #### Defined in
 
-[src/Mouse.ts:181](https://github.com/canvg/canvg/blob/5ea8056/src/Mouse.ts#L181)
+[src/Mouse.ts:181](https://github.com/canvg/canvg/blob/5c58ee8/src/Mouse.ts#L181)
