@@ -29,6 +29,10 @@ jobs:
         working-directory: ./website
       - name: Build demo
         run: pnpm build:demo
+      - name: Make CNAME file
+        run: |
+          cd ./website/build
+          echo "canvg.js.org" > CNAME
       - name: Prepare build
         run: |
           cd ./website/build
