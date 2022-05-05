@@ -29,7 +29,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Parser.ts:23](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L23)
+[src/Parser.ts:23](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L23)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:24](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L24)
+[src/Parser.ts:24](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L24)
 
 ## Constructors
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:26](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L26)
+[src/Parser.ts:26](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L26)
 
 ## Methods
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L42)
+[src/Parser.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L42)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L50)
+[src/Parser.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L50)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:64](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L64)
+[src/Parser.ts:64](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L64)
 
 ___
 
@@ -135,4 +135,4 @@ ___
 
 #### Defined in
 
-[src/Parser.ts:74](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L74)
+[src/Parser.ts:74](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L74)

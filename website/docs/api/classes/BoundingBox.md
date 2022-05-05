@@ -23,7 +23,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/BoundingBox.ts:3](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L3)
+[src/BoundingBox.ts:3](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L3)
 
 ## Properties
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L13)
+[src/BoundingBox.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L13)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L17)
+[src/BoundingBox.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L17)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:21](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L21)
+[src/BoundingBox.ts:21](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L21)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:25](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L25)
+[src/BoundingBox.ts:25](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L25)
 
 ## Methods
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:29](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L29)
+[src/BoundingBox.ts:29](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L29)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:61](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L61)
+[src/BoundingBox.ts:61](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L61)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:65](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L65)
+[src/BoundingBox.ts:65](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L65)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:69](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L69)
+[src/BoundingBox.ts:69](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L69)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:85](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L85)
+[src/BoundingBox.ts:85](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L85)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:100](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L100)
+[src/BoundingBox.ts:100](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L100)
 
 ___
 
@@ -259,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:161](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L161)
+[src/BoundingBox.ts:161](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L161)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:177](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L177)
+[src/BoundingBox.ts:177](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L177)
 
 ___
 
@@ -305,4 +305,4 @@ ___
 
 #### Defined in
 
-[src/BoundingBox.ts:193](https://github.com/canvg/canvg/blob/5ea8056/src/BoundingBox.ts#L193)
+[src/BoundingBox.ts:193](https://github.com/canvg/canvg/blob/5c58ee8/src/BoundingBox.ts#L193)

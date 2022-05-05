@@ -30,7 +30,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Property.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L16)
+[src/Property.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L16)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L42)
+[src/Property.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L42)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:54](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L54)
+[src/Property.ts:54](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L54)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:63](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L63)
+[src/Property.ts:63](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L63)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:74](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L74)
+[src/Property.ts:74](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L74)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:78](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L78)
+[src/Property.ts:78](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L78)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:95](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L95)
+[src/Property.ts:95](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L95)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:100](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L100)
+[src/Property.ts:100](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L100)
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:108](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L108)
+[src/Property.ts:108](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L108)
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:129](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L129)
+[src/Property.ts:129](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L129)
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:139](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L139)
+[src/Property.ts:139](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L139)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:153](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L153)
+[src/Property.ts:153](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L153)
 
 ___
 
@@ -246,7 +246,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:157](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L157)
+[src/Property.ts:157](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L157)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:161](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L161)
+[src/Property.ts:161](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L161)
 
 ___
 
@@ -274,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:165](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L165)
+[src/Property.ts:165](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L165)
 
 ___
 
@@ -295,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:169](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L169)
+[src/Property.ts:169](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L169)
 
 ▸ **getPixels**(`isFontSize?`): `number`
 
@@ -311,7 +311,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:170](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L170)
+[src/Property.ts:170](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L170)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:253](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L253)
+[src/Property.ts:253](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L253)
 
 ___
 
@@ -339,7 +339,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:265](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L265)
+[src/Property.ts:265](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L265)
 
 ___
 
@@ -359,7 +359,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:285](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L285)
+[src/Property.ts:285](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L285)
 
 ___
 
@@ -380,7 +380,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:293](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L293)
+[src/Property.ts:293](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L293)
 
 ___
 
@@ -394,7 +394,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:329](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L329)
+[src/Property.ts:329](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L329)
 
 ___
 
@@ -414,7 +414,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:339](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L339)
+[src/Property.ts:339](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L339)
 
 ## Properties
 
@@ -424,7 +424,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:20](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L20)
+[src/Property.ts:20](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L20)
 
 ___
 
@@ -434,7 +434,7 @@ ___
 
 #### Defined in
 
-[src/Property.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L34)
+[src/Property.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L34)
 
 ## Constructors
 
@@ -458,4 +458,4 @@ ___
 
 #### Defined in
 
-[src/Property.ts:36](https://github.com/canvg/canvg/blob/5ea8056/src/Property.ts#L36)
+[src/Property.ts:36](https://github.com/canvg/canvg/blob/5c58ee8/src/Property.ts#L36)

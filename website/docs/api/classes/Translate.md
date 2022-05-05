@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Transform/Translate.ts:6](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L6)
+[src/Transform/Translate.ts:6](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L6)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Translate.ts:7](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L7)
+[src/Transform/Translate.ts:7](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L7)
 
 ## Constructors
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Translate.ts:9](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L9)
+[src/Transform/Translate.ts:9](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L9)
 
 ## Methods
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Translate.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L16)
+[src/Transform/Translate.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L16)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Translate.ts:28](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L28)
+[src/Transform/Translate.ts:28](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L28)
 
 ___
 
@@ -101,4 +101,4 @@ ___
 
 #### Defined in
 
-[src/Transform/Translate.ts:40](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Translate.ts#L40)
+[src/Transform/Translate.ts:40](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Translate.ts#L40)

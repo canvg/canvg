@@ -32,7 +32,7 @@ Default `rem` size.
 
 #### Defined in
 
-[src/Document/Document.ts:30](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L30)
+[src/Document/Document.ts:30](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L30)
 
 ___
 
@@ -48,7 +48,7 @@ Default `em` size.
 
 #### Defined in
 
-[src/Document/Document.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L34)
+[src/Document/Document.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L34)
 
 ___
 
@@ -64,7 +64,7 @@ Function to create new canvas.
 
 #### Defined in
 
-[src/Document/Document.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L38)
+[src/Document/Document.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L38)
 
 ___
 
@@ -80,7 +80,7 @@ Function to create new image.
 
 #### Defined in
 
-[src/Document/Document.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L42)
+[src/Document/Document.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L42)
 
 ___
 
@@ -96,7 +96,7 @@ Load images anonymously.
 
 #### Defined in
 
-[src/Document/Document.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L46)
+[src/Document/Document.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L46)
 
 ___
 
@@ -127,7 +127,7 @@ WHATWG-compatible `fetch` function.
 
 #### Defined in
 
-[src/Parser.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L10)
+[src/Parser.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L10)
 
 ___
 
@@ -143,7 +143,7 @@ XML/HTML parser from string into DOM Document.
 
 #### Defined in
 
-[src/Parser.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L14)
+[src/Parser.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L14)
 
 ___
 
@@ -159,7 +159,7 @@ Window object.
 
 #### Defined in
 
-[src/Screen.ts:23](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L23)
+[src/Screen.ts:23](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L23)
 
 ___
 
@@ -175,7 +175,7 @@ Whether enable the redraw.
 
 #### Defined in
 
-[src/Screen.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L34)
+[src/Screen.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L34)
 
 ___
 
@@ -191,7 +191,7 @@ Ignore mouse events.
 
 #### Defined in
 
-[src/Screen.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L38)
+[src/Screen.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L38)
 
 ___
 
@@ -207,7 +207,7 @@ Ignore animations.
 
 #### Defined in
 
-[src/Screen.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L42)
+[src/Screen.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L42)
 
 ___
 
@@ -223,7 +223,7 @@ Does not try to resize canvas.
 
 #### Defined in
 
-[src/Screen.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L46)
+[src/Screen.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L46)
 
 ___
 
@@ -239,7 +239,7 @@ Does not clear canvas.
 
 #### Defined in
 
-[src/Screen.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L50)
+[src/Screen.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L50)
 
 ___
 
@@ -255,7 +255,7 @@ Scales horizontally to width.
 
 #### Defined in
 
-[src/Screen.ts:54](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L54)
+[src/Screen.ts:54](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L54)
 
 ___
 
@@ -271,7 +271,7 @@ Scales vertically to height.
 
 #### Defined in
 
-[src/Screen.ts:58](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L58)
+[src/Screen.ts:58](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L58)
 
 ___
 
@@ -287,7 +287,7 @@ Draws at a x offset.
 
 #### Defined in
 
-[src/Screen.ts:62](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L62)
+[src/Screen.ts:62](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L62)
 
 ___
 
@@ -303,7 +303,7 @@ Draws at a y offset.
 
 #### Defined in
 
-[src/Screen.ts:66](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L66)
+[src/Screen.ts:66](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L66)
 
 ## Methods
 
@@ -323,4 +323,4 @@ Will call the function on every frame, if it returns true, will redraw.
 
 #### Defined in
 
-[src/Screen.ts:70](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L70)
+[src/Screen.ts:70](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L70)

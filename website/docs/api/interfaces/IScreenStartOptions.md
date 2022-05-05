@@ -22,7 +22,7 @@ Whether enable the redraw.
 
 #### Defined in
 
-[src/Screen.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L34)
+[src/Screen.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L34)
 
 ___
 
@@ -34,7 +34,7 @@ Ignore mouse events.
 
 #### Defined in
 
-[src/Screen.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L38)
+[src/Screen.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L38)
 
 ___
 
@@ -46,7 +46,7 @@ Ignore animations.
 
 #### Defined in
 
-[src/Screen.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L42)
+[src/Screen.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L42)
 
 ___
 
@@ -58,7 +58,7 @@ Does not try to resize canvas.
 
 #### Defined in
 
-[src/Screen.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L46)
+[src/Screen.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L46)
 
 ___
 
@@ -70,7 +70,7 @@ Does not clear canvas.
 
 #### Defined in
 
-[src/Screen.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L50)
+[src/Screen.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L50)
 
 ___
 
@@ -82,7 +82,7 @@ Scales horizontally to width.
 
 #### Defined in
 
-[src/Screen.ts:54](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L54)
+[src/Screen.ts:54](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L54)
 
 ___
 
@@ -94,7 +94,7 @@ Scales vertically to height.
 
 #### Defined in
 
-[src/Screen.ts:58](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L58)
+[src/Screen.ts:58](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L58)
 
 ___
 
@@ -106,7 +106,7 @@ Draws at a x offset.
 
 #### Defined in
 
-[src/Screen.ts:62](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L62)
+[src/Screen.ts:62](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L62)
 
 ___
 
@@ -118,7 +118,7 @@ Draws at a y offset.
 
 #### Defined in
 
-[src/Screen.ts:66](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L66)
+[src/Screen.ts:66](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L66)
 
 ## Methods
 
@@ -134,4 +134,4 @@ Will call the function on every frame, if it returns true, will redraw.
 
 #### Defined in
 
-[src/Screen.ts:70](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L70)
+[src/Screen.ts:70](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L70)

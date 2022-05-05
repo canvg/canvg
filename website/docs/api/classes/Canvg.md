@@ -32,7 +32,7 @@ Canvg instance.
 
 #### Defined in
 
-[src/Canvg.ts:32](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L32)
+[src/Canvg.ts:32](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L32)
 
 ___
 
@@ -58,7 +58,7 @@ Canvg instance.
 
 #### Defined in
 
-[src/Canvg.ts:50](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L50)
+[src/Canvg.ts:50](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L50)
 
 ___
 
@@ -84,7 +84,7 @@ Canvg instance.
 
 #### Defined in
 
-[src/Canvg.ts:105](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L105)
+[src/Canvg.ts:105](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L105)
 
 ___
 
@@ -110,7 +110,7 @@ Canvg instance.
 
 #### Defined in
 
-[src/Canvg.ts:123](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L123)
+[src/Canvg.ts:123](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L123)
 
 ___
 
@@ -128,7 +128,7 @@ Ready promise.
 
 #### Defined in
 
-[src/Canvg.ts:138](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L138)
+[src/Canvg.ts:138](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L138)
 
 ___
 
@@ -146,7 +146,7 @@ Is ready or not.
 
 #### Defined in
 
-[src/Canvg.ts:146](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L146)
+[src/Canvg.ts:146](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L146)
 
 ___
 
@@ -168,7 +168,7 @@ Render only first frame, ignoring animations and mouse.
 
 #### Defined in
 
-[src/Canvg.ts:154](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L154)
+[src/Canvg.ts:154](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L154)
 
 ___
 
@@ -190,7 +190,7 @@ Start rendering.
 
 #### Defined in
 
-[src/Canvg.ts:171](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L171)
+[src/Canvg.ts:171](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L171)
 
 ___
 
@@ -206,7 +206,7 @@ Stop rendering.
 
 #### Defined in
 
-[src/Canvg.ts:188](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L188)
+[src/Canvg.ts:188](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L188)
 
 ___
 
@@ -230,7 +230,7 @@ Resize SVG to fit in given size.
 
 #### Defined in
 
-[src/Canvg.ts:198](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L198)
+[src/Canvg.ts:198](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L198)
 
 ## Properties
 
@@ -242,7 +242,7 @@ XML/HTML parser instance.
 
 #### Defined in
 
-[src/Canvg.ts:64](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L64)
+[src/Canvg.ts:64](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L64)
 
 ___
 
@@ -254,7 +254,7 @@ Screen instance.
 
 #### Defined in
 
-[src/Canvg.ts:68](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L68)
+[src/Canvg.ts:68](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L68)
 
 ___
 
@@ -266,7 +266,7 @@ Canvg Document.
 
 #### Defined in
 
-[src/Canvg.ts:72](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L72)
+[src/Canvg.ts:72](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L72)
 
 ___
 
@@ -276,7 +276,7 @@ ___
 
 #### Defined in
 
-[src/Canvg.ts:73](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L73)
+[src/Canvg.ts:73](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L73)
 
 ___
 
@@ -286,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/Canvg.ts:74](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L74)
+[src/Canvg.ts:74](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L74)
 
 ## Constructors
 
@@ -306,4 +306,4 @@ Main constructor.
 
 #### Defined in
 
-[src/Canvg.ts:82](https://github.com/canvg/canvg/blob/5ea8056/src/Canvg.ts#L82)
+[src/Canvg.ts:82](https://github.com/canvg/canvg/blob/5c58ee8/src/Canvg.ts#L82)

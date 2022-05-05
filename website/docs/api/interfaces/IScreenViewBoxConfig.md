@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Screen.ts:74](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L74)
+[src/Screen.ts:74](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L74)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:75](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L75)
+[src/Screen.ts:75](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L75)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:76](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L76)
+[src/Screen.ts:76](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L76)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:77](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L77)
+[src/Screen.ts:77](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L77)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:78](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L78)
+[src/Screen.ts:78](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L78)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:79](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L79)
+[src/Screen.ts:79](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L79)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:80](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L80)
+[src/Screen.ts:80](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L80)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:81](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L81)
+[src/Screen.ts:81](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L81)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:82](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L82)
+[src/Screen.ts:82](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L82)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:83](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L83)
+[src/Screen.ts:83](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L83)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:84](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L84)
+[src/Screen.ts:84](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L84)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:85](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L85)
+[src/Screen.ts:85](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L85)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:86](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L86)
+[src/Screen.ts:86](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L86)
 
 ___
 
@@ -144,4 +144,4 @@ ___
 
 #### Defined in
 
-[src/Screen.ts:87](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L87)
+[src/Screen.ts:87](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L87)

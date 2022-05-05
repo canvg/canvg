@@ -22,7 +22,7 @@ Window object.
 
 #### Defined in
 
-[src/Screen.ts:23](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L23)
+[src/Screen.ts:23](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L23)
 
 ___
 
@@ -49,4 +49,4 @@ WHATWG-compatible `fetch` function.
 
 #### Defined in
 
-[src/Screen.ts:27](https://github.com/canvg/canvg/blob/5ea8056/src/Screen.ts#L27)
+[src/Screen.ts:27](https://github.com/canvg/canvg/blob/5c58ee8/src/Screen.ts#L27)

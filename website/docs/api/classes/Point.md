@@ -25,7 +25,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Point.ts:5](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L5)
+[src/Point.ts:5](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L5)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/Point.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L11)
+[src/Point.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L11)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/Point.ts:17](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L17)
+[src/Point.ts:17](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L17)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/Point.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L34)
+[src/Point.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L34)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/Point.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L38)
+[src/Point.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L38)
 
 ## Constructors
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/Point.ts:29](https://github.com/canvg/canvg/blob/5ea8056/src/Point.ts#L29)
+[src/Point.ts:29](https://github.com/canvg/canvg/blob/5c58ee8/src/Point.ts#L29)
 
 ## Properties
 

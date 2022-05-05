@@ -22,7 +22,7 @@ Default `rem` size.
 
 #### Defined in
 
-[src/Document/Document.ts:30](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L30)
+[src/Document/Document.ts:30](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L30)
 
 ___
 
@@ -34,7 +34,7 @@ Default `em` size.
 
 #### Defined in
 
-[src/Document/Document.ts:34](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L34)
+[src/Document/Document.ts:34](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L34)
 
 ___
 
@@ -46,7 +46,7 @@ Function to create new canvas.
 
 #### Defined in
 
-[src/Document/Document.ts:38](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L38)
+[src/Document/Document.ts:38](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L38)
 
 ___
 
@@ -58,7 +58,7 @@ Function to create new image.
 
 #### Defined in
 
-[src/Document/Document.ts:42](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L42)
+[src/Document/Document.ts:42](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L42)
 
 ___
 
@@ -70,4 +70,4 @@ Load images anonymously.
 
 #### Defined in
 
-[src/Document/Document.ts:46](https://github.com/canvg/canvg/blob/5ea8056/src/Document/Document.ts#L46)
+[src/Document/Document.ts:46](https://github.com/canvg/canvg/blob/5c58ee8/src/Document/Document.ts#L46)

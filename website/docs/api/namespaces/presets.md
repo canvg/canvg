@@ -38,7 +38,7 @@ Preset object.
 
 #### Defined in
 
-[src/presets/node.ts:40](https://github.com/canvg/canvg/blob/5ea8056/src/presets/node.ts#L40)
+[src/presets/node.ts:40](https://github.com/canvg/canvg/blob/5c58ee8/src/presets/node.ts#L40)
 
 ___
 
@@ -71,4 +71,4 @@ Preset object.
 
 #### Defined in
 
-[src/presets/offscreen.ts:16](https://github.com/canvg/canvg/blob/5ea8056/src/presets/offscreen.ts#L16)
+[src/presets/offscreen.ts:16](https://github.com/canvg/canvg/blob/5c58ee8/src/presets/offscreen.ts#L16)

@@ -14,7 +14,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[src/Transform/Rotate.ts:8](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L8)
+[src/Transform/Rotate.ts:8](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L8)
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:9](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L9)
+[src/Transform/Rotate.ts:9](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L9)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L10)
+[src/Transform/Rotate.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L10)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:11](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L11)
+[src/Transform/Rotate.ts:11](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L11)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:12](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L12)
+[src/Transform/Rotate.ts:12](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L12)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:13](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L13)
+[src/Transform/Rotate.ts:13](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L13)
 
 ## Constructors
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:15](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L15)
+[src/Transform/Rotate.ts:15](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L15)
 
 ## Methods
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:29](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L29)
+[src/Transform/Rotate.ts:29](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L29)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:45](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L45)
+[src/Transform/Rotate.ts:45](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L45)
 
 ___
 
@@ -142,4 +142,4 @@ ___
 
 #### Defined in
 
-[src/Transform/Rotate.ts:61](https://github.com/canvg/canvg/blob/5ea8056/src/Transform/Rotate.ts#L61)
+[src/Transform/Rotate.ts:61](https://github.com/canvg/canvg/blob/5c58ee8/src/Transform/Rotate.ts#L61)

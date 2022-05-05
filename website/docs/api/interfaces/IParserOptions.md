@@ -37,7 +37,7 @@ WHATWG-compatible `fetch` function.
 
 #### Defined in
 
-[src/Parser.ts:10](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L10)
+[src/Parser.ts:10](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L10)
 
 ___
 
@@ -49,4 +49,4 @@ XML/HTML parser from string into DOM Document.
 
 #### Defined in
 
-[src/Parser.ts:14](https://github.com/canvg/canvg/blob/5ea8056/src/Parser.ts#L14)
+[src/Parser.ts:14](https://github.com/canvg/canvg/blob/5c58ee8/src/Parser.ts#L14)
