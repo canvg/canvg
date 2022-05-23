@@ -82,12 +82,12 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme
+      },
+      algolia: {
+        appId: 'FO8RN9ILX3',
+        apiKey: '8194866ce2d4f864774ef365471ad771',
+        indexName: 'canvgjs'
       }
-      // algolia: {
-      //   appId: 'BH4D9OD16A',
-      //   apiKey: 'd59187de89e7935f588bbb2fc9273f03',
-      //   indexName: 'canvg'
-      // }
     },
 
   plugins: [
