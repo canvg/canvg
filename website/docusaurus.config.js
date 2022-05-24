@@ -14,7 +14,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  trailingSlash: true,
+  trailingSlash: false,
   organizationName: 'canvg',
   projectName: 'canvg',
   noIndex: currentBranch !== 'master',
