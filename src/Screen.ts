@@ -303,6 +303,7 @@ export class Screen {
 
     this.frameDuration = frameDuration
     this.readyPromise = new Promise((resolve) => {
+      this.isReadyLock = false
       this.resolveReady = resolve
     })
 
