@@ -18,18 +18,10 @@ describe('Canvg', () => {
       const c = preset.createCanvas(1280, 720) as canvas.Canvas
       const ctx = c.getContext('2d')
       const canvg = Canvg.fromString(ctx, svg, preset)
-      const result = await race({
-        render: async () => {
-          await canvg.render()
-          await canvg.render()
-        },
-        timeout: async () => {
-          await delay(200)
-        }
-      })
-
-      expect(result).toBe('render')
-    })
+      
+      await canvg.render()
+      await canvg.render()
+    }, 200)
   })
 })
 
