@@ -301,9 +301,9 @@ export class Screen {
     const { mouse } = this
     const frameDuration = 1000 / Screen.FRAMERATE
 
+    this.isReadyLock = false
     this.frameDuration = frameDuration
     this.readyPromise = new Promise((resolve) => {
-      this.isReadyLock = false
       this.resolveReady = resolve
     })
 
