@@ -18,28 +18,9 @@ describe('Canvg', () => {
       const c = preset.createCanvas(1280, 720) as canvas.Canvas
       const ctx = c.getContext('2d')
       const canvg = Canvg.fromString(ctx, svg, preset)
-      
+
       await canvg.render()
       await canvg.render()
     }, 200)
   })
 })
-
-function delay(ms: number) {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => resolve(), ms)
-  })
-}
-
-function race<TKey extends string>(fns: Record<TKey, () => Promise<void>>): Promise<TKey> {
-  return new Promise((resolve, reject) => {
-    Object.entries(fns).forEach(async ([key, fn]: [TKey, () => Promise<void>]) => {
-      try {
-        await fn()
-        resolve(key)
-      } catch (e) {
-        reject(e)
-      }
-    })
-  })
-}
