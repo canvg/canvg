@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/canvg/canvg/compare/v4.0.0...v4.0.1) (2022-07-19)
+
+
+### Bug Fixes
+
+* update isReadyLock state to fix deadlock on second render ([#1679](https://github.com/canvg/canvg/issues/1679)) ([4bbc37e](https://github.com/canvg/canvg/commit/4bbc37e4d715cccbf0d4033afbb0ae85d2812fce))
+
 ## [4.0.0](https://github.com/canvg/canvg/compare/v3.0.8...v4.0.0) (2022-02-17)
 
 
