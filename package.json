@@ -60,7 +60,7 @@
     "lint": "eslint 'rollup.config.js' 'types/**/*.ts' 'test/**/*.{js,ts}' 'src/**/*.ts'",
     "jest": "cross-env NODE_ENV=test jest -c jest.config.json",
     "test:size": "size-limit",
-    "test:base": "run -p lint [ jest test/util ]",
+    "test:base": "run -p lint [ jest test/util test/canvg ]",
     "test:browser": "pnpm jest test/browser",
     "test:node": "pnpm jest test/node",
     "test:offscreen": "pnpm jest test/offscreen",
