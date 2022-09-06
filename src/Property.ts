@@ -17,6 +17,7 @@ export class Property<T = unknown> {
     return new Property(document, 'EMPTY', '')
   }
 
+  /* eslint-disable @typescript-eslint/naming-convention */
   static readonly textBaselineMapping: Record<string, string> = {
     'baseline': 'alphabetic',
     'before-edge': 'top',
@@ -30,6 +31,7 @@ export class Property<T = unknown> {
     'hanging': 'hanging',
     'mathematical': 'alphabetic'
   }
+  /* eslint-enable @typescript-eslint/naming-convention */
 
   private isNormalizedColor = false
 

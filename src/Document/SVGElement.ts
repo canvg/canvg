@@ -93,6 +93,10 @@ export class SVGElement extends RenderedElement {
       }
     }
 
+    // need to calculate these before changing the viewport in case they use percents
+    const translateX = this.getAttribute('x').getPixels('x', true)
+    const translateY = this.getAttribute('y').getPixels('y', true)
+
     screen.viewPort.setCurrent(width, height)
 
     // Default value of transform-origin is center only for root SVG elements
@@ -107,10 +111,7 @@ export class SVGElement extends RenderedElement {
 
     super.setContext(ctx)
 
-    ctx.translate(
-      this.getAttribute('x').getPixels('x'),
-      this.getAttribute('y').getPixels('y')
-    )
+    ctx.translate(translateX, translateY)
 
     if (viewBox) {
       width = viewBox[2]
