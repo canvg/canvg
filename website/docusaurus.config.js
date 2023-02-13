@@ -64,11 +64,6 @@ const config = {
             label: 'Examples'
           },
           {
-            href: 'https://slack.cube.dev/?ref=eco-canvg',
-            label: 'Slack',
-            position: 'right'
-          },
-          {
             href: 'https://stackoverflow.com/questions/tagged/canvg',
             label: 'Stack Overflow',
             position: 'right'
