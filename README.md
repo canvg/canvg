@@ -13,7 +13,7 @@
 [deps]: https://img.shields.io/librariesio/release/npm/canvg
 [deps-url]: https://libraries.io/npm/canvg/tree
 
-[build]: https://img.shields.io/github/workflow/status/canvg/canvg/CI.svg
+[build]: https://img.shields.io/github/actions/workflow/status/canvg/canvg/ci.yml?branch=master
 [build-url]: https://github.com/canvg/canvg/actions
 
 [coverage]: https://img.shields.io/codecov/c/github/canvg/canvg.svg
@@ -66,8 +66,6 @@ window.onbeforeunload = () => {
 [Description of all exports you can find in Documentation.](https://canvg.js.org/api)
 
 <br />
-
-[![supported by Cube](https://user-images.githubusercontent.com/986756/154330861-d79ab8ec-aacb-4af8-9e17-1b28f1eccb01.svg)](https://cube.dev/?ref=eco-canvg)
 
 ## Docs
 
