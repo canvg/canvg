@@ -44,6 +44,7 @@ import { FeGaussianBlurElement } from './FeGaussianBlurElement'
 import { TitleElement } from './TitleElement'
 import { DescElement } from './DescElement'
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export const elements = {
   'svg': SVGElement,
   'rect': RectElement,
@@ -87,6 +88,7 @@ export const elements = {
   'title': TitleElement,
   'desc': DescElement
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 type Elements = typeof elements
 
