@@ -1,4 +1,4 @@
-import { DOMParser } from 'https://cdn.skypack.dev/xmldom@^0.6.0'
+import { DOMParser } from 'https://cdn.skypack.dev/@xmldom/xmldom@~0.7.7'
 import {
   Canvg,
   presets
