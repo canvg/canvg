@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import { DOMParser } from 'xmldom'
+import { DOMParser } from '@xmldom/xmldom'
 import canvas from 'canvas'
 import fetch from 'node-fetch'
 import {

@@ -4,7 +4,7 @@ import {
   promises as fs,
   createReadStream
 } from 'fs'
-import { DOMParser } from 'xmldom'
+import { DOMParser } from '@xmldom/xmldom'
 import * as canvas from 'canvas'
 import fetch, { Response } from 'node-fetch'
 import { Canvg, presets } from '../../src'
