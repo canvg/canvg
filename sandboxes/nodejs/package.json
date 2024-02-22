@@ -8,6 +8,6 @@
     "canvas": "^2.1.0",
     "canvg": "^4.0.0",
     "node-fetch": "^2.6.0",
-    "xmldom": "^0.6.0"
+    "@xmldom/xmldom": "^0.7.5"
   }
 }
