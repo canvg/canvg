@@ -84,9 +84,9 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
-    "@commitlint/cli": "^16.1.0",
-    "@commitlint/config-conventional": "^16.0.0",
-    "@commitlint/cz-commitlint": "^16.1.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/cz-commitlint": "^19.0.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@rollup/plugin-replace": "^4.0.0",
