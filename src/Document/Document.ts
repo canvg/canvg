@@ -16,7 +16,9 @@ import {
 /**
  * Function to create new canvas.
  */
-export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas
+export type CreateCanvas = (width: number, height: number) => HTMLCanvasElement | OffscreenCanvas & {
+  getContext(contextId: '2d'): OffscreenCanvasRenderingContext2D
+}
 
 /**
  * Function to create new image.
