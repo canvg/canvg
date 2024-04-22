@@ -103,7 +103,7 @@
     "@types/node": "^17.0.16",
     "@types/node-fetch": "^2.5.12",
     "@types/puppeteer": "^5.4.2",
-    "@xmldom/xmldom": "^0.7.5",
+    "@xmldom/xmldom": "^0.8.0",
     "browserslist": "^4.19.1",
     "canvas": "^2.1.0",
     "clean-publish": "^4.0.0",
