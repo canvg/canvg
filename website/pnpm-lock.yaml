@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^17.0.36
     version: 17.0.38
   docusaurus-plugin-typedoc:
-    specifier: ^0.17.4
-    version: 0.17.4(typedoc-plugin-markdown@3.12.1)(typedoc@0.25.13)
+    specifier: ^0.22.0
+    version: 0.22.0(typedoc-plugin-markdown@3.12.1)(typedoc@0.25.13)
   typedoc:
     specifier: ^0.25.0
     version: 0.25.13(typescript@4.5.4)
@@ -4170,11 +4170,11 @@ packages:
       buffer-indexof: 1.1.1
     dev: false
 
-  /docusaurus-plugin-typedoc@0.17.4(typedoc-plugin-markdown@3.12.1)(typedoc@0.25.13):
-    resolution: {integrity: sha512-9qDPIr79sf1ovyj0VPOuAL2YIpGGasai/gaQEeJU7SclQalRV9yxDQjiC9tDbpxUgwxb2g7s8njnrwrwYIDMXQ==}
+  /docusaurus-plugin-typedoc@0.22.0(typedoc-plugin-markdown@3.12.1)(typedoc@0.25.13):
+    resolution: {integrity: sha512-5q+oT+iq3g9DvsMin11pSSmqHRw0i62csHBzkWVtgmsqN/BwGDHnxDiTbHhhkBNQpmRIRgltyNdMnO5x+JUK8Q==}
     peerDependencies:
-      typedoc: '>=0.22.0'
-      typedoc-plugin-markdown: '>=3.11.10'
+      typedoc: '>=0.24.0'
+      typedoc-plugin-markdown: '>=3.15.0'
     dependencies:
       typedoc: 0.25.13(typescript@4.5.4)
       typedoc-plugin-markdown: 3.12.1(typedoc@0.25.13)
