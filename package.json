@@ -93,7 +93,7 @@
     "@rollup/plugin-replace": "^4.0.0",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@swc/core": "^1.2.136",
-    "@swc/helpers": "^0.3.2",
+    "@swc/helpers": "^0.5.0",
     "@swc/jest": "^0.2.17",
     "@trigen/babel-preset": "^8.0.0-alpha.5",
     "@trigen/browserslist-config": "^8.0.0-alpha.2",
