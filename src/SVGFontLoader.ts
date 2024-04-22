@@ -15,7 +15,7 @@ export class SVGFontLoader {
       const svgDocument = await document.canvg.parser.load(url)
       const fonts = svgDocument.getElementsByTagName('font')
 
-      Array.from(fonts).forEach((fontNode) => {
+      Array.from(fonts).forEach((fontNode: HTMLElement) => {
         const font = document.createElement(fontNode)
 
         document.definitions[fontFamily] = font
