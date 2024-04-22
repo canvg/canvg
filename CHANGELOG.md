@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/canvg/canvg/compare/v4.0.1...v4.0.2) (2024-04-22)
+
+
+### Bug Fixes
+
+* **deps:** replace dependency xmldom with @xmldom/xmldom ^0.7.5 ([#1719](https://github.com/canvg/canvg/issues/1719)) ([9d2af45](https://github.com/canvg/canvg/commit/9d2af452eedf1f952999cd5e34fd69a285664804))
+* **deps:** update dependency @xmldom/xmldom to ^0.8.0 ([#1722](https://github.com/canvg/canvg/issues/1722)) ([d1bcf0a](https://github.com/canvg/canvg/commit/d1bcf0ab1eafe894f39540940fc841a8c21de339))
+
 ### [4.0.1](https://github.com/canvg/canvg/compare/v4.0.0...v4.0.1) (2022-07-19)
 
 
