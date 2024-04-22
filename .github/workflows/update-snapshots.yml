@@ -13,13 +13,13 @@ jobs:
     name: ${{ matrix.stage }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.1
+        uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'pnpm'
@@ -31,7 +31,7 @@ jobs:
           NODE_ENV: 'development'
       - name: Update snapshots
         run: |
-          pnpm test:${{ matrix.stage }} -- -- -u
+          pnpm test:${{ matrix.stage }} -u
           pnpm del 'test/__image_snapshots__/*.png' '!test/__image_snapshots__/${{ matrix.stage }}*'
       - name: Collect artifacts
         uses: actions/upload-artifact@v3
