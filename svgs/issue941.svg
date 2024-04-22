@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svg-root" width="480" height="360" viewBox="0 0 480 360">
+    <g id="test-body-content" fill="red" stroke="#000000">
+        <ellipse rx="100" ry="50"/>
+        <ellipse cx="100" cy="150" rx="0" ry="50"/>
+        <ellipse cx="200" cy="50" rx="100" ry="0"/>
+        <ellipse cx="250" cy="250" rx="100" ry="50"/>
+    </g>
+</svg>

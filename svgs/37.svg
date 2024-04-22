@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+     style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+     width="500" height="500" viewBox="0 0 1000 500">
+
+	<!-- Pattern Definition -->
+  <defs>
+    <marker id="marker1" viewBox="0 0 10 10" refX="1" refY="5" markerUnits="strokeWidth" orient="auto" markerWidth="4" markerHeight="3">
+      <polyline points="0,0 10,5 0,10 1,5" fill="black"/>
+    </marker>
+
+    <marker id="marker2" viewBox="0 0 10 10" refX="1" refY="5" markerUnits="strokeWidth" orient="auto" markerWidth="4" markerHeight="3">
+      <polyline points="0,0 10,5 0,10 1,5" fill="limegreen"/>
+    </marker>
+
+    <path id="text_curve" stroke-width="4px" stroke="lightgreen" fill="none" d="M9.316,102c17.118-20.063,67.522-33.783,124.105-33.783c54.847,0,104.077,12.892,122.576,32.099"/>
+    <path id="path1" d="M10,150 A15 15 180 0 1 70 140 A15 25 180 0 0 130 130 A15 55 180 0 1 190 120" stroke="lightgreen" stroke-width="4" fill="none" marker-end="url(#marker1)"/>
+    <path id="CurvePath" marker-end="url(#marker1)" stroke="red" stroke-width="3" marker-mid="url(#marker2)" d="M 100 300 C 200 150 150  50 300 150 C 500 300 600 300 700 200 C 800 100 900 100 900 100"/>
+    <path id="CurvePath2" marker-end="url(#marker1)" stroke="red" stroke-width="1" d="M 50 350 a 150 50 0 0 1 250 50 l 150 0"/>
+    <path id="LinePath" d="M 10 430 l 650 0"/>
+    <path id="LinePath2" d="M 10 470 l 650 0"/>
+	</defs>
+
+  <!-- Path Text Examples -->
+  <text x="219" y="330" font-size="52px" letter-spacing="0" stroke-width="1" style="text-decoration: underline" stroke="red" fill="blue" font-family="Comic Sans MS" text-anchor="middle"><textPath xlink:href="#text_curve" startOffset="50%">EXAMPLE</textPath></text>
+
+  <use xlink:href="#CurvePath" fill="none" stroke="red"/>
+  <text font-family="Verdana" font-size="32.5" text-anchor="middle">
+    <textPath xlink:href="#CurvePath" startOffset="50%">We go up, then we go down, then up again once more</textPath>
+  </text>
+
+  <use xlink:href="#LinePath" fill="none" stroke="magenta" stroke-width="1.5"/>
+  <text font-family="Times" font-size="32.5" text-anchor="end" letter-spacing="3.5">
+    <textPath xlink:href="#LinePath" startOffset="100%">Right aligned text on a straight line</textPath>
+  </text>
+
+  <use xlink:href="#LinePath2" fill="none" stroke="magenta" stroke-width="1.5"/>
+  <text font-family="Times" font-size="32.5" text-anchor="justify">
+    <textPath xlink:href="#LinePath2">Non standard text-anchor="justify"</textPath>
+  </text>
+
+  <use xlink:href="#CurvePath2" fill="none"/>
+  <text font-family="Times" font-size="24" letter-spacing="2" dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 20" text-anchor="start">
+    <textPath xlink:href="#CurvePath2" startOffset="0%">We go up, then we go down, then straight</textPath>
+  </text>
+</svg>

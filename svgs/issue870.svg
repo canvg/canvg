@@ -1,0 +1,185 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="font-family:'lucida grande','lucida sans unicode',arial,helvetica,sans-serif;font-size:12px" xmlns="http://www.w3.org/2000/svg" width="600" height="210">
+    <desc>
+        Created with Highstock 4.2.7
+    </desc>
+    <defs>
+        <clipPath id="highcharts-5">
+            <rect x="0" y="0" width="520" height="166"/>
+        </clipPath>
+    </defs>
+    <rect x="0" y="0" width="600" height="210" fill="#fff" class=" highcharts-background"/>
+    <g class="highcharts-grid">
+        <path fill="none" d="M 213.5 10 L 213.5 176 M 213.5 10 L 213.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 247.5 10 L 247.5 176 M 247.5 10 L 247.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 282.5 10 L 282.5 176 M 282.5 10 L 282.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 317.5 10 L 317.5 176 M 317.5 10 L 317.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 351.5 10 L 351.5 176 M 351.5 10 L 351.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 386.5 10 L 386.5 176 M 386.5 10 L 386.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 421.5 10 L 421.5 176 M 421.5 10 L 421.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 456.5 10 L 456.5 176 M 456.5 10 L 456.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 490.5 10 L 490.5 176 M 490.5 10 L 490.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 525.5 10 L 525.5 176 M 525.5 10 L 525.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 39.5 10 L 39.5 176 M 39.5 10 L 39.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 74.5 10 L 74.5 176 M 74.5 10 L 74.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 109.5 10 L 109.5 176 M 109.5 10 L 109.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 143.5 10 L 143.5 176 M 143.5 10 L 143.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 178.5 10 L 178.5 176 M 178.5 10 L 178.5 176" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+    </g>
+    <g class="highcharts-grid">
+        <path fill="none" d="M 40 9.5 L 560 9.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 34.5 L 560 34.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 57.5 L 560 57.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 81.5 L 560 81.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 105.5 L 560 105.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 129.5 L 560 129.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 152.5 L 560 152.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 176.5 L 560 176.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+    </g>
+    <g class="highcharts-grid">
+        <path fill="none" d="M 40 9.5 L 560 9.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 34.5 L 560 34.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 57.5 L 560 57.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 81.5 L 560 81.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 105.5 L 560 105.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 129.5 L 560 129.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 152.5 L 560 152.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+        <path fill="none" d="M 40 176.5 L 560 176.5" stroke="#e2e2e2" stroke-width="1" opacity="1"/>
+    </g>
+    <g class="highcharts-axis">
+        <path fill="none" d="M 40 176.5 L 560 176.5" stroke="#C0D0E0" stroke-width="1"/>
+    </g>
+    <g class="highcharts-axis"/>
+    <g class="highcharts-axis"/>
+    <g class="highcharts-series-group">
+        <g class="highcharts-series highcharts-series-1" transform="translate(40,10) scale(1 1)" clip-path="url(#highcharts-5)"/>
+        <g class="highcharts-markers highcharts-series-1" transform="translate(40,10) scale(1 1)" clip-path="none"/>
+        <g class="highcharts-series highcharts-series-0" transform="translate(40,10) scale(1 1)" clip-path="url(#highcharts-5)">
+            <path fill="none" d="M 151.88024826579 71.14285714285714 L 183.77510040161 71.14285714285714 L 183.77510040161 47.42857142857143 L 231.427528295 47.42857142857143 L 231.427528295 47.42857142857143 L 244.62212486309 47.42857142857143 L 244.62212486309 71.14285714285714 L 244.62212486309 71.14285714285714 L 244.62212486309 71.14285714285714 L 258.76597298284 71.14285714285714 L 258.76597298284 142.28571428571428 L 258.76597298284 142.28571428571428 L 258.76597298284 142.28571428571428 L 283.35158817087 142.28571428571428 L 283.35158817087 142.28571428571428 L 283.35158817087 142.28571428571428 L 283.35158817087 142.28571428571428 L 292.55932822198 142.28571428571428 L 292.55932822198 142.28571428571428 L 292.55932822198 142.28571428571428 L 292.55932822198 142.28571428571428 L 300.6279664111 142.28571428571428 L 300.6279664111 118.57142857142858 L 363.6582694414 118.57142857142858 L 363.6582694414 118.57142857142858 L 368.9740781307 118.57142857142858 L 368.9740781307 47.42857142857143 L 489.33917488134 47.42857142857143 L 489.33917488134 47.42857142857143 L 493.89558232932 47.42857142857143 L 493.89558232932 23.714285714285715 L 520 23.714285714285715 L 520 23.714285714285715" stroke="#0028A0" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+        </g>
+        <g class="highcharts-markers highcharts-series-0" transform="translate(40,10) scale(1 1)" clip-path="none">
+            <path fill="rgb(0,0,0)" fill-opacity="0" d="M 520 19.714285714285715 C 525.328 19.714285714285715 525.328 27.714285714285715 520 27.714285714285715 C 514.672 27.714285714285715 514.672 19.714285714285715 520 19.714285714285715 Z"/>
+            <path fill="#fff" d="M 493 19.714285714285715 C 498.328 19.714285714285715 498.328 27.714285714285715 493 27.714285714285715 C 487.672 27.714285714285715 487.672 19.714285714285715 493 19.714285714285715 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 489 43.42857142857143 C 494.328 43.42857142857143 494.328 51.42857142857143 489 51.42857142857143 C 483.672 51.42857142857143 483.672 43.42857142857143 489 43.42857142857143 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 368 43.42857142857143 C 373.328 43.42857142857143 373.328 51.42857142857143 368 51.42857142857143 C 362.672 51.42857142857143 362.672 43.42857142857143 368 43.42857142857143 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 363 114.57142857142858 C 368.328 114.57142857142858 368.328 122.57142857142858 363 122.57142857142858 C 357.672 122.57142857142858 357.672 114.57142857142858 363 114.57142857142858 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 300 114.57142857142858 C 305.328 114.57142857142858 305.328 122.57142857142858 300 122.57142857142858 C 294.672 122.57142857142858 294.672 114.57142857142858 300 114.57142857142858 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 231 43.42857142857143 C 236.328 43.42857142857143 236.328 51.42857142857143 231 51.42857142857143 C 225.672 51.42857142857143 225.672 43.42857142857143 231 43.42857142857143 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 183 43.42857142857143 C 188.328 43.42857142857143 188.328 51.42857142857143 183 51.42857142857143 C 177.672 51.42857142857143 177.672 43.42857142857143 183 43.42857142857143 Z" stroke="#0028A0" stroke-width="1"/>
+            <path fill="#fff" d="M 151 67.14285714285714 C 156.328 67.14285714285714 156.328 75.14285714285714 151 75.14285714285714 C 145.672 75.14285714285714 145.672 67.14285714285714 151 67.14285714285714 Z" stroke="#0028A0" stroke-width="1"/>
+            <image preserveAspectRatio="none" x="240" y="67.14285714285714" width="18" height="18" transform="translate(-5,-5)" fill="#0028A0" r="4"/>
+            <image preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAACLlBMVEUAAAAAAIAAAKoAJJIAIJ8AHKoAKKEAJ6AAKaAAKKIAKJ8AJ6EAJ6AAKaEAKJ8AJ6EAJ58AJ6AAKKEAKaEAKJ8AKKAAJ6AAKaAAKKAAJ58AJ6AAKKAAKKAAKJ8AKKAAKKAAKKAAKKAAKKAAKJ8AJ6AAKKAAKKAAKKEAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAAAAABA8ABhgABxoABxsACB4ACCIACSMACigACyoADzwAE04AKKADBg8DK6EEK6EFGloFLKIHG1kHKIsJHl0PNaYQNaYXLGodMW0fL14gQ6wiRa0jRq0mKzwmSK4nSa8oSq8pS68tTrEuOVkvMDQwULIxUbIyRX0yUrM0RHU0R4E0R4I1Rng4R3Q5WLU6WbY/VJNAUYZBVZFBVpNDV5NFWJBGWZFHVHlHV4VKTVRKYqpOW4NSVVxSXX9Ya6NogMdpco9pc5Jpdp9qe69uhclwhsp0ist3jMx5js17jcR7kM6LndGLndSNlauOoNWPodWRlJ2RotaSo9aWptiZqdmcqMqntd6zv+O0wOO3wuO3wuS4w+W5xOW6xeW7xua8x+a9x+a+yOfAyufCzOjDzOfDzOnGz+rI0OnI0OrI0evJ0evS2e7W3PDX3fDY3vDZ3/Ha4PHd3+Pp7Pfq7ffs7/jy9Prz9fv09vv19fX3+Pz4+Pj4+fz7/P78/P79/f7+/v////+NeUFRAAAAOXRSTlMAAgMHCAk5Oz4/QEFOUVJUVW5yd3h5e4OGiImLjI2Oq66+v8DC1dfY2drd3t/h4+fp6uvs8vP0+P4ibZJUAAAAAWJLR0S5OrgWYAAAAcVJREFUOMtjYBg4wMQpq6xqaKiqJMPBhEMJq6iRKxwYCbNgU8Ov5+oa0Txvxdq1K+Y0hru66vJi2iRp4Zo4bSccTI1ztZBgRFXDqODq0b19JxLY3u7uKo+qSsLVf/pONDDFz1UcWQ2fhdesnRhgupcFD0INi65r704soMdVhxmuSMw1AyK6qS870Nc7oHIjVFW6qwjcZwauUAf1F7jFFJbEOgdthjrLVR/mdm7XKKjO/uKmxWuWVJS6dEIFIlw5oIpkXRugYmu3gMjVNQ5lUIF6V2moImXXGSju3VDuWAVlTnNVhCrSdF2JoqglzHMVlLncVR2qyNR1PbKa2WlO1TD2OlcTqCIzFEULU2xzdmIq0nBdgVCzINk6ExGJy1zV4A6fCRedm2CDpAbJ4Ygg2Dkp1T53B5LdiCBgdw2Fis3PsvPJyweCNqhAsCsbIlqgya2jyBIMrJIg/MmIaGEQco3eBhac1wAFi8DcrZGugshJpQNbUmlFTirAROcxDVPNFHfkRAdKvn7TCCVfcEboIpQRGJikXF3jCWQpIBAAZs7QuonLNm1aOqE2BJg5+bBnc2PkbM6Kq8DgklPRNjfXUsFdYNADAAAzmI2fhNxHDwAAAABJRU5ErkJggg==" x="240" y="67.14285714285714" width="18" height="18" transform="translate(-5,-5)" fill="pnghook" r="4"/>
+            <image preserveAspectRatio="none" x="254" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="#0028A0" r="4"/>
+            <image preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAACLlBMVEUAAAAAAIAAAKoAJJIAIJ8AHKoAKKEAJ6AAKaAAKKIAKJ8AJ6EAJ6AAKaEAKJ8AJ6EAJ58AJ6AAKKEAKaEAKJ8AKKAAJ6AAKaAAKKAAJ58AJ6AAKKAAKKAAKJ8AKKAAKKAAKKAAKKAAKKAAKJ8AJ6AAKKAAKKAAKKEAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAAAAABA8ABhgABxoABxsACB4ACCIACSMACigACyoADzwAE04AKKADBg8DK6EEK6EFGloFLKIHG1kHKIsJHl0PNaYQNaYXLGodMW0fL14gQ6wiRa0jRq0mKzwmSK4nSa8oSq8pS68tTrEuOVkvMDQwULIxUbIyRX0yUrM0RHU0R4E0R4I1Rng4R3Q5WLU6WbY/VJNAUYZBVZFBVpNDV5NFWJBGWZFHVHlHV4VKTVRKYqpOW4NSVVxSXX9Ya6NogMdpco9pc5Jpdp9qe69uhclwhsp0ist3jMx5js17jcR7kM6LndGLndSNlauOoNWPodWRlJ2RotaSo9aWptiZqdmcqMqntd6zv+O0wOO3wuO3wuS4w+W5xOW6xeW7xua8x+a9x+a+yOfAyufCzOjDzOfDzOnGz+rI0OnI0OrI0evJ0evS2e7W3PDX3fDY3vDZ3/Ha4PHd3+Pp7Pfq7ffs7/jy9Prz9fv09vv19fX3+Pz4+Pj4+fz7/P78/P79/f7+/v////+NeUFRAAAAOXRSTlMAAgMHCAk5Oz4/QEFOUVJUVW5yd3h5e4OGiImLjI2Oq66+v8DC1dfY2drd3t/h4+fp6uvs8vP0+P4ibZJUAAAAAWJLR0S5OrgWYAAAAcVJREFUOMtjYBg4wMQpq6xqaKiqJMPBhEMJq6iRKxwYCbNgU8Ov5+oa0Txvxdq1K+Y0hru66vJi2iRp4Zo4bSccTI1ztZBgRFXDqODq0b19JxLY3u7uKo+qSsLVf/pONDDFz1UcWQ2fhdesnRhgupcFD0INi65r704soMdVhxmuSMw1AyK6qS870Nc7oHIjVFW6qwjcZwauUAf1F7jFFJbEOgdthjrLVR/mdm7XKKjO/uKmxWuWVJS6dEIFIlw5oIpkXRugYmu3gMjVNQ5lUIF6V2moImXXGSju3VDuWAVlTnNVhCrSdF2JoqglzHMVlLncVR2qyNR1PbKa2WlO1TD2OlcTqCIzFEULU2xzdmIq0nBdgVCzINk6ExGJy1zV4A6fCRedm2CDpAbJ4Ygg2Dkp1T53B5LdiCBgdw2Fis3PsvPJyweCNqhAsCsbIlqgya2jyBIMrJIg/MmIaGEQco3eBhac1wAFi8DcrZGugshJpQNbUmlFTirAROcxDVPNFHfkRAdKvn7TCCVfcEboIpQRGJikXF3jCWQpIBAAZs7QuonLNm1aOqE2BJg5+bBnc2PkbM6Kq8DgklPRNjfXUsFdYNADAAAzmI2fhNxHDwAAAABJRU5ErkJggg==" x="254" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="pnghook" r="4"/>
+            <image preserveAspectRatio="none" x="279" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="#0028A0" r="4"/>
+            <image preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAACLlBMVEUAAAAAAIAAAKoAJJIAIJ8AHKoAKKEAJ6AAKaAAKKIAKJ8AJ6EAJ6AAKaEAKJ8AJ6EAJ58AJ6AAKKEAKaEAKJ8AKKAAJ6AAKaAAKKAAJ58AJ6AAKKAAKKAAKJ8AKKAAKKAAKKAAKKAAKKAAKJ8AJ6AAKKAAKKAAKKEAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAAAAABA8ABhgABxoABxsACB4ACCIACSMACigACyoADzwAE04AKKADBg8DK6EEK6EFGloFLKIHG1kHKIsJHl0PNaYQNaYXLGodMW0fL14gQ6wiRa0jRq0mKzwmSK4nSa8oSq8pS68tTrEuOVkvMDQwULIxUbIyRX0yUrM0RHU0R4E0R4I1Rng4R3Q5WLU6WbY/VJNAUYZBVZFBVpNDV5NFWJBGWZFHVHlHV4VKTVRKYqpOW4NSVVxSXX9Ya6NogMdpco9pc5Jpdp9qe69uhclwhsp0ist3jMx5js17jcR7kM6LndGLndSNlauOoNWPodWRlJ2RotaSo9aWptiZqdmcqMqntd6zv+O0wOO3wuO3wuS4w+W5xOW6xeW7xua8x+a9x+a+yOfAyufCzOjDzOfDzOnGz+rI0OnI0OrI0evJ0evS2e7W3PDX3fDY3vDZ3/Ha4PHd3+Pp7Pfq7ffs7/jy9Prz9fv09vv19fX3+Pz4+Pj4+fz7/P78/P79/f7+/v////+NeUFRAAAAOXRSTlMAAgMHCAk5Oz4/QEFOUVJUVW5yd3h5e4OGiImLjI2Oq66+v8DC1dfY2drd3t/h4+fp6uvs8vP0+P4ibZJUAAAAAWJLR0S5OrgWYAAAAcVJREFUOMtjYBg4wMQpq6xqaKiqJMPBhEMJq6iRKxwYCbNgU8Ov5+oa0Txvxdq1K+Y0hru66vJi2iRp4Zo4bSccTI1ztZBgRFXDqODq0b19JxLY3u7uKo+qSsLVf/pONDDFz1UcWQ2fhdesnRhgupcFD0INi65r704soMdVhxmuSMw1AyK6qS870Nc7oHIjVFW6qwjcZwauUAf1F7jFFJbEOgdthjrLVR/mdm7XKKjO/uKmxWuWVJS6dEIFIlw5oIpkXRugYmu3gMjVNQ5lUIF6V2moImXXGSju3VDuWAVlTnNVhCrSdF2JoqglzHMVlLncVR2qyNR1PbKa2WlO1TD2OlcTqCIzFEULU2xzdmIq0nBdgVCzINk6ExGJy1zV4A6fCRedm2CDpAbJ4Ygg2Dkp1T53B5LdiCBgdw2Fis3PsvPJyweCNqhAsCsbIlqgya2jyBIMrJIg/MmIaGEQco3eBhac1wAFi8DcrZGugshJpQNbUmlFTirAROcxDVPNFHfkRAdKvn7TCCVfcEboIpQRGJikXF3jCWQpIBAAZs7QuonLNm1aOqE2BJg5+bBnc2PkbM6Kq8DgklPRNjfXUsFdYNADAAAzmI2fhNxHDwAAAABJRU5ErkJggg==" x="279" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="pnghook" r="4"/>
+            <image preserveAspectRatio="none" x="288" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="#0028A0" r="4"/>
+            <image preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAACLlBMVEUAAAAAAIAAAKoAJJIAIJ8AHKoAKKEAJ6AAKaAAKKIAKJ8AJ6EAJ6AAKaEAKJ8AJ6EAJ58AJ6AAKKEAKaEAKJ8AKKAAJ6AAKaAAKKAAJ58AJ6AAKKAAKKAAKJ8AKKAAKKAAKKAAKKAAKKAAKJ8AJ6AAKKAAKKAAKKEAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAKKAAAAAABA8ABhgABxoABxsACB4ACCIACSMACigACyoADzwAE04AKKADBg8DK6EEK6EFGloFLKIHG1kHKIsJHl0PNaYQNaYXLGodMW0fL14gQ6wiRa0jRq0mKzwmSK4nSa8oSq8pS68tTrEuOVkvMDQwULIxUbIyRX0yUrM0RHU0R4E0R4I1Rng4R3Q5WLU6WbY/VJNAUYZBVZFBVpNDV5NFWJBGWZFHVHlHV4VKTVRKYqpOW4NSVVxSXX9Ya6NogMdpco9pc5Jpdp9qe69uhclwhsp0ist3jMx5js17jcR7kM6LndGLndSNlauOoNWPodWRlJ2RotaSo9aWptiZqdmcqMqntd6zv+O0wOO3wuO3wuS4w+W5xOW6xeW7xua8x+a9x+a+yOfAyufCzOjDzOfDzOnGz+rI0OnI0OrI0evJ0evS2e7W3PDX3fDY3vDZ3/Ha4PHd3+Pp7Pfq7ffs7/jy9Prz9fv09vv19fX3+Pz4+Pj4+fz7/P78/P79/f7+/v////+NeUFRAAAAOXRSTlMAAgMHCAk5Oz4/QEFOUVJUVW5yd3h5e4OGiImLjI2Oq66+v8DC1dfY2drd3t/h4+fp6uvs8vP0+P4ibZJUAAAAAWJLR0S5OrgWYAAAAcVJREFUOMtjYBg4wMQpq6xqaKiqJMPBhEMJq6iRKxwYCbNgU8Ov5+oa0Txvxdq1K+Y0hru66vJi2iRp4Zo4bSccTI1ztZBgRFXDqODq0b19JxLY3u7uKo+qSsLVf/pONDDFz1UcWQ2fhdesnRhgupcFD0INi65r704soMdVhxmuSMw1AyK6qS870Nc7oHIjVFW6qwjcZwauUAf1F7jFFJbEOgdthjrLVR/mdm7XKKjO/uKmxWuWVJS6dEIFIlw5oIpkXRugYmu3gMjVNQ5lUIF6V2moImXXGSju3VDuWAVlTnNVhCrSdF2JoqglzHMVlLncVR2qyNR1PbKa2WlO1TD2OlcTqCIzFEULU2xzdmIq0nBdgVCzINk6ExGJy1zV4A6fCRedm2CDpAbJ4Ygg2Dkp1T53B5LdiCBgdw2Fis3PsvPJyweCNqhAsCsbIlqgya2jyBIMrJIg/MmIaGEQco3eBhac1wAFi8DcrZGugshJpQNbUmlFTirAROcxDVPNFHfkRAdKvn7TCCVfcEboIpQRGJikXF3jCWQpIBAAZs7QuonLNm1aOqE2BJg5+bBnc2PkbM6Kq8DgklPRNjfXUsFdYNADAAAzmI2fhNxHDwAAAABJRU5ErkJggg==" x="288" y="138.28571428571428" width="18" height="18" transform="translate(-5,-5)" fill="pnghook" r="4"/>
+        </g>
+    </g>
+    <g class="highcharts-axis-labels highcharts-xaxis-labels">
+        <text x="213.80795910916393" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2010</tspan>
+        </text>
+        <text x="248.45564074479736" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2011</tspan>
+        </text>
+        <text x="283.10332238043077" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2012</tspan>
+        </text>
+        <text x="317.84592917123035" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2013</tspan>
+        </text>
+        <text x="352.4936108068638" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2014</tspan>
+        </text>
+        <text x="387.1412924424973" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2015</tspan>
+        </text>
+        <text x="421.7889740781307" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2016</tspan>
+        </text>
+        <text x="456.53158086893023" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2017</tspan>
+        </text>
+        <text x="491.1792625045637" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2018</tspan>
+        </text>
+        <text x="525.8269441401972" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2019</tspan>
+        </text>
+        <text x="40.474625775830596" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2005</tspan>
+        </text>
+        <text x="75.12230741146404" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2006</tspan>
+        </text>
+        <text x="109.76998904709748" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2007</tspan>
+        </text>
+        <text x="144.41767068273091" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2008</tspan>
+        </text>
+        <text x="179.16027747353047" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:27px" text-anchor="middle" transform="translate(0,0)" y="194" opacity="1">
+            <tspan>2009</tspan>
+        </text>
+    </g>
+    <g class="highcharts-axis-labels highcharts-yaxis-labels">
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="13" opacity="1">
+            <tspan>A1</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="36" opacity="1">
+            <tspan>A2</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="60" opacity="1">
+            <tspan>A3</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="84" opacity="1">
+            <tspan>Baa1</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="107" opacity="1">
+            <tspan>Baa2</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="131" opacity="1">
+            <tspan>Baa3</tspan>
+        </text>
+        <text x="30" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="155" opacity="1">
+            <tspan>Ba1</tspan>
+        </text>
+        <text x="0" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="end" transform="translate(0,0)" y="-9999">
+            <tspan>Ba2</tspan>
+        </text>
+    </g>
+    <g class="highcharts-axis-labels highcharts-yaxis-labels">
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="13" opacity="1">
+            <tspan>A1</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="36" opacity="1">
+            <tspan>A2</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="60" opacity="1">
+            <tspan>A3</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="84" opacity="1">
+            <tspan>Baa1</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="107" opacity="1">
+            <tspan>Baa2</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="131" opacity="1">
+            <tspan>Baa3</tspan>
+        </text>
+        <text x="570" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="155" opacity="1">
+            <tspan>Ba1</tspan>
+        </text>
+        <text x="0" style="color:#191919;cursor:default;font-size:9px;font-family:whitney ssm,helvetica,arial,sans-serif;font-weight:500;white-space:nowrap;text-overflow:none;fill:#191919;width:188px" text-anchor="start" transform="translate(0,0)" y="-9999">
+            <tspan>Ba2</tspan>
+        </text>
+    </g>
+    <g class="highcharts-tooltip" display="none" style="cursor:default;padding:0;pointer-events:none;white-space:nowrap" transform="translate(0,0)">
+        <path fill="none" d="M 2.5 0.5 L 0.5 0.5 C 2.5 0.5 2.5 0.5 2.5 2.5 L 2.5 0.5 C 2.5 2.5 2.5 2.5 0.5 2.5 L 2.5 2.5 C 0.5 2.5 0.5 2.5 0.5 0.5 L 0.5 2.5 C 0.5 0.5 0.5 0.5 2.5 0.5" stroke="black" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"/>
+        <path fill="none" d="M 2.5 0.5 L 0.5 0.5 C 2.5 0.5 2.5 0.5 2.5 2.5 L 2.5 0.5 C 2.5 2.5 2.5 2.5 0.5 2.5 L 2.5 2.5 C 0.5 2.5 0.5 2.5 0.5 0.5 L 0.5 2.5 C 0.5 0.5 0.5 0.5 2.5 0.5" stroke="black" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"/>
+        <path fill="none" d="M 2.5 0.5 L 0.5 0.5 C 2.5 0.5 2.5 0.5 2.5 2.5 L 2.5 0.5 C 2.5 2.5 2.5 2.5 0.5 2.5 L 2.5 2.5 C 0.5 2.5 0.5 2.5 0.5 0.5 L 0.5 2.5 C 0.5 0.5 0.5 0.5 2.5 0.5" stroke="black" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"/>
+        <path fill="rgb(247,247,247)" d="M 2.5 0.5 L 0.5 0.5 C 2.5 0.5 2.5 0.5 2.5 2.5 L 2.5 0.5 C 2.5 2.5 2.5 2.5 0.5 2.5 L 2.5 2.5 C 0.5 2.5 0.5 2.5 0.5 0.5 L 0.5 2.5 C 0.5 0.5 0.5 0.5 2.5 0.5"/>
+        <text x="1" style="font-size:12px;color:#333;fill:#333" y="13"/>
+    </g>
+</svg>

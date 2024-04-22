@@ -1,0 +1,12 @@
+<svg id="test" width="400px" height="100px" style="font-family: 'Gugi', 'Verdana'; font-size: 15px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g xmlns="http://www.w3.org/2000/svg">
+        <rect fill="#67b7dc" transform="translate(-0.5,-0.5)" width="80" height="100"></rect>
+        <rect fill="#6794dc" transform="translate(80,0)" width="80" height="100"></rect>
+        <rect fill="#6771dc" transform="translate(160,0)" width="80" height="100"></rect>
+        <rect fill="#8067dc" transform="translate(240,0)" width="80" height="100"></rect>
+        <rect fill="#a367dc" transform="translate(320,0)" width="80" height="100"></rect>
+        <text fill="#fff" transform="translate(20,20)" font-size="25" dy="20">
+            Some text using font
+        </text>
+    </g>
+</svg>

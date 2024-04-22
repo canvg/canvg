@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <g transform="scale(6) translate(4,6)">
+    <path stroke="red" stroke-width="4" stroke-dasharray="4,4" d="M0,0 L32,0"/>
+    <path stroke="blue" stroke-width="4" stroke-dasharray="4,4" d="M32,4 L0,4"/>
+    <line stroke="red" stroke-width="4" stroke-dasharray="4,4" x1="0" y1="8" x2="32" y2="8"/>
+    <line stroke="blue" stroke-width="4" stroke-dasharray="4,4" x1="32" y1="12" x2="0" y2="12"/>
+  </g>
+</svg>

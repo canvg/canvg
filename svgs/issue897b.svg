@@ -1,0 +1,23 @@
+<svg width="500px" height="500px">
+    <defs>
+        <clipPath id="circle">
+            <circle cx="51" cy="101" r="50"/>
+        </clipPath>
+        <clipPath id="circle-text">
+            <circle cx="70" cy="210" r="50"/>
+        </clipPath>
+        <mask maskUnits="userSpaceOnUse" id="mask">
+            <rect fill="gray" width="50" height="50" x="50" y="50"/>
+        </mask>
+        <mask maskUnits="userSpaceOnUse" id="mask-text">
+            <rect fill="gray" width="70" height="500" x="50" y="100"/>
+        </mask>
+    </defs>
+    <rect fill="gray" transform="matrix(1 0 0 1 355 0)" x="1" y="1" width="100" height="100" mask="url(#mask)" clip-path="url(#circle)"/>
+    <text transform="matrix(1 0 0 1 250 0)" clip-path="url(#circle-text)" x="1" y="200" font-size="12px">
+		Text text text text
+	</text>
+    <text transform="matrix(1 0 0 1 250 0)" mask="url(#mask-text)" x="1" y="400" font-size="2em" font-family="Verdana">
+		Text text text text
+	</text>
+</svg>

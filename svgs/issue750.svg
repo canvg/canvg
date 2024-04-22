@@ -1,0 +1,6 @@
+<svg id="test" width="600px" height="500px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g xmlns="http://www.w3.org/2000/svg">
+    <rect fill="#67b7dc" width="600" height="500" />
+    <text class="annotation-text" style="font-family: sans-serif; font-size: 40px; fill: rgb(68, 68, 68); fill-opacity: 1; white-space: pre;" x="20" y="40">H​<tspan dy="0.3em">2</tspan><tspan dy="-0.21em">​</tspan>O​</text>
+  </g>
+</svg>

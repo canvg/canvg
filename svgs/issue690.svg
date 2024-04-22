@@ -1,0 +1,6 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 100" height="100" width="200">
+  <text style='font-size:20vh' x="0" y="15" fill="red">I love SVG!</text>
+  <text style='font-size:10vw' x="0" y="42" fill="green">I love SVG!</text>
+  <text style='font-size:20vmin' x="0" y="71" fill="blue">I love SVG!</text>
+  <text style='font-size:10vmax' x="0" y="99" fill="black">I love SVG!</text>
+</svg>

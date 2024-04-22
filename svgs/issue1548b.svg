@@ -1,0 +1,71 @@
+<svg width="1000" height="600" xmlns="http://www.w3.org/2000/svg" font-size="16px" font-family="sans-serif">
+  <line x1="500" x2="500" y1="0" y2="600" stroke="black" />
+
+  <text x="500" y="20" text-anchor="start">text with text-anchor="start"</text>
+  <text x="500" y="40" text-anchor="middle">text with text-anchor="middle"</text>
+  <text x="500" y="60" text-anchor="end">text with text-anchor="end"</text>
+
+  <text x="500" y="80" text-anchor="start"><tspan dx="10">tspan with text-anchor="start" and positive dx</tspan></text>
+  <text x="500" y="100" text-anchor="start"><tspan dx="-10">tspan with text-anchor="start" and negative dx</tspan></text>
+
+  <text x="500" y="120" text-anchor="middle"><tspan dx="10">tspan with text-anchor="middle" and positive dx</tspan></text>
+  <text x="500" y="140" text-anchor="middle"><tspan dx="-10">tspan with text-anchor="middle" and negative dx</tspan></text>
+
+  <text x="500" y="160" text-anchor="end"><tspan dx="10">tspan with text-anchor="end" and positive dx</tspan></text>
+  <text x="500" y="180" text-anchor="end"><tspan dx="-10">tspan with text-anchor="end" and negative dx</tspan></text>
+
+  <text x="500" y="200" text-anchor="start">
+    <tspan>Multiple chunks: first chunk 1</tspan>
+    <tspan>Multiple chunks: first chunk 2</tspan><tspan
+      x="500" dy="20">Multiple chunks: second chunk 1</tspan>
+    <tspan>Multiple chunks: second chunk 2</tspan>
+  </text>
+
+  <text x="500" y="240" text-anchor="middle">
+    <tspan>Multiple chunks: first chunk 1</tspan>
+    <tspan>Multiple chunks: first chunk 2</tspan><tspan
+      x="500" dy="20">Multiple chunks: second chunk 1</tspan>
+    <tspan>Multiple chunks: second chunk 2</tspan>
+  </text>
+
+  <text x="500" y="280" text-anchor="end">
+    <tspan>Multiple chunks: first chunk 1</tspan>
+    <tspan>Multiple chunks: first chunk 2</tspan><tspan
+      x="500" dy="20">Multiple chunks: second chunk 1</tspan>
+    <tspan>Multiple chunks: second chunk 2</tspan>
+  </text>
+
+  <text x="500" y="320" text-anchor="start">
+    <tspan>first tspan</tspan><tspan
+      dx="-440">tspan with text-anchor="start", second tspan before</tspan>
+  </text>
+
+  <text x="500" y="340" text-anchor="middle">
+    <tspan>first tspan</tspan><tspan
+      dx="-440">tspan with text-anchor="middle", second tspan before</tspan>
+  </text>
+
+  <text x="500" y="360" text-anchor="end">
+    <tspan>first tspan</tspan><tspan
+      dx="-440">tspan with text-anchor="end", second tspan before</tspan>
+  </text>
+
+  <text x="500" y="380" text-anchor="start">
+    <tspan text-anchor="end">text-anchor on first tspan without x has effect</tspan><tspan
+      x="500" dy="20">reset x</tspan><tspan
+      dy="20" text-anchor="end">text-anchor on second tspan without x has no effect</tspan><tspan
+      x="500" dy="20">text-anchor on sibling has no effect</tspan>
+  </text>
+
+  <text x="500" y="460" text-anchor="start">
+    <tspan><tspan>text-anchor</tspan><tspan dy="5">="start"</tspan></tspan>
+    <tspan text-anchor="middle" x="500" dy="20"><tspan>text-anchor</tspan><tspan dy="5">="middle"</tspan></tspan>
+    <tspan text-anchor="end" x="500" dy="20"><tspan>text-anchor</tspan><tspan dy="5">="end"</tspan></tspan>
+  </text>
+
+  <text x="500" y="540" text-anchor="start">
+    <tspan>text-anchor="start"</tspan>
+    <tspan><tspan text-anchor="end" x="500" dy="20">text-anchor="end"</tspan><tspan>on nested tspan</tspan></tspan>
+    <tspan>affects tspans higher on hierarchy</tspan>
+  </text>
+</svg>
