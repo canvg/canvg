@@ -5,7 +5,7 @@
     "start": "node ./index.js"
   },
   "dependencies": {
-    "@xmldom/xmldom": "^0.7.5",
+    "@xmldom/xmldom": "^0.8.0",
     "canvas": "^2.1.0",
     "canvg": "^4.0.0",
     "node-fetch": "^2.6.0"
