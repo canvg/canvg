@@ -18,13 +18,13 @@ jobs:
     name: ${{ matrix.stage }} tests
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.1
+        uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16
           cache: 'pnpm'
@@ -37,12 +37,12 @@ jobs:
       - name: Run tests
         run: pnpm test:${{ matrix.stage }}
       - name: Collect coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: success()
         with:
           flags: ${{ matrix.stage }}
           files: ./coverage/lcov.info
-          fail_ci_if_error: true
+          fail_ci_if_error: false
       - name: Collect artifacts
         uses: actions/upload-artifact@v3
         if: "failure() && matrix.stage != 'base'"
