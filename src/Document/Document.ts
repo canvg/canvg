@@ -93,9 +93,9 @@ export class Document {
   readonly screen: Screen
   readonly createCanvas: CreateCanvas
   readonly createImage: CreateImage
-  readonly definitions: Record<string, Element> = {}
-  readonly styles: Record<string, Record<string, Property>> = {}
-  readonly stylesSpecificity: Record<string, string> = {}
+  readonly definitions: Map<string, Element> = new Map()
+  readonly styles: Map<string, Map<string, Property>> = new Map()
+  readonly stylesSpecificity: Map<string, string> = new Map()
   readonly images: ImageElement[] = []
   readonly fonts: SVGFontLoader[] = []
   private readonly emSizeStack: number[] = []

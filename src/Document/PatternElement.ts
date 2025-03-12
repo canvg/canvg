@@ -19,26 +19,26 @@ export class PatternElement extends Element {
       null
     )
 
-    patternSvg.attributes.viewBox = new Property(
+    patternSvg.attributes.set('viewBox', new Property(
       this.document,
       'viewBox',
       this.getAttribute('viewBox').getValue()
-    )
-    patternSvg.attributes.width = new Property(
+    ))
+    patternSvg.attributes.set('width', new Property(
       this.document,
       'width',
       `${width}px`
-    )
-    patternSvg.attributes.height = new Property(
+    ))
+    patternSvg.attributes.set('height', new Property(
       this.document,
       'height',
       `${height}px`
-    )
-    patternSvg.attributes.transform = new Property(
+    ))
+    patternSvg.attributes.set('transform', new Property(
       this.document,
       'transform',
       this.getAttribute('patternTransform').getValue()
-    )
+    ))
     patternSvg.children = this.children
 
     const patternCanvas = this.document.createCanvas(width, height)
@@ -54,25 +54,25 @@ export class PatternElement extends Element {
     }
 
     if (parentOpacityProp.hasValue()) {
-      this.styles['fill-opacity'] = parentOpacityProp
+      this.styles.set('fill-opacity', parentOpacityProp)
     } else {
-      Reflect.deleteProperty(this.styles, 'fill-opacity')
+      this.styles.delete('fill-opacity')
     }
 
     // render 3x3 grid so when we transform there's no white space on edges
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
         patternCtx.save()
-        patternSvg.attributes.x = new Property(
+        patternSvg.attributes.set('x', new Property(
           this.document,
           'x',
           x * patternCanvas.width
-        )
-        patternSvg.attributes.y = new Property(
+        ))
+        patternSvg.attributes.set('y', new Property(
           this.document,
           'y',
           y * patternCanvas.height
-        )
+        ))
         patternSvg.render(patternCtx)
         patternCtx.restore()
       }

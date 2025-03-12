@@ -35,46 +35,46 @@ export class MarkerElement extends Element {
     const markerSvg = new SVGElement(this.document)
 
     markerSvg.type = this.type
-    markerSvg.attributes.viewBox = new Property(
+    markerSvg.attributes.set('viewBox', new Property(
       this.document,
       'viewBox',
       this.getAttribute('viewBox').getValue()
-    )
-    markerSvg.attributes.refX = new Property(
+    ))
+    markerSvg.attributes.set('refX', new Property(
       this.document,
       'refX',
       this.getAttribute('refX').getValue()
-    )
-    markerSvg.attributes.refY = new Property(
+    ))
+    markerSvg.attributes.set('refY', new Property(
       this.document,
       'refY',
       this.getAttribute('refY').getValue()
-    )
-    markerSvg.attributes.width = new Property(
+    ))
+    markerSvg.attributes.set('width', new Property(
       this.document,
       'width',
       this.getAttribute('markerWidth').getValue()
-    )
-    markerSvg.attributes.height = new Property(
+    ))
+    markerSvg.attributes.set('height', new Property(
       this.document,
       'height',
       this.getAttribute('markerHeight').getValue()
-    )
-    markerSvg.attributes.overflow = new Property(
+    ))
+    markerSvg.attributes.set('overflow', new Property(
       this.document,
       'overflow',
       this.getAttribute('overflow').getValue()
-    )
-    markerSvg.attributes.fill = new Property(
+    ))
+    markerSvg.attributes.set('fill', new Property(
       this.document,
       'fill',
       this.getAttribute('fill').getColor('black')
-    )
-    markerSvg.attributes.stroke = new Property(
+    ))
+    markerSvg.attributes.set('stroke', new Property(
       this.document,
       'stroke',
       this.getAttribute('stroke').getValue('none')
-    )
+    ))
     markerSvg.children = this.children
 
     markerSvg.render(ctx)

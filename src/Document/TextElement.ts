@@ -130,9 +130,9 @@ export class TextElement extends RenderedElement {
         arabicForm = 'initial'
       }
 
-      glyph = font.arabicGlyphs[char]?.[arabicForm] || font.glyphs[char]
+      glyph = font.arabicGlyphs.get(char)?.get(arabicForm) || font.glyphs.get(char)
     } else {
-      glyph = font.glyphs[char]
+      glyph = font.glyphs.get(char)
     }
 
     if (!glyph) {

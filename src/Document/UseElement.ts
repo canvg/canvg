@@ -44,29 +44,29 @@ export class UseElement extends RenderedElement {
       if (element.type === 'symbol') {
         // render me using a temporary svg element in symbol cases (http://www.w3.org/TR/SVG/struct.html#UseElement)
         tempSvg = new SVGElement(document)
-        tempSvg.attributes.viewBox = new Property(
+        tempSvg.attributes.set('viewBox', new Property(
           document,
           'viewBox',
           element.getAttribute('viewBox').getString()
-        )
-        tempSvg.attributes.preserveAspectRatio = new Property(
+        ))
+        tempSvg.attributes.set('preserveAspectRatio', new Property(
           document,
           'preserveAspectRatio',
           element.getAttribute('preserveAspectRatio').getString()
-        )
-        tempSvg.attributes.overflow = new Property(
+        ))
+        tempSvg.attributes.set('overflow', new Property(
           document,
           'overflow',
           element.getAttribute('overflow').getString()
-        )
+        ))
         tempSvg.children = element.children
 
         // element is still the parent of the children
-        element.styles.opacity = new Property(
+        element.styles.set('opacity', new Property(
           document,
           'opacity',
           this.calculateOpacity()
-        )
+        ))
       }
 
       if (tempSvg.type === 'svg') {
@@ -75,19 +75,19 @@ export class UseElement extends RenderedElement {
 
         // if symbol or svg, inherit width/height from me
         if (widthStyle.hasValue()) {
-          tempSvg.attributes.width = new Property(
+          tempSvg.attributes.set('width', new Property(
             document,
             'width',
             widthStyle.getString()
-          )
+          ))
         }
 
         if (heightStyle.hasValue()) {
-          tempSvg.attributes.height = new Property(
+          tempSvg.attributes.set('height', new Property(
             document,
             'height',
             heightStyle.getString()
-          )
+          ))
         }
       }
 

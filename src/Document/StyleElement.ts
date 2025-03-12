@@ -48,7 +48,7 @@ export class StyleElement extends Element {
           return
         }
 
-        const props = document.styles[cssClass] || {}
+        const props = document.styles.get(cssClass) || new Map<string, Property>()
 
         cssProps.forEach((cssProp) => {
           const prop = cssProp.indexOf(':')
@@ -56,16 +56,16 @@ export class StyleElement extends Element {
           const value = cssProp.substr(prop + 1, cssProp.length - prop).trim()
 
           if (name && value) {
-            props[name] = new Property(document, name, value)
+            props.set(name, new Property(document, name, value))
           }
         })
 
-        document.styles[cssClass] = props
-        document.stylesSpecificity[cssClass] = getSelectorSpecificity(cssClass)
+        document.styles.set(cssClass, props)
+        document.stylesSpecificity.set(cssClass, getSelectorSpecificity(cssClass))
 
         if (cssClass === '@font-face') { //  && !nodeEnv
-          const fontFamily = props['font-family'].getString().replace(/"|'/g, '')
-          const srcs = props.src.getString().split(',')
+          const fontFamily = props.get('font-family').getString().replace(/"|'/g, '')
+          const srcs = props.get('src').getString().split(',')
 
           srcs.forEach((src) => {
             if (src.indexOf('format("svg")') > 0) {
