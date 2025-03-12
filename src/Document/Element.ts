@@ -11,9 +11,9 @@ export abstract class Element {
   static readonly ignoreChildTypes = ['title']
 
   readonly type: string = ''
-  readonly attributes: Record<string, Property> = {}
-  readonly styles: Record<string, Property> = {}
-  readonly stylesSpecificity: Record<string, string> = {}
+  readonly attributes: Map<string, Property> = new Map()
+  readonly styles: Map<string, Property> = new Map()
+  readonly stylesSpecificity: Map<string, string> = new Map()
   animationFrozen = false
   animationFrozenValue = ''
   parent: Element | null = null
@@ -32,7 +32,7 @@ export abstract class Element {
     Array.from(node.attributes).forEach((attribute) => {
       const nodeName = normalizeAttributeName(attribute.nodeName)
 
-      this.attributes[nodeName] = new Property(document, nodeName, attribute.value)
+      this.attributes.set(nodeName, new Property(document, nodeName, attribute.value))
     })
 
     this.addStylesFromStyleDefinition()
@@ -52,7 +52,7 @@ export abstract class Element {
         const [name, value] = style.split(':').map(_ => _.trim())
 
         if (name) {
-          this.styles[name] = new Property(document, name, value)
+          this.styles.set(name, new Property(document, name, value))
         }
       })
     }
@@ -62,8 +62,8 @@ export abstract class Element {
 
     // add id
     if (id.hasValue()) {
-      if (!definitions[id.getString()]) {
-        definitions[id.getString()] = this
+      if (!definitions.has(id.getString())) {
+        definitions.set(id.getString(), this)
       }
     }
 
@@ -85,12 +85,12 @@ export abstract class Element {
   }
 
   getAttribute(name: string, createIfNotExists = false): Property {
-    const attr = this.attributes[name]
+    const attr = this.attributes.get(name)
 
     if (!attr && createIfNotExists) {
       const attr = new Property(this.document, name, '')
 
-      this.attributes[name] = attr
+      this.attributes.set(name, attr)
 
       return attr
     }
@@ -101,9 +101,9 @@ export abstract class Element {
   getHrefAttribute(): Property {
     let href: Property | undefined
 
-    for (const key in this.attributes) {
+    for (const [key, value] of this.attributes) {
       if (key === 'href' || key.endsWith(':href')) {
-        href = this.attributes[key]
+        href = value
         break
       }
     }
@@ -112,7 +112,7 @@ export abstract class Element {
   }
 
   getStyle(name: string, createIfNotExists = false, skipAncestors = false): Property {
-    const style = this.styles[name]
+    const style = this.styles.get(name)
 
     if (style) {
       return style
@@ -121,7 +121,7 @@ export abstract class Element {
     const attr = this.getAttribute(name)
 
     if (attr.hasValue()) {
-      this.styles[name] = attr // move up to me to cache
+      this.styles.set(name, attr) // move up to me to cache
       return attr
     }
 
@@ -140,7 +140,7 @@ export abstract class Element {
     if (createIfNotExists) {
       const style = new Property(this.document, name, '')
 
-      this.styles[name] = style
+      this.styles.set(name, style)
 
       return style
     }
@@ -250,29 +250,25 @@ export abstract class Element {
       styles,
       stylesSpecificity
     } = this.document
-    let styleProp: Property | undefined
 
-    for (const selector in styles) {
+    for (const [selector, style] of styles) {
       if (!selector.startsWith('@') && this.matchesSelector(selector)) {
-        const style = styles[selector]
-        const specificity = stylesSpecificity[selector]
+        const specificity = stylesSpecificity.get(selector)
 
         if (style) {
-          for (const name in style) {
-            let existingSpecificity = this.stylesSpecificity[name]
+          for (const [name, styleProp] of style) {
+            let existingSpecificity = this.stylesSpecificity.get(name)
 
             if (typeof existingSpecificity === 'undefined') {
               existingSpecificity = '000'
             }
 
             if (specificity && specificity >= existingSpecificity) {
-              styleProp = style[name]
-
               if (styleProp) {
-                this.styles[name] = styleProp
+                this.styles.set(name, styleProp)
               }
 
-              this.stylesSpecificity[name] = specificity
+              this.stylesSpecificity.set(name, specificity)
             }
           }
         }

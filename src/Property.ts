@@ -287,7 +287,7 @@ export class Property<T = unknown> {
     const match = /#([^)'"]+)/.exec(asString)
     const name = match?.[1] || asString
 
-    return this.document.definitions[name] as T | undefined
+    return this.document.definitions.get(name) as T | undefined
   }
 
   getFillStyleDefinition(element: Element | PathElement, opacity: Property) {

@@ -8,8 +8,8 @@ export class FontElement extends Element {
   override type = 'font'
   readonly isArabic: boolean = false
   readonly missingGlyph: MissingGlyphElement | undefined
-  readonly glyphs: Record<string, GlyphElement> = {}
-  readonly arabicGlyphs: Record<string, Partial<Record<ArabicForm, GlyphElement>>> = {}
+  readonly glyphs: Map<string, GlyphElement> = new Map()
+  readonly arabicGlyphs: Map<string, Map<ArabicForm, GlyphElement>> = new Map()
   readonly horizAdvX: number
   readonly isRTL: boolean = false
   readonly fontFace: FontFaceElement | undefined
@@ -33,7 +33,7 @@ export class FontElement extends Element {
         const fontFamilyStyle = child.getStyle('font-family')
 
         if (fontFamilyStyle.hasValue()) {
-          definitions[fontFamilyStyle.getString()] = this
+          definitions.set(fontFamilyStyle.getString(), this)
         }
       } else
       if (child instanceof MissingGlyphElement) {
@@ -44,17 +44,16 @@ export class FontElement extends Element {
           this.isRTL = true
           this.isArabic = true
 
-          const arabicGlyph = this.arabicGlyphs[child.unicode]
+          let arabicGlyph = this.arabicGlyphs.get(child.unicode)
 
           if (typeof arabicGlyph === 'undefined') {
-            this.arabicGlyphs[child.unicode] = {
-              [child.arabicForm]: child
-            }
-          } else {
-            arabicGlyph[child.arabicForm] = child
+            arabicGlyph = new Map()
+            this.arabicGlyphs.set(child.unicode, arabicGlyph)
           }
+
+          arabicGlyph.set(child.arabicForm, child)
         } else {
-          this.glyphs[child.unicode] = child
+          this.glyphs.set(child.unicode, child)
         }
       }
     }

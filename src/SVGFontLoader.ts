@@ -18,7 +18,7 @@ export class SVGFontLoader {
       Array.from(fonts).forEach((fontNode: HTMLElement) => {
         const font = document.createElement(fontNode)
 
-        document.definitions[fontFamily] = font
+        document.definitions.set(fontFamily, font)
       })
     } catch (err) {
       console.error(`Error while loading font "${url}":`, err)

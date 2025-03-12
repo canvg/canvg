@@ -80,58 +80,58 @@ export abstract class GradientElement extends Element {
       const rootView = viewPort.getRoot()
       const rect = new RectElement(document)
 
-      rect.attributes.x = new Property(
+      rect.attributes.set('x', new Property(
         document,
         'x',
         -MAX_VIRTUAL_PIXELS / 3.0
-      )
-      rect.attributes.y = new Property(
+      ))
+      rect.attributes.set('y', new Property(
         document,
         'y',
         -MAX_VIRTUAL_PIXELS / 3.0
-      )
-      rect.attributes.width = new Property(
+      ))
+      rect.attributes.set('width', new Property(
         document,
         'width',
         MAX_VIRTUAL_PIXELS
-      )
-      rect.attributes.height = new Property(
+      ))
+      rect.attributes.set('height', new Property(
         document,
         'height',
         MAX_VIRTUAL_PIXELS
-      )
+      ))
 
       const group = new GElement(document)
 
-      group.attributes.transform = new Property(
+      group.attributes.set('transform', new Property(
         document,
         'transform',
         this.getAttribute('gradientTransform').getValue()
-      )
+      ))
       group.children = [rect]
 
       const patternSvg = new SVGElement(document)
 
-      patternSvg.attributes.x = new Property(
+      patternSvg.attributes.set('x', new Property(
         document,
         'x',
         0
-      )
-      patternSvg.attributes.y = new Property(
+      ))
+      patternSvg.attributes.set('y', new Property(
         document,
         'y',
         0
-      )
-      patternSvg.attributes.width = new Property(
+      ))
+      patternSvg.attributes.set('width', new Property(
         document,
         'width',
         rootView.width
-      )
-      patternSvg.attributes.height = new Property(
+      ))
+      patternSvg.attributes.set('height', new Property(
         document,
         'height',
         rootView.height
-      )
+      ))
       patternSvg.children = [group]
 
       const patternCanvas = document.createCanvas(rootView.width, rootView.height)
