@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/canvg/canvg/compare/v4.0.2...v4.0.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* fix prototype pollution vulneralbility ([#1750](https://github.com/canvg/canvg/issues/1750)) ([c3743e6](https://github.com/canvg/canvg/commit/c3743e6345f3e01aefdcdd412c3f26494f4b5d7d)), closes [#1749](https://github.com/canvg/canvg/issues/1749)
+
 ### [4.0.2](https://github.com/canvg/canvg/compare/v4.0.1...v4.0.2) (2024-04-22)
 
 
