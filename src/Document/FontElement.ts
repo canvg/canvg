@@ -8,7 +8,7 @@ export default class FontElement extends Element {
 	type = 'font';
 	readonly isArabic: boolean;
 	readonly missingGlyph: MissingGlyphElement;
-	readonly glyphs: Record<string, GlyphElement | Record<string, GlyphElement>> = {};
+	readonly glyphs = Object.create(null) as Record<string, GlyphElement | Record<string, GlyphElement>>;
 	readonly horizAdvX: number;
 	readonly isRTL: boolean;
 	readonly fontFace: FontFaceElement;
@@ -55,7 +55,7 @@ export default class FontElement extends Element {
 						this.isArabic = true;
 
 						if (typeof this.glyphs[glyph.unicode] === 'undefined') {
-							this.glyphs[glyph.unicode] = {};
+							this.glyphs[glyph.unicode] = Object.create(null) as Record<string, GlyphElement>;
 						}
 
 						this.glyphs[glyph.unicode][glyph.arabicForm] = glyph;
