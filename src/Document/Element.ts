@@ -18,9 +18,9 @@ export default abstract class Element {
 	];
 
 	readonly type: string;
-	readonly attributes: Record<string, Property> = {};
-	readonly styles: Record<string, Property> = {};
-	readonly stylesSpecificity: Record<string, string> = {};
+	readonly attributes = Object.create(null) as Record<string, Property>;
+	readonly styles = Object.create(null) as Record<string, Property>;
+	readonly stylesSpecificity = Object.create(null) as Record<string, string>;
 	animationFrozen = false;
 	animationFrozenValue = '';
 	parent: Element = null;

@@ -89,9 +89,9 @@ export default class Document {
 	readonly screen: Screen;
 	readonly createCanvas: CreateCanvas;
 	readonly createImage: CreateImage;
-	readonly definitions: Record<string, Element> = {};
-	readonly styles: Record<string, Record<string, Property>> = {};
-	readonly stylesSpecificity: Record<string, string> = {};
+	readonly definitions = Object.create(null) as Record<string, Element>;
+	readonly styles = Object.create(null) as Record<string, Record<string, Property>>;
+	readonly stylesSpecificity = Object.create(null) as Record<string, string>;
 	readonly images: ImageElement[] = [];
 	readonly fonts: SVGFontLoader[] = [];
 	private readonly emSizeStack: number[] = [];
