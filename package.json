@@ -1,6 +1,6 @@
 {
   "name": "canvg",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "JavaScript SVG parser and renderer on Canvas.",
   "authors": [
     {

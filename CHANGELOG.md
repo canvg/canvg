@@ -24,6 +24,12 @@ DO NOT TOUCH. SAVE IT ON TOP.
 
 -->
 
+### 3.0.11 (2025-03-13)
+
+### Bug Fixes
+
+* fix prototype pollution vulneralbility 
+
 ## [3.0.9] - 2021-10-04
 ### Fixed
 - [#1480](https://github.com/canvg/canvg/issues/1480)
