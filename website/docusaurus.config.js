@@ -23,6 +23,14 @@ const config = {
     branch: currentBranch
   },
 
+  scripts: [
+    {
+      src: 'https://cloud.umami.is/script.js',
+      'data-website-id': 'e57894c0-d185-4b87-8f3f-5374257e699d',
+      defer: true,
+    }
+  ],
+
   presets: [
     [
       '@docusaurus/preset-classic',
