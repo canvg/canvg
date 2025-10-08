@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(200, 200)">
+        <rect transform="translate(-56.181826812740596,-141.89484345848663)" width="57.515625" height="43.625" style="stroke:#fff;fill:#0ff"/>
+        <text dy=".35em" transform="translate(-27.424014312740596,-129.01984345848663)" style="text-anchor:middle">
+            <tspan dy="0" x="0" text-anchor="middle" style="font:11px sans-serif;fill:red">data40098</tspan><tspan dy="1.2em" x="0" text-anchor="middle" style="font:11px sans-serif;fill:red">50</tspan><tspan dy="1.2em" x="0" text-anchor="middle" style="font:11px sans-serif;fill:red">[6.7%]</tspan>
+        </text>
+    </g>
+</svg>

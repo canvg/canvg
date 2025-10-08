@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="500" height="210">
+	<defs>
+		<filter id="abc" filterUnits="userSpaceOnUse">
+			<feOffset dx="1" dy="1" result="offsetblur"/>
+			<feFlood flood-color="#00FF00"/>
+			<feComposite in2="offsetblur" operator="in"/>
+			<feMerge>
+				<feMergeNode/>
+				<feMergeNode in="SourceGraphic"/>
+			</feMerge>
+		</filter>
+	</defs>
+	<g class="Distance">
+		<line x1="10" x2="10" y1="100" y2="200" filter="url('#abc') " style="stroke:red"/>
+	</g>
+</svg>

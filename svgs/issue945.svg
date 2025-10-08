@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 500" style="height:350px;width:2000px">
+    <g class="chart" transform="translate(40,20)">
+        <g class="barsGroup">
+            <g transform="translate(0,420)" class="axis axis--x" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle">
+                <path class="domain" stroke="currentColor" d="M0.5,-420V0.5H1900.5V-420"/>
+                <g class="tick" opacity="1" transform="translate(118.75,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">10</tspan><tspan dy="1.2em" x="0">February</tspan><tspan dy="1.2em" x="0">2020</tspan><tspan dy="1.2em" x="0"/>
+
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(356.25,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">11</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(593.75,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">12</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(831.25,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">13</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(1068.75,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">14</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(1306.25,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">15</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(1543.75,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">16</tspan>
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(1781.25,0)">
+                    <line stroke="currentColor" y2="-420" transform="translate(-118.75, 0 )" display=""/>
+                    <text fill="currentColor" y="3" dy="0.71em">
+                        <tspan dy="1.2em" x="0">17</tspan>
+                    </text>
+                </g>
+            </g>
+            <g transform="translate(1900,0)" class="axis axis--y" fill="none" font-size="10" font-family="sans-serif" text-anchor="start">
+                <path class="domain" stroke="currentColor" d="M-1900,420.5H0.5V0.5H-1900"/>
+                <g class="tick" opacity="1" transform="translate(0,420.5)">
+                    <line stroke="currentColor" x2="-1900"/>
+                    <text fill="currentColor" x="3" dy="0.32em">
+                        0
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(0,289.5)">
+                    <line stroke="currentColor" x2="-1900"/>
+                    <text fill="currentColor" x="3" dy="0.32em">
+                        500
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(0,158.5)">
+                    <line stroke="currentColor" x2="-1900"/>
+                    <text fill="currentColor" x="3" dy="0.32em">
+                        1,000
+                    </text>
+                </g>
+                <g class="tick" opacity="1" transform="translate(0,26.5)">
+                    <line stroke="currentColor" x2="-1900"/>
+                    <text fill="currentColor" x="3" dy="0.32em">
+                        1,500
+                    </text>
+                </g>
+            </g>
+            <g class="layer" style="fill:red">
+                <rect y="387" height="33" x="1187.5" width="237.5"/>
+                <rect y="317" height="103" x="1425" width="237.5"/>
+            </g>
+            <g class="layer" style="fill:#ff0">
+                <rect y="339" height="48" x="1187.5" width="237.5"/>
+                <rect y="105" height="212" x="1425" width="237.5"/>
+            </g>
+            <g class="layer" style="fill:#0f0">
+                <rect y="312" height="27" x="1187.5" width="237.5"/>
+                <rect y="3" height="102" x="1425" width="237.5"/>
+            </g>
+        </g>
+        <g class="brush" display="" fill="none" pointer-events="all">
+            <rect class="overlay" pointer-events="all" cursor="crosshair" x="0" y="0" width="1900" height="420" opacity="0.4"/>
+            <rect class="selection" cursor="move" fill="#777" fill-opacity="0.3" stroke="#fff" shape-rendering="crispEdges" opacity="0.4" height="420" style="display:none"/>
+            <rect class="handle handle--w" cursor="ew-resize" opacity="0.4" height="420" style="display:none"/>
+            <rect class="handle handle--e" cursor="ew-resize" opacity="0.4" height="420" style="display:none"/>
+        </g>
+    </g>
+    <text y="210" x="950" text-anchor="middle" display="none">
+        No data to display
+    </text>
+</svg>

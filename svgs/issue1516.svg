@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<g class="gotchi-bg">
+		<defs fill="#fff">
+			<pattern id="a" patternUnits="userSpaceOnUse" width="4" height="4">
+				<path d="M0 0h1v1H0zm2 2h1v1H2z" />
+			</pattern>
+			<pattern id="b" patternUnits="userSpaceOnUse" x="0" y="0" width="2" height="2">
+				<path d="M0 0h1v1H0z" />
+			</pattern>
+			<pattern id="c" patternUnits="userSpaceOnUse" x="-2" y="0" width="8" height="1">
+				<path d="M0 0h1v1H0zm2 0h1v1H2zm2 0h1v1H4z" />
+			</pattern>
+			<pattern id="d" patternUnits="userSpaceOnUse" x="0" y="0" width="4" height="4">
+				<path d="M0 0h1v1H0zm0 2h1v1H0zm1 0V1h1v1zm1 0h1v1H2zm0-1h1V0H2zm1 2h1v1H3z" />
+			</pattern>
+			<pattern id="e" patternUnits="userSpaceOnUse" width="64" height="32">
+				<path
+					d="M4 4h1v1H4zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1zm7 0h1v1h-1z" />
+				<path fill="url(#a)" d="M0 8h64v7H0z" />
+				<path fill="url(#b)" d="M0 16h64v1H0z" />
+				<path fill="url(#c)" d="M0 18h64v1H0z" />
+				<path fill="url(#b)" d="M22 18h15v1H22zM0 20h64v3H0z" />
+				<path fill="url(#d)" d="M0 24h64v8H0z" />
+			</pattern>
+			<mask id="f">
+				<path fill="url(#e)" d="M0 0h64v32H0z" />
+			</mask>
+		</defs>
+		<path mask="url(#f)" fill="#fff" transform="matrix(1 0 0 -1 0 64)" d="M0 0h64v32H0z" />
+	</g>
+	<style>
+		.gotchi-primary {
+			fill: #000000;
+		}
+	</style>
+</svg>

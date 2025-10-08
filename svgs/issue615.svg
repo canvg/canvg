@@ -1,0 +1,18 @@
+<svg x="0" y="0" viewBox="0 0 500 500">
+  <defs>
+    <rect id="XMLID_1" x="0" y="0" fill="red" height="100" width="100" transform="matrix(1 0 0 1 50 50)"/>
+    <rect id="XMLID_2" x="0" y="100" fill="red" height="100" width="100" transform="matrix(1 -1 1 1 50 50)"/>
+  </defs>
+  <clipPath id="XMLID_3">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#XMLID_1" overflow="visible"/>
+  </clipPath>
+  <clipPath id="XMLID_4">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#XMLID_2" overflow="visible"/>
+  </clipPath>
+  <g clip-path="url(#XMLID_3)">
+    <rect x="0" y="0" fill="red" width="500" height="500"/>
+  </g>
+  <g clip-path="url(#XMLID_4)">
+    <rect x="0" y="0" fill="blue" width="500" height="500"/>
+  </g>
+</svg>
