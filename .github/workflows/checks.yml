@@ -9,7 +9,7 @@ jobs:
     name: size-limit
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -28,7 +28,7 @@ jobs:
     name: editorconfig
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Create config
         run: |
           echo '{"Exclude": ["docs", ".git"]}' > .ecrc
@@ -39,7 +39,7 @@ jobs:
     name: package.json
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
