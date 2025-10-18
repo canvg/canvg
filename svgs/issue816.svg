@@ -1,0 +1,349 @@
+<svg width="1860" height="270" class="prefix__apexcharts-svg" xmlns:data="ApexChartsNS" style="background:#fff">
+    <g class="prefix__apexcharts-inner prefix__apexcharts-graphical" transform="translate(45 30)">
+        <defs>
+            <filter id="prefix__b" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12111Out"/>
+                <feComposite in="SvgjsFeFlood12111Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12112Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12113Out" in="SvgjsFeComposite12112Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12114Out" in="SvgjsFeOffset12113Out"/>
+                <feMerge result="SvgjsFeMerge12115Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12114Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12115Out" result="SvgjsFeBlend12118Out"/>
+            </filter>
+            <filter id="prefix__k" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12248Out"/>
+                <feComposite in="SvgjsFeFlood12248Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12249Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12250Out" in="SvgjsFeComposite12249Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12251Out" in="SvgjsFeOffset12250Out"/>
+                <feMerge result="SvgjsFeMerge12252Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12251Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12252Out" result="SvgjsFeBlend12255Out"/>
+            </filter>
+            <filter id="prefix__c" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12126Out"/>
+                <feComposite in="SvgjsFeFlood12126Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12127Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12128Out" in="SvgjsFeComposite12127Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12129Out" in="SvgjsFeOffset12128Out"/>
+                <feMerge result="SvgjsFeMerge12130Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12129Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12130Out" result="SvgjsFeBlend12133Out"/>
+            </filter>
+            <filter id="prefix__d" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12141Out"/>
+                <feComposite in="SvgjsFeFlood12141Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12142Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12143Out" in="SvgjsFeComposite12142Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12144Out" in="SvgjsFeOffset12143Out"/>
+                <feMerge result="SvgjsFeMerge12145Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12144Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12145Out" result="SvgjsFeBlend12148Out"/>
+            </filter>
+            <filter id="prefix__e" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12156Out"/>
+                <feComposite in="SvgjsFeFlood12156Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12157Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12158Out" in="SvgjsFeComposite12157Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12159Out" in="SvgjsFeOffset12158Out"/>
+                <feMerge result="SvgjsFeMerge12160Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12159Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12160Out" result="SvgjsFeBlend12163Out"/>
+            </filter>
+            <filter id="prefix__f" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12171Out"/>
+                <feComposite in="SvgjsFeFlood12171Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12172Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12173Out" in="SvgjsFeComposite12172Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12174Out" in="SvgjsFeOffset12173Out"/>
+                <feMerge result="SvgjsFeMerge12175Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12174Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12175Out" result="SvgjsFeBlend12178Out"/>
+            </filter>
+            <filter id="prefix__g" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12188Out"/>
+                <feComposite in="SvgjsFeFlood12188Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12189Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12190Out" in="SvgjsFeComposite12189Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12191Out" in="SvgjsFeOffset12190Out"/>
+                <feMerge result="SvgjsFeMerge12192Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12191Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12192Out" result="SvgjsFeBlend12195Out"/>
+            </filter>
+            <filter id="prefix__h" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12203Out"/>
+                <feComposite in="SvgjsFeFlood12203Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12204Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12205Out" in="SvgjsFeComposite12204Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12206Out" in="SvgjsFeOffset12205Out"/>
+                <feMerge result="SvgjsFeMerge12207Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12206Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12207Out" result="SvgjsFeBlend12210Out"/>
+            </filter>
+            <filter id="prefix__i" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12218Out"/>
+                <feComposite in="SvgjsFeFlood12218Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12219Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12220Out" in="SvgjsFeComposite12219Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12221Out" in="SvgjsFeOffset12220Out"/>
+                <feMerge result="SvgjsFeMerge12222Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12221Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12222Out" result="SvgjsFeBlend12225Out"/>
+            </filter>
+            <filter id="prefix__j" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12233Out"/>
+                <feComposite in="SvgjsFeFlood12233Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12234Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12235Out" in="SvgjsFeComposite12234Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12236Out" in="SvgjsFeOffset12235Out"/>
+                <feMerge result="SvgjsFeMerge12237Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12236Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12237Out" result="SvgjsFeBlend12240Out"/>
+            </filter>
+            <filter id="prefix__u" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12402Out"/>
+                <feComposite in="SvgjsFeFlood12402Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12403Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12404Out" in="SvgjsFeComposite12403Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12405Out" in="SvgjsFeOffset12404Out"/>
+                <feMerge result="SvgjsFeMerge12406Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12405Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12406Out" result="SvgjsFeBlend12409Out"/>
+            </filter>
+            <filter id="prefix__l" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12265Out"/>
+                <feComposite in="SvgjsFeFlood12265Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12266Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12267Out" in="SvgjsFeComposite12266Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12268Out" in="SvgjsFeOffset12267Out"/>
+                <feMerge result="SvgjsFeMerge12269Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12268Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12269Out" result="SvgjsFeBlend12272Out"/>
+            </filter>
+            <filter id="prefix__m" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12280Out"/>
+                <feComposite in="SvgjsFeFlood12280Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12281Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12282Out" in="SvgjsFeComposite12281Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12283Out" in="SvgjsFeOffset12282Out"/>
+                <feMerge result="SvgjsFeMerge12284Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12283Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12284Out" result="SvgjsFeBlend12287Out"/>
+            </filter>
+            <filter id="prefix__n" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12295Out"/>
+                <feComposite in="SvgjsFeFlood12295Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12296Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12297Out" in="SvgjsFeComposite12296Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12298Out" in="SvgjsFeOffset12297Out"/>
+                <feMerge result="SvgjsFeMerge12299Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12298Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12299Out" result="SvgjsFeBlend12302Out"/>
+            </filter>
+            <filter id="prefix__o" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12310Out"/>
+                <feComposite in="SvgjsFeFlood12310Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12311Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12312Out" in="SvgjsFeComposite12311Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12313Out" in="SvgjsFeOffset12312Out"/>
+                <feMerge result="SvgjsFeMerge12314Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12313Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12314Out" result="SvgjsFeBlend12317Out"/>
+            </filter>
+            <filter id="prefix__p" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12325Out"/>
+                <feComposite in="SvgjsFeFlood12325Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12326Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12327Out" in="SvgjsFeComposite12326Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12328Out" in="SvgjsFeOffset12327Out"/>
+                <feMerge result="SvgjsFeMerge12329Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12328Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12329Out" result="SvgjsFeBlend12332Out"/>
+            </filter>
+            <filter id="prefix__q" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12342Out"/>
+                <feComposite in="SvgjsFeFlood12342Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12343Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12344Out" in="SvgjsFeComposite12343Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12345Out" in="SvgjsFeOffset12344Out"/>
+                <feMerge result="SvgjsFeMerge12346Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12345Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12346Out" result="SvgjsFeBlend12349Out"/>
+            </filter>
+            <filter id="prefix__r" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12357Out"/>
+                <feComposite in="SvgjsFeFlood12357Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12358Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12359Out" in="SvgjsFeComposite12358Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12360Out" in="SvgjsFeOffset12359Out"/>
+                <feMerge result="SvgjsFeMerge12361Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12360Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12361Out" result="SvgjsFeBlend12364Out"/>
+            </filter>
+            <filter id="prefix__s" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12372Out"/>
+                <feComposite in="SvgjsFeFlood12372Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12373Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12374Out" in="SvgjsFeComposite12373Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12375Out" in="SvgjsFeOffset12374Out"/>
+                <feMerge result="SvgjsFeMerge12376Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12375Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12376Out" result="SvgjsFeBlend12379Out"/>
+            </filter>
+            <filter id="prefix__t" filterUnits="userSpaceOnUse">
+                <feFlood flood-color="#000" flood-opacity=".9" result="SvgjsFeFlood12387Out"/>
+                <feComposite in="SvgjsFeFlood12387Out" in2="SourceAlpha" operator="in" result="SvgjsFeComposite12388Out"/>
+                <feOffset dx="1" dy="1" result="SvgjsFeOffset12389Out" in="SvgjsFeComposite12388Out"/>
+                <feGaussianBlur stdDeviation=".5" result="SvgjsFeGaussianBlur12390Out" in="SvgjsFeOffset12389Out"/>
+                <feMerge result="SvgjsFeMerge12391Out">
+                    <feMergeNode in="SvgjsFeGaussianBlur12390Out"/>
+                    <feMergeNode in="[object Arguments]"/>
+                </feMerge>
+                <feBlend in="SourceGraphic" in2="SvgjsFeMerge12391Out" result="SvgjsFeBlend12394Out"/>
+            </filter>
+            <clipPath id="prefix__a">
+                <rect width="1805" height="197.348" rx="0" ry="0" fill="#fff" stroke-width="0" stroke-dasharray="0"/>
+            </clipPath>
+        </defs>
+        <path stroke="#b6b6b6" stroke-dasharray="3" class="prefix__apexcharts-xcrosshairs" fill="#b1b9c4" filter="none" fill-opacity=".9" d="M807.087 0v197.348"/>
+        <g class="prefix__apexcharts-xaxis">
+            <g class="prefix__apexcharts-xaxis-texts-g">
+                <text font-family="Helvetica,Arial,sans-serif" x="180.5" y="226.348" text-anchor="middle" font-size="12" font-weight="400" fill="#373d3f" class="prefix__apexcharts-xaxis-label" transform="translate(0 -4)">
+                    <tspan>Июнь</tspan>
+                </text>
+                <text font-family="Helvetica,Arial,sans-serif" x="541.5" y="226.348" text-anchor="middle" font-size="12" font-weight="400" fill="#373d3f" class="prefix__apexcharts-xaxis-label" transform="translate(0 -4)">
+                    <tspan>Июль</tspan>
+                </text>
+                <text font-family="Helvetica,Arial,sans-serif" x="902.5" y="226.348" text-anchor="middle" font-size="12" font-weight="400" fill="#373d3f" class="prefix__apexcharts-xaxis-label" transform="translate(0 -4)">
+                    <tspan>Август</tspan>
+                </text>
+                <text font-family="Helvetica,Arial,sans-serif" x="1263.5" y="226.348" text-anchor="middle" font-size="12" font-weight="400" fill="#373d3f" class="prefix__apexcharts-xaxis-label" transform="translate(0 -4)">
+                    <tspan>Сентябрь</tspan>
+                </text>
+                <text font-family="Helvetica,Arial,sans-serif" x="1624.5" y="226.348" text-anchor="middle" font-size="12" font-weight="400" fill="#373d3f" class="prefix__apexcharts-xaxis-label" transform="translate(0 -4)">
+                    <tspan>Декабрь</tspan>
+                </text>
+            </g>
+            <path stroke="#78909c" stroke-dasharray="0" d="M0 198.348h1805"/>
+        </g>
+        <g class="prefix__apexcharts-grid">
+            <g class="prefix__apexcharts-gridlines-horizontal">
+                <path stroke="#e0e0e0" stroke-dasharray="0" class="prefix__apexcharts-gridline" d="M0 0h1805M0 98.674h1805M0 197.348h1805"/>
+            </g>
+            <path stroke="#78909c" stroke-dasharray="0" class="prefix__apexcharts-xaxis-tick" d="M361 198.348v6M722 198.348v6M1083 198.348v6M1444 198.348v6"/>
+            <path stroke="transparent" stroke-dasharray="0" d="M0 197.348h1805M0 1v196.348"/>
+        </g>
+        <g class="prefix__apexcharts-bar-series prefix__apexcharts-plot-series">
+            <g class="prefix__apexcharts-series" data:realIndex="0">
+                <path d="M54.15 197.348V98.674h63.175v98.674H54.15M415.15 197.348v-65.783h63.175v65.783H415.15M776.15 197.348v-32.891h63.175v32.891H776.15M1137.15 197.348V98.674h63.175v98.674h-63.175M1498.15 197.348v-32.891h63.175v32.891h-63.175" fill="rgba(234,50,35,0.85)" class="prefix__apexcharts-bar-area" clip-path="url(#prefix__a)"/>
+                <g class="prefix__apexcharts-datalabels">
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="85.737" y="112.674" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__b)">
+                            3
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="446.737" y="145.565" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__c)">
+                            2
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="807.738" y="178.457" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__d)">
+                            1
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="1168.738" y="112.674" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__e)">
+                            3
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="1529.738" y="178.457" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__f)">
+                            1
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g class="prefix__apexcharts-series" data:realIndex="1">
+                <path d="M117.325 197.348H180.5h-63.175M478.325 197.348V32.891H541.5v164.457h-63.175M839.325 197.348v-65.783H902.5v65.783h-63.175M1200.325 197.348v-32.891h63.175v32.891h-63.175M1561.325 197.348h63.175-63.175" fill="rgba(153,153,153,0.85)" class="prefix__apexcharts-bar-area" clip-path="url(#prefix__a)"/>
+                <g class="prefix__apexcharts-datalabels">
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="509.912" y="46.891" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__h)">
+                            5
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="870.913" y="145.565" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__i)">
+                            2
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="1231.913" y="178.457" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__j)">
+                            1
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g class="prefix__apexcharts-series" data:realIndex="2">
+                <path d="M180.5 197.348h63.175H180.5M541.5 197.348V65.783h63.175v131.565H541.5M902.5 197.348v-32.891h63.175v32.891H902.5M1263.5 197.348h63.175-63.175M1624.5 197.348h63.175-63.175" fill="rgba(44,111,186,0.85)" class="prefix__apexcharts-bar-area" clip-path="url(#prefix__a)"/>
+                <g class="prefix__apexcharts-datalabels">
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="573.087" y="79.783" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__m)">
+                            4
+                        </text>
+                    </g>
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="934.087" y="178.457" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__n)">
+                            1
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g class="prefix__apexcharts-series" data:realIndex="3">
+                <path d="M243.675 197.348h63.175-63.175M604.675 197.348v-32.891h63.175v32.891h-63.175M965.675 197.348h63.175-63.175M1326.675 197.348h63.175-63.175M1687.675 197.348h63.175-63.175" fill="rgba(78,173,91,0.85)" class="prefix__apexcharts-bar-area" clip-path="url(#prefix__a)"/>
+                <g class="prefix__apexcharts-datalabels">
+                    <g class="prefix__apexcharts-data-labels">
+                        <text font-family="Helvetica,Arial,sans-serif" x="636.262" y="178.457" text-anchor="middle" font-size="12" font-weight="regular" fill="#fff" class="prefix__apexcharts-datalabel" filter="url(#prefix__r)">
+                            1
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <path stroke="#b6b6b6" stroke-dasharray="0" class="prefix__apexcharts-ycrosshairs" d="M0 0h1805"/>
+        <path class="prefix__apexcharts-ycrosshairs-hidden" d="M0 0h1805"/>
+    </g>
+    <g class="prefix__apexcharts-yaxis">
+        <g class="prefix__apexcharts-yaxis-texts-g">
+            <text font-family="Helvetica,Arial,sans-serif" x="20" y="31.2" text-anchor="end" font-size="11" font-weight="regular" fill="#373d3f" class="prefix__apexcharts-yaxis-label" transform="translate(12)">
+                6
+            </text>
+            <text font-family="Helvetica,Arial,sans-serif" x="20" y="129.974" text-anchor="end" font-size="11" font-weight="regular" fill="#373d3f" class="prefix__apexcharts-yaxis-label" transform="translate(12)">
+                3
+            </text>
+            <text font-family="Helvetica,Arial,sans-serif" x="20" y="228.748" text-anchor="end" font-size="11" font-weight="regular" fill="#373d3f" class="prefix__apexcharts-yaxis-label" transform="translate(12)">
+                0
+            </text>
+        </g>
+    </g>
+</svg>

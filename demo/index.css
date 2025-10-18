@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: verdana;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+a image {
+  border: 0;
+}
+
+.no-ui .title,
+.no-ui .message,
+.no-ui .settings,
+.no-ui h2 {
+  display: none;
+}
+
+.title {
+  padding: 0 0 5px 5px;
+}
+
+.message {
+  background-color: orangered;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.message a {
+  color: white;
+}
+
+.settings input[type=number] {
+  width: 40px;
+}
+
+.table th {
+  text-align: left;
+}
+
+.table th,
+.table td {
+  vertical-align: top;
+  padding: 0 20px 10px 0;
+}
+
+.table select {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.table textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+body:not(.no-ui) .output {
+  border: 1px solid gray;
+  width: 500px;
+  height: 500px;
+  overflow: scroll;
+}
