@@ -115,7 +115,7 @@
     "jest-circus": "^27.2.5",
     "jest-image-snapshot": "^4.3.0",
     "nano-staged": "^0.8.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.0.0",
     "puppeteer": "^13.0.0",
     "rollup": "^2.67.1",
     "rollup-plugin-swc": "^0.2.1",
