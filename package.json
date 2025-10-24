@@ -87,7 +87,7 @@
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@commitlint/cz-commitlint": "^16.1.0",
-    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@rollup/plugin-replace": "^4.0.0",
     "@size-limit/preset-small-lib": "^7.0.8",
