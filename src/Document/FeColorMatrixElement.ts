@@ -123,6 +123,13 @@ export class FeColorMatrixElement extends Element {
     } = this
     const srcData = ctx.getImageData(0, 0, width, height)
 
+    if (srcData.colorSpace === 'srgb') {
+      matrix[4] *= 255
+      matrix[9] *= 255
+      matrix[14] *= 255
+      matrix[19] *= 255
+    }
+
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const r = imGet(srcData.data, x, y, width, height, 0)

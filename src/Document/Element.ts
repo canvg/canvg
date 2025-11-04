@@ -171,8 +171,16 @@ export abstract class Element {
       const filter = this.getStyle('filter').getDefinition<FilterElement>()
 
       if (filter) {
+        if (!filter.children.length) {
+          return
+        }
+
         this.applyEffects(ctx)
         filter.apply(ctx, this)
+      } else {
+        this.setContext(ctx)
+        this.renderChildren(ctx)
+        this.clearContext(ctx)
       }
     } else {
       this.setContext(ctx)
