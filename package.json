@@ -125,7 +125,7 @@
     "standard-version": "^9.3.2",
     "ts-node": "^10.5.0",
     "tsconfig-paths": "^3.8.0",
-    "typescript": "^4.9.0"
+    "typescript": "^5.0.0"
   },
   "readme": ""
 }
