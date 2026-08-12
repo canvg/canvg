@@ -25,14 +25,14 @@
     "file-loader": "^6.2.0",
     "git-branch": "^2.0.1",
     "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.14",
     "@tsconfig/docusaurus": "^1.0.4",
-    "@types/react": "^17.0.36",
+    "@types/react": "^19.0.0",
     "docusaurus-plugin-typedoc": "^0.22.0",
     "typedoc": "^0.25.0",
     "typedoc-plugin-markdown": "^3.17.1",
