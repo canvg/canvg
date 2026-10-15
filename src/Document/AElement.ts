@@ -7,6 +7,12 @@ import { TextElement } from './TextElement'
 import { GElement } from './GElement'
 
 export class AElement extends TextElement {
+  static readonly allowedProtocols = [
+    'http:',
+    'https:',
+    'mailto:'
+  ]
+
   override type = 'a'
   protected readonly hasText: boolean
   protected readonly text: string
@@ -77,7 +83,18 @@ export class AElement extends TextElement {
     const { window } = this.document
 
     if (window) {
-      window.open(this.getHrefAttribute().getString())
+      let url: URL
+
+      try {
+        url = new URL(this.getHrefAttribute().getString(), window.location.href)
+      } catch (err) {
+        return
+      }
+
+      // Do not open `javascript:`, `data:` and other script-capable URLs from the SVG.
+      if (AElement.allowedProtocols.includes(url.protocol)) {
+        window.open(url.href)
+      }
     }
   }
 
