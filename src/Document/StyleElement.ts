@@ -25,7 +25,7 @@ export class StyleElement extends Element {
       // NEED TEST
         .map(_ => _.textContent)
         .join('')
-        .replace(/(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/)|(^[\s]*\/\/.*)/gm, '') // remove comments
+        .replace(/\/\*[\s\S]*?(?:\*\/|(?![\s\S]))|^[ \t]*\/\/.*/gm, '') // remove comments
         .replace(/@import.*;/g, '') // remove imports
     )
     const cssDefs = css.split('}')
