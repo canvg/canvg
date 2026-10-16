@@ -23,4 +23,17 @@ describe('Canvg', () => {
       await canvg.render()
     }, 200)
   })
+
+  describe('style', () => {
+    it('should strip unterminated css comment in linear time', () => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg"><style>/*${'\n'.repeat(26)}</style></svg>`
+      const c = preset.createCanvas(1280, 720) as canvas.Canvas
+      const ctx = c.getContext('2d')
+      const start = Date.now()
+
+      Canvg.fromString(ctx, svg, preset)
+
+      expect(Date.now() - start).toBeLessThan(200)
+    })
+  })
 })
