@@ -8,6 +8,10 @@ export class PolylineElement extends PathElement {
   override type = 'polyline'
   protected readonly points: Point[] = []
 
+  protected override hasStrokeSegments() {
+    return this.points.length > 1
+  }
+
   constructor(
     document: Document,
     node: HTMLElement,

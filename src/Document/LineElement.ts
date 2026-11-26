@@ -6,6 +6,10 @@ import { PathElement, Marker } from './PathElement'
 export class LineElement extends PathElement {
   override type = 'line'
 
+  protected override hasStrokeSegments() {
+    return true
+  }
+
   getPoints() {
     return [
       new Point(

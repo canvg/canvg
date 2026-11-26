@@ -99,8 +99,66 @@ export class PathElement extends RenderedElement {
     return markers
   }
 
+  protected hasStrokeSegments() {
+    return this.pathParser.commands.some(({ type }) => type !== PathParser.MOVE_TO)
+  }
+
+  private strokePoint(
+    ctx: RenderingContext2D,
+    boundingBox: BoundingBox,
+    nonScaling: boolean
+  ) {
+    const dash = typeof ctx.getLineDash === 'function'
+      ? ctx.getLineDash()
+      : []
+    const period = dash.reduce((sum, length) => sum + length, 0)
+
+    if (period > 0) {
+      let offset = (ctx.lineDashOffset % period + period) % period
+
+      for (let i = 0; i < dash.length; i += 1) {
+        const length = dash[i]
+
+        if (offset < length || (offset === 0 && length === 0 && i % 2 === 0)) {
+          if (i % 2 !== 0) {
+            return
+          }
+
+          break
+        }
+
+        offset -= length
+      }
+    }
+
+    let { x, y } = boundingBox
+
+    ctx.save()
+    if (nonScaling) {
+      const matrix = ctx.getTransform()
+      const transformedX = matrix.a * x + matrix.c * y + matrix.e
+
+      y = matrix.b * x + matrix.d * y + matrix.f
+      x = transformedX
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+    }
+
+    ctx.fillStyle = ctx.strokeStyle
+    const radius = ctx.lineWidth / 2
+
+    if (ctx.lineCap === 'round') {
+      ctx.beginPath()
+      ctx.arc(x, y, radius, 0, Math.PI * 2)
+      ctx.fill()
+    } else {
+      ctx.fillRect(x - radius, y - radius, ctx.lineWidth, ctx.lineWidth)
+    }
+
+    ctx.restore()
+  }
+
   override renderChildren(ctx: RenderingContext2D) {
-    this.path(ctx)
+    const boundingBox = this.path(ctx)
     this.document.screen.mouse.checkPath(this, ctx)
 
     const fillRuleStyleProp = this.getStyle('fill-rule')
@@ -114,7 +172,18 @@ export class PathElement extends RenderedElement {
     }
 
     if (ctx.strokeStyle !== '') {
-      if (this.getAttribute('vector-effect').getString() === 'non-scaling-stroke') {
+      const nonScaling = this.getAttribute('vector-effect').getString() === 'non-scaling-stroke'
+
+      // Canvas drops paths whose geometry collapses to a point. SVG retains
+      // the stroke cap for a zero-length segment, including a close command.
+      if (
+        boundingBox.width === 0
+        && boundingBox.height === 0
+        && (ctx.lineCap === 'round' || ctx.lineCap === 'square')
+        && this.hasStrokeSegments()
+      ) {
+        this.strokePoint(ctx, boundingBox, nonScaling)
+      } else if (nonScaling) {
         ctx.save()
         ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.stroke()
