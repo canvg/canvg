@@ -3,12 +3,23 @@ import { promises as fs } from 'fs'
 import { DOMParser } from '@xmldom/xmldom'
 import * as canvas from 'canvas'
 import fetch from 'node-fetch'
-import { Canvg, presets } from '../src'
+import { Canvg, Font, presets } from '../src'
 
 const preset = presets.node({
   DOMParser,
   canvas,
   fetch
+})
+
+describe('Font.parse', () => {
+  it.each([
+    ["16px 'Courier New'", "'Courier New'"],
+    ['italic bold 12px/1.5 Times New Roman, serif', 'Times New Roman, serif'],
+    ['bold 14px / 1.5 Times New Roman', 'Times New Roman'],
+    ['16px "A  B", monospace', '"A  B", monospace']
+  ])('should keep the family list in %s', (shorthand, family) => {
+    expect(Font.parse(shorthand).fontFamily).toBe(family)
+  })
 })
 
 describe('Canvg', () => {
