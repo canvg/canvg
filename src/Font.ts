@@ -1,5 +1,3 @@
-import { compressSpaces } from './util'
-
 function wrapFontFamily(fontFamily: string) {
   const trimmed = fontFamily.trim()
 
@@ -91,15 +89,17 @@ export class Font {
     let fontWeight = ''
     let fontSize = ''
     let fontFamily = ''
-    const parts = compressSpaces(font).trim().split(' ')
+    // Consume the optional /line-height with the size token.
+    const parts = /([^\s/]+)(?:\s*\/\s*\S+)?/g
     const set = {
-      fontSize: false,
       fontStyle: false,
       fontWeight: false,
       fontVariant: false
     }
 
-    parts.forEach((part) => {
+    for (let match = parts.exec(font); match; match = parts.exec(font)) {
+      const part = match[1]
+
       switch (true) {
         case !set.fontStyle && Font.styles.includes(part):
 
@@ -108,7 +108,7 @@ export class Font {
           }
 
           set.fontStyle = true
-          break
+          continue
 
         case !set.fontVariant && Font.variants.includes(part):
 
@@ -118,7 +118,7 @@ export class Font {
 
           set.fontStyle = true
           set.fontVariant = true
-          break
+          continue
 
         case !set.fontWeight && Font.weights.includes(part):
 
@@ -129,34 +129,24 @@ export class Font {
           set.fontStyle = true
           set.fontVariant = true
           set.fontWeight = true
-          break
-
-        case !set.fontSize:
-
-          if (part !== 'inherit') {
-            fontSize = part.split('/')[0] || ''
-          }
-
-          set.fontStyle = true
-          set.fontVariant = true
-          set.fontWeight = true
-          set.fontSize = true
-          break
-
-        default:
-
-          if (part !== 'inherit') {
-            fontFamily += part
-          }
+          continue
       }
-    })
+
+      if (part !== 'inherit') {
+        fontSize = part
+      }
+
+      // Everything after the size is the family list, including spaces inside quotes.
+      fontFamily = font.slice(parts.lastIndex).trim()
+      break
+    }
 
     return new Font(
       fontStyle,
       fontVariant,
       fontWeight,
       fontSize,
-      fontFamily,
+      fontFamily === 'inherit' ? '' : fontFamily,
       inherit
     )
   }
